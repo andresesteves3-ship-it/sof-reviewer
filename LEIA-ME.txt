@@ -1,7 +1,7 @@
-SOF Reviewer 0.31.0 — versão instalável (PWA)
+SOF Reviewer 0.32.1 — versão instalável (PWA)
 
 CONTEÚDO
-  index.html            o revisor (mesmo código da 0.30.0 + registro do app instalável)
+  index.html            o revisor (revisor + app instalável + botão Exportar SOF em PDF)
   manifest.webmanifest  nome, cores e ícones do app
   sw.js                 service worker (funciona sem internet depois da 1ª abertura)
   icons/                ícones 192, 512, maskable e iPhone
@@ -20,3 +20,5 @@ ATENÇÃO: glossário, histórico e ocorrências ignoradas ficam no armazenament
   modo antigo e "Carregar listas" no novo.
 
 ATUALIZAR: publique de novo a pasta. A página busca a versão nova na rede ao abrir.
+
+ATUALIZAÇÃO 0.32.1: enviar ao GitHub apenas index.html e sw.js (substituem os antigos).
