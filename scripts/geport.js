@@ -65,7 +65,7 @@ async function lerTabela(page) {
       return { cod: x(0), navio: x(1), eta: x(2), etd: x(3), ini: x(4), fim: x(5), classe: x(6), carga: x(7), berco: x(8), origem: x(11),
         sit: [].slice.call(td[9] ? td[9].querySelectorAll('i.on') : []).map(i => i.textContent.trim()) };
     }));
-    rows.forEach(r => { if (r.cod && !vistos.has(r.cod)) { vistos.add(r.cod); out.push(r); } });
+    rows.forEach(r => { if (r.cod && r.navio && !vistos.has(r.cod)) { vistos.add(r.cod); out.push(r); } });
   };
   const btn = n => page.locator('.q-table__bottom button', { hasText: n }).first();
   const off = async b => (await b.count()) === 0 || await b.evaluate(e => e.disabled || /disabled/.test(e.className) || e.getAttribute('aria-disabled') === 'true');
@@ -133,6 +133,8 @@ async function lerTabela(page) {
         }
         ultimaUrl = page.url();
         await page.waitForSelector('table.q-table tbody tr', { timeout: 20000 });
+        // espera os dados carregarem: uma linha com 10+ colunas e nome de embarcação preenchido
+        await page.waitForFunction(() => [].slice.call(document.querySelectorAll('table.q-table tbody tr')).some(tr => tr.children.length >= 10 && tr.children[1] && tr.children[1].innerText.trim()), null, { timeout: 40000 });
         achou = true;
       } catch (e) { ultimaUrl = page.url(); await page.waitForTimeout(2000); }
     }
@@ -146,14 +148,25 @@ async function lerTabela(page) {
       throw new Error('Tabela de navios não apareceu. Caminho=' + (ultimaUrl.split('geport.triunfologistica.com.br')[1] || ultimaUrl).slice(0, 80) + ' tabelas=' + info.tabelas + ' linhas=' + info.linhas + ' Texto=[' + mascarar2(info.texto) + ']');
     }
     const todos = await lerTabela(page);
-    if (!todos.length) throw new Error('A tabela veio vazia (leitura ignorada).');
-    // só guarda o que o Line Up usa: previstos (sem início, não finalizados/cancelados)
-    const prev = todos.filter(r => !r.ini && !r.sit.includes('assignment_turned_in') && !r.sit.includes('highlight_off'))
-      .map(r => ({ cod: r.cod, navio: r.navio, eta: r.eta, etd: '', ini: '', fim: '', classe: r.classe, carga: r.carga, berco: '', origem: '', sit: r.sit }));
+    if (!todos.length) {
+      const d = await page.evaluate(() => { const tr = document.querySelector('table.q-table tbody tr'); return { linhas: document.querySelectorAll('table.q-table tbody tr').length, colunas: tr ? tr.children.length : 0, cab: [].slice.call(document.querySelectorAll('table.q-table thead th')).length }; }).catch(() => ({}));
+      throw new Error('A tabela veio sem navios (linhas=' + d.linhas + ' colunas=' + d.colunas + ' cabecalhos=' + d.cab + '); leitura ignorada.');
+    }
+    // só guarda o que o Line Up usa: previstos (sem data de início, não finalizados/cancelados)
+    const fin = r => r.sit.includes('assignment_turned_in'), canc = r => r.sit.includes('highlight_off');
+    const semIni = todos.filter(r => !r.ini);
+    let prev = semIni.filter(r => !fin(r) && !canc(r));
+    let modo = 'icones';
+    // se o filtro por ícones cortar tudo (ícones não informativos), usa só a data de início
+    if (!prev.length && semIni.length) { prev = semIni.map(r => ({ ...r, sit: [] })); modo = 'so-data-inicio'; }
+    const contIcones = {};
+    todos.forEach(r => r.sit.forEach(i => { contIcones[i] = (contIcones[i] || 0) + 1; }));
+    const diag = { linhas: todos.length, semInicio: semIni.length, comInicio: todos.length - semIni.length, finalizados: todos.filter(fin).length, cancelados: todos.filter(canc).length, icones: contIcones, modo };
+    prev = prev.map(r => ({ cod: r.cod, navio: r.navio, eta: r.eta, etd: '', ini: '', fim: '', classe: r.classe, carga: r.carga, berco: '', origem: '', sit: r.sit }));
     fs.mkdirSync(DIR, { recursive: true });
     fs.writeFileSync(ARQ_ENC, JSON.stringify({ ...cifrar({ geradoEm: Date.now(), dados: prev }), atualizado: st.atualizado }) + '\n');
-    st = { ok: true, erro: '', atualizado: st.atualizado, ultimoSucesso: st.atualizado, total: todos.length, previstos: prev.length };
-    console.log('OK:', todos.length, 'linhas lidas;', prev.length, 'previstos (dados criptografados).');
+    st = { ok: true, erro: '', atualizado: st.atualizado, ultimoSucesso: st.atualizado, total: todos.length, previstos: prev.length, diag };
+    console.log('OK:', todos.length, 'linhas lidas;', prev.length, 'previstos (dados criptografados). Diagnóstico:', JSON.stringify(diag));
   } catch (e) {
     st.erro = [USER, PASS].filter(Boolean).reduce((t, v) => t.split(v).join('***'), String(e.message || e)).slice(0, 500);
     console.error('FALHOU:', st.erro);
