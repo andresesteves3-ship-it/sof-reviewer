@@ -67,18 +67,31 @@ async function lerTabela(page) {
     }));
     rows.forEach(r => { if (r.cod && r.navio && !vistos.has(r.cod)) { vistos.add(r.cod); out.push(r); } });
   };
-  const btn = n => page.locator('.q-table__bottom button', { hasText: n }).first();
+  const btn = n => page.locator('.q-table__bottom button, .q-table__bottom .q-btn', { hasText: n }).first();
   const off = async b => (await b.count()) === 0 || await b.evaluate(e => e.disabled || /disabled/.test(e.className) || e.getAttribute('aria-disabled') === 'true');
+  // tenta aumentar "resultados por página" para o máximo
+  try {
+    const sel = page.locator('.q-table__bottom .q-select').first();
+    if (await sel.count()) {
+      await sel.click(); await page.waitForTimeout(600);
+      const ops = page.locator('.q-menu .q-item');
+      const n = await ops.count();
+      if (n) { await ops.nth(n - 1).click(); await page.waitForTimeout(2500); }
+    }
+  } catch (e) {}
   const primeira = btn('first_page');
   if (!(await off(primeira))) { await primeira.click(); await page.waitForTimeout(1200); }
+  let paginas = 0;
   for (let i = 0; i < 80; i++) {
-    await ler();
+    await ler(); paginas++;
     const nx = btn('keyboard_arrow_right');
     if (await off(nx)) break;
     const antes = await page.evaluate(() => (document.querySelector('table.q-table tbody tr td') || {}).innerText);
     await nx.click();
-    try { await page.waitForFunction(a => (document.querySelector('table.q-table tbody tr td') || {}).innerText !== a, antes, { timeout: 5000 }); } catch (e) {}
+    try { await page.waitForFunction(a => (document.querySelector('table.q-table tbody tr td') || {}).innerText !== a, antes, { timeout: 5000 }); } catch (e) { break; }
   }
+  const rodape = await page.evaluate(() => (document.querySelector('.q-table__bottom') || {}).innerText || '').catch(() => '');
+  console.log('Paginas lidas:', paginas, '| Rodape:', String(rodape).replace(/\s+/g, ' ').slice(0, 120));
   return out;
 }
 
