@@ -1,4 +1,4 @@
-PAINEL DOS ASSISTENTES 0.5.0 (SOF Reviewer 0.32.3 dentro)
+PAINEL DOS ASSISTENTES 0.6.0 (SOF Reviewer 0.32.3 dentro)
 
 CONTEÚDO (tudo vai para a RAIZ do repositório no GitHub)
   index.html                       o painel (Início, Perfil, abas das ferramentas)
@@ -33,3 +33,16 @@ COMO ATIVAR O ROBÔ (uma única vez)
   Observações: o repositório do GitHub Pages grátis é público; o arquivo só guarda dados já públicos da Praticagem. O GitHub desliga tarefas agendadas após 60 dias sem atividade no repositório (o robô grava um arquivo por dia, o que mantém atividade). O horário do GitHub pode atrasar alguns minutos.
   Se o site da Praticagem bloquear os servidores do GitHub, o Line Up avisa "a última tentativa falhou"; nesse caso usaremos Cloudflare Worker.
   Dados do Geport e histórico de login continuam só neste computador. Favorito do Geport não usa nem guarda senha.
+
+ROBÔ DO GEPORT (0.6.0)
+  O GitHub entra no Geport a cada hora com um usuário/senha guardados como Secrets (não aparecem para ninguém), lê Frente de Trabalho > Aquaviária e grava só os navios PREVISTOS em dados/geport.enc.json CRIPTOGRAFADO (o repositório é público). O Line Up abre esses dados com a chave de acesso (digitada uma vez por computador).
+  Ativação:
+    1. Subir para o GitHub: scripts/geport.js, package.json (novos/atualizados) e index.html, sw.js. Criar à mão o arquivo .github/workflows/geport.yml (Add file > Create new file), com o conteúdo do geport.yml desta pasta.
+    2. Settings > Secrets and variables > Actions > New repository secret, criar três:
+         GEPORT_USER  = usuário do Geport
+         GEPORT_PASS  = senha do Geport
+         LINEUP_KEY   = uma frase-chave inventada (12+ caracteres) que a equipe vai digitar no Line Up
+    3. Aba Actions > Robô do Geport > Run workflow. Abrir o job "ler" e conferir a linha "OK: N linhas lidas".
+    4. No Line Up, digitar a chave de acesso (card no topo). Pronto: atualiza sozinho a cada hora.
+  Se der "FALHOU", o texto do erro aparece no log do job e no Line Up (login recusado, captcha, tabela não apareceu...). O favorito do Geport continua funcionando como alternativa.
+  Segurança: use, se a TI permitir, um usuário de integração só de leitura. Troque a senha do Geport que foi colada no chat. Quem trocar a senha do Geport precisa atualizar o Secret GEPORT_PASS.
