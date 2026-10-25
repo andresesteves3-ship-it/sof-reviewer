@@ -120,14 +120,30 @@ async function lerTabela(page) {
       await page.waitForLoadState('networkidle').catch(() => {});
       await page.waitForTimeout(2500);
     }
-    for (let t = 0; t < 4; t++) {
-      try { await page.evaluate(h => { location.hash = h; }, ROTA); break; }
-      catch (e) { await page.waitForTimeout(1500); }
+    // vai direto para a tela Aquaviária; se o Geport redirecionar para outra página, tenta de novo
+    let achou = false, ultimaUrl = '';
+    for (let t = 0; t < 4 && !achou; t++) {
+      try {
+        await page.goto(BASE + ROTA, { waitUntil: 'domcontentloaded' });
+        await page.waitForLoadState('networkidle').catch(() => {});
+        await page.waitForTimeout(1500);
+        if (!page.url().includes('aquaviaria')) {
+          await page.evaluate(h => { location.hash = h; }, ROTA).catch(() => {});
+          await page.waitForTimeout(1500);
+        }
+        ultimaUrl = page.url();
+        await page.waitForSelector('table.q-table tbody tr', { timeout: 20000 });
+        achou = true;
+      } catch (e) { ultimaUrl = page.url(); await page.waitForTimeout(2000); }
     }
-    try { await page.waitForSelector('table.q-table tbody tr', { timeout: 40000 }); }
-    catch (e) {
-      const campos = await page.evaluate(() => [].slice.call(document.querySelectorAll('input,button')).slice(0, 12).map(e => e.tagName + ':' + (e.type || '') + ':' + (e.innerText || '').trim().slice(0, 20)).join(' | '));
-      throw new Error('Tabela de navios não apareceu. URL=' + page.url().replace(/[?#].*/, '') + ' elementos=' + campos);
+    if (!achou) {
+      const info = await page.evaluate(() => ({
+        tabelas: document.querySelectorAll('table').length,
+        linhas: document.querySelectorAll('table.q-table tbody tr').length,
+        texto: (document.body.innerText || '').replace(/\s+/g, ' ').slice(0, 200)
+      })).catch(() => ({}));
+      const mascarar2 = t => [USER, PASS].filter(Boolean).reduce((r, v) => r.split(v).join('***'), String(t || ''));
+      throw new Error('Tabela de navios não apareceu. Caminho=' + (ultimaUrl.split('geport.triunfologistica.com.br')[1] || ultimaUrl).slice(0, 80) + ' tabelas=' + info.tabelas + ' linhas=' + info.linhas + ' Texto=[' + mascarar2(info.texto) + ']');
     }
     const todos = await lerTabela(page);
     if (!todos.length) throw new Error('A tabela veio vazia (leitura ignorada).');
