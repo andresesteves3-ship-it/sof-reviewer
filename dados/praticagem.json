@@ -1,11 +1,15 @@
 {
  "hist": {
   "BOCHEM WALVIS BAY DIVPPNAVIO PADDING 0 MARGIN 0 BORDER NONE FONT FAMILY VERDANA FONT SIZE 11PX WHITE SPACE NORMAL BACKGROUND COLOR FFF COLOR 000 FONT FAMILY MONOSPACE BORDER RADIUS 6PX MARGIN TOP 5PX MAX WIDTH 600PX MAX HEIGHT 400PX MIN WIDTH 300PX DIVPPNAVIO TABLE BORDER 0 BORDER COLLAPSE COLLAPSE BORDER SPACING 1PX DIVPPNAVIO TABLE TH PADDING 2PX TEXT ALIGN CENTER VERTICAL ALIGN MIDDLE BORDER 1PX SOLID BLACK BACKGROUND 6B6B6B COLOR EFEFEF DIVPPNAVIO TABLE TD BORDER 1PX SOLID BLACK VERTICAL ALIGN MIDDLE DIVPPNAVIO DIVPPNAVIO TD MARGIN 0 PADDING 0 BORDER 0 BORDER WIDTH 0 BORDER COLLAPSE COLLAPSE TBPPNAVIO TD BACKGROUND COLOR WHITE TBPPNAVIO TR TD PADDING 3PX 5PX BORDER 1PX SOLID BFD3EE TBPPNAVIO TR NTH CHILD EVEN TBPPNAVIO TR NTH CHILD EVEN TD BACKGROUND COLOR EDF5FF BOCHEM WALVIS BAY": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1792941464765,
      "e": "inicial"
+    },
+    {
+     "t": 1792950366131,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -70,11 +74,15 @@
     {
      "t": 1792941464765,
      "e": "inicial"
+    },
+    {
+     "t": 1792950366131,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "25/10 16:00",
+     "pob": "25/10 16:30",
      "navio": "LOG-IN DISCOVERY .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } LOG-IN DISCOVERY",
      "m": "S",
      "de": "TECONT3",
@@ -600,11 +608,15 @@
    "nome": "KOTA ELOK .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } KOTA ELOK"
   },
   "SC MADISON DIVPPNAVIO PADDING 0 MARGIN 0 BORDER NONE FONT FAMILY VERDANA FONT SIZE 11PX WHITE SPACE NORMAL BACKGROUND COLOR FFF COLOR 000 FONT FAMILY MONOSPACE BORDER RADIUS 6PX MARGIN TOP 5PX MAX WIDTH 600PX MAX HEIGHT 400PX MIN WIDTH 300PX DIVPPNAVIO TABLE BORDER 0 BORDER COLLAPSE COLLAPSE BORDER SPACING 1PX DIVPPNAVIO TABLE TH PADDING 2PX TEXT ALIGN CENTER VERTICAL ALIGN MIDDLE BORDER 1PX SOLID BLACK BACKGROUND 6B6B6B COLOR EFEFEF DIVPPNAVIO TABLE TD BORDER 1PX SOLID BLACK VERTICAL ALIGN MIDDLE DIVPPNAVIO DIVPPNAVIO TD MARGIN 0 PADDING 0 BORDER 0 BORDER WIDTH 0 BORDER COLLAPSE COLLAPSE TBPPNAVIO TD BACKGROUND COLOR WHITE TBPPNAVIO TR TD PADDING 3PX 5PX BORDER 1PX SOLID BFD3EE TBPPNAVIO TR NTH CHILD EVEN TBPPNAVIO TR NTH CHILD EVEN TD BACKGROUND COLOR EDF5FF SC MADISON": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1792941464765,
      "e": "inicial"
+    },
+    {
+     "t": 1792950366131,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -719,11 +731,15 @@
     {
      "t": 1792941464765,
      "e": "inicial"
+    },
+    {
+     "t": 1792950366131,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "25/10 18:30",
+     "pob": "26/10 02:00",
      "navio": "WEST TREASURE .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } WEST TREASURE",
      "m": "S",
      "de": "T-MULT",
@@ -818,11 +834,15 @@
     {
      "t": 1792941464765,
      "e": "inicial"
+    },
+    {
+     "t": 1792950366131,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "26/10 16:00",
+     "pob": "26/10 18:00",
      "navio": "NS EXPLORER .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } NS EXPLORER",
      "m": "S",
      "de": "T-OIL-CENT",
@@ -932,11 +952,63 @@
     }
    ],
    "nome": "NORTH ISLAND .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } NORTH ISLAND"
+  },
+  "KHK MAJESTY DIVPPNAVIO PADDING 0 MARGIN 0 BORDER NONE FONT FAMILY VERDANA FONT SIZE 11PX WHITE SPACE NORMAL BACKGROUND COLOR FFF COLOR 000 FONT FAMILY MONOSPACE BORDER RADIUS 6PX MARGIN TOP 5PX MAX WIDTH 600PX MAX HEIGHT 400PX MIN WIDTH 300PX DIVPPNAVIO TABLE BORDER 0 BORDER COLLAPSE COLLAPSE BORDER SPACING 1PX DIVPPNAVIO TABLE TH PADDING 2PX TEXT ALIGN CENTER VERTICAL ALIGN MIDDLE BORDER 1PX SOLID BLACK BACKGROUND 6B6B6B COLOR EFEFEF DIVPPNAVIO TABLE TD BORDER 1PX SOLID BLACK VERTICAL ALIGN MIDDLE DIVPPNAVIO DIVPPNAVIO TD MARGIN 0 PADDING 0 BORDER 0 BORDER WIDTH 0 BORDER COLLAPSE COLLAPSE TBPPNAVIO TD BACKGROUND COLOR WHITE TBPPNAVIO TR TD PADDING 3PX 5PX BORDER 1PX SOLID BFD3EE TBPPNAVIO TR NTH CHILD EVEN TBPPNAVIO TR NTH CHILD EVEN TD BACKGROUND COLOR EDF5FF KHK MAJESTY": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1792950366131,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "26/10 10:00",
+     "navio": "KHK MAJESTY .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } KHK MAJESTY",
+     "m": "E",
+     "de": "",
+     "para": "T-OIL-NORT"
+    },
+    {
+     "pob": "28/10 07:00",
+     "navio": "KHK MAJESTY .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } KHK MAJESTY",
+     "m": "S",
+     "de": "T-OIL-NORT",
+     "para": ""
+    }
+   ],
+   "nome": "KHK MAJESTY .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } KHK MAJESTY"
+  },
+  "EAGLE CANOAS DIVPPNAVIO PADDING 0 MARGIN 0 BORDER NONE FONT FAMILY VERDANA FONT SIZE 11PX WHITE SPACE NORMAL BACKGROUND COLOR FFF COLOR 000 FONT FAMILY MONOSPACE BORDER RADIUS 6PX MARGIN TOP 5PX MAX WIDTH 600PX MAX HEIGHT 400PX MIN WIDTH 300PX DIVPPNAVIO TABLE BORDER 0 BORDER COLLAPSE COLLAPSE BORDER SPACING 1PX DIVPPNAVIO TABLE TH PADDING 2PX TEXT ALIGN CENTER VERTICAL ALIGN MIDDLE BORDER 1PX SOLID BLACK BACKGROUND 6B6B6B COLOR EFEFEF DIVPPNAVIO TABLE TD BORDER 1PX SOLID BLACK VERTICAL ALIGN MIDDLE DIVPPNAVIO DIVPPNAVIO TD MARGIN 0 PADDING 0 BORDER 0 BORDER WIDTH 0 BORDER COLLAPSE COLLAPSE TBPPNAVIO TD BACKGROUND COLOR WHITE TBPPNAVIO TR TD PADDING 3PX 5PX BORDER 1PX SOLID BFD3EE TBPPNAVIO TR NTH CHILD EVEN TBPPNAVIO TR NTH CHILD EVEN TD BACKGROUND COLOR EDF5FF EAGLE CANOAS": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1792950366131,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "26/10 14:30",
+     "navio": "EAGLE CANOAS .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } EAGLE CANOAS",
+     "m": "E",
+     "de": "",
+     "para": "T-OIL-NORT"
+    },
+    {
+     "pob": "27/10 18:00",
+     "navio": "EAGLE CANOAS .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } EAGLE CANOAS",
+     "m": "S",
+     "de": "T-OIL-NORT",
+     "para": ""
+    }
+   ],
+   "nome": "EAGLE CANOAS .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } EAGLE CANOAS"
   }
  },
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-25T16:29:08.947Z",
- "ultimoSucesso": "2026-10-25T16:29:08.947Z",
- "total": 59
+ "atualizado": "2026-10-25T17:46:06.131Z",
+ "ultimoSucesso": "2026-10-25T17:46:06.131Z",
+ "total": 61
 }
