@@ -1,0 +1,22 @@
+SOF Reviewer 0.31.0 — versão instalável (PWA)
+
+CONTEÚDO
+  index.html            o revisor (mesmo código da 0.30.0 + registro do app instalável)
+  manifest.webmanifest  nome, cores e ícones do app
+  sw.js                 service worker (funciona sem internet depois da 1ª abertura)
+  icons/                ícones 192, 512, maskable e iPhone
+  firebase.json         configuração pronta para Firebase Hosting (opcional)
+
+COMO PUBLICAR (precisa de endereço https:// — não funciona abrindo o arquivo direto do disco)
+  Firebase Hosting:  firebase login  →  firebase init hosting (pasta pública ".", não sobrescrever index.html)  →  firebase deploy
+  Qualquer outro host estático com HTTPS (Netlify, GitHub Pages, servidor interno) também serve:
+  basta enviar a pasta inteira.
+
+COMO INSTALAR (Chrome/Edge): abra o endereço → botão "Instalar app" no topo da página
+  (ou ícone de instalar na barra de endereço).
+
+ATENÇÃO: glossário, histórico e ocorrências ignoradas ficam no armazenamento do navegador POR ENDEREÇO.
+  Ao mudar do arquivo local para o endereço publicado, comece com "Glossário > Salvar listas" no
+  modo antigo e "Carregar listas" no novo.
+
+ATUALIZAR: publique de novo a pasta. A página busca a versão nova na rede ao abrir.
