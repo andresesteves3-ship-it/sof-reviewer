@@ -31,7 +31,8 @@ function gravarStatus(st) {
 }
 
 
-// Escolhe o contrato na tela de login (caixa de seleção). Retorna true se achou e escolheu.
+// Preenche o campo CONTRATO da tela de login (campo de digitação com lista que aparece ao digitar).
+// Retorna true se achou o campo e digitou.
 async function escolherContrato(page) {
   const re = new RegExp(CONTRATO.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
   const nativo = page.locator('select').first();
@@ -39,16 +40,21 @@ async function escolherContrato(page) {
     const txt = await nativo.locator('option').allTextContents();
     const i = txt.findIndex(t => re.test(t));
     if (i >= 0) { await nativo.selectOption({ index: i }); return true; }
-    return false;
   }
-  const q = page.locator('.q-select').first();
-  if (!(await q.count())) return false;
-  const opcoes = () => page.locator('.q-menu .q-item, .q-virtual-scroll__content .q-item, [role=option]').filter({ hasText: re }).first();
-  await q.click(); await page.waitForTimeout(800);
-  let op = opcoes();
-  if (!(await op.count())) { await page.keyboard.type(CONTRATO); await page.waitForTimeout(900); op = opcoes(); }
-  if (await op.count()) { await op.click(); await page.waitForTimeout(400); return true; }
-  return false;
+  // 1) campo cujo rótulo contém "CONTRATO"; 2) senão, o segundo campo de texto da tela
+  let campo = page.locator('.q-field, label').filter({ hasText: /contrato/i }).locator('input').first();
+  if (!(await campo.count())) {
+    const todos = page.locator('input:not([type=password]):not([type=hidden]):not([type=checkbox]):not([type=search])');
+    if ((await todos.count()) >= 2) campo = todos.nth(1); else return false;
+  }
+  await campo.click(); await page.waitForTimeout(500);
+  await campo.fill('');
+  await campo.pressSequentially(CONTRATO, { delay: 90 });
+  await page.waitForTimeout(1200);
+  const op = page.locator('.q-menu .q-item, [role=option], .q-virtual-scroll__content > *').filter({ hasText: re }).first();
+  if (await op.count()) { await op.click(); } else { await page.keyboard.press('Enter'); }
+  await page.waitForTimeout(500);
+  return true;
 }
 
 async function lerTabela(page) {
@@ -109,7 +115,7 @@ async function lerTabela(page) {
           avisos: [].slice.call(document.querySelectorAll('.q-notification, .q-banner, .text-negative, [role=alert], .q-field--error')).map(e => (e.innerText || '').trim().slice(0, 80)).join(' | '),
           texto: (document.body.innerText || '').replace(/\s+/g, ' ').slice(0, 160)
         })).catch(() => ({}));
-        throw new Error('Login não concluído (contrato ' + (contratoOk ? 'escolhido' : 'NÃO encontrado na tela') + '; senha recusada, captcha ou verificação extra?). Selects=[' + mascarar(info.selects) + '] Campos=[' + mascarar(info.campos) + '] Botões=[' + mascarar(info.botoes) + '] Avisos=[' + mascarar(info.avisos) + '] Texto=[' + mascarar(info.texto) + ']');
+        throw new Error('Login não concluído (contrato ' + (contratoOk ? 'digitado' : 'NÃO encontrado na tela') + '; senha recusada, captcha ou verificação extra?). Selects=[' + mascarar(info.selects) + '] Campos=[' + mascarar(info.campos) + '] Botões=[' + mascarar(info.botoes) + '] Avisos=[' + mascarar(info.avisos) + '] Texto=[' + mascarar(info.texto) + ']');
       }
       await page.waitForTimeout(2000);
     }
