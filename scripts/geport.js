@@ -13,6 +13,7 @@ const ROTA = '#/operacao/controle-operacional/aquaviaria';
 const USER = process.env.GEPORT_USER || '';
 const PASS = process.env.GEPORT_PASS || '';
 const KEY = process.env.LINEUP_KEY || '';
+const CONTRATO = process.env.GEPORT_CONTRATO || 'TRIUNFO';   // contrato escolhido na tela de login
 const DIR = path.join(__dirname, '..', 'dados');
 const ARQ_ENC = path.join(DIR, 'geport.enc.json');
 const ARQ_ST = path.join(DIR, 'geport-status.json');
@@ -27,6 +28,27 @@ function cifrar(obj) {
 function gravarStatus(st) {
   fs.mkdirSync(DIR, { recursive: true });
   fs.writeFileSync(ARQ_ST, JSON.stringify(st, null, 1) + '\n');
+}
+
+
+// Escolhe o contrato na tela de login (caixa de seleção). Retorna true se achou e escolheu.
+async function escolherContrato(page) {
+  const re = new RegExp(CONTRATO.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+  const nativo = page.locator('select').first();
+  if (await nativo.count()) {
+    const txt = await nativo.locator('option').allTextContents();
+    const i = txt.findIndex(t => re.test(t));
+    if (i >= 0) { await nativo.selectOption({ index: i }); return true; }
+    return false;
+  }
+  const q = page.locator('.q-select').first();
+  if (!(await q.count())) return false;
+  const opcoes = () => page.locator('.q-menu .q-item, .q-virtual-scroll__content .q-item, [role=option]').filter({ hasText: re }).first();
+  await q.click(); await page.waitForTimeout(800);
+  let op = opcoes();
+  if (!(await op.count())) { await page.keyboard.type(CONTRATO); await page.waitForTimeout(900); op = opcoes(); }
+  if (await op.count()) { await op.click(); await page.waitForTimeout(400); return true; }
+  return false;
 }
 
 async function lerTabela(page) {
@@ -65,14 +87,31 @@ async function lerTabela(page) {
     page.setDefaultTimeout(30000);
     await page.goto(BASE, { waitUntil: 'networkidle' });
     await page.waitForTimeout(1500);
-    if (await page.locator('input[type=password]').count()) {
-      const campoUser = page.locator('input:not([type=password]):not([type=hidden]):not([type=checkbox])').first();
+    const mascarar = t => { let r = String(t || ''); [USER, PASS].filter(Boolean).forEach(v => { r = r.split(v).join('***'); }); return r; };
+    const temSenha = async () => (await page.locator('input[type=password]').count()) > 0;
+    const esperarSairLogin = async ms => { const fim = Date.now() + ms; while (Date.now() < fim) { if (!(await temSenha())) return true; await page.waitForTimeout(500); } return false; };
+    if (await temSenha()) {
+      const campoUser = page.locator('input:not([type=password]):not([type=hidden]):not([type=checkbox]):not([type=search])').first();
       await campoUser.fill(USER);
       await page.locator('input[type=password]').first().fill(PASS);
+      await page.waitForTimeout(800);
+      const contratoOk = await escolherContrato(page);
       const entrar = page.locator('button[type=submit], button:has-text("ENTRAR"), button:has-text("Entrar"), button:has-text("LOGIN"), button:has-text("Login"), button:has-text("ACESSAR")').first();
       if (await entrar.count()) await entrar.click(); else await page.keyboard.press('Enter');
-      await page.waitForTimeout(4000);
-      if (await page.locator('input[type=password]').count()) throw new Error('Login não concluído (senha recusada, captcha ou verificação extra).');
+      let saiu = await esperarSairLogin(15000);
+      if (!saiu) { await page.locator('input[type=password]').first().press('Enter'); saiu = await esperarSairLogin(12000); }
+      if (!saiu) {
+        // diagnóstico sem dados sensíveis (usuário/senha são mascarados)
+        const info = await page.evaluate(() => ({
+          selects: [].slice.call(document.querySelectorAll('.q-select, select')).map(e => (e.innerText || e.tagName).replace(/\\s+/g, ' ').trim().slice(0, 40)).join(' | '),
+          campos: [].slice.call(document.querySelectorAll('input')).map(i => (i.type || '') + ':' + (i.name || i.placeholder || i.getAttribute('aria-label') || '')).join(' | '),
+          botoes: [].slice.call(document.querySelectorAll('button')).map(b => (b.innerText || '').trim().slice(0, 20) + ':' + (b.type || '')).join(' | '),
+          avisos: [].slice.call(document.querySelectorAll('.q-notification, .q-banner, .text-negative, [role=alert], .q-field--error')).map(e => (e.innerText || '').trim().slice(0, 80)).join(' | '),
+          texto: (document.body.innerText || '').replace(/\s+/g, ' ').slice(0, 160)
+        })).catch(() => ({}));
+        throw new Error('Login não concluído (contrato ' + (contratoOk ? 'escolhido' : 'NÃO encontrado na tela') + '; senha recusada, captcha ou verificação extra?). Selects=[' + mascarar(info.selects) + '] Campos=[' + mascarar(info.campos) + '] Botões=[' + mascarar(info.botoes) + '] Avisos=[' + mascarar(info.avisos) + '] Texto=[' + mascarar(info.texto) + ']');
+      }
+      await page.waitForTimeout(2000);
     }
     await page.evaluate(h => { location.hash = h; }, ROTA);
     try { await page.waitForSelector('table.q-table tbody tr', { timeout: 40000 }); }
@@ -90,7 +129,7 @@ async function lerTabela(page) {
     st = { ok: true, erro: '', atualizado: st.atualizado, ultimoSucesso: st.atualizado, total: todos.length, previstos: prev.length };
     console.log('OK:', todos.length, 'linhas lidas;', prev.length, 'previstos (dados criptografados).');
   } catch (e) {
-    st.erro = String(e.message || e).replace(new RegExp(USER ? USER.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') : '$^', 'g'), '***').slice(0, 300);
+    st.erro = [USER, PASS].filter(Boolean).reduce((t, v) => t.split(v).join('***'), String(e.message || e)).slice(0, 500);
     console.error('FALHOU:', st.erro);
   } finally {
     if (browser) await browser.close();
