@@ -1,7 +1,7 @@
-// SOF Reviewer — service worker (0.32.1)
+// SOF Reviewer — service worker (0.32.2)
 // Estratégia: a página é buscada na rede primeiro (assim uma nova versão publicada aparece
 // na próxima abertura) e, sem internet, cai para a cópia guardada. Nada é enviado para fora.
-const VERSION = '0.32.1';
+const VERSION = '0.32.2';
 const CACHE = 'sof-reviewer-' + VERSION;
 const SHELL = ['./', './index.html', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/apple-touch-icon.png'];

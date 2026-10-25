@@ -1,4 +1,4 @@
-SOF Reviewer 0.32.1 — versão instalável (PWA)
+SOF Reviewer 0.32.2 — versão instalável (PWA)
 
 CONTEÚDO
   index.html            o revisor (revisor + app instalável + botão Exportar SOF em PDF)
@@ -21,4 +21,4 @@ ATENÇÃO: glossário, histórico e ocorrências ignoradas ficam no armazenament
 
 ATUALIZAR: publique de novo a pasta. A página busca a versão nova na rede ao abrir.
 
-ATUALIZAÇÃO 0.32.1: enviar ao GitHub apenas index.html e sw.js (substituem os antigos).
+ATUALIZAÇÃO 0.32.2: enviar ao GitHub apenas index.html e sw.js (substituem os antigos).
