@@ -799,6 +799,10 @@
     {
      "t": 1792941464765,
      "e": "inicial"
+    },
+    {
+     "t": 1792982092175,
+     "e": "alterada"
     }
    ],
    "man": [
@@ -808,6 +812,13 @@
      "m": "E",
      "de": "",
      "para": "ALISEOB2"
+    },
+    {
+     "pob": "26/10 09:00",
+     "navio": "SAPURA ESMERALDA .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } SAPURA ESMERALDA",
+     "m": "S",
+     "de": "ALISEOB2",
+     "para": ""
     }
    ],
    "nome": "SAPURA ESMERALDA .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } SAPURA ESMERALDA"
@@ -1312,7 +1323,7 @@
  },
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-26T01:45:20.640Z",
- "ultimoSucesso": "2026-10-26T01:45:20.640Z",
- "total": 65
+ "atualizado": "2026-10-26T02:34:52.175Z",
+ "ultimoSucesso": "2026-10-26T02:34:52.175Z",
+ "total": 66
 }
