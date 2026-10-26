@@ -238,7 +238,60 @@ table.rq tr.det table td,table.rq tr.det table th{border:1px solid var(--trl-lin
 .rq-tabs{display:flex;gap:8px;margin:0 0 16px;border-bottom:2px solid var(--trl-line)}
 .rq-tabs button{padding:10px 18px;border:0;background:none;font-weight:700;font-size:15px;cursor:pointer;border-bottom:4px solid transparent;margin-bottom:-2px;color:var(--trl-gray)}
 .rq-tabs button[aria-selected=true]{color:var(--trl-red);border-bottom-color:var(--trl-red)}
-#rqCatBox iframe{width:100%;height:calc(100vh - 230px);height:calc(100dvh - 230px);min-height:560px;border:1px solid var(--trl-line);border-radius:var(--trl-radius);background:#fff;display:block}
+
+/* catalogo */
+dialog.dlg.larga{width:min(780px,96vw);max-height:92vh;overflow:auto}
+.ct-topo{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:flex-end;margin:0 0 14px}
+.ct-topo h2{font-size:24px}
+.ct-acoes{display:flex;gap:8px;flex-wrap:wrap}
+.ct-crumb{margin:0 0 12px}
+.ct-crumb button{border:0;background:none;color:var(--trl-red);font-weight:700;cursor:pointer;padding:4px 0}
+.ct-cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.ct-cat{text-align:left;background:#fff;border:1px solid var(--trl-line);border-left:5px solid var(--trl-red);border-radius:var(--trl-radius);box-shadow:var(--trl-shadow);padding:18px 20px;cursor:pointer}
+.ct-cat:hover{background:var(--trl-pink)}
+.ct-cat .l{display:block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--trl-gray)}
+.ct-cat b{display:block;font-size:24px;margin:4px 0 2px;line-height:1.15;text-transform:uppercase}
+.ct-cat.mod b{font-size:18px}
+.ct-cat small{color:var(--trl-gray)}
+.ct-vazio{background:#fff;border-radius:var(--trl-radius);padding:28px;text-align:center;color:var(--trl-gray)}
+.ct-tabs{display:flex;gap:6px;margin-bottom:12px}
+.ct-tabs button{padding:8px 16px;border:1px solid var(--trl-line);border-radius:var(--trl-radius);background:#fff;font-weight:700;cursor:pointer}
+.ct-tabs button[aria-pressed=true]{background:var(--trl-text);border-color:var(--trl-text);color:#fff}
+.ct-det{background:#fff;border-radius:var(--trl-radius);box-shadow:var(--trl-shadow);padding:20px;border-top:5px solid var(--trl-red)}
+.ct-faina{margin:0 0 10px}
+.ct-faina .l,.ct-gh{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--trl-gray)}
+.ct-terno{font-size:13px;background:var(--trl-soft);border-left:4px solid var(--trl-red);padding:10px 12px;margin:0 0 16px;line-height:1.45}
+.ct-sec{font-weight:700;font-size:15px;letter-spacing:.06em;text-transform:uppercase;margin:16px 0 8px;padding-bottom:4px;border-bottom:2px solid var(--trl-line)}
+.ct-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 28px;align-items:start}
+.ct-ent{display:grid;grid-template-columns:50px 1fr 34px;align-items:start;gap:12px;padding:10px 0;border-top:1px solid var(--trl-line);font-size:14px}
+.ct-code{font-weight:700;background:#141414;color:#fff;text-align:center;padding:2px 0;border-radius:3px;font-size:12px;margin-top:1px}
+.ct-qty{font-weight:700;font-size:19px;text-align:right;color:var(--trl-red);line-height:1.1}
+.ct-ent.zero .ct-qty{color:var(--trl-gray)}
+.ct-note{font-size:12px;color:var(--trl-red);font-weight:600;margin-top:4px;line-height:1.35}
+.ct-ent.first .ct-note{display:inline-block;background:var(--trl-pink);padding:2px 7px;border-radius:3px}
+.ct-en{font-weight:600}
+.ct-obs{background:var(--trl-warn-bg);border-radius:var(--trl-radius);padding:10px 14px;margin:14px 0;font-size:14px}
+.ct-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.ct-btns .danger{color:var(--trl-red)}
+.ct-hist{margin-top:18px}
+.ct-lg{background:#fff;border-radius:var(--trl-radius);box-shadow:var(--trl-shadow);padding:10px 14px;margin-bottom:8px;font-size:13px}
+.ct-lg .h{display:flex;gap:8px;flex-wrap:wrap;color:var(--trl-gray);font-size:12px}
+.ct-pill{font-weight:700;padding:1px 8px;border-radius:99px;background:var(--trl-soft);color:var(--trl-text)}
+.ct-pill.new{background:#E3F1E4;color:var(--trl-ok)}.ct-pill.del{background:var(--trl-red);color:#fff}.ct-pill.edit{background:var(--trl-warn-bg);color:var(--trl-warn)}
+.ct-lg .add{color:var(--trl-ok)}.ct-lg .rem{color:var(--trl-red)}
+.ct-lin{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0 12px}
+.ct-blk{border:1px solid var(--trl-line);border-radius:var(--trl-radius);padding:10px;margin-bottom:8px;background:var(--trl-soft)}
+.ct-blk .h{display:flex;gap:8px;margin-bottom:6px}
+.ct-blk textarea{width:100%;min-height:150px;font:12px ui-monospace,Menlo,Consolas,monospace;border:1px solid var(--trl-line);border-radius:var(--trl-radius);padding:8px}
+.ct-hint{background:var(--trl-warn-bg);border-radius:var(--trl-radius);padding:10px 12px;font-size:13px;margin-bottom:10px}
+.ct-drop{display:block;border:2px dashed var(--trl-line);border-radius:var(--trl-radius);padding:22px;text-align:center;cursor:pointer;color:var(--trl-gray);margin:8px 0}
+.ct-drop.over{border-color:var(--trl-red);background:var(--trl-pink)}
+.ct-ires{border:1px solid var(--trl-line);border-radius:var(--trl-radius);padding:10px 12px;margin-top:8px;font-size:13px}
+.ct-ires .ok{color:var(--trl-ok);font-weight:700}.ct-ires .bad{color:var(--trl-red);font-weight:700}.ct-ires .nv{color:var(--trl-warn);font-weight:700}
+.rq-conf{font-size:12px;line-height:1.3}
+.rq-conf.ok{color:var(--trl-ok);font-weight:700}.rq-conf.dif{color:var(--trl-warn);font-weight:700}.rq-conf.sem{color:var(--trl-gray)}
+@media(max-width:800px){.ct-cols{grid-template-columns:1fr}}
+
 /* ferramenta incorporada */
 #view-revisor{height:calc(100vh - var(--bar-h) - 3px);height:calc(100dvh - var(--bar-h) - 3px)}
 #view-revisor iframe{width:100%;height:100%;border:0;display:block;background:#fff}
@@ -290,7 +343,7 @@ input[type=password]{padding:9px 12px;border:1px solid var(--trl-line);border-ra
   </form>
 </section>
 <header class="top">
-  <a class="brand" href="#inicio" aria-label="Início"><img id="hdrLogo" src="data:image/png;base64,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" alt="Triunfo Logística"><span class="nome">Painel dos Assistentes<small>Versão 0.11.0 · BETA</small></span></a>
+  <a class="brand" href="#inicio" aria-label="Início"><img id="hdrLogo" src="data:image/png;base64,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" alt="Triunfo Logística"><span class="nome">Painel dos Assistentes<small>Versão 0.12.0 · BETA</small></span></a>
   <nav class="nav" aria-label="Seções">
     <a href="#inicio" data-r="inicio">Início</a>
     <a href="#lineup" data-r="lineup">Line Up</a>
@@ -473,9 +526,15 @@ input[type=password]{padding:9px 12px;border:1px solid var(--trl-line);border-ra
   <section class="view" id="view-requisicoes" hidden>
     <div class="eyebrow">Ferramenta</div>
     <h1 class="titulo">Requisições</h1>
-    <p class="sub">Requisições de mão de obra feitas no OGMO-RJ, com a composição e os ternos de cada uma. Somente leitura.</p>
+    <p class="sub">Requisições de mão de obra do OGMO-RJ conferidas com o catálogo de modelos de composição.</p>
     <div class="rq-tabs" role="tablist"><button type="button" role="tab" id="rqTabLidas" aria-selected="true">Requisições lidas</button><button type="button" role="tab" id="rqTabCat" aria-selected="false">Catálogo de modelos</button></div>
-    <div id="rqCatBox" hidden></div>
+    <div id="rqCatBox" hidden>
+      <div class="ct-topo"><div><h2 id="ctTitulo">Catálogo de Requisições</h2><p class="sub" id="ctMeta" style="margin:2px 0 0"></p></div>
+        <div class="ct-acoes"><button type="button" class="btn pri" id="ctImp" data-ed hidden>Importar requisição (PDF)</button><button type="button" class="btn" id="ctNovo" data-ed hidden>+ Incluir modelo</button></div></div>
+      <div class="lu-bar" id="ctGw"><input type="search" id="ctBusca" placeholder="Buscar modelo ou função (ex.: tratorista, balsa, cerca)…" aria-label="Buscar no catálogo"></div>
+      <div class="ct-crumb" id="ctCrumb"></div>
+      <div id="ctCorpo"></div>
+    </div>
     <div id="rqLidas">
     <p class="lu-meta" id="rqMeta"></p>
     <div class="lu-bar">
@@ -487,6 +546,40 @@ input[type=password]{padding:9px 12px;border:1px solid var(--trl-line);border-ra
     <div id="rqLista"></div>
     </div>
   </section>
+  <dialog class="dlg larga" id="ctDlgModelo">
+    <form id="ctForm" autocomplete="off">
+      <h3 id="ctMTit" style="margin-bottom:10px">Incluir modelo</h3>
+      <div class="ct-hint" id="ctImpHint" hidden></div>
+      <div class="ct-lin">
+        <div class="campo"><label for="ctFOp">Operação</label><select id="ctFOp"><option>Embarque</option><option>Desembarque</option></select></div>
+        <div class="campo" id="ctTipoW"><label for="ctFTipo">Tipo de carga</label><select id="ctFTipo"></select></div>
+        <div class="campo" id="ctSubW" hidden><label for="ctFSub">Categoria</label><select id="ctFSub"></select></div>
+      </div>
+      <div class="campo"><label for="ctFNome">Nome do modelo</label><input type="text" id="ctFNome" placeholder="Ex.: Gusa — porão simples"></div>
+      <div class="campo"><label for="ctFFaina">Faina</label><input type="text" id="ctFFaina" list="ctFainas" placeholder="Ex.: 3.8.4 - OP. FERRO GUSA"></div>
+      <datalist id="ctFainas"><option value="3.8.4 - OP. FERRO GUSA"><option value="5.9.3 - PROD. SID. - ROLO DE ARAME / TARUGO / BOBINA / TUBO / PERFIL"><option value="7.0 - CARGA ESPECIAL"><option value="5.9.4"><option value="4.2.4"></datalist>
+      <label>Composição</label>
+      <div id="ctBlocos"></div>
+      <button type="button" class="btn" id="ctAddBloco" style="margin:8px 0 4px">+ Adicionar balsa (bloco)</button>
+      <input type="file" id="ctBlkPdf" accept="application/pdf,.pdf" hidden>
+      <p class="ajuda">Cada bloco (Navio, Balsa…) tem a sua composição. Use “GRUPO:” para os grupos e uma função por linha: CÓD - NOME (qtd) - observação.</p>
+      <div class="campo"><label for="ctFObs">Observações</label><input type="text" id="ctFObs"></div>
+      <div class="campo"><label for="ctFJust">Justificativa da alteração <span id="ctJustReq">(obrigatória)</span></label><textarea id="ctFJust" class="colar" style="min-height:70px;font:inherit" placeholder="Por que esta mudança está sendo feita?"></textarea></div>
+      <div style="display:flex;gap:8px;justify-content:flex-end"><button type="button" class="btn" id="ctMCancela">Cancelar</button><button type="submit" class="btn pri">Salvar</button></div>
+    </form>
+  </dialog>
+  <dialog class="dlg" id="ctDlgDel">
+    <h3 style="margin-bottom:4px">Excluir modelo</h3><p class="ajuda" id="ctDelNome"></p>
+    <div class="campo"><label for="ctDelJust">Justificativa da exclusão (obrigatória)</label><textarea id="ctDelJust" class="colar" style="min-height:70px;font:inherit"></textarea></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end"><button type="button" class="btn" id="ctDelCancela">Cancelar</button><button type="button" class="btn pri" id="ctDelOk">Excluir</button></div>
+  </dialog>
+  <dialog class="dlg larga" id="ctDlgImp">
+    <h3 style="margin-bottom:4px">Importar requisição (PDF)</h3>
+    <p class="ajuda">Envie as requisições do OGMO. O catálogo confere se o modelo já existe; se não existir, abre o cadastro já preenchido para você revisar e salvar.</p>
+    <label class="ct-drop" id="ctDrop"><input type="file" id="ctPdfs" accept="application/pdf,.pdf" multiple hidden>Clique aqui ou arraste os PDFs das requisições</label>
+    <div id="ctImpRes"></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px"><button type="button" class="btn" id="ctManual">Incluir manualmente</button><button type="button" class="btn pri" id="ctImpFecha">Fechar</button></div>
+  </dialog>
   <section class="view" id="view-soon" hidden>
     <div class="card vazio-tool">
       <div class="tool"><div class="ic" id="soonIc">—</div></div>
@@ -995,6 +1088,11 @@ input[type=password]{padding:9px 12px;border:1px solid var(--trl-line);border-ra
       }).then(fim,fim);
   }
   var ORD_PER={'01-07':0,'07-13':1,'13-19':2,'19-01':3};
+  function ctCelula(r){
+    var c=ctConferir(r);
+    if(c.st==='ok')return '<div class="rq-conf ok" title="'+esc(c.vars&&c.vars.length?'Quantidades previstas nas regras: '+c.vars.join(', '):'Igual ao modelo')+'">✔ '+esc(c.model)+'</div>';
+    if(c.st==='dif')return '<div class="rq-conf dif">⚠ Difere de “'+esc(c.model)+'”<br><span style="font-weight:400">'+esc(c.diffs.join('; '))+'</span></div>';
+    return '<div class="rq-conf sem">'+esc(c.msg||'sem modelo')+'</div>'}
   function renderReq(){
     if(!U||$('view-requisicoes').hidden)return;
     var meta=$('rqMeta'),st=RQ.st,rec=rqLer(),chave=lsGet(CK);
@@ -1023,13 +1121,13 @@ input[type=password]{padding:9px 12px;border:1px solid var(--trl-line);border-ra
     if(!ordem.length){L.innerHTML='<div class="card lu-vazio">Nenhuma requisição'+(q?' com essa busca':' neste dia')+'.</div>';return}
     L.innerHTML=ordem.map(function(nv){
       var rs=g[nv].slice().sort(function(a,b){return (ORD_PER[a.periodo]==null?9:ORD_PER[a.periodo])-(ORD_PER[b.periodo]==null?9:ORD_PER[b.periodo])});
-      var h='<div class="rq-nv"><header><b>'+esc(nv)+'</b><span>'+esc(rs[0].local)+' · '+esc(rs[0].viagem)+' · '+rs.length+' requisição(ões)</span></header><div style="overflow-x:auto"><table class="rq"><thead><tr><th>Período</th><th>Requisição</th><th>Local</th><th>Escalada?</th><th>Cancelada?</th><th>Vagas</th><th></th></tr></thead><tbody>';
+      var h='<div class="rq-nv"><header><b>'+esc(nv)+'</b><span>'+esc(rs[0].local)+' · '+esc(rs[0].viagem)+' · '+rs.length+' requisição(ões)</span></header><div style="overflow-x:auto"><table class="rq"><thead><tr><th>Período</th><th>Requisição</th><th>Local</th><th>Escalada?</th><th>Cancelada?</th><th>Vagas</th><th>Catálogo</th><th></th></tr></thead><tbody>';
       rs.forEach(function(r){
         var vg=0;(r.comp||[]).forEach(function(c){if(!/sim/i.test(c.cancelado||''))vg+=parseInt(c.vagas,10)||0});
         var k=dia.data+'|'+r.req,ab=!!RQ.abertos[k];
-        h+='<tr><td><span class="rq-per">'+esc(r.periodo)+'</span></td><td>'+esc(r.req)+'</td><td>'+esc(r.local)+'</td><td>'+(/sim/i.test(r.escalada)?'<span class="rq-sim">SIM</span>':'—')+'</td><td>'+(/sim/i.test(r.cancelada)?'<span class="rq-canc">SIM</span>':'não')+'</td><td>'+vg+'</td><td><button type="button" class="btn" data-rqk="'+esc(k)+'">'+(ab?'Ocultar':'Composição')+'</button></td></tr>';
+        h+='<tr><td><span class="rq-per">'+esc(r.periodo)+'</span></td><td>'+esc(r.req)+'</td><td>'+esc(r.local)+'</td><td>'+(/sim/i.test(r.escalada)?'<span class="rq-sim">SIM</span>':'—')+'</td><td>'+(/sim/i.test(r.cancelada)?'<span class="rq-canc">SIM</span>':'não')+'</td><td>'+vg+'</td><td>'+ctCelula(r)+'</td><td><button type="button" class="btn" data-rqk="'+esc(k)+'">'+(ab?'Ocultar':'Composição')+'</button></td></tr>';
         if(ab){
-          h+='<tr class="det"><td colspan="7"><h4>Composição</h4>'+((r.comp||[]).length?'<table><thead><tr><th>Categoria</th><th>Função</th><th>Vagas</th><th>Cancelado?</th></tr></thead><tbody>'+r.comp.map(function(c){return '<tr><td>'+esc(c.categoria)+'</td><td>'+esc(c.funcao)+'</td><td>'+esc(c.vagas)+'</td><td>'+esc(c.cancelado)+'</td></tr>'}).join('')+'</tbody></table>':'<p class="ajuda">Sem composição lida.</p>')
+          h+='<tr class="det"><td colspan="8"><h4>Composição</h4>'+((r.comp||[]).length?'<table><thead><tr><th>Categoria</th><th>Função</th><th>Vagas</th><th>Cancelado?</th></tr></thead><tbody>'+r.comp.map(function(c){return '<tr><td>'+esc(c.categoria)+'</td><td>'+esc(c.funcao)+'</td><td>'+esc(c.vagas)+'</td><td>'+esc(c.cancelado)+'</td></tr>'}).join('')+'</tbody></table>':'<p class="ajuda">Sem composição lida.</p>')
             +'<h4>Ternos</h4>'+((r.ternos||[]).length?'<table><thead><tr><th>Equipe</th><th>Fainas</th><th>Cancelado?</th></tr></thead><tbody>'+r.ternos.map(function(t){return '<tr><td>'+esc(t.equipe)+'</td><td>'+esc((t.fainas||[]).join(' · '))+'</td><td>'+esc(t.cancelado)+'</td></tr>'}).join('')+'</tbody></table>':'<p class="ajuda">Sem ternos lidos.</p>')+(r.erro?'<p class="ajuda">Aviso do robô: '+esc(r.erro)+'</p>':'')+'</td></tr>'}
       });
       return h+'</tbody></table></div></div>'}).join('');
@@ -1057,13 +1155,355 @@ input[type=password]{padding:9px 12px;border:1px solid var(--trl-line);border-ra
     },function(){RQ.agora=false;renderReq();rqMsg('Não consegui falar com o GitHub.',true)});
   });
   setInterval(function(){if(U&&!$('view-requisicoes').hidden&&!document.hidden)carregarReq()},5*60000);
-  /* abas: requisições lidas | catálogo de modelos (projeto do catálogo embutido) */
-  var catFrame=null;
+
+  /* ---------- Catálogo de Requisições (modelos de composição) — integrado ao painel ---------- */
+  const TYPES={Embarque:['Gusa','Carga Geral'],Desembarque:['Gusa','Carga Geral','Potássio']};
+const SUBS={'Embarque|Gusa':['Atracado','Fundeio','Balsa'],'Desembarque|Gusa':['Balsa']};
+
+  const SEED_CT=[{"id": "s1", "op": "Embarque", "tipo": "Gusa", "nome": "FERRO GUSA - ATRACADO", "comp": "ESTIVA:\nCMP - CONTRA MESTRE DE PORÃO (1) - POR PADRÃO / CMA - CONTRA MESTRE AUXILIAR - QUANDO SOLICITADO\nGC - ESTIVADOR GUINCHEIRO (1)\nESI - ESTIVADOR SINALEIRO (1)\nCONFERENTE:\nCFC - CONFERENTE CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCFP - CONFERENTE DE PORÃO (1)\nCAPATAZIA:\nPE - CAPATAZIA DE EQUIPE (2) - POR PADRÃO / A QUANTIDADE SE ALTERA AOS FINAIS DE SEMANA PARA (4)", "obs": "", "sub": "Atracado", "faina": "3.8.4 - OP. FERRO GUSA"}, {"id": "s2", "op": "Embarque", "tipo": "Gusa", "nome": "FERRO GUSA - AO LARGO - UMA BALSA", "comp": "# NAVIO\nESTIVA:\nCMP - CONTRA MESTRE DE PORÃO (1) - POR PADRÃO / CMA - CONTRA MESTRE AUXILIAR - QUANDO SOLICITADO\nGC - ESTIVADOR GUINCHEIRO (1)\nESI - ESTIVADOR SINALEIRO (1)\nCONFERENTE:\nCFP - CONFERENTE DE PORÃO (1)\n# BALSA\nESTIVA:\nCMP - CONTRA MESTRE DE PORÃO (1)\nETR - ESTIVADOR TRATORISTA (1)\nEE - ESTIVADOR DE EQUIPE (3)\nCONFERENTE:\nCFC - CONFERENTE CHEFE (1) - APENAS NO PRIMEIRO TERNO", "obs": "", "sub": "Fundeio", "faina": "3.8.4 - OP. FERRO GUSA"}, {"id": "s3", "op": "Embarque", "tipo": "Gusa", "nome": "FERRO GUSA - AO LARGO - DUAS BALSAS", "comp": "# NAVIO\nESTIVA:\nCMP - CONTRA MESTRE DE PORÃO (1) - POR PADRÃO / CMA - CONTRA MESTRE AUXILIAR - QUANDO SOLICITADO\nGC - ESTIVADOR GUINCHEIRO (1)\nESI - ESTIVADOR SINALEIRO (1)\nCONFERENTE:\nCFP - CONFERENTE DE PORÃO (1)\n# BALSA 1 - TERNOS 1 E 3\nESTIVA:\nCMP - CONTRA MESTRE DE PORÃO (1)\nETR - ESTIVADOR TRATORISTA (1)\nEE - ESTIVADOR DE EQUIPE (3)\nCONFERENTE:\nCFC - CONFERENTE CHEFE (1) - APENAS NO PRIMEIRO TERNO\n# BALSA 2 - TERNOS 2 E 4\nESTIVA:\nCMP - CONTRA MESTRE DE PORÃO (1)\nETR - ESTIVADOR TRATORISTA (1)\nEE - ESTIVADOR DE EQUIPE (3)", "obs": "", "sub": "Fundeio", "faina": "3.8.4 - OP. FERRO GUSA"}, {"id": "s4", "op": "Embarque", "tipo": "Gusa", "nome": "FERRO GUSA - ATRACADO - CERCA", "comp": "# NAVIO\nESTIVA:\nCMP - CONTRA MESTRE DE PORÃO (1) - POR PADRÃO / CMA - CONTRA MESTRE AUXILIAR - QUANDO SOLICITADO\nGC - ESTIVADOR GUINCHEIRO (1)\nETR - ESTIVADOR TRATORISTA (1)\nESI - ESTIVADOR SINALEIRO (1)\nEE - ESTIVADOR DE EQUIPE (1)\nCONFERENTE:\nCFC - CONFERENTE CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCFP - CONFERENTE DE PORÃO (1)\nCAPATAZIA:\nPE - CAPATAZIA DE EQUIPE (2)", "obs": "", "sub": "Atracado", "faina": "3.8.4 - OP. FERRO GUSA"}, {"id": "s5", "op": "Embarque", "tipo": "Gusa", "nome": "FERRO GUSA - ATRACADO - CERCA / SEPARAÇÃO DE LOTE", "comp": "# NAVIO\nESTIVA:\nCMP - CONTRA MESTRE DE PORÃO (1) - POR PADRÃO / CMA - CONTRA MESTRE AUXILIAR - QUANDO SOLICITADO\nGC - ESTIVADOR GUINCHEIRO (1)\nETR - ESTIVADOR TRATORISTA (1)\nESI - ESTIVADOR SINALEIRO (1)\nEE - ESTIVADOR DE EQUIPE (1)\nCONFERENTE:\nCFC - CONFERENTE CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCFP - CONFERENTE DE PORÃO (1)\nBLOCO:\nENB - ENCARREGADO DE BLOCO (1) - APENAS NO PRIMEIRO TERNO\nBLM - BLOQUISTA DE MATERIAL (1) - APENAS NO PRIMEIRO TERNO\nBLC - BLOQUISTA DE CARPINTARIA (2)\nCAPATAZIA:\nPE - CAPATAZIA DE EQUIPE (2)", "obs": "", "sub": "Atracado", "faina": "3.8.4 - OP. FERRO GUSA"}, {"id": "s6", "op": "Embarque", "tipo": "Gusa", "nome": "FERRO GUSA - BALSA ATRACADO", "comp": "ESTIVA:\nCMP - CONTRA MESTRE DE PORÃO (1)\nETR - ESTIVADOR TRATORISTA (1)\nCONFERENTE:\nCFC - CONFERENTE CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCFP - CONFERENTE DE PORÃO (1)\nCAPATAZIA:\nPE - CAPATAZIA DE EQUIPE (2) - POR PADRÃO / A QUANTIDADE SE ALTERA AOS FINAIS DE SEMANA PARA (4)", "obs": "", "sub": "Balsa", "faina": "3.8.4 - OP. FERRO GUSA"}, {"id": "s7", "op": "Desembarque", "tipo": "Gusa", "nome": "FERRO GUSA - BALSA ATRACADO", "comp": "ESTIVA:\nCMP - CONTRA MESTRE DE PORÃO (1)\nETR - ESTIVADOR TRATORISTA (1)\nEE - ESTIVADOR DE EQUIPE (4)\nCONFERENTE:\nCFC - CONFERENTE CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCFP - CONFERENTE DE PORÃO (1)\nCAPATAZIA:\nPE - CAPATAZIA DE EQUIPE (2) - POR PADRÃO / A QUANTIDADE SE ALTERA AOS FINAIS DE SEMANA PARA (4)", "obs": "", "sub": "Balsa", "faina": "3.8.4 - OP. FERRO GUSA"}, {"id": "s8", "op": "Embarque", "tipo": "Carga Geral", "nome": "TUBOS - SOLTOS", "comp": "# NAVIO\nESTIVA:\nCMA - CONTRA MESTRE AUXILIAR (1)\nGC - ESTIVADOR GUINCHEIRO (1)\nESI - ESTIVADOR SINALEIRO (1)\nEE - ESTIVADOR DE EQUIPE (4)\nCONFERENTE:\nCFC - CONFERENTE CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCFP - CONFERENTE DE PORÃO (1)\nBLOCO:\nBLE - BLOQUISTA DE EQUIPE (4)\nCAPATAZIA:\nPE - CAPATAZIA DE EQUIPE (4)", "obs": "", "sub": null, "faina": "7.0 - CARGA ESPECIAL"}, {"id": "s9", "op": "Embarque", "tipo": "Carga Geral", "nome": "TUBOS - AMARRADOS", "comp": "# NAVIO\nESTIVA:\nCMA - CONTRA MESTRE AUXILIAR (1)\nGC - ESTIVADOR GUINCHEIRO (1)\nESI - ESTIVADOR SINALEIRO (1)\nEE - ESTIVADOR DE EQUIPE (4)\nCONFERENTE:\nCFC - CONFERENTE CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCFP - CONFERENTE DE PORÃO (1)\nCONSERTADOR:\nCSC - CONSERTADOR CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCBD - CONSERTADOR DE BORDO (1)\nBLOCO:\nENB - ENCARREGADO DE BLOCO (1) - APENAS NO PRIMEIRO TERNO\nBLM - BLOQUISTA DE MATERIAL (1) - APENAS NO PRIMEIRO TERNO\nBLC - BLOQUISTA DE CARPINTARIA (2)\nCAPATAZIA:\nPE - CAPATAZIA DE EQUIPE (4)", "obs": "", "sub": null, "faina": "7.0 - CARGA ESPECIAL"}, {"id": "s10", "op": "Embarque", "tipo": "Carga Geral", "nome": "TUBOS - MISTO (AMARRADOS / SOLTOS)", "comp": "# NAVIO\nESTIVA:\nCMA - CONTRA MESTRE AUXILIAR (1)\nGC - ESTIVADOR GUINCHEIRO (1)\nESI - ESTIVADOR SINALEIRO (1)\nEE - ESTIVADOR DE EQUIPE (6)\nCONFERENTE:\nCFC - CONFERENTE CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCFP - CONFERENTE DE PORÃO (1)\nCONSERTADOR:\nCSC - CONSERTADOR CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCBD - CONSERTADOR DE BORDO (1)\nBLOCO:\nENB - ENCARREGADO DE BLOCO (1) - APENAS NO PRIMEIRO TERNO\nBLM - BLOQUISTA DE MATERIAL (1) - APENAS NO PRIMEIRO TERNO\nBLC - BLOQUISTA DE CARPINTARIA (2)\nBLP - BLOQUISTA DE PEAÇÃO (2)\nBLF - BLOQUISTA DE FORRAÇÃO (2)\nCAPATAZIA:\nPE - CAPATAZIA DE EQUIPE (4)", "obs": "", "sub": null, "faina": "7.0 - CARGA ESPECIAL"}, {"id": "s11", "op": "Embarque", "tipo": "Carga Geral", "nome": "PEÇAS E CAIXARIAS", "comp": "# NAVIO\nESTIVA:\nCMA - CONTRA MESTRE AUXILIAR (1)\nGC - ESTIVADOR GUINCHEIRO (1)\nEEM - ESTIVADOR EMPILHADOR (0) - POR PADRÃO / ADICIONAR 1 APENAS QUANDO SOLICITADO\nESI - ESTIVADOR SINALEIRO (1)\nEE - ESTIVADOR DE EQUIPE (4)\nCONFERENTE:\nCFC - CONFERENTE CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCFP - CONFERENTE DE PORÃO (1)\nCONSERTADOR:\nCSC - CONSERTADOR CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCBD - CONSERTADOR DE BORDO (1)\nBLOCO:\nENB - ENCARREGADO DE BLOCO (1) - APENAS NO PRIMEIRO TERNO\nBLP - BLOQUISTA DE PEAÇÃO (2)\nCAPATAZIA:\nPE - CAPATAZIA DE EQUIPE (4)", "obs": "", "sub": null, "faina": "7.0 - CARGA ESPECIAL"}, {"id": "s12", "op": "Desembarque", "tipo": "Carga Geral", "nome": "CARGA GERAL", "comp": "# NAVIO\nESTIVA:\nCMA - CONTRA MESTRE AUXILIAR (1)\nGC - ESTIVADOR GUINCHEIRO (1)\nEEM - ESTIVADOR EMPILHADOR (0) - POR PADRÃO / ADICIONAR 1 APENAS QUANDO SOLICITADO\nESI - ESTIVADOR SINALEIRO (1)\nEE - ESTIVADOR DE EQUIPE (4)\nCONFERENTE:\nCFC - CONFERENTE CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCFP - CONFERENTE DE PORÃO (1)\nCONSERTADOR:\nCSC - CONSERTADOR CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCBD - CONSERTADOR DE BORDO (1)\nBLOCO:\nENB - ENCARREGADO DE BLOCO (1) - APENAS NO PRIMEIRO TERNO\nBLP - BLOQUISTA DE PEAÇÃO (2)\nCAPATAZIA:\nPE - CAPATAZIA DE EQUIPE (4)", "obs": "", "sub": null, "faina": "7.0 - CARGA ESPECIAL"}, {"id": "s13", "op": "Desembarque", "tipo": "Carga Geral", "nome": "CARGA GERAL - CARRETEL VAZIO - UMA BALSA", "comp": "# NAVIO\nESTIVA:\nCMA - CONTRA MESTRE AUXILIAR (1)\nGC - ESTIVADOR GUINCHEIRO (1)\nEEM - ESTIVADOR EMPILHADOR (0) - POR PADRÃO / ADICIONAR 1 APENAS QUANDO SOLICITADO\nESI - ESTIVADOR SINALEIRO (1)\nEE - ESTIVADOR DE EQUIPE (4)\nCONFERENTE:\nCFC - CONFERENTE CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCFP - CONFERENTE DE PORÃO (1)\nCONSERTADOR:\nCSC - CONSERTADOR CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCBD - CONSERTADOR DE BORDO (1)\nBLOCO:\nENB - ENCARREGADO DE BLOCO (1) - APENAS NO PRIMEIRO TERNO\nBLP - BLOQUISTA DE PEAÇÃO (2)\n# BALSA\nESTIVA:\nCMA - CONTRA MESTRE AUXILIAR (1)\nEGU - ESTIVADOR GUIA (2)\nEE - ESTIVADOR DE EQUIPE (4)", "obs": "", "sub": null, "faina": "7.0 - CARGA ESPECIAL"}, {"id": "s14", "op": "Embarque", "tipo": "Carga Geral", "nome": "CARRETEL CHEIO - UMA BALSA", "comp": "# NAVIO\nESTIVA:\nCMA - CONTRA MESTRE AUXILIAR (1)\nGC - ESTIVADOR GUINCHEIRO (1)\nEGU - ESTIVADOR GUIA (2)\nESI - ESTIVADOR SINALEIRO (1)\nEE - ESTIVADOR DE EQUIPE (4)\nCONFERENTE:\nCFC - CONFERENTE CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCFP - CONFERENTE DE PORÃO (1)\nCONSERTADOR:\nCSC - CONSERTADOR CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCBD - CONSERTADOR DE BORDO (1)\nBLOCO:\nENB - ENCARREGADO DE BLOCO (1) - APENAS NO PRIMEIRO TERNO\nBLP - BLOQUISTA DE PEAÇÃO (2)\n# BALSA\nESTIVA:\nCMA - CONTRA MESTRE AUXILIAR (1)\nEGU - ESTIVADOR GUIA (0) - POR PADRÃO / ADICIONAR 2 APENAS QUANDO SOLICITADO\nEE - ESTIVADOR DE EQUIPE (4)", "obs": "", "sub": null, "faina": "7.0 - CARGA ESPECIAL"}, {"id": "s15", "op": "Desembarque", "tipo": "Potássio", "nome": "POTÁSSIO", "comp": "# NAVIO\nESTIVA:\nCMP - CONTRA MESTRE DE PORÃO (1) - POR PADRÃO / CMA - CONTRA MESTRE AUXILIAR - QUANDO SOLICITADO\nGC - ESTIVADOR GUINCHEIRO (1)\nETR - ESTIVADOR TRATORISTA (0) - POR PADRÃO / ADICIONAR 1 A PARTIR DO SEGUNDO PERÍODO\nESI - ESTIVADOR SINALEIRO (1)\nEE - ESTIVADOR DE EQUIPE (1)\nCONFERENTE:\nCFC - CONFERENTE CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCFP - CONFERENTE DE PORÃO (1)\n# ENLONAMENTO\nCAPATAZIA:\nPE - CAPATAZIA DE EQUIPE (2)", "obs": "", "sub": null, "faina": "4.2.4"}, {"id": "s16", "op": "Embarque", "tipo": "Carga Geral", "nome": "TARUGO - SOLTOS", "comp": "# NAVIO\nESTIVA:\nCMA - CONTRA MESTRE AUXILIAR (1)\nGC - ESTIVADOR GUINCHEIRO (1)\nEEM - ESTIVADOR EMPILHADOR (0) - POR PADRÃO / ADICIONAR 1 APENAS QUANDO SOLICITADO\nESI - ESTIVADOR SINALEIRO (1)\nEE - ESTIVADOR DE EQUIPE (4) - POR PADRÃO / ADICIONAR 2 CASO SEJA PEDIDO HOMEM GUIA\nCONFERENTE:\nCFC - CONFERENTE CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCFP - CONFERENTE DE PORÃO (1)\nBLOCO:\nENB - ENCARREGADO DE BLOCO (1) - APENAS NO PRIMEIRO TERNO\nBLM - BLOQUISTA DE MATERIAL (1) - APENAS NO PRIMEIRO TERNO\nBLP - BLOQUISTA DE PEAÇÃO (2)\nCAPATAZIA:\nPE - CAPATAZIA DE EQUIPE (4)", "obs": "", "sub": null, "faina": "5.9.3 - PROD. SID. - ROLO DE ARAME / TARUGO / BOBINA / TUBO / PERFIL"}, {"id": "s17", "op": "Embarque", "tipo": "Carga Geral", "nome": "TARUGO - AMARRADOS", "comp": "# NAVIO\nESTIVA:\nCMA - CONTRA MESTRE AUXILIAR (1)\nGC - ESTIVADOR GUINCHEIRO (1)\nEEM - ESTIVADOR EMPILHADOR (0) - POR PADRÃO / ADICIONAR 1 APENAS QUANDO SOLICITADO\nESI - ESTIVADOR SINALEIRO (1)\nEE - ESTIVADOR DE EQUIPE (4)\nCONFERENTE:\nCFC - CONFERENTE CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCFP - CONFERENTE DE PORÃO (1)\nCONSERTADOR:\nCSC - CONSERTADOR CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCBD - CONSERTADOR DE BORDO (1)\nBLOCO:\nENB - ENCARREGADO DE BLOCO (1) - APENAS NO PRIMEIRO TERNO\nBLM - BLOQUISTA DE MATERIAL (1) - APENAS NO PRIMEIRO TERNO\nBLC - BLOQUISTA DE CARPINTARIA (2)\nCAPATAZIA:\nPE - CAPATAZIA DE EQUIPE (4)", "obs": "", "sub": null, "faina": "5.9.3 - PROD. SID. - ROLO DE ARAME / TARUGO / BOBINA / TUBO / PERFIL"}, {"id": "s18", "op": "Embarque", "tipo": "Carga Geral", "nome": "TARUGO - BARRAS REDONDAS", "comp": "# NAVIO\nESTIVA:\nCMA - CONTRA MESTRE AUXILIAR (1)\nGC - ESTIVADOR GUINCHEIRO (1)\nEEM - ESTIVADOR EMPILHADOR (0) - POR PADRÃO / ADICIONAR 1 APENAS QUANDO SOLICITADO\nESI - ESTIVADOR SINALEIRO (1)\nEE - ESTIVADOR DE EQUIPE (4)\nCONFERENTE:\nCFC - CONFERENTE CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCFP - CONFERENTE DE PORÃO (1)\nCONSERTADOR:\nCSC - CONSERTADOR CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCBD - CONSERTADOR DE BORDO (1)\nBLOCO:\nENB - ENCARREGADO DE BLOCO (1) - APENAS NO PRIMEIRO TERNO\nBLM - BLOQUISTA DE MATERIAL (1) - APENAS NO PRIMEIRO TERNO\nBLC - BLOQUISTA DE CARPINTARIA (2)\nBLP - BLOQUISTA DE PEAÇÃO (2)\nCAPATAZIA:\nPE - CAPATAZIA DE EQUIPE (4)", "obs": "", "sub": null, "faina": "5.9.3 - PROD. SID. - ROLO DE ARAME / TARUGO / BOBINA / TUBO / PERFIL"}, {"id": "s19", "op": "Desembarque", "tipo": "Carga Geral", "nome": "PEÇAS E CONTAINERS", "comp": "# NAVIO\nESTIVA:\nCMA - CONTRA MESTRE AUXILIAR (1)\nGC - ESTIVADOR GUINCHEIRO (2)\nEGU - ESTIVADOR GUIA (2)\nESI - ESTIVADOR SINALEIRO (1)\nEE - ESTIVADOR DE EQUIPE (4)\nCONFERENTE:\nCFC - CONFERENTE CHEFE (1) - APENAS NO PRIMEIRO TERNO\nCFP - CONFERENTE DE PORÃO (1)\nBLOCO:\nENB - ENCARREGADO DE BLOCO (1) - APENAS NO PRIMEIRO TERNO\nBLP - BLOQUISTA DE PEAÇÃO (2)\nCAPATAZIA:\nPE - CAPATAZIA DE EQUIPE (4)", "obs": "", "sub": null, "faina": "7.0 - CARGA ESPECIAL"}];
+  const CT_LEGACY={Tarugo:'Carga Geral',Tubos:'Carga Geral'};
+  const NAMES={CMP:'CONTRA MESTRE DE PORÃO',CMA:'CONTRA MESTRE AUXILIAR',GC:'ESTIVADOR GUINCHEIRO',ESI:'ESTIVADOR SINALEIRO',ETR:'ESTIVADOR TRATORISTA',EE:'ESTIVADOR DE EQUIPE',EEM:'ESTIVADOR EMPILHADOR',EGU:'ESTIVADOR GUIA',CFC:'CONFERENTE CHEFE',CFP:'CONFERENTE DE PORÃO',PE:'CAPATAZIA DE EQUIPE',ENB:'ENCARREGADO DE BLOCO',BLM:'BLOQUISTA DE MATERIAL',BLC:'BLOQUISTA DE CARPINTARIA',BLE:'BLOQUISTA DE EQUIPE',BLP:'BLOQUISTA DE PEAÇÃO',BLF:'BLOQUISTA DE FORRAÇÃO',CSC:'CONSERTADOR CHEFE',CBD:'CONSERTADOR DE BORDO'};
+const FIRSTONLY=['CFC','ENB','CSC','BLM'];
+const GORDER=['ESTIVA','CONFERENTE','CONSERTADOR','VIGIA','BLOCO','CAPATAZIA'];
+const FAINA_TIPO=[['3.8.4','Gusa'],['4.2.4','Potássio'],['5.9.3','Carga Geral'],['5.9.4','Carga Geral'],['7.0','Carga Geral']];
+const CODE_RX=/^([A-Z]{2,4})\s*-\s*(.+)$/;
+function parseReq(items,W){
+  items=items.map(i=>({str:String(i.str).normalize('NFC').replace(/\(cid:\d+\)/g,'').replace(/[\u0000-\u001f]/g,' '),x:i.x,y:i.y})).filter(i=>i.str.trim());
+  const ls=[];[...items].sort((a,b)=>b.y-a.y||a.x-b.x).forEach(i=>{const l=ls[ls.length-1];if(l&&Math.abs(l.y-i.y)<=3)l.it.push(i);else ls.push({y:i.y,it:[i]})});
+  const T=ls.map(l=>l.it.sort((a,b)=>a.x-b.x).map(i=>i.str.trim()).join(' ').replace(/\s+/g,' '));
+  const all=T.join('\n'),g=(rx)=>{const m=all.match(rx);return m?m[1].trim():''};
+  const r={req:g(/Requisi[çc][ãa]o:\s*([\d-]+)/),navio:g(/Navio:\s*(.+?)(?:\s+N\.\s*Viagem|\n|$)/),local:g(/Local Atraca[çc][ãa]o:\s*(.+?)(?:\s+Atraca[çc][ãa]o:|\n|$)/),atrac:g(/(?<!Local )Atraca[çc][ãa]o:\s*(\S+)/),data:g(/Data da Opera[çc][ãa]o:\s*([\d/]+)/),periodo:g(/Per[ií]odo:\s*([\d-]+)/)};
+  const eq=parseInt(g(/Equipe:\s*(\d+)/),10);r.terno=eq>0?eq:1;
+  const hs=['ESTIVA','CONFERENTE','CONSERTADOR','VIGIA','BLOCO','CAPATAZIA'],H={};
+  items.forEach(i=>{const s=i.str.trim();if(hs.includes(s))H[s]=i});
+  const y1=(H.ESTIVA||H.CONFERENTE||H.CONSERTADOR||{}).y,y2=(H.VIGIA||H.BLOCO||H.CAPATAZIA||{}).y;
+  if(y1==null||y2==null)throw new Error('Não encontrei os grupos (Estiva, Conferente...) neste PDF. É uma requisição do OGMO?');
+  const fh=items.find(i=>i.str.trim()==='Faina');
+  const fi=items.filter(i=>(!fh||i.y<fh.y)&&i.x<W*0.5&&/^\d+(\.\d+)*\s*-\s*\S/.test(i.str.trim())).sort((a,b)=>b.y-a.y)[0];
+  r.faina=fi?fi.str.trim():'';
+  const OPS=/(DESEMBARQUE|DESCARREGAMENTO|DESCARGA|EMBARQUE|CARREGAMENTO)/i;
+  const dl=T.find(l=>new RegExp('^'+OPS.source+'\\b','i').test(l))||T.find(l=>new RegExp('\\b'+OPS.source+'\\b','i').test(l)&&!/PRIMEIRO TERNO/i.test(l))||'';
+  Object.assign(r,parseDescr(dl),{descr:dl});
+  if(!r.balsa&&/fundeio|largo/i.test(r.atrac||'')){r.balsa=true;r.nBalsas=1;r.sugestao=(r.sugestao?r.sugestao+' - ':'')+'UMA BALSA'}
+  const names=[['ESTIVA','CONFERENTE','CONSERTADOR'],['VIGIA','BLOCO','CAPATAZIA']],Z={};
+  items.forEach(i=>{const s=i.str.trim();if(hs.includes(s)||i.y>=y1-2)return;
+    const row=i.y<y2-2?1:0,f=i.x/W,col=f<0.33?0:f<0.635?1:2,k=row+'-'+col;(Z[k]=Z[k]||[]).push(i)});
+  r.groups=[];
+  for(const k of Object.keys(Z)){
+    const [row,col]=k.split('-').map(Number),zi=Z[k].sort((a,b)=>b.y-a.y||a.x-b.x),es=[],qs=[];let ly=null;
+    zi.forEach(i=>{const s=i.str.trim(),m=s.match(CODE_RX);
+      if(m){es.push({code:m[1],name:m[2].trim()});ly=i.y}
+      else if(/^\d+$/.test(s))qs.push(parseInt(s,10));
+      else if(es.length&&ly!=null&&ly-i.y<=14&&/^[A-ZÀ-Ú][A-ZÀ-Ú\s]*$/.test(s)){es[es.length-1].name+=' '+s;ly=i.y}});
+    if(!es.length)continue;
+    if(es.length!==qs.length)throw new Error('Não consegui parear funções e quantidades no grupo '+names[row][col]+'.');
+    r.groups.push({name:names[row][col],rows:es.map((e,n)=>({code:e.code,name:e.name.replace(/\s+/g,' '),qty:qs[n]}))})}
+  if(!r.groups.length)throw new Error('Nenhuma função encontrada neste PDF.');
+  return r}
+function parseDescr(dl){
+  const o={op:null,carga:'',balsa:false,balsaNome:'',nBalsas:0,sugestao:''};if(!dl)return o;
+  const vm=dl.match(/\b(DESEMBARQUE|DESCARREGAMENTO|DESCARGA|EMBARQUE|CARREGAMENTO)\b/i);
+  if(vm)o.op=/^DES/i.test(vm[1])?'Desembarque':'Embarque';
+  let t=dl.split('.')[0].trim();
+  t=t.replace(/^\s*(DESEMBARQUE|DESCARREGAMENTO|DESCARGA|EMBARQUE|CARREGAMENTO)\s+(?:(?:DE|DO|DA|DOS|DAS)\s+)?/i,'');
+  const rx=/\b(?:(?:PARA|NA|NO|COM|EM)\s+)?(?:(UMA|DUAS|TR[EÊ]S|\d+)\s+)?BALSAS?\b/i,bm=rx.exec(t);
+  if(bm){o.balsa=true;const q=(bm[1]||'').toUpperCase();o.nBalsas=/^(DUAS|2)$/.test(q)?2:/^(TR[EÊ]S|3)$/.test(q)?3:1;
+    o.carga=t.slice(0,bm.index).trim();o.balsaNome=t.slice(bm.index+bm[0].length).trim().toUpperCase()}
+  else o.carga=t;
+  o.carga=o.carga.toUpperCase();
+  o.sugestao=o.carga+(o.balsa?' - '+(o.nBalsas===2?'DUAS BALSAS':o.nBalsas===3?'TRÊS BALSAS':'UMA BALSA'):'');
+  return o}
+function secsOf(comp){const S=[{title:'',fn:{}}];
+  String(comp||'').split('\n').map(l=>l.trim()).filter(Boolean).forEach(l=>{
+    if(l[0]==='#'){S.push({title:l.replace(/^#+\s*/,''),fn:{}});return}
+    const m=l.match(/^([A-Z]{2,3})\s*-\s*(.+?)\s*\((\d+)\)\s*(?:-\s*(.*))?$/);
+    if(m)S[S.length-1].fn[m[1]]={base:+m[3],note:m[4]||''}});
+  return S.filter(s=>Object.keys(s.fn).length)}
+function allowedQ(base,note){const s=new Set([base]);let m;
+  if((m=/ADICIONAR\s+(\d+)/i.exec(note)))s.add(base+ +m[1]);
+  if((m=/PARA\s*\((\d+)\)/i.exec(note)))s.add(+m[1]);return s}
+function findMatch(r,models){
+  const rq={};r.groups.forEach(g=>g.rows.forEach(w=>{if(w.qty>0)rq[w.code]=(rq[w.code]||0)+w.qty}));
+  let exact=null,near=null;
+  for(const m of models){if(r.op&&m.op!==r.op)continue;
+    for(const sec of secsOf(m.comp)){
+      const fm={};for(const c in sec.fn){if(r.terno>1&&/PRIMEIRO TERNO/i.test(sec.fn[c].note))continue;fm[c]=sec.fn[c]}
+      const q={...rq};
+      if(q.CMA&&!q.CMP&&fm.CMP&&/CMA/.test(fm.CMP.note)&&!fm.CMA){q.CMP=q.CMA;delete q.CMA}
+      const d=[];
+      for(const c in q){if(!fm[c])d.push('a requisição tem '+c+' ('+q[c]+') e o modelo não');
+        else if(!allowedQ(fm[c].base,fm[c].note).has(q[c]))d.push(c+': requisição '+q[c]+', modelo '+fm[c].base)}
+      for(const c in fm)if(fm[c].base>0&&!(c in q))d.push('falta '+c+' ('+fm[c].base+') na requisição');
+      if(!d.length){if(!exact)exact={model:m,sec:sec.title,vars:Object.keys(q).filter(c=>fm[c]&&q[c]!==fm[c].base).map(c=>c+' '+q[c])}}
+      else if(!near||d.length<near.diffs.length)near={model:m,sec:sec.title,diffs:d}}}
+  return{exact,near:near&&near.diffs.length<=4?near:null}}
+function buildGroups(r){const L=[];
+  [...r.groups].sort((a,b)=>GORDER.indexOf(a.name)-GORDER.indexOf(b.name)).forEach(g=>{
+    L.push(g.name+':');g.rows.filter(w=>w.qty>0).forEach(w=>L.push(w.code+' - '+(NAMES[w.code]||w.name)+' ('+w.qty+')'+(FIRSTONLY.includes(w.code)?' - APENAS NO PRIMEIRO TERNO':'')))});
+  return L.join('\n')}
+function buildComp(r){return (/^BALSA\b/i.test(r.navio||'')?'# BALSA':'# NAVIO')+'\n'+buildGroups(r)}
+function guessTipoCarga(c){return /GUSA/i.test(c||'')?'Gusa':/POT[ÁA]SSIO/i.test(c||'')?'Potássio':null}
+function guessTipo(f){const c=(String(f||'').match(/^\d+(\.\d+)*/)||[''])[0];const h=FAINA_TIPO.find(x=>x[0]===c);return h?h[1]:null}
+function guessSub(a){return /atracad/i.test(a||'')?'Atracado':/fundeio|largo/i.test(a||'')?'Fundeio':null}
+
+  const PDFJS='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js',PDFW='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+  function loadPdf(){return new Promise((ok,no)=>{if(window.pdfjsLib){ok();return}
+  const s=document.createElement('script');s.src=PDFJS;
+  s.onload=()=>{try{window.pdfjsLib.GlobalWorkerOptions.workerSrc=PDFW;ok()}catch(e){no(e)}};
+  s.onerror=()=>no(new Error('Não foi possível carregar o leitor de PDF. Verifique a conexão e tente de novo.'));document.head.appendChild(s)})}
+async function readPdf(file){await loadPdf();
+  const doc=await window.pdfjsLib.getDocument({data:await file.arrayBuffer()}).promise,pg=await doc.getPage(1),vp=pg.getViewport({scale:1}),tc=await pg.getTextContent();
+  return parseReq(tc.items.filter(i=>i.str&&i.str.trim()).map(i=>({str:i.str,x:i.transform[4],y:i.transform[5]})),vp.width)}
+
+  var CT={v:'home',cat:null,tipo:null,sub:null,id:null,terno:1,busca:'',S:{custom:[],edits:{},deleted:[],log:[]},tick:0};
+  var CT_LS='painelCatalogo';
+  var ctNorm=function(t){return String(t||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase()};
+  var ctPode=function(){return !!(U&&U.master)};
+  (function(){try{var o=JSON.parse(lsGet(CT_LS)||'null');if(o)CT.S=Object.assign(CT.S,o)}catch(e){}})();
+  function ctPersistLocal(){lsSet(CT_LS,JSON.stringify(CT.S))}
+  function ctAll(){var S=CT.S;return SEED_CT.filter(function(x){return S.deleted.indexOf(x.id)<0}).map(function(x){return S.edits[x.id]?Object.assign({faina:x.faina},S.edits[x.id]):x}).concat(S.custom).map(function(x){return CT_LEGACY[x.tipo]?Object.assign({},x,{tipo:CT_LEGACY[x.tipo]}):x})}
+  var ctN=function(c,t,sb){return ctAll().filter(function(i){return i.op===c&&(t==null||i.tipo===t)&&(sb==null||i.sub===sb)}).length};
+  var ctPlural=function(k){return k+(k===1?' modelo':' modelos')};
+  var ctIsSeed=function(id){return SEED_CT.some(function(x){return x.id===id})};
+  var ctLimpa=function(o){return JSON.parse(JSON.stringify(o))};
+  /* armazenamento: Firebase (compartilhado) quando configurado; sempre guarda cópia local */
+  function ctGrava(col,id,obj){RT.wseq++;ctPersistLocal();if(!dbUrl())return Promise.resolve();return rtEscreve('catalogo/'+col+'/'+id,obj===null?null:ctLimpa(obj))}
+  function ctSalvarModelo(o){
+    var S=CT.S;
+    if(ctIsSeed(o.id)){S.edits[o.id]=o;return ctGrava('edits',o.id,o)}
+    if(S.custom.some(function(i){return i.id===o.id}))S.custom=S.custom.map(function(i){return i.id===o.id?o:i});else S.custom.push(o);
+    return ctGrava('custom',o.id,o)}
+  function ctRemover(id){var S=CT.S;if(ctIsSeed(id)){if(S.deleted.indexOf(id)<0)S.deleted.push(id);return ctGrava('deleted',id,{d:1})}S.custom=S.custom.filter(function(i){return i.id!==id});return ctGrava('custom',id,null)}
+  function ctLog(e){e.id='l'+Date.now()+Math.random().toString(36).slice(2,6);CT.S.log.push(e);return ctGrava('log',e.id,e)}
+  function ctCarregar(){
+    if(!dbUrl())return Promise.resolve();
+    var w=RT.wseq;
+    return rtCaminho('catalogo').then(function(u){return fetch(u+(u.indexOf('?')>0?'&':'?')+'_='+Date.now(),{cache:'no-store'})})
+      .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
+      .then(function(j){
+        if(w!==RT.wseq||!j)return;
+        var arr=function(o){return Object.keys(o||{}).map(function(k){return Object.assign({},o[k],{id:k})})};
+        CT.S.custom=arr(j.custom);CT.S.edits={};arr(j.edits).forEach(function(x){CT.S.edits[x.id]=x});
+        CT.S.deleted=Object.keys(j.deleted||{});CT.S.log=arr(j.log).map(function(l){l.mud=l.mud||[];return l});
+        ctPersistLocal();
+      }).catch(function(){});
+  }
+  function ctAbrir(){
+    ctAplicaPerm();ctRender();
+    ctCarregar().then(function(){ctRender();if(!$('view-requisicoes').hidden)renderReq()});
+  }
+  function ctAplicaPerm(){var p=ctPode();document.querySelectorAll('#rqCatBox [data-ed]').forEach(function(e){e.hidden=!p});
+    $('ctMeta').textContent=(dbUrl()?'Compartilhado entre os Assistentes':'Salvo só neste computador')+' · '+(p?'você pode editar (usuário MASTER)':'somente consulta');}
+  setInterval(function(){if(U&&!$('view-requisicoes').hidden&&!$('rqCatBox').hidden&&!document.hidden&&!$('ctDlgModelo').open)ctCarregar().then(ctRender)},20000);
+
+  /* ----- navegação ----- */
+  function ctHead(t,m){$('ctTitulo').textContent=t}
+  function ctIrHome(){CT.v='home';CT.cat=CT.tipo=CT.sub=null;CT.id=null;ctRender()}
+  function ctTile(attrs,lbl,tit,peq,cls){return '<button type="button" class="ct-cat'+(cls||'')+'" '+attrs+'><span class="l">'+esc(lbl)+'</span><b>'+esc(tit)+'</b>'+(peq?'<small>'+esc(peq)+'</small>':'')+'</button>'}
+  function ctRender(){
+    var C=$('ctCorpo'),cr=$('ctCrumb'),q=ctNorm(CT.busca.trim()),h='';
+    ctAplicaPerm();
+    cr.innerHTML='';
+    $('ctGw').hidden=(CT.v!=='home');
+    if(CT.v==='home'){
+      ctHead('Catálogo de Requisições');
+      if(q){
+        var arr=ctAll().filter(function(i){return ctNorm(i.nome+' '+i.comp+' '+(i.faina||'')).indexOf(q)>=0});
+        C.innerHTML=arr.length?'<div class="ct-cats">'+arr.map(function(i){
+          var hit=i.comp.split('\n').find(function(l){return l[0]!=='#'&&!/:$/.test(l)&&ctNorm(l).indexOf(q)>=0}),m=hit&&hit.match(ENT_CT);
+          return ctTile('data-ct="modelo" data-id="'+esc(i.id)+'"',[i.op,i.tipo,i.sub].filter(Boolean).join(' · '),i.nome,m?'Contém: '+m[2]+' ('+m[3]+')':'',' mod')}).join('')+'</div>'
+          :'<div class="ct-vazio">Nenhum modelo encontrado para “'+esc(CT.busca)+'”.</div>';return}
+      C.innerHTML='<div class="ct-cats">'+['Embarque','Desembarque'].map(function(c){return ctTile('data-ct="cat" data-v="'+c+'"','Operação',c,ctPlural(ctN(c)))}).join('')+'</div>';return}
+    if(CT.v==='tipos'){
+      ctHead(CT.cat);cr.innerHTML='<button type="button" data-ct="home">← Todas as operações</button>';
+      C.innerHTML='<p class="sub">Escolha o tipo de carga para ver os modelos de composição.</p><div class="ct-cats">'+TYPES[CT.cat].map(function(t){return ctTile('data-ct="tipo" data-v="'+esc(t)+'"','Tipo de carga',t,ctPlural(ctN(CT.cat,t)))}).join('')+'</div>';return}
+    if(CT.v==='subs'){
+      ctHead(CT.tipo);cr.innerHTML='<button type="button" data-ct="cat" data-v="'+CT.cat+'">← Tipos de carga de '+esc(CT.cat)+'</button>';
+      C.innerHTML='<p class="sub">Escolha a categoria — '+esc(CT.cat)+' de '+esc(CT.tipo)+'.</p><div class="ct-cats">'+SUBS[CT.cat+'|'+CT.tipo].map(function(sb){return ctTile('data-ct="sub" data-v="'+esc(sb)+'"',CT.tipo,sb,ctPlural(ctN(CT.cat,CT.tipo,sb)))}).join('')+'</div>';return}
+    if(CT.v==='lista'){
+      ctHead(CT.sub?CT.tipo+' · '+CT.sub:(CT.tipo||CT.cat));
+      cr.innerHTML='<button type="button" data-ct="'+(CT.sub?'tipo':(CT.tipo?'cat':'home'))+'" data-v="'+esc(CT.sub?CT.tipo:CT.cat)+'">'+(CT.sub?'← Categorias de '+esc(CT.tipo):(CT.tipo?'← Tipos de carga de '+esc(CT.cat):'← Todas as operações'))+'</button>';
+      var l=ctAll().filter(function(i){return i.op===CT.cat&&(CT.tipo==null||i.tipo===CT.tipo)&&(CT.sub==null||i.sub===CT.sub)});
+      if(!CT.sub)l.sort(function(a,b){return a.nome.localeCompare(b.nome,'pt')});
+      C.innerHTML=l.length?'<div class="ct-cats">'+l.map(function(i){var secs=i.comp.split('\n').filter(function(x){return x.trim()[0]==='#'}).map(function(x){return x.replace(/^#+\s*/,'').trim()});
+        return ctTile('data-ct="modelo" data-id="'+esc(i.id)+'"','Modelo',i.nome,secs.length?secs.join(' · '):'Ver composição',' mod')}).join('')+'</div>'
+        :'<div class="ct-vazio">Nenhum modelo cadastrado aqui ainda.'+(ctPode()?'<br>Use “+ Incluir modelo” para começar.':'')+'</div>';return}
+    if(CT.v==='detalhe'){
+      var i=ctAll().filter(function(x){return x.id===CT.id})[0];if(!i){ctIrHome();return}
+      ctHead(i.nome);
+      cr.innerHTML='<button type="button" data-ct="voltar">← '+esc(i.sub?i.tipo+' · '+i.sub:(i.tipo?i.tipo:i.op))+'</button>';
+      C.innerHTML='<div class="ct-det"><p class="sub" style="margin:0 0 10px">'+esc([i.op,i.tipo,i.sub].filter(Boolean).join(' · '))+'</p>'
+        +'<div class="ct-tabs"><button type="button" data-ct="terno" data-v="1" aria-pressed="'+(CT.terno===1)+'">1º terno</button><button type="button" data-ct="terno" data-v="2" aria-pressed="'+(CT.terno>1)+'">Demais ternos (2º ao 4º)</button></div>'
+        +'<div class="ct-faina"><span class="l">Faina</span><br>'+(i.faina?'<b>'+esc(i.faina)+'</b>':'<span class="ajuda">não informada</span>')+'</div>'
+        +'<div class="ct-terno" id="ctTernoTxt"></div>'+ctComp(i.comp,CT.terno>1)
+        +(i.obs?'<div class="ct-obs"><b>Observações:</b> '+esc(i.obs)+'</div>':'')
+        +'<div class="ct-btns"><button type="button" class="btn" data-ct="imprimir">Imprimir / PDF</button>'+(ctPode()?'<button type="button" class="btn" data-ct="editar">Editar</button><button type="button" class="btn danger" data-ct="excluir">Excluir</button>':'')+'</div></div><div class="ct-hist" id="ctHist"></div>';
+      $('ctTernoTxt').innerHTML=CT.terno>1?'<b>Demais ternos (2º ao 4º):</b> funções marcadas “apenas no primeiro terno” não entram'+(CT_REMOVIDAS.length?' ('+esc(CT_REMOVIDAS.join(', '))+' retirada(s))':'')+'.':'<b>1º terno:</b> composição completa, com as funções de abertura da operação.';
+      ctHist(i.id)}
+  }
+  var ENT_CT=/^([A-Z]{2,3})\s*-\s*(.+?)\s*\((\d+)\)\s*(?:-\s*(.*))?$/,CT_REMOVIDAS=[];
+  function ctEntry(l){var m=l.match(ENT_CT);
+    if(!m)return '<div class="ct-ent"><span></span><div>'+esc(l)+'</div><span></span></div>';
+    return '<div class="ct-ent'+(m[3]==='0'?' zero':'')+(/PRIMEIRO TERNO/i.test(m[4]||'')?' first':'')+'"><span class="ct-code">'+m[1]+'</span><div class="ct-en">'+esc(m[2])+(m[4]?'<div class="ct-note">'+esc(m[4])+'</div>':'')+'</div><span class="ct-qty">'+m[3]+'</span></div>'}
+  function ctComp(t,skip){
+    CT_REMOVIDAS=[];var secs=[],sec={title:null,groups:[]},grp=null;
+    var push=function(){if(sec.groups.length||sec.title)secs.push(sec)};
+    String(t||'').split('\n').map(function(l){return l.trim()}).filter(Boolean).forEach(function(l){
+      if(l[0]==='#'){push();sec={title:l.replace(/^#+\s*/,''),groups:[]};grp=null}
+      else if(/:$/.test(l)){grp={name:l.slice(0,-1).trim().toUpperCase(),rows:[]};sec.groups.push(grp)}
+      else{var mm=l.match(ENT_CT);if(skip&&mm&&/PRIMEIRO TERNO/i.test(mm[4]||'')){CT_REMOVIDAS.push(mm[1]);return}
+        if(!grp){grp={name:'',rows:[]};sec.groups.push(grp)}grp.rows.push(ctEntry(l))}});
+    push();secs.forEach(function(x){x.groups=x.groups.filter(function(g){return g.rows.length})});
+    return secs.map(function(x){
+      var has=function(n){return x.groups.some(function(g){return g.name===n})};
+      var bl=has('BLOCO'),co=has('CONSERTADOR'),cp=has('CAPATAZIA'),vg=has('VIGIA');
+      var pos={VIGIA:[1,2],ESTIVA:[1,1],CONFERENTE:[2,1],CONSERTADOR:[3,1],BLOCO:[2,2],CAPATAZIA:bl?[3,2]:(co?[2,2]:[3,1])};
+      var two=bl||(co&&cp)||vg;
+      var boxes=x.groups.map(function(g){var p=pos[g.name],st='';
+        if(p){st='grid-column:'+p[0]+';grid-row:'+p[1];if(g.name==='ESTIVA'&&two&&!vg)st+=' / span 2'}
+        return '<div style="'+st+'"><div class="ct-gh">'+esc(g.name||'Composição')+'</div>'+g.rows.join('')+'</div>'}).join('');
+      return (x.title?'<div class="ct-sec">'+esc(x.title)+'</div>':'')+'<div class="ct-cols">'+boxes+'</div>'}).join('')}
+  /* histórico */
+  var CT_ACT={new:'Inclusão',edit:'Alteração',del:'Exclusão'};
+  function ctHist(mid){
+    var arr=CT.S.log.filter(function(l){return l.mid===mid}).sort(function(a,b){return (b.quando||'').localeCompare(a.quando||'')}),h=$('ctHist');if(!h)return;
+    h.innerHTML='<div class="ct-gh" style="margin-bottom:8px">Histórico de alterações</div>'+(arr.length?arr.map(function(l){
+      return '<div class="ct-lg"><div class="h"><span class="ct-pill '+esc(l.acao)+'">'+esc(CT_ACT[l.acao]||l.acao)+'</span><span>'+esc(new Date(l.quando).toLocaleString('pt-BR'))+'</span><span>·</span><span>'+esc(l.por||'')+'</span></div><div>'+esc(l.just||'')+'</div>'
+        +(l.mud||[]).map(function(m){return m.add||m.rem?'<div><b>'+esc(m.c)+'</b>'+(m.rem||[]).map(function(x){return '<div class="rem">− '+esc(x)+'</div>'}).join('')+(m.add||[]).map(function(x){return '<div class="add">+ '+esc(x)+'</div>'}).join('')+'</div>':'<div><b>'+esc(m.c)+':</b> <s>'+esc(m.a)+'</s> → '+esc(m.d)+'</div>'}).join('')+'</div>'}).join(''):'<p class="ajuda">Sem alterações registradas (modelo original).</p>')}
+  var CT_FL={faina:'Faina',nome:'Nome',op:'Operação',tipo:'Tipo de carga',sub:'Categoria',obs:'Observações'};
+  function ctDiff(a,b){var m=[];
+    ['nome','faina','op','tipo','sub','obs'].forEach(function(k){if((a[k]||'')!==(b[k]||''))m.push({c:CT_FL[k],a:a[k]||'—',d:b[k]||'—'})});
+    var L=function(t){return String(t||'').split('\n').map(function(x){return x.trim()}).filter(Boolean)},A=L(a.comp),B=L(b.comp);
+    var add=B.filter(function(x){return A.indexOf(x)<0}),rem=A.filter(function(x){return B.indexOf(x)<0});
+    if(add.length||rem.length)m.push({c:'Composição',add:add,rem:rem});return m}
+  /* eventos de navegação */
+  function ctClique(e){
+    var b=e.target.closest('[data-ct]');if(!b)return;var a=b.getAttribute('data-ct'),v=b.getAttribute('data-v');
+    if(a==='home')ctIrHome();
+    else if(a==='cat'){CT.cat=v;CT.tipo=CT.sub=null;if(TYPES[v].length){CT.v='tipos'}else CT.v='lista';ctRender()}
+    else if(a==='tipo'){CT.tipo=v;CT.sub=null;CT.v=SUBS[CT.cat+'|'+v]?'subs':'lista';ctRender()}
+    else if(a==='sub'){CT.sub=v;CT.v='lista';ctRender()}
+    else if(a==='modelo'){var i=ctAll().filter(function(x){return x.id===b.getAttribute('data-id')})[0];if(!i)return;CT.id=i.id;CT.cat=i.op;CT.tipo=i.tipo;CT.sub=i.sub||null;CT.terno=1;CT.v='detalhe';ctRender()}
+    else if(a==='voltar'){CT.v='lista';ctRender()}
+    else if(a==='terno'){CT.terno=parseInt(v,10);ctRender()}
+    else if(a==='imprimir')ctImprimir();
+    else if(a==='editar')ctAbrirForm(ctAll().filter(function(x){return x.id===CT.id})[0]);
+    else if(a==='excluir'){var m=ctAll().filter(function(x){return x.id===CT.id})[0];if(!m)return;$('ctDelNome').textContent=m.nome;$('ctDelJust').value='';$('ctDlgDel').showModal()}
+  }
+  $('ctCorpo').addEventListener('click',ctClique);$('ctCrumb').addEventListener('click',ctClique);
+  $('ctBusca').addEventListener('input',function(){CT.busca=this.value;CT.v='home';ctRender()});
+  function ctImprimir(){
+    var i=ctAll().filter(function(x){return x.id===CT.id})[0];if(!i)return;
+    var w=window.open('','_blank');if(!w){alert('O navegador bloqueou a janela de impressão. Permita pop-ups para este site.');return}
+    w.document.write('<html><head><meta charset="utf-8"><title>'+esc(i.nome)+'</title><style>body{font-family:Arial,sans-serif;margin:24px}h1{font-size:20px}.ct-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:0 24px}.ct-ent{display:grid;grid-template-columns:46px 1fr 30px;gap:10px;padding:6px 0;border-top:1px solid #ccc;font-size:13px}.ct-code{background:#141414;color:#fff;text-align:center;font-weight:700;font-size:11px;padding:2px 0}.ct-qty{font-weight:700;text-align:right;color:#b00}.ct-note{font-size:11px;color:#b00}.ct-gh,.ct-sec{font-weight:700;text-transform:uppercase;font-size:12px;margin-top:10px}.ct-terno{font-size:12px;margin:8px 0}</style></head><body><h1>Catálogo de Requisições — '+esc(i.nome)+'</h1><p>'+esc([i.op,i.tipo,i.sub].filter(Boolean).join(' · '))+(i.faina?' · Faina: '+esc(i.faina):'')+'</p>'+ctComp(i.comp,CT.terno>1)+(i.obs?'<p><b>Observações:</b> '+esc(i.obs)+'</p>':'')+'<p style="font-size:11px;color:#666">Impresso em '+new Date().toLocaleString('pt-BR')+' · Painel dos Assistentes</p></body></html>');
+    w.document.close();w.focus();setTimeout(function(){w.print()},300)}
+
+  /* ----- cadastro / edição ----- */
+  var CT_BL=[],ctEditId=null,ctBlkAlvo=null,ctImpIdx=null,CT_RES=[];
+  function ctParseBlocks(t){var out=[],cur=null;
+    String(t||'').split('\n').forEach(function(l){var x=l.trim();
+      if(x[0]==='#'){cur={title:x.replace(/^#+\s*/,''),lines:[]};out.push(cur)}
+      else{if(!cur){if(!x)return;cur={title:'',lines:[]};out.push(cur)}cur.lines.push(l.replace(/\s+$/,''))}});
+    return out.map(function(b){return {title:b.title,text:b.lines.join('\n').trim()}})}
+  function ctSetBlocks(t){CT_BL=ctParseBlocks(t);if(!CT_BL.length)CT_BL=[{title:'NAVIO',text:''}];ctDesenhaBlocos()}
+  function ctDesenhaBlocos(){$('ctBlocos').innerHTML=CT_BL.map(function(b,i){return '<div class="ct-blk"><div class="h"><input type="text" class="bt" data-i="'+i+'" value="'+esc(b.title)+'" placeholder="Bloco (ex.: NAVIO, BALSA)"><button type="button" class="btn" data-blk="pdf" data-i="'+i+'">Ler de PDF</button>'+(CT_BL.length>1?'<button type="button" class="btn danger" data-blk="rem" data-i="'+i+'">Remover</button>':'')+'</div><textarea class="bx" data-i="'+i+'" placeholder="ESTIVA:&#10;CMP - CONTRA MESTRE DE PORÃO (1)&#10;GC - ESTIVADOR GUINCHEIRO (1)">'+esc(b.text)+'</textarea></div>'}).join('')}
+  function ctGetComp(){return CT_BL.map(function(b){return (b.title.trim()?'# '+b.title.trim().toUpperCase()+'\n':'')+b.text.trim()}).filter(Boolean).join('\n')}
+  $('ctBlocos').addEventListener('input',function(e){var i=+e.target.dataset.i;if(isNaN(i)||!CT_BL[i])return;if(e.target.classList.contains('bt'))CT_BL[i].title=e.target.value;else if(e.target.classList.contains('bx'))CT_BL[i].text=e.target.value});
+  $('ctBlocos').addEventListener('click',function(e){var b=e.target.closest('[data-blk]');if(!b)return;var i=+b.dataset.i;
+    if(b.dataset.blk==='rem'){if(confirm('Remover este bloco da composição?')){CT_BL.splice(i,1);ctDesenhaBlocos()}}
+    else{ctBlkAlvo=i;$('ctBlkPdf').click()}});
+  $('ctAddBloco').addEventListener('click',function(){if(CT_BL.length&&!CT_BL[0].title.trim())CT_BL[0].title='NAVIO';CT_BL.push({title:'BALSA',text:''});ctDesenhaBlocos()});
+  $('ctBlkPdf').addEventListener('change',function(e){var f=e.target.files[0];e.target.value='';if(!f||ctBlkAlvo==null)return;
+    readPdf(f).then(function(r){CT_BL[ctBlkAlvo].text=buildGroups(r);ctDesenhaBlocos();alert('Composição lida da requisição '+r.req+' ('+r.navio+').')},function(err){alert(err.message||'Não foi possível ler este PDF.')})});
+  function ctFillTipos(sel){var t=TYPES[$('ctFOp').value];$('ctTipoW').hidden=!t.length;$('ctFTipo').innerHTML=t.map(function(x){return '<option>'+esc(x)+'</option>'}).join('');if(sel)$('ctFTipo').value=sel}
+  function ctFillSubs(sel){var l=SUBS[$('ctFOp').value+'|'+$('ctFTipo').value]||[];$('ctSubW').hidden=!l.length;$('ctFSub').innerHTML=l.map(function(x){return '<option>'+esc(x)+'</option>'}).join('');if(sel)$('ctFSub').value=sel}
+  $('ctFOp').addEventListener('change',function(){ctFillTipos();ctFillSubs()});$('ctFTipo').addEventListener('change',function(){ctFillSubs()});
+  function ctAbrirForm(i){
+    if(!ctPode())return;
+    ctEditId=i?i.id:null;$('ctMTit').textContent=i?'Editar modelo':'Incluir modelo';
+    $('ctFOp').value=i?i.op:(CT.cat||'Embarque');ctFillTipos(i?i.tipo:CT.tipo);ctFillSubs(i?i.sub:CT.sub);
+    $('ctFNome').value=i?i.nome:'';$('ctFFaina').value=i?(i.faina||''):'';ctSetBlocks(i?i.comp:'');$('ctImpHint').hidden=true;$('ctFObs').value=i?(i.obs||''):'';$('ctFJust').value='';$('ctJustReq').textContent=i?'(obrigatória)':'(opcional)';
+    if(!$('ctDlgModelo').open)$('ctDlgModelo').showModal()}
+  $('ctNovo').addEventListener('click',function(){ctImpIdx=null;ctAbrirForm(null)});
+  $('ctMCancela').addEventListener('click',function(){ctImpIdx=null;$('ctDlgModelo').close()});
+  $('ctForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var nome=$('ctFNome').value.trim();if(!nome){$('ctFNome').focus();return}
+    var op=$('ctFOp').value,t=TYPES[op].length?$('ctFTipo').value:null,sb=$('ctSubW').hidden?null:$('ctFSub').value;
+    var o={id:ctEditId||'c'+Date.now(),op:op,tipo:t,sub:sb,nome:nome,faina:$('ctFFaina').value.trim(),comp:ctGetComp(),obs:$('ctFObs').value.trim()};
+    var prev=ctEditId?ctAll().filter(function(i){return i.id===ctEditId})[0]:null,just=$('ctFJust').value.trim();
+    if(prev&&!just){$('ctFJust').focus();alert('Informe a justificativa da alteração.');return}
+    var mud=prev?ctDiff(prev,o):[];if(prev&&!mud.length){alert('Nenhuma alteração para salvar.');return}
+    var imp=ctImpIdx,eid=ctEditId;
+    registrar(prev?'Alterou modelo do catálogo':'Incluiu modelo no catálogo',o.nome);
+    $('ctDlgModelo').close();
+    ctSalvarModelo(o).then(function(){return ctLog({mid:o.id,nome:o.nome,acao:prev?'edit':'new',just:just||'Modelo incluído',por:U.nome,quando:new Date().toISOString(),mud:mud})}).then(function(){
+      if(imp!=null){CT_RES[imp].st='done';CT_RES[imp].msg=o.nome;ctImpIdx=null;ctRenderRes();renderReq();return}
+      if(eid){CT.id=o.id;CT.v='detalhe'}else{CT.cat=op;CT.tipo=t;CT.sub=sb;CT.v='lista'}
+      ctRender();renderReq()})});
+  $('ctDelCancela').addEventListener('click',function(){$('ctDlgDel').close()});
+  $('ctDelOk').addEventListener('click',function(){
+    var just=$('ctDelJust').value.trim();if(!just){$('ctDelJust').focus();return}
+    var i=ctAll().filter(function(x){return x.id===CT.id})[0];if(!i)return;
+    registrar('Excluiu modelo do catálogo',i.nome);$('ctDlgDel').close();
+    ctRemover(CT.id).then(function(){return ctLog({mid:i.id,nome:i.nome,acao:'del',just:just,por:U.nome,quando:new Date().toISOString(),mud:[]})}).then(function(){CT.v='lista';ctRender();renderReq()})});
+
+  /* ----- importar requisição (PDF) ----- */
+  $('ctImp').addEventListener('click',function(){CT_RES=[];ctRenderRes();$('ctDlgImp').showModal()});
+  $('ctImpFecha').addEventListener('click',function(){$('ctDlgImp').close();CT_RES=[];ctRender()});
+  $('ctManual').addEventListener('click',function(){$('ctDlgImp').close();ctImpIdx=null;ctAbrirForm(null)});
+  $('ctPdfs').addEventListener('change',function(e){ctProcessa(e.target.files);e.target.value=''});
+  ['dragover','dragenter'].forEach(function(ev){$('ctDrop').addEventListener(ev,function(e){e.preventDefault();$('ctDrop').classList.add('over')})});
+  ['dragleave','drop'].forEach(function(ev){$('ctDrop').addEventListener(ev,function(e){e.preventDefault();$('ctDrop').classList.remove('over')})});
+  $('ctDrop').addEventListener('drop',function(e){ctProcessa(e.dataTransfer.files)});
+  async function ctProcessa(files){
+    for(const f of [...files]){
+      const row={file:f.name,st:'wait'};CT_RES.push(row);ctRenderRes();
+      try{
+        if(!/\.pdf$/i.test(f.name)&&f.type!=='application/pdf')throw new Error('Este arquivo não é um PDF.');
+        const r=await readPdf(f);row.r=r;const x=findMatch(r,ctAll());
+        if(x.exact){row.st='dup';row.m=x.exact}else if(r.terno>1){row.st='blocked';row.near=x.near}else{row.st='new';row.near=x.near}
+      }catch(e){row.st='err';row.msg=e.message||String(e)}
+      ctRenderRes()}}
+  function ctRenderRes(){
+    $('ctImpRes').innerHTML=CT_RES.map(function(w,i){var r=w.r,
+      head='<b>'+esc(w.file)+'</b>'+(r?'<div class="ajuda">Req. '+esc(r.req)+' · Navio: '+esc(r.navio)+' · '+esc(r.data)+' · '+r.terno+'º terno<br>Operação: <b>'+esc(r.op||'não identificada')+'</b> · Carga: <b>'+esc(r.carga||'não identificada')+'</b>'+(r.balsa?' · com balsa':'')+'</div>':''),body='';
+      if(w.st==='wait')body='<div class="ajuda">Lendo o PDF…</div>';
+      else if(w.st==='err')body='<div class="bad">'+esc(w.msg)+'</div>';
+      else if(w.st==='dup'){var m=w.m.model;body='<div class="ok">✔ Já possui o modelo: '+esc(m.nome)+'</div><div class="ajuda">'+esc([m.op,m.tipo,m.sub].filter(Boolean).join(' › '))+(w.m.sec?' — bloco '+esc(w.m.sec):'')+(w.m.vars.length?'<br>Quantidades diferentes da base, mas previstas nas regras do modelo: '+esc(w.m.vars.join(', ')):'')+'</div>'}
+      else if(w.st==='blocked')body='<div class="bad">Requisição do '+r.terno+'º terno que não corresponde a nenhum modelo.</div><div class="ajuda">Os modelos são cadastrados pelo 1º terno. Envie a requisição do 1º terno desta operação.'+(w.near?'<br>Mais parecido: '+esc(w.near.model.nome)+' — '+esc(w.near.diffs.join('; ')):'')+'</div>';
+      else if(w.st==='new')body='<div class="nv">＋ Modelo novo — não existe no catálogo.</div>'+(w.near?'<div class="ajuda">Mais parecido: <b>'+esc(w.near.model.nome)+'</b> — '+esc(w.near.diffs.join('; '))+'</div>':'')+(ctPode()?'<div style="margin-top:6px"><button type="button" class="btn pri" data-imp="'+i+'">Revisar e adicionar</button></div>':'<div class="ajuda">Peça ao MASTER para adicionar.</div>');
+      else if(w.st==='done')body='<div class="ok">✔ Adicionado ao catálogo: '+esc(w.msg)+'</div>';
+      return '<div class="ct-ires">'+head+body+'</div>'}).join('')}
+  $('ctImpRes').addEventListener('click',function(e){var b=e.target.closest('[data-imp]');if(!b)return;ctAbrirImport(+b.dataset.imp)});
+  function ctAbrirImport(i){
+    var r=CT_RES[i].r;ctImpIdx=i;$('ctDlgImp').close();ctAbrirForm(null);
+    var op=r.op||'Embarque';$('ctFOp').value=op;ctFillTipos();
+    var t=guessTipo(r.faina)||guessTipoCarga(r.carga)||'Carga Geral';if(TYPES[op].indexOf(t)>=0)$('ctFTipo').value=t;
+    ctFillSubs();var sb=guessSub(r.atrac),sl=SUBS[op+'|'+$('ctFTipo').value]||[];if(sb&&sl.indexOf(sb)>=0)$('ctFSub').value=sb;
+    $('ctFNome').value=r.sugestao;$('ctFFaina').value=r.faina;ctSetBlocks(buildComp(r));
+    if(r.balsa&&!/^BALSA\b/i.test(r.navio||'')){CT_BL.push({title:'BALSA',text:''});ctDesenhaBlocos()}
+    $('ctFJust').value='Importado da requisição '+r.req+' — navio '+r.navio+' (PDF)';$('ctJustReq').textContent='(opcional)';
+    $('ctMTit').textContent='Novo modelo — requisição '+r.req;
+    $('ctImpHint').hidden=false;$('ctImpHint').innerHTML='<b>Lido da requisição:</b> navio '+esc(r.navio)+' · '+esc(r.descr||'sem descrição')+'<br><b>Interpretação:</b> '+esc(op)+' de '+esc(r.carga||'carga não identificada')+(r.balsa?' · com balsa'+(r.balsaNome?' '+esc(r.balsaNome):'')+' — preencha a composição da balsa abaixo (ou use "Ler de PDF").':'.')}
+
+  /* ----- conferência: requisição lida do OGMO × modelos do catálogo ----- */
+  function ctConferir(rq){
+    var rows=[];(rq.comp||[]).forEach(function(c){if(/^s/i.test(c.cancelado||''))return;var m=String(c.funcao||'').match(CODE_RX),q=parseInt(c.vagas,10)||0;if(m&&q>0)rows.push({code:m[1],name:m[2].trim(),qty:q})});
+    if(!rows.length)return {st:'sem',msg:'sem composição lida'};
+    var suf=parseInt((String(rq.req||'').split('-')[1]||'1'),10);
+    var r={op:null,terno:suf>0?suf:1,groups:[{name:'REQ',rows:rows}]};
+    var x=findMatch(r,ctAll());
+    if(x.exact)return {st:'ok',model:x.exact.model.nome,vars:x.exact.vars};
+    if(x.near)return {st:'dif',model:x.near.model.nome,diffs:x.near.diffs};
+    return {st:'sem',msg:'sem modelo parecido'}}
+
+  /* abas: requisições lidas | catálogo de modelos */
   function rqAba(cat){
     $('rqLidas').hidden=cat;$('rqCatBox').hidden=!cat;
     $('rqTabLidas').setAttribute('aria-selected',String(!cat));$('rqTabCat').setAttribute('aria-selected',String(cat));
-    if(cat&&!catFrame){catFrame=document.createElement('iframe');catFrame.title='Catálogo de Requisições';catFrame.src='ferramentas/catalogo-requisicoes.html';$('rqCatBox').appendChild(catFrame);registrar('Abriu o Catálogo de Requisições')}
-    if(!cat)renderReq();
+    if(cat){ctAbrir()}else renderReq();
   }
   $('rqTabLidas').addEventListener('click',function(){rqAba(false)});
   $('rqTabCat').addEventListener('click',function(){rqAba(true)});
