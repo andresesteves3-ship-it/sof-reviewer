@@ -337,7 +337,7 @@ input[type=password]{padding:9px 12px;border:1px solid var(--trl-line);border-ra
     <img id="lgLogo" alt="Triunfo Logística">
     <h1>Painel dos Assistentes</h1>
     <p class="sub">Identifique-se para continuar.</p>
-    <div class="campo"><label for="lgUser">Usuário</label><select id="lgUser"></select></div>
+    <div class="campo"><label for="lgUser">E-mail</label><input id="lgUser" type="text" inputmode="email" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="nome.sobrenome@triunfologistica.com.br"></div>
     <div class="campo"><label for="lgPin">PIN</label><input id="lgPin" type="password" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="4 dígitos"></div>
     <div id="lgErro" class="erro" role="alert"></div>
     <button class="btn pri" type="submit" style="width:100%">Entrar</button>
@@ -610,9 +610,9 @@ input[type=password]{padding:9px 12px;border:1px solid var(--trl-line);border-ra
   /* ---------- usuários (identificação; PIN guardado só embaralhado) ---------- */
   var USERS=[
     {u:'andres.santos',nome:'Andres Santos',master:true,pin:'d4fb2596b5176'},
-    {u:'helio.marques',nome:'Helio Marques',pin:'10c570b5770c62'},
-    {u:'roger.macedo',nome:'Roger Macedo',pin:'a683f6f1360f0'},
-    {u:'matheus.santos',nome:'Matheus Santos',pin:'1caf64ca509b6d'}
+    {u:'helio.marques',nome:'Helio Marques',master:true,pin:'10c570b5770c62'},
+    {u:'roger.macedo',nome:'Roger Macedo',master:true,pin:'a683f6f1360f0'},
+    {u:'matheus.santos',nome:'Matheus Santos',master:true,pin:'1caf64ca509b6d'}
   ];
   var PIN_PADRAO='1234', U=null;
   function h53(str){var h1=0xdeadbeef,h2=0x41c6ce57;for(var i=0,ch;i<str.length;i++){ch=str.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677)}
@@ -730,7 +730,7 @@ input[type=password]{padding:9px 12px;border:1px solid var(--trl-line);border-ra
     if(!nome){msg.textContent='Informe o nome.';$('pNome').focus();return}
     if(!iso2dia(ini)){msg.textContent='Escolha o primeiro dia de trabalho.';$('pInicio').focus();return}
     var o={nome:nome,prof:$('pProf').value.trim()||'Assistente de Operações',turno:document.querySelector('input[name=turno]:checked').value,inicio:ini};
-    if(gravar(o)){msg.style.color='var(--trl-ok)';msg.textContent='Perfil salvo.';registrar('Perfil salvo')}else{msg.textContent='Não foi possível salvar neste navegador.'}
+    if(gravar(o)){nuvemPut('perfis/'+U.u,o);msg.style.color='var(--trl-ok)';msg.textContent='Perfil salvo.';registrar('Perfil salvo')}else{msg.textContent='Não foi possível salvar neste navegador.'}
     topo();renderCal();
     var d=iso2dia(ini);mes=new Date(new Date().getFullYear(),new Date().getMonth(),1);renderCal();
   });
@@ -954,7 +954,7 @@ input[type=password]{padding:9px 12px;border:1px solid var(--trl-line);border-ra
       :'<tr><td colspan="5" class="lu-vazio">Nenhum navio previsto'+(q?' com essa busca':'')+'.</td></tr>';
   }
   $('luBusca').addEventListener('input',renderLU);
-  $('luChaveForm').addEventListener('submit',function(e){e.preventDefault();var v=$('luChave').value.trim();if(!v)return;lsSet(CK,v);$('luChave').value='';if(GST)GST.chaveErrada=false;registrar('Salvou a chave do Line Up');carregarGeport();renderLU()});
+  $('luChaveForm').addEventListener('submit',function(e){e.preventDefault();var v=$('luChave').value.trim();if(!v)return;lsSet(CK,v);nuvemPut('config/chave',v);$('luChave').value='';if(GST)GST.chaveErrada=false;registrar('Salvou a chave do Line Up');carregarGeport();renderLU()});
 
 
   /* ----- Atualizar agora (pede ao GitHub para rodar o robô) ----- */
@@ -986,8 +986,8 @@ input[type=password]{padding:9px 12px;border:1px solid var(--trl-line);border-ra
   }
   $('luGeAgora').addEventListener('click',function(){disparar('geport.yml','Geport')});
   $('luPrat').addEventListener('click',function(){disparar('praticagem.yml','Praticagem')});
-  $('luTokenForm').addEventListener('submit',function(e){e.preventDefault();var v=$('luToken').value.trim();if(!v)return;lsSet(TK,v);$('luToken').value='';$('luTokenMsg').style.color='var(--trl-ok)';$('luTokenMsg').textContent='Chave salva neste computador. Clique de novo em "Atualizar agora".';registrar('Salvou a chave do GitHub')});
-  $('luTokenLimpa').addEventListener('click',function(){lsDel(TK);$('luTokenMsg').style.color='var(--trl-ok)';$('luTokenMsg').textContent='Chave removida deste computador.'});
+  $('luTokenForm').addEventListener('submit',function(e){e.preventDefault();var v=$('luToken').value.trim();if(!v)return;lsSet(TK,v);nuvemPut('config/token',v);$('luToken').value='';$('luTokenMsg').style.color='var(--trl-ok)';$('luTokenMsg').textContent='Chave salva (vale em qualquer computador). Clique de novo em "Atualizar agora".';registrar('Salvou a chave do GitHub')});
+  $('luTokenLimpa').addEventListener('click',function(){lsDel(TK);nuvemPut('config/token',null);$('luTokenMsg').style.color='var(--trl-ok)';$('luTokenMsg').textContent='Chave removida.'});
 
   /* ----- Solicitar Inspeção ----- */
   var inspNavio=null;
@@ -1033,7 +1033,7 @@ input[type=password]{padding:9px 12px;border:1px solid var(--trl-line);border-ra
 
   /* ---------- Login com Firebase (usuário + PIN) ---------- */
   var FB={on:false,api:'',db:'',tok:null,ref:null,exp:0,pinPadrao:false};
-  var FB_DOM='@painel-triunfo.app';
+  var FB_DOM='@triunfologistica.com.br';
   var fbSenha=function(pin){return 'pn-'+pin};
   function fbConfig(){
     return fetch('firebase-config.json?_='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).catch(function(){return null})
@@ -1702,7 +1702,7 @@ async function readPdf(file){await loadPdf();
     e.preventDefault();var m=$('rtCfgMsg'),u=$('rtDbUrl').value.trim().replace(/\/+$/,''),ch=$('rtChave').value;
     m.style.color='var(--trl-red)';
     if(!/^https:\/\/[a-z0-9.-]+\.(firebaseio\.com|firebasedatabase\.app)$/i.test(u)){m.textContent='Endereço inválido. Ele termina em firebaseio.com ou firebasedatabase.app.';return}
-    if(ch)lsSet(CK,ch);
+    if(ch){lsSet(CK,ch);nuvemPut('config/chave',ch)}
     if(!lsGet(CK)){m.textContent='Informe a chave do Line Up.';return}
     lsSet(RK_DB,u);RT.hash=null;m.style.color='var(--trl-ok)';m.textContent='Salvo. Sincronizando…';
     /* se o banco está vazio e há dados locais, sobe os locais */
@@ -1756,21 +1756,43 @@ async function readPdf(file){await loadPdf();
     if(frame){frame.remove();frame=null}
     $('logLista').innerHTML='';$('pNome').value='';$('pInicio').value='';$('pinAtual').value=$('pinNovo').value=$('pinConf').value='';$('perfilSub').textContent='';
     var ult=lsGet('painelUltimo'),sel=$('lgUser');
-    if(!sel.options.length){sel.innerHTML=USERS.map(function(x){return '<option value="'+x.u+'">'+x.nome+' ('+x.u+')</option>'}).join('')}
-    if(ult&&achar(ult))sel.value=ult;
+    sel.value=(ult&&achar(ult))?ult+FB_DOM:'';
     $('lgPin').value='';$('lgErro').textContent='';$('lgEsqueci').textContent='Esqueci meu PIN neste computador';esq=false;
-    setTimeout(function(){$('lgPin').focus()},50);
+    setTimeout(function(){(sel.value?$('lgPin'):sel).focus()},50);
+  }
+  /* ---------- dados da conta na nuvem (login de qualquer computador) ---------- */
+  function nuvemUrl(p){return fbToken().then(function(t){return FB.db+'/painel/'+p+'.json?auth='+encodeURIComponent(t)})}
+  function nuvemPut(p,v){
+    if(!FB.on||!U)return Promise.resolve();
+    return nuvemUrl(p).then(function(u){return fetch(u,{method:v===null?'DELETE':'PUT',body:v===null?undefined:JSON.stringify(v)})}).catch(function(){})}
+  function nuvemGet(p){return nuvemUrl(p).then(function(u){return fetch(u+'&_='+Date.now(),{cache:'no-store'})}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})}
+  /* chave do Line Up e chave do GitHub: uma só para todos; perfil: um por usuário */
+  function nuvemSync(){
+    if(!FB.on||!U)return Promise.resolve(false);
+    var uu=U.u,mud=false;
+    return Promise.all([nuvemGet('config').catch(function(){return null}),nuvemGet('perfis/'+uu).catch(function(){return null})]).then(function(a){
+      var cfg=a[0]||{},pf=a[1],loc={chave:(lsGet(CK)||'').trim(),token:(lsGet(TK)||'').trim()},up={};
+      ['chave','token'].forEach(function(k){var ls=k==='chave'?CK:TK;
+        if(cfg[k]){if(cfg[k]!==loc[k]){lsSet(ls,cfg[k]);mud=true}}
+        else if(loc[k])up[k]=loc[k]});
+      var ps=[];
+      Object.keys(up).forEach(function(k){ps.push(nuvemPut('config/'+k,up[k]))});
+      if(pf&&pf.nome){var atual=lsGet(KEY());var novo=JSON.stringify(pf);if(atual!==novo){lsSet(KEY(),novo);mud=true}}
+      else{var l=ler();if(l)ps.push(nuvemPut('perfis/'+uu,l))}
+      return Promise.all(ps).then(function(){return mud})},function(){return false});
   }
   function mostrarApp(){
     document.body.classList.remove('sem-login');$('login').hidden=true;topo();rota();
+    nuvemSync().then(function(mud){if(mud&&U){lastRota='';topo();rota();if(typeof carregarForm==='function')carregarForm()}});
   }
   var esq=false;
+  function lgU(){var v=($('lgUser').value||'').trim().toLowerCase(),i=v.indexOf('@');return i>=0?((v.slice(i)===FB_DOM||v.slice(i)==='@painel-triunfo.app')?v.slice(0,i):''):v}
   $('formLogin').addEventListener('submit',function(e){
-    e.preventDefault();var u=$('lgUser').value,pin=$('lgPin').value;
+    e.preventDefault();var u=lgU(),pin=$('lgPin').value;
     var ok=function(){U=achar(u);lsSet('painelSessao',u);lsSet('painelUltimo',u);registrar('Entrou');lastRota='';
       if(!location.hash)location.hash='#inicio';mostrarApp()};
     var erro=function(t){$('lgErro').style.color='';$('lgErro').textContent=t;$('lgPin').value='';$('lgPin').focus()};
-    if(!achar(u)){erro('Usuário inválido.');return}
+    if(!achar(u)){erro('E-mail não cadastrado.');return}
     if(FB.on){
       if(!/^\d{4}$/.test(pin)){erro('O PIN tem 4 números.');return}
       var bt=this.querySelector('button[type=submit]');bt.disabled=true;$('lgErro').style.color='var(--trl-gray)';$('lgErro').textContent='Entrando…';
@@ -1781,13 +1803,13 @@ async function readPdf(file){await loadPdf();
     ok();
   });
   $('lgEsqueci').addEventListener('click',function(){
-    var u=$('lgUser').value;
+    var u=lgU();
     if(FB.on){this.textContent='Esqueci meu PIN';$('lgErro').style.color='';$('lgErro').textContent='Peça ao MASTER para apagar o seu usuário no Firebase; depois o PIN volta a ser 1234.';return}
     if(!esq){esq=true;this.textContent='Clique de novo para voltar ao PIN padrão (1234) deste usuário';return}
     if(FB.on){this.textContent='Esqueci meu PIN neste computador';$('lgErro').style.color='';$('lgErro').textContent='Peça ao MASTER para apagar o seu usuário no Firebase; depois o PIN volta a ser 1234.';return}
     lsDel('painelPin:'+u);esq=false;this.textContent='Esqueci meu PIN neste computador';$('lgErro').style.color='var(--trl-ok)';$('lgErro').textContent='PIN padrão restaurado neste computador.';$('lgPin').focus();
   });
-  $('btnSair').addEventListener('click',function(){registrar('Saiu');U=null;lsDel('painelSessao');lsDel('painelFbRef');FB.tok=null;FB.ref=null;location.hash='#inicio';mostrarLogin()});
+  $('btnSair').addEventListener('click',function(){registrar('Saiu');if(FB.on){lsDel(CK);lsDel(TK);lsDel('painelPerfil:'+U.u)}U=null;lsDel('painelSessao');lsDel('painelFbRef');FB.tok=null;FB.ref=null;location.hash='#inicio';mostrarLogin()});
   $('lgLogo').src=$('hdrLogo').src;
   function arranque(){
     var sess=lsGet('painelSessao');
