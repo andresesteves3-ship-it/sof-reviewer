@@ -183,7 +183,75 @@ async function trocarData(page, ddmmyyyy) {
 }
 const dm = d => String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth() + 1).padStart(2, '0') + '/' + d.getFullYear();
 
+
+// ====================== EMISSÃO SOB DEMANDA (PDF da requisição / DA9) ======================
+// Disparado pelo painel (workflow ogmo-emitir.yml) com OGMO_EMITIR={"id","data","req","tipo":"req"|"da9"}.
+// Clica no botão do OGMO, captura o PDF gerado e grava dados/emissao-<id>.enc.json CRIPTOGRAFADO (chave LINEUP_KEY).
+const ARQ_EM = path.join(DIR, 'emissao-status.json');
+async function emitirMain() {
+  let E = {}; try { E = JSON.parse(process.env.OGMO_EMITIR || '{}'); } catch (e) {}
+  const st = { id: String(E.id || ''), tipo: E.tipo || '', req: E.req || '', ok: false, erro: '', em: Date.now(), diag: [] };
+  let browser, page;
+  try {
+    if (!EMPRESA || !USER || !PASS || !KEY) throw new Error('Faltam os Secrets OGMO_EMPRESA, OGMO_USER, OGMO_PASS e/ou LINEUP_KEY no GitHub.');
+    if (!/^\d{5,}-\d+$/.test(E.req || '') || !/^(req|da9)$/.test(E.tipo || '') || !/^\d{2}\/\d{2}\/\d{4}$/.test(E.data || '') || !/^\d{10,16}$/.test(st.id)) throw new Error('Pedido de emissão inválido.');
+    browser = await chromium.launch();
+    const ctx = await browser.newContext({ viewport: { width: 1500, height: 950 }, locale: 'pt-BR', acceptDownloads: true });
+    page = await ctx.newPage(); page.setDefaultTimeout(30000);
+    // PDFs que o sistema devolver (em qualquer aba)
+    const pdfs = [];
+    ctx.on('response', async r => { try { const ct = (r.headers()['content-type'] || '').toLowerCase(); if (/pdf/.test(ct)) { const b = await r.body(); if (b && b.length > 500) pdfs.push(b); } } catch (e) {} });
+    page.on('dialog', d => { st.diag.push('aviso: ' + mascarar(d.message()).slice(0, 100)); (E.tipo === 'da9' ? d.accept() : d.dismiss()).catch(() => {}); });
+    await entrar(page);
+    let fr = await abrirRegistro(page);
+    await escolherFiltros(fr);
+    fr = await frameDaTela(page);
+    const c0 = await fr.evaluate(() => window.__rb.campoData());
+    if (c0 && c0.v !== E.data) { await trocarData(page, E.data); fr = await frameDaTela(page); await escolherFiltros(fr); }
+    fr = await frameDaTela(page);
+    const cel = fr.getByText(E.req, { exact: true }).first();
+    if (!(await cel.count())) throw new Error('A requisição ' + E.req + ' não apareceu na grade do dia ' + E.data + '.');
+    await cel.click(); await espera(2000);
+    fr = await frameDaTela(page);
+    let alvo;
+    if (E.tipo === 'req') {
+      const linha = fr.locator('tr', { has: fr.getByText(E.req, { exact: true }) }).last();
+      alvo = linha.locator('input[type=image], img, button, a').last();
+      if (!(await alvo.count())) throw new Error('Não achei o ícone de PDF na linha da requisição.');
+    } else {
+      alvo = fr.locator('input[value="DA9"], button:has-text("DA9"), a:has-text("DA9"), img[alt*="DA9"], [title*="DA9"]').first();
+      if (!(await alvo.count())) alvo = fr.getByText(/^\s*DA9\s*$/).first();
+      if (!(await alvo.count())) throw new Error('Não achei o botão DA9 na tela.');
+    }
+    let pop = null, down = null;
+    ctx.waitForEvent('page', { timeout: 40000 }).then(p => { pop = p; }, () => {});
+    page.waitForEvent('download', { timeout: 40000 }).then(d => { down = d; }, () => {});
+    await alvo.click();
+    const t0 = Date.now();
+    while (Date.now() - t0 < 40000 && !pdfs.length && !down) { await espera(400); if (pop && Date.now() - t0 > 10000) break; }
+    await espera(2500);
+    let buf = null;
+    if (pdfs.length) buf = pdfs.sort((a, b) => b.length - a.length)[0];
+    else if (down) buf = fs.readFileSync(await down.path());
+    else if (pop) { await pop.waitForLoadState('domcontentloaded').catch(() => {}); st.diag.push('janela sem PDF direto; imprimida como PDF'); buf = await pop.pdf({ format: 'A4', printBackground: true }); }
+    if (!buf || buf.length < 500) throw new Error('O OGMO não devolveu nenhum documento depois do clique (' + (E.tipo === 'da9' ? 'a equipe já está escalada?' : 'sem janela nem download') + ').');
+    fs.mkdirSync(DIR, { recursive: true });
+    fs.writeFileSync(path.join(DIR, 'emissao-' + st.id + '.enc.json'), JSON.stringify(cifrar({ nome: (E.tipo === 'da9' ? 'DA9-' : 'Requisicao-') + E.req + '.pdf', tipo: E.tipo, req: E.req, b64: buf.toString('base64') })) + '\n');
+    st.ok = true; st.bytes = buf.length;
+    console.log('OK: documento emitido (' + buf.length + ' bytes), criptografado.');
+  } catch (e) {
+    let extra = '';
+    try { if (page) extra = ' Frames=' + JSON.stringify(await resumoFrames(page)).slice(0, 500); } catch (x) {}
+    st.erro = mascarar(String(e.message || e) + extra).slice(0, 800);
+    console.error('FALHOU:', st.erro);
+  } finally { if (browser) await browser.close(); }
+  // limpeza: apaga emissões com mais de 1 dia
+  try { for (const n of fs.readdirSync(DIR)) { const m = n.match(/^emissao-(\d{10,16})\.enc\.json$/); if (m && Date.now() - Number(m[1]) > 864e5) fs.unlinkSync(path.join(DIR, n)); } } catch (e) {}
+  fs.mkdirSync(DIR, { recursive: true }); fs.writeFileSync(ARQ_EM, JSON.stringify(st) + '\n');
+}
+
 (async () => {
+  if (process.env.OGMO_EMITIR) { await emitirMain(); return; }
   let st = { ok: false, erro: '', atualizado: new Date().toISOString() };
   try { st.ultimoSucesso = JSON.parse(fs.readFileSync(ARQ_ST, 'utf8')).ultimoSucesso; } catch (e) {}
   let browser, page;
