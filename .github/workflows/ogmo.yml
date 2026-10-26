@@ -1,0 +1,46 @@
+name: Robô do OGMO
+on:
+  schedule:
+    - cron: '22 * * * *'     # a cada hora (minuto 22)
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ogmo
+  cancel-in-progress: false
+jobs:
+  ler:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-audit --no-fund
+      - uses: actions/cache@v4
+        id: pw
+        with:
+          path: ~/.cache/ms-playwright
+          key: pw-${{ runner.os }}-1.49.1
+      - if: steps.pw.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium
+      - if: steps.pw.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
+      - run: node scripts/ogmo.js
+        env:
+          OGMO_EMPRESA: ${{ secrets.OGMO_EMPRESA }}
+          OGMO_USER: ${{ secrets.OGMO_USER }}
+          OGMO_PASS: ${{ secrets.OGMO_PASS }}
+          LINEUP_KEY: ${{ secrets.LINEUP_KEY }}
+      - name: Salvar dados
+        run: |
+          git config user.name "robo-ogmo"
+          git config user.email "robo-ogmo@users.noreply.github.com"
+          git add dados/ogmo-status.json
+          if [ -f dados/ogmo.enc.json ]; then git add dados/ogmo.enc.json; fi
+          if git diff --cached --quiet; then echo "Nada para salvar"; else
+            git commit -m "OGMO: atualização automática"
+            git pull --rebase origin "${GITHUB_REF_NAME}" || true
+            git push
+          fi
