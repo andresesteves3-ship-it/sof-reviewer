@@ -1,9 +1,9 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-26T22:57:23.475Z",
- "ultimoSucesso": "2026-10-26T22:57:23.475Z",
- "total": 4,
+ "atualizado": "2026-10-26T23:51:40.444Z",
+ "ultimoSucesso": "2026-10-26T23:51:40.444Z",
+ "total": 9,
  "dias": [
   {
    "data": "26/10/2026",
@@ -12,8 +12,8 @@
   },
   {
    "data": "27/10/2026",
-   "n": 0,
-   "erro": "Perdi a tela de requisições."
+   "n": 5,
+   "erro": ""
   }
  ],
  "diag": {
