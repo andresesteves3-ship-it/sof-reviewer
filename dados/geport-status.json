@@ -1,8 +1,8 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-26T11:16:07.334Z",
- "ultimoSucesso": "2026-10-26T11:16:07.334Z",
+ "atualizado": "2026-10-26T12:03:09.077Z",
+ "ultimoSucesso": "2026-10-26T12:03:09.077Z",
  "total": 10,
  "previstos": 7,
  "diag": {
@@ -14,7 +14,7 @@
   "icones": {
    "highlight_off": 10,
    "alarm": 10,
-   "check_circle": 4,
+   "check_circle": 5,
    "directions_boat": 3
   },
   "modo": "so-data-inicio"
