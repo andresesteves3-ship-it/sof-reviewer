@@ -1,0 +1,57 @@
+name: Emitir documento do OGMO
+on:
+  workflow_dispatch:
+    inputs:
+      id:
+        description: 'Código do pedido (gerado pelo painel)'
+        required: true
+      data:
+        description: 'Data da requisição (dd/mm/aaaa)'
+        required: true
+      req:
+        description: 'Número da requisição'
+        required: true
+      tipo:
+        description: 'req = PDF da requisição | da9 = DA9 mão de obra'
+        required: true
+permissions:
+  contents: write
+concurrency:
+  group: ogmo
+  cancel-in-progress: false
+jobs:
+  emitir:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-audit --no-fund
+      - uses: actions/cache@v4
+        id: pw
+        with:
+          path: ~/.cache/ms-playwright
+          key: pw-${{ runner.os }}-1.49.1
+      - if: steps.pw.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium
+      - if: steps.pw.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
+      - run: node scripts/ogmo.js
+        env:
+          OGMO_EMITIR: ${{ format('{{"id":"{0}","data":"{1}","req":"{2}","tipo":"{3}"}}', inputs.id, inputs.data, inputs.req, inputs.tipo) }}
+          OGMO_EMPRESA: ${{ secrets.OGMO_EMPRESA }}
+          OGMO_USER: ${{ secrets.OGMO_USER }}
+          OGMO_PASS: ${{ secrets.OGMO_PASS }}
+          LINEUP_KEY: ${{ secrets.LINEUP_KEY }}
+      - name: Salvar dados
+        run: |
+          git config user.name "robo-ogmo"
+          git config user.email "robo-ogmo@users.noreply.github.com"
+          git add -A dados
+          if git diff --cached --quiet; then echo "Nada para salvar"; else
+            git commit -m "OGMO: documento emitido"
+            git pull --rebase origin "${GITHUB_REF_NAME}" || true
+            git push
+          fi
