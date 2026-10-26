@@ -11,7 +11,7 @@ concurrency:
 jobs:
   ler:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -37,8 +37,7 @@ jobs:
         run: |
           git config user.name "robo-ogmo"
           git config user.email "robo-ogmo@users.noreply.github.com"
-          git add dados/ogmo-status.json
-          if [ -f dados/ogmo.enc.json ]; then git add dados/ogmo.enc.json; fi
+          git add -A dados
           if git diff --cached --quiet; then echo "Nada para salvar"; else
             git commit -m "OGMO: atualização automática"
             git pull --rebase origin "${GITHUB_REF_NAME}" || true
