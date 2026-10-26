@@ -13,9 +13,9 @@ COMO ATUALIZAR NO GITHUB (repositório sof-reviewer)
   4. Commit changes. Espere 2 minutos e abra o endereço.
   O endereço continua o mesmo; o app instalado passa a abrir o painel.
 
-ENTRADA POR IDENTIFICAÇÃO: usuário + PIN de 4 dígitos (padrão 1234, trocável no Perfil).
-É identificação para rastreabilidade, NÃO é segurança: o código do site é público e o PIN trocado vale só no computador onde foi trocado.
-Os usuários estão na lista USERS dentro do index.html. O registro de atividade fica salvo só no computador usado.
+ENTRADA: e-mail da Triunfo + senha (mínimo 6 caracteres), com contas criadas no Firebase (Authentication). Veja FIREBASE-PASSO-A-PASSO.txt.
+Todos os usuários têm o mesmo nível (MASTER). A senha vale em qualquer computador e pode ser trocada em Meu perfil.
+O registro de atividade fica salvo só no computador usado.
 
 LINE UP (0.5.0)
   Lista só os navios PREVISTOS do Geport (sem data de início, não finalizados/cancelados), com ETA e carga, e a situação do prático na Praticagem RJ.
@@ -46,3 +46,42 @@ ROBÔ DO GEPORT (0.6.0)
     4. No Line Up, digitar a chave de acesso (card no topo). Pronto: atualiza sozinho a cada hora.
   Se der "FALHOU", o texto do erro aparece no log do job e no Line Up (login recusado, captcha, tabela não apareceu...). O favorito do Geport continua funcionando como alternativa.
   Segurança: use, se a TI permitir, um usuário de integração só de leitura. Troque a senha do Geport que foi colada no chat. Quem trocar a senha do Geport precisa atualizar o Secret GEPORT_PASS.
+
+
+ROTINAS (v0.8.0)
+- No Line Up, botão INICIAR cria a frente do navio em Rotinas.
+- Para compartilhar entre os Assistentes, siga o FIREBASE-PASSO-A-PASSO.txt.
+
+LOGIN COM FIREBASE (v0.9.0)
+- Siga o FIREBASE-PASSO-A-PASSO.txt (inclui o arquivo firebase-config.json). Sem ele, o login segue como antes.
+
+REQUISIÇÕES / ROBÔ DO OGMO (v0.10.0)
+1) No GitHub (repositório sof-reviewer): Settings > Secrets and variables > Actions > New repository secret.
+   Crie 3 segredos (VOCÊ digita; não envie senha em chat): OGMO_EMPRESA (250), OGMO_USER (seu login) e OGMO_PASS (sua senha).
+   LINEUP_KEY já existe e é a mesma do Line Up.
+2) Suba scripts/ogmo.js (Add file > Upload files, pasta scripts) e crie o arquivo .github/workflows/ogmo.yml
+   (Add file > Create new file, com esse nome; cole o conteúdo do arquivo do zip).
+3) Actions > Robô do OGMO > Run workflow. Depois abra a aba Requisições do painel.
+O robô só LÊ (nunca cria, altera ou cancela requisições). Lê hoje e amanhã.
+
+CATÁLOGO DE REQUISIÇÕES (v0.12.0)
+- Faz parte do painel: Requisições > Catálogo de modelos. Consulta para todos; incluir, editar, excluir e importar PDF só o usuário MASTER.
+- Com o login Firebase configurado, os modelos e o histórico são compartilhados entre os Assistentes.
+- Em Requisições lidas, a coluna "Catálogo" compara a composição lida do OGMO com os modelos (confere / difere / sem modelo).
+
+EMITIR PDF DA REQUISIÇÃO E DA9 (aba Requisições)
+- Em cada requisição há os botões PDF e DA9 (o DA9 só habilita quando a equipe está escalada).
+- O painel pede ao robô (workflow ogmo-emitir.yml); em 1 a 2 minutos o arquivo aparece como link na própria tela.
+- Precisa de: scripts/ogmo.js atualizado, .github/workflows/ogmo-emitir.yml criado, os Secrets do OGMO e a chave do GitHub (Actions: Read and write) cadastrada na aba Line Up.
+- Os PDFs ficam criptografados no repositório (dados/emissao-*.enc.json) e são apagados depois de 1 dia.
+
+RELATÓRIO OFICIAL (PDF) DE CADA REQUISIÇÃO
+- O robô de leitura do OGMO (a cada hora) também clica em "Gera Relatório da Requisição Selecionada" e guarda o PDF, criptografado, em dados/rpdf/.
+- Só baixa de novo quando a requisição muda; até 15 novos por rodada (OGMO_PDFS_MAX); OGMO_PDFS=0 desliga.
+- O botão PDF do painel abre esse arquivo na hora. Se ainda não existir, o painel gera uma cópia própria.
+
+DA9 (aba Requisições)
+- O robô de leitura também baixa o DA9 das requisições já escaladas (dados/da9/, criptografado) e o botão DA9 abre na hora.
+- Se ainda não foi baixado, o botão pede ao robô (ogmo-emitir.yml) e o arquivo aparece em 1 a 2 minutos.
+- OGMO_DA9=0 desliga o download automático do DA9 (ele traz nome e matrícula dos trabalhadores).
+- Segurança do robô: ele bloqueia qualquer botão que inclua, altere, cancele ou duplique requisições; só consulta e baixa relatórios.

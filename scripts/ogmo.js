@@ -137,6 +137,8 @@ async function escolherFiltros(fr) {
 async function frameDaTela(page) {
   const t = await frameCom(page, async fr => (await fr.getByText(/Requisição de Trabalhadores/).count()) ? true : null, 15000);
   if (!t) throw new Error('Perdi a tela de requisições.');
+  // IntraWeb: a tela só está pronta depois do onload (variável GActivateLock)
+  await t.fr.waitForFunction(() => typeof window.SubmitClickConfirm !== 'function' || typeof window.GActivateLock !== 'undefined', null, { timeout: 25000 }).catch(() => {});
   await t.fr.evaluate(NA_PAGINA);
   return t.fr;
 }
@@ -150,46 +152,86 @@ let CTX = null; const PDFBUF = [];
 let idxAnt = {}, idxNovo = {}, pdfsFeitos = 0;
 try { idxAnt = JSON.parse(fs.readFileSync(ARQ_IDX, 'utf8')); } catch (e) {}
 const sha = t => crypto.createHash('sha256').update(t).digest('hex').slice(0, 20);
-async function botaoRelatorio(fr) {
+// O sistema é IntraWeb: cada botão tem um nome (IWRELATORIO = PDF da requisição, IWIMAGE5 = DA9) e é acionado por SubmitClickConfirm.
+const IW = { req: 'IWRELATORIO', da9: 'IWIMAGE5' };
+const DA9ON = process.env.OGMO_DA9 !== '0';                       // OGMO_DA9=0 desliga o download automático do DA9
+const DIR_DA9 = path.join(DIR, 'da9');
+async function iwTem(fr) { return fr.evaluate(() => typeof window.SubmitClickConfirm === 'function').catch(() => false); }
+async function iwSubmit(fr, nome) { return fr.evaluate(n => { window.SubmitClickConfirm(n, '', true, ''); return true; }, nome); }
+// depois de um download a página não recarrega e o IntraWeb deixa a tela "trancada": solta a trava
+async function iwDestrancar(fr) { await fr.evaluate(() => { window.GSubmitting = false; try { window.ReleaseLock(); } catch (e) {} try { window.SetBusy(false); } catch (e) {} }).catch(() => {}); }
+async function botaoPorTexto(fr, tipo) {
+  const da9 = fr.locator('input[value="DA9"], button:has-text("DA9"), a:has-text("DA9"), img[alt*="DA9"], [title*="DA9"]').first();
+  if (tipo === 'da9') return (await da9.count()) ? da9 : null;
   let a = fr.locator('img[title*="Relat"], input[type=image][title*="Relat"], [alt*="Relat"], a[title*="Relat"], button[title*="Relat"]').first();
   if (await a.count()) return a;
-  const da9 = fr.locator('input[value="DA9"], button:has-text("DA9"), a:has-text("DA9"), img[alt*="DA9"], [title*="DA9"]').first();
   a = da9.locator('xpath=preceding::*[self::img or self::input or self::button or self::a][1]');
   return (await a.count()) ? a : null;
 }
-async function capturarRelatorio(page, alvo) {
+// aciona o botão e devolve os bytes do PDF (download, resposta application/pdf ou janela impressa)
+async function baixar(page, fr, tipo) {
+  const iw = await iwTem(fr);
+  let alvo = null;
+  if (!iw) { alvo = await botaoPorTexto(fr, tipo); if (!alvo) throw new Error(tipo === 'da9' ? 'botão DA9 não encontrado' : 'botão do relatório não encontrado'); }
   PDFBUF.length = 0;
   let pop = null, down = null;
   CTX.waitForEvent('page', { timeout: 30000 }).then(p => { pop = p; }, () => {});
   page.waitForEvent('download', { timeout: 30000 }).then(d => { down = d; }, () => {});
-  await alvo.click();
+  if (iw) await iwSubmit(fr, IW[tipo]); else await alvo.click();
   const t0 = Date.now();
   while (Date.now() - t0 < 30000 && !PDFBUF.length && !down) { await espera(400); if (pop && Date.now() - t0 > 9000) break; }
-  await espera(1500);
+  await espera(1200);
   let buf = null;
-  if (PDFBUF.length) buf = PDFBUF.slice().sort((a, b) => b.length - a.length)[0];
-  else if (down) buf = fs.readFileSync(await down.path());
+  if (down) buf = fs.readFileSync(await down.path());
+  else if (PDFBUF.length) buf = PDFBUF.slice().sort((a, b) => b.length - a.length)[0];
   else if (pop) { await pop.waitForLoadState('domcontentloaded').catch(() => {}); buf = await pop.pdf({ format: 'A4', printBackground: true }); }
   if (pop) await pop.close().catch(() => {});
   await page.bringToFront().catch(() => {});
-  if (!buf || buf.length < 500) throw new Error('sem PDF');
+  await iwDestrancar(fr);
+  if (!buf || buf.length < 500 || buf.slice(0, 4).toString() !== '%PDF') throw new Error('o OGMO não devolveu um PDF');
   return buf;
 }
+async function guardarPdf(dir, req, nome, buf) {
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, req + '.enc.json'), JSON.stringify(cifrar({ nome, b64: buf.toString('base64') })) + '\n');
+}
+// PDF da requisição e (se já escalada) DA9; só baixa de novo quando a requisição mudou
 async function pdfDaRequisicao(page, fr, req) {
-  const f = path.join(DIR_PDF, req.req + '.enc.json');
+  const f = path.join(DIR_PDF, req.req + '.enc.json'), fd = path.join(DIR_DA9, req.req + '.enc.json');
   const sig = sha(JSON.stringify([req.cancelada, req.escalada, req.local, req.periodo, req.comp, req.ternos]));
-  const ant = idxAnt[req.req];
-  if (ant && ant.sig === sig && fs.existsSync(f)) { idxNovo[req.req] = ant; req.pdf = 'ok'; return; }
-  if (pdfsFeitos >= MAX_PDFS) { if (ant && fs.existsSync(f)) { idxNovo[req.req] = ant; req.pdf = 'ok'; } return; }
-  const bt = await botaoRelatorio(fr);
-  if (!bt) { req.pdfErro = 'botão do relatório não encontrado'; return; }
-  pdfsFeitos++;
-  const buf = await capturarRelatorio(page, bt);
-  fs.mkdirSync(DIR_PDF, { recursive: true });
-  fs.writeFileSync(f, JSON.stringify(cifrar({ nome: 'Requisicao-' + req.req + '.pdf', b64: buf.toString('base64') })) + '\n');
-  idxNovo[req.req] = { sig, em: Date.now() }; req.pdf = 'ok';
+  const ant = idxAnt[req.req] || {}, novo = { sig: ant.sig || sig, em: ant.em || Date.now(), da9: ant.da9 };
+  const temPdf = ant.sig === sig && fs.existsSync(f), temDa9 = !!ant.da9 && fs.existsSync(fd);
+  if (temPdf) req.pdf = 'ok'; else if (ant.sig && fs.existsSync(f)) req.pdf = 'ok';   // mantém o anterior se não der para atualizar agora
+  if (temDa9) req.da9 = 'ok';
+  idxNovo[req.req] = novo;
+  if (!temPdf && pdfsFeitos < MAX_PDFS) {
+    pdfsFeitos++;
+    try { await guardarPdf(DIR_PDF, req.req, 'Requisicao-' + req.req + '.pdf', await baixar(page, fr, 'req')); novo.sig = sig; novo.em = Date.now(); req.pdf = 'ok'; delete req.pdfErro; }
+    catch (e) { req.pdfErro = String(e.message).slice(0, 60); }
+    fr = await frameDaTela(page);
+  }
+  if (DA9ON && /sim/i.test(req.escalada || '') && !temDa9 && pdfsFeitos < MAX_PDFS) {
+    pdfsFeitos++;
+    try { await guardarPdf(DIR_DA9, req.req, 'DA9-' + req.req + '.pdf', await baixar(page, fr, 'da9')); novo.da9 = Date.now(); req.da9 = 'ok'; }
+    catch (e) { req.da9Erro = String(e.message).slice(0, 60); }
+  }
 }
 
+// Segurança e velocidade: nenhum botão que altera requisição sai do navegador; imagens viram um GIF vazio (a tela só inicia depois de carregá-las).
+const GIF = Buffer.from('R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==', 'base64');
+const PROIBIDO = /^(BTN(?!ENTRAR$)|IWBUTTON)/i;
+let BLOQUEADO = '';
+async function protegerContexto(ctx) {
+  await ctx.route('**/*', route => {
+    const rq = route.request();
+    if (rq.method() === 'POST' && /\/EXEC$/i.test(rq.url())) {
+      let ac = ''; try { ac = new URLSearchParams(rq.postData() || '').get('IW_Action') || ''; } catch (e) {}
+      if (PROIBIDO.test(ac)) { BLOQUEADO = ac; return route.abort(); }
+    }
+    if (['image', 'media', 'font'].includes(rq.resourceType())) return route.fulfill({ status: 200, contentType: 'image/gif', body: GIF });
+    return route.continue();
+  });
+}
 async function lerDia(page, fr0) {
   let fr = await frameDaTela(page);
   let P = await fr.evaluate(() => window.__rb.principal());
@@ -248,10 +290,9 @@ async function emitirMain() {
     browser = await chromium.launch();
     const ctx = await browser.newContext({ viewport: { width: 1500, height: 950 }, locale: 'pt-BR', acceptDownloads: true });
     page = await ctx.newPage(); page.setDefaultTimeout(30000);
-    // PDFs que o sistema devolver (em qualquer aba)
-    const pdfs = [];
-    ctx.on('response', async r => { try { const ct = (r.headers()['content-type'] || '').toLowerCase(); if (/pdf/.test(ct)) { const b = await r.body(); if (b && b.length > 500) pdfs.push(b); } } catch (e) {} });
-    page.on('dialog', d => { st.diag.push('aviso: ' + mascarar(d.message()).slice(0, 100)); (E.tipo === 'da9' ? d.accept() : d.dismiss()).catch(() => {}); });
+    CTX = ctx; await protegerContexto(ctx);
+    ctx.on('response', async r => { try { if (/pdf/i.test(r.headers()['content-type'] || '')) { const b = await r.body(); if (b && b.length > 500) PDFBUF.push(b); } } catch (e) {} });
+    page.on('dialog', d => { st.diag.push('aviso: ' + mascarar(d.message()).slice(0, 100)); d.dismiss().catch(() => {}); });
     await entrar(page);
     let fr = await abrirRegistro(page);
     await escolherFiltros(fr);
@@ -263,30 +304,7 @@ async function emitirMain() {
     if (!(await cel.count())) throw new Error('A requisição ' + E.req + ' não apareceu na grade do dia ' + E.data + '.');
     await cel.click(); await espera(2000);
     fr = await frameDaTela(page);
-    let alvo;
-    // botão DA9 (barra de cima) e o ícone logo à esquerda dele = "Gera Relatório da Requisição Selecionada"
-    const botDA9 = () => { let l = fr.locator('input[value="DA9"], button:has-text("DA9"), a:has-text("DA9"), img[alt*="DA9"], [title*="DA9"]').first(); return l; };
-    if (E.tipo === 'req') {
-      alvo = fr.locator('img[title*="Relat"], input[type=image][title*="Relat"], [alt*="Relat"], a[title*="Relat"], button[title*="Relat"]').first();
-      if (!(await alvo.count())) alvo = botDA9().locator('xpath=preceding::*[self::img or self::input or self::button or self::a][1]');
-      if (!(await alvo.count())) throw new Error('Não achei o botão "Gera Relatório da Requisição Selecionada" (ao lado do DA9).');
-    } else {
-      alvo = botDA9();
-      if (!(await alvo.count())) alvo = fr.getByText(/^\s*DA9\s*$/).first();
-      if (!(await alvo.count())) throw new Error('Não achei o botão DA9 na tela.');
-    }
-    let pop = null, down = null;
-    ctx.waitForEvent('page', { timeout: 40000 }).then(p => { pop = p; }, () => {});
-    page.waitForEvent('download', { timeout: 40000 }).then(d => { down = d; }, () => {});
-    await alvo.click();
-    const t0 = Date.now();
-    while (Date.now() - t0 < 40000 && !pdfs.length && !down) { await espera(400); if (pop && Date.now() - t0 > 10000) break; }
-    await espera(2500);
-    let buf = null;
-    if (pdfs.length) buf = pdfs.sort((a, b) => b.length - a.length)[0];
-    else if (down) buf = fs.readFileSync(await down.path());
-    else if (pop) { await pop.waitForLoadState('domcontentloaded').catch(() => {}); st.diag.push('janela sem PDF direto; imprimida como PDF'); buf = await pop.pdf({ format: 'A4', printBackground: true }); }
-    if (!buf || buf.length < 500) throw new Error('O OGMO não devolveu nenhum documento depois do clique (' + (E.tipo === 'da9' ? 'a equipe já está escalada?' : 'sem janela nem download') + ').');
+    const buf = await baixar(page, fr, E.tipo);
     fs.mkdirSync(DIR, { recursive: true });
     fs.writeFileSync(path.join(DIR, 'emissao-' + st.id + '.enc.json'), JSON.stringify(cifrar({ nome: (E.tipo === 'da9' ? 'DA9-' : 'Requisicao-') + E.req + '.pdf', tipo: E.tipo, req: E.req, b64: buf.toString('base64') })) + '\n');
     st.ok = true; st.bytes = buf.length;
@@ -311,6 +329,7 @@ async function emitirMain() {
     if (!EMPRESA || !USER || !PASS || !KEY) throw new Error('Faltam os Secrets OGMO_EMPRESA, OGMO_USER, OGMO_PASS e/ou LINEUP_KEY no GitHub.');
     browser = await chromium.launch();
     CTX = await browser.newContext({ viewport: { width: 1500, height: 950 }, locale: 'pt-BR', acceptDownloads: true });
+    await protegerContexto(CTX);
     CTX.on('response', async rs => { try { if (/pdf/i.test(rs.headers()['content-type'] || '')) { const b = await rs.body(); if (b && b.length > 500) PDFBUF.push(b); } } catch (e) {} });
     page = await CTX.newPage();
     page.setDefaultTimeout(30000);
@@ -335,7 +354,8 @@ async function emitirMain() {
     const total = dias.reduce((a, d) => a + d.reqs.length, 0);
     // índice dos PDFs e limpeza dos que não existem mais (só se todos os dias foram lidos)
     if (PDFS) {
-      if (!dias.some(d => d.erro)) { try { for (const n of fs.readdirSync(DIR_PDF)) { if (!idxNovo[n.replace(/\.enc\.json$/, '')]) fs.unlinkSync(path.join(DIR_PDF, n)); } } catch (e) {} }
+      if (!dias.some(d => d.erro)) { try { for (const n of fs.readdirSync(DIR_PDF)) { if (!idxNovo[n.replace(/\.enc\.json$/, '')]) fs.unlinkSync(path.join(DIR_PDF, n)); } } catch (e) {}
+        try { for (const n of fs.readdirSync(DIR_DA9)) { if (!idxNovo[n.replace(/\.enc\.json$/, '')]) fs.unlinkSync(path.join(DIR_DA9, n)); } } catch (e) {} }
       else Object.keys(idxAnt).forEach(k => { if (!idxNovo[k] && fs.existsSync(path.join(DIR_PDF, k + '.enc.json'))) idxNovo[k] = idxAnt[k]; });
       fs.mkdirSync(DIR, { recursive: true }); fs.writeFileSync(ARQ_IDX, JSON.stringify(idxNovo) + '\n');
     }
@@ -347,7 +367,7 @@ async function emitirMain() {
   } catch (e) {
     let extra = '';
     try { if (page) extra = ' Frames=' + JSON.stringify(await resumoFrames(page)).slice(0, 600); } catch (x) {}
-    st.erro = mascarar(String(e.message || e) + extra).slice(0, 900);
+    st.erro = mascarar(String(e.message || e) + (BLOQUEADO ? ' [bloqueado: ' + BLOQUEADO + ']' : '') + extra).slice(0, 900);
     console.error('FALHOU:', st.erro);
   } finally {
     if (browser) await browser.close();
