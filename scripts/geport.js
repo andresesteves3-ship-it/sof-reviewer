@@ -175,11 +175,15 @@ async function lerTabela(page) {
     const contIcones = {};
     todos.forEach(r => r.sit.forEach(i => { contIcones[i] = (contIcones[i] || 0) + 1; }));
     const diag = { linhas: todos.length, semInicio: semIni.length, comInicio: todos.length - semIni.length, finalizados: todos.filter(fin).length, cancelados: todos.filter(canc).length, icones: contIcones, modo };
-    prev = prev.map(r => ({ cod: r.cod, navio: r.navio, eta: r.eta, etd: '', ini: '', fim: '', classe: r.classe, carga: r.carga, berco: '', origem: '', sit: r.sit }));
+    // além dos previstos, leva os demais navios (em operação, finalizados) só com nome e carga: o painel usa a carga para escolher o modelo do catálogo
+    const codsPrev = new Set(prev.map(r => r.cod));
+    const outros = todos.filter(r => !codsPrev.has(r.cod) && !canc(r)).map(r => ({ cod: r.cod, navio: r.navio, eta: r.eta, etd: '', ini: r.ini || 'sim', fim: '', classe: r.classe, carga: r.carga, berco: '', origem: '', sit: r.sit }));
+    const nPrev = prev.length;
+    prev = prev.map(r => ({ cod: r.cod, navio: r.navio, eta: r.eta, etd: '', ini: '', fim: '', classe: r.classe, carga: r.carga, berco: '', origem: '', sit: r.sit })).concat(outros);
     fs.mkdirSync(DIR, { recursive: true });
     fs.writeFileSync(ARQ_ENC, JSON.stringify({ ...cifrar({ geradoEm: Date.now(), dados: prev }), atualizado: st.atualizado }) + '\n');
-    st = { ok: true, erro: '', atualizado: st.atualizado, ultimoSucesso: st.atualizado, total: todos.length, previstos: prev.length, diag };
-    console.log('OK:', todos.length, 'linhas lidas;', prev.length, 'previstos (dados criptografados). Diagnóstico:', JSON.stringify(diag));
+    st = { ok: true, erro: '', atualizado: st.atualizado, ultimoSucesso: st.atualizado, total: todos.length, previstos: nPrev, diag };
+    console.log('OK:', todos.length, 'linhas lidas;', nPrev, 'previstos (dados criptografados). Diagnóstico:', JSON.stringify(diag));
   } catch (e) {
     st.erro = [USER, PASS].filter(Boolean).reduce((t, v) => t.split(v).join('***'), String(e.message || e)).slice(0, 500);
     console.error('FALHOU:', st.erro);
