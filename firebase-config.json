@@ -1,1 +1,5 @@
 https://painel-assistentes-default-rtdb.firebaseio.com/
+   {
+     "apiKey": "AIza...",
+     "dbUrl": "https://painel-assistentes-xxxx-default-rtdb.firebaseio.com"
+   }
