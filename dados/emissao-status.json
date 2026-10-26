@@ -1,1 +1,1 @@
-{"id":"1793039313415","tipo":"req","req":"25053316-1","ok":false,"erro":"O OGMO não devolveu nenhum documento depois do clique (sem janela nem download). Frames=[{\"sel\":4,\"tab\":7,\"inp\":46,\"txt\":\"Empresa: Perfil: Versão: 3.0.1 - 12/08/2026 18:30 *** - TRIUNFO LOGISTICA LTDA. Sistema de Requisição de Mão-de-Obra dos Portos Organizados \"}]","em":1793039702096,"diag":[]}
+{"id":"1793041903707","tipo":"da9","req":"25053313-1","ok":true,"erro":"","em":1793042660511,"diag":[],"bytes":9388}
