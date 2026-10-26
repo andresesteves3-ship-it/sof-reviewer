@@ -125,16 +125,13 @@
     {
      "t": 1793043679836,
      "e": "inicial"
+    },
+    {
+     "t": 1793057390517,
+     "e": "alterada"
     }
    ],
    "man": [
-    {
-     "pob": "26/10 18:30",
-     "navio": "HEROIC ACE .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } HEROIC ACE",
-     "m": "E",
-     "de": "",
-     "para": "TECONT5"
-    },
     {
      "pob": "27/10 14:00",
      "navio": "HEROIC ACE .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } HEROIC ACE",
@@ -1198,7 +1195,7 @@
  },
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-26T22:34:12.477Z",
- "ultimoSucesso": "2026-10-26T22:34:12.477Z",
- "total": 69
+ "atualizado": "2026-10-26T23:29:50.517Z",
+ "ultimoSucesso": "2026-10-26T23:29:50.517Z",
+ "total": 68
 }
