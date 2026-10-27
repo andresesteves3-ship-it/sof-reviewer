@@ -152,17 +152,14 @@ let CTX = null; const PDFBUF = [];
 let idxAnt = {}, idxNovo = {}, pdfsFeitos = 0;
 try { idxAnt = JSON.parse(fs.readFileSync(ARQ_IDX, 'utf8')); } catch (e) {}
 const sha = t => crypto.createHash('sha256').update(t).digest('hex').slice(0, 20);
-// O sistema é IntraWeb: cada botão tem um nome (IWRELATORIO = PDF da requisição, IWIMAGE5 = DA9) e é acionado por SubmitClickConfirm.
-const IW = { req: 'IWRELATORIO', da9: 'IWIMAGE5' };
-const DA9ON = process.env.OGMO_DA9 !== '0';                       // OGMO_DA9=0 desliga o download automático do DA9
-const DIR_DA9 = path.join(DIR, 'da9');
+// O sistema é IntraWeb: cada botão tem um nome (IWRELATORIO = PDF da requisição) e é acionado por SubmitClickConfirm.
+const IW = { req: 'IWRELATORIO' };
 async function iwTem(fr) { return fr.evaluate(() => typeof window.SubmitClickConfirm === 'function').catch(() => false); }
 async function iwSubmit(fr, nome) { return fr.evaluate(n => { window.SubmitClickConfirm(n, '', true, ''); return true; }, nome); }
 // depois de um download a página não recarrega e o IntraWeb deixa a tela "trancada": solta a trava
 async function iwDestrancar(fr) { await fr.evaluate(() => { window.GSubmitting = false; try { window.ReleaseLock(); } catch (e) {} try { window.SetBusy(false); } catch (e) {} }).catch(() => {}); }
 async function botaoPorTexto(fr, tipo) {
-  const da9 = fr.locator('input[value="DA9"], button:has-text("DA9"), a:has-text("DA9"), img[alt*="DA9"], [title*="DA9"]').first();
-  if (tipo === 'da9') return (await da9.count()) ? da9 : null;
+  const da9 = fr.locator('input[value="DA9"], button:has-text("DA9"), a:has-text("DA9"), img[alt*="DA9"], [title*="DA9"]').first();   // só como referência de posição
   let a = fr.locator('img[title*="Relat"], input[type=image][title*="Relat"], [alt*="Relat"], a[title*="Relat"], button[title*="Relat"]').first();
   if (await a.count()) return a;
   a = da9.locator('xpath=preceding::*[self::img or self::input or self::button or self::a][1]');
@@ -172,7 +169,7 @@ async function botaoPorTexto(fr, tipo) {
 async function baixar(page, fr, tipo) {
   const iw = await iwTem(fr);
   let alvo = null;
-  if (!iw) { alvo = await botaoPorTexto(fr, tipo); if (!alvo) throw new Error(tipo === 'da9' ? 'botão DA9 não encontrado' : 'botão do relatório não encontrado'); }
+  if (!iw) { alvo = await botaoPorTexto(fr, tipo); if (!alvo) throw new Error('botão do relatório não encontrado'); }
   PDFBUF.length = 0;
   let pop = null, down = null;
   CTX.waitForEvent('page', { timeout: 30000 }).then(p => { pop = p; }, () => {});
@@ -195,25 +192,18 @@ async function guardarPdf(dir, req, nome, buf) {
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, req + '.enc.json'), JSON.stringify(cifrar({ nome, b64: buf.toString('base64') })) + '\n');
 }
-// PDF da requisição e (se já escalada) DA9; só baixa de novo quando a requisição mudou
+// PDF da requisição; só baixa de novo quando a requisição mudou
 async function pdfDaRequisicao(page, fr, req) {
-  const f = path.join(DIR_PDF, req.req + '.enc.json'), fd = path.join(DIR_DA9, req.req + '.enc.json');
+  const f = path.join(DIR_PDF, req.req + '.enc.json');
   const sig = sha(JSON.stringify([req.cancelada, req.escalada, req.local, req.periodo, req.comp, req.ternos]));
-  const ant = idxAnt[req.req] || {}, novo = { sig: ant.sig || sig, em: ant.em || Date.now(), da9: ant.da9 };
-  const temPdf = ant.sig === sig && fs.existsSync(f), temDa9 = !!ant.da9 && fs.existsSync(fd);
+  const ant = idxAnt[req.req] || {}, novo = { sig: ant.sig || sig, em: ant.em || Date.now() };
+  const temPdf = ant.sig === sig && fs.existsSync(f);
   if (temPdf) req.pdf = 'ok'; else if (ant.sig && fs.existsSync(f)) req.pdf = 'ok';   // mantém o anterior se não der para atualizar agora
-  if (temDa9) req.da9 = 'ok';
   idxNovo[req.req] = novo;
   if (!temPdf && pdfsFeitos < MAX_PDFS) {
     pdfsFeitos++;
     try { await guardarPdf(DIR_PDF, req.req, 'Requisicao-' + req.req + '.pdf', await baixar(page, fr, 'req')); novo.sig = sig; novo.em = Date.now(); req.pdf = 'ok'; delete req.pdfErro; }
     catch (e) { req.pdfErro = String(e.message).slice(0, 60); }
-    fr = await frameDaTela(page);
-  }
-  if (DA9ON && /sim/i.test(req.escalada || '') && !temDa9 && pdfsFeitos < MAX_PDFS) {
-    pdfsFeitos++;
-    try { await guardarPdf(DIR_DA9, req.req, 'DA9-' + req.req + '.pdf', await baixar(page, fr, 'da9')); novo.da9 = Date.now(); req.da9 = 'ok'; }
-    catch (e) { req.da9Erro = String(e.message).slice(0, 60); }
   }
 }
 
@@ -276,52 +266,7 @@ async function trocarData(page, ddmmyyyy) {
 const dm = d => String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth() + 1).padStart(2, '0') + '/' + d.getFullYear();
 
 
-// ====================== EMISSÃO SOB DEMANDA (PDF da requisição / DA9) ======================
-// Disparado pelo painel (workflow ogmo-emitir.yml) com OGMO_EMITIR={"id","data","req","tipo":"req"|"da9"}.
-// Clica no botão do OGMO, captura o PDF gerado e grava dados/emissao-<id>.enc.json CRIPTOGRAFADO (chave LINEUP_KEY).
-const ARQ_EM = path.join(DIR, 'emissao-status.json');
-async function emitirMain() {
-  let E = {}; try { E = JSON.parse(process.env.OGMO_EMITIR || '{}'); } catch (e) {}
-  const st = { id: String(E.id || ''), tipo: E.tipo || '', req: E.req || '', ok: false, erro: '', em: Date.now(), diag: [] };
-  let browser, page;
-  try {
-    if (!EMPRESA || !USER || !PASS || !KEY) throw new Error('Faltam os Secrets OGMO_EMPRESA, OGMO_USER, OGMO_PASS e/ou LINEUP_KEY no GitHub.');
-    if (!/^\d{5,}-\d+$/.test(E.req || '') || !/^(req|da9)$/.test(E.tipo || '') || !/^\d{2}\/\d{2}\/\d{4}$/.test(E.data || '') || !/^\d{10,16}$/.test(st.id)) throw new Error('Pedido de emissão inválido.');
-    browser = await chromium.launch();
-    const ctx = await browser.newContext({ viewport: { width: 1500, height: 950 }, locale: 'pt-BR', acceptDownloads: true });
-    page = await ctx.newPage(); page.setDefaultTimeout(30000);
-    CTX = ctx; await protegerContexto(ctx);
-    ctx.on('response', async r => { try { if (/pdf/i.test(r.headers()['content-type'] || '')) { const b = await r.body(); if (b && b.length > 500) PDFBUF.push(b); } } catch (e) {} });
-    page.on('dialog', d => { st.diag.push('aviso: ' + mascarar(d.message()).slice(0, 100)); d.dismiss().catch(() => {}); });
-    await entrar(page);
-    let fr = await abrirRegistro(page);
-    await escolherFiltros(fr);
-    fr = await frameDaTela(page);
-    const c0 = await fr.evaluate(() => window.__rb.campoData());
-    if (c0 && c0.v !== E.data) { await trocarData(page, E.data); fr = await frameDaTela(page); await escolherFiltros(fr); }
-    fr = await frameDaTela(page);
-    const cel = fr.getByText(E.req, { exact: true }).first();
-    if (!(await cel.count())) throw new Error('A requisição ' + E.req + ' não apareceu na grade do dia ' + E.data + '.');
-    await cel.click(); await espera(2000);
-    fr = await frameDaTela(page);
-    const buf = await baixar(page, fr, E.tipo);
-    fs.mkdirSync(DIR, { recursive: true });
-    fs.writeFileSync(path.join(DIR, 'emissao-' + st.id + '.enc.json'), JSON.stringify(cifrar({ nome: (E.tipo === 'da9' ? 'DA9-' : 'Requisicao-') + E.req + '.pdf', tipo: E.tipo, req: E.req, b64: buf.toString('base64') })) + '\n');
-    st.ok = true; st.bytes = buf.length;
-    console.log('OK: documento emitido (' + buf.length + ' bytes), criptografado.');
-  } catch (e) {
-    let extra = '';
-    try { if (page) extra = ' Frames=' + JSON.stringify(await resumoFrames(page)).slice(0, 500); } catch (x) {}
-    st.erro = mascarar(String(e.message || e) + extra).slice(0, 800);
-    console.error('FALHOU:', st.erro);
-  } finally { if (browser) await browser.close(); }
-  // limpeza: apaga emissões com mais de 1 dia
-  try { for (const n of fs.readdirSync(DIR)) { const m = n.match(/^emissao-(\d{10,16})\.enc\.json$/); if (m && Date.now() - Number(m[1]) > 864e5) fs.unlinkSync(path.join(DIR, n)); } } catch (e) {}
-  fs.mkdirSync(DIR, { recursive: true }); fs.writeFileSync(ARQ_EM, JSON.stringify(st) + '\n');
-}
-
 (async () => {
-  if (process.env.OGMO_EMITIR) { await emitirMain(); return; }
   let st = { ok: false, erro: '', atualizado: new Date().toISOString() };
   try { st.ultimoSucesso = JSON.parse(fs.readFileSync(ARQ_ST, 'utf8')).ultimoSucesso; } catch (e) {}
   let browser, page;
@@ -354,8 +299,7 @@ async function emitirMain() {
     const total = dias.reduce((a, d) => a + d.reqs.length, 0);
     // índice dos PDFs e limpeza dos que não existem mais (só se todos os dias foram lidos)
     if (PDFS) {
-      if (!dias.some(d => d.erro)) { try { for (const n of fs.readdirSync(DIR_PDF)) { if (!idxNovo[n.replace(/\.enc\.json$/, '')]) fs.unlinkSync(path.join(DIR_PDF, n)); } } catch (e) {}
-        try { for (const n of fs.readdirSync(DIR_DA9)) { if (!idxNovo[n.replace(/\.enc\.json$/, '')]) fs.unlinkSync(path.join(DIR_DA9, n)); } } catch (e) {} }
+      if (!dias.some(d => d.erro)) { try { for (const n of fs.readdirSync(DIR_PDF)) { if (!idxNovo[n.replace(/\.enc\.json$/, '')]) fs.unlinkSync(path.join(DIR_PDF, n)); } } catch (e) {} }
       else Object.keys(idxAnt).forEach(k => { if (!idxNovo[k] && fs.existsSync(path.join(DIR_PDF, k + '.enc.json'))) idxNovo[k] = idxAnt[k]; });
       fs.mkdirSync(DIR, { recursive: true }); fs.writeFileSync(ARQ_IDX, JSON.stringify(idxNovo) + '\n');
     }
