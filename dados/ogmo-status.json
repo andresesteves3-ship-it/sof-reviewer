@@ -1,22 +1,6 @@
 {
- "ok": true,
- "erro": "",
- "atualizado": "2026-10-27T13:15:11.126Z",
- "ultimoSucesso": "2026-10-27T13:15:11.126Z",
- "total": 9,
- "dias": [
-  {
-   "data": "27/10/2026",
-   "n": 7,
-   "erro": ""
-  },
-  {
-   "data": "28/10/2026",
-   "n": 2,
-   "erro": ""
-  }
- ],
- "diag": {
-  "frames": 1
- }
+ "ok": false,
+ "erro": "Perdi a tela de requisições. Frames=[{\"sel\":0,\"tab\":0,\"inp\":0,\"txt\":\"\"}]",
+ "atualizado": "2026-10-27T14:11:02.648Z",
+ "ultimoSucesso": "2026-10-27T13:15:11.126Z"
 }
