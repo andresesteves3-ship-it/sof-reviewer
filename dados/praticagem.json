@@ -35,7 +35,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     }
    ]
@@ -131,7 +131,7 @@
      "vis": 1793121064563,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     }
    ]
@@ -208,7 +208,7 @@
      "vis": 1793121064563,
      "de": "TECONT5",
      "para": "",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     }
    ]
@@ -430,7 +430,7 @@
      "vis": 1793112013771,
      "de": "TECONT2",
      "para": "",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     }
    ]
@@ -503,7 +503,7 @@
      "vis": 1793129202316,
      "de": "TOLEO",
      "para": "",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     }
    ]
@@ -561,7 +561,7 @@
      "vis": 1793121064563,
      "de": "",
      "para": "TECONT4",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     },
     {
@@ -581,7 +581,7 @@
      "vis": 1793114790316,
      "de": "TECONT4",
      "para": "",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     }
    ]
@@ -635,7 +635,7 @@
      "vis": 1793121064563,
      "de": "",
      "para": "TECONT3",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     },
     {
@@ -645,7 +645,7 @@
      "vis": 1793112013771,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     }
    ]
@@ -656,6 +656,10 @@
     {
      "t": 1793043679836,
      "e": "inicial"
+    },
+    {
+     "t": 1793133824074,
+     "e": "alterada"
     }
    ],
    "man": [
@@ -668,7 +672,7 @@
      "secao": "BAIA DE GUANABARA"
     },
     {
-     "pob": "28/10 14:00",
+     "pob": "29/10 02:00",
      "navio": "SKANDI SALVADOR .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } SKANDI SALVADOR",
      "m": "M",
      "de": "BACS",
@@ -685,7 +689,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "BACS",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     },
     {
@@ -696,6 +700,16 @@
      "de": "BACS",
      "para": "SIDERURG2",
      "ult": 1793129202316,
+     "st": "remarcada"
+    },
+    {
+     "m": "M",
+     "pob": "29/10 02:00",
+     "ts": 1793250000000,
+     "vis": 1793133824074,
+     "de": "BACS",
+     "para": "SIDERURG2",
+     "ult": 1793133824074,
      "st": "prevista"
     }
    ]
@@ -739,7 +753,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     },
     {
@@ -749,7 +763,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     }
    ]
@@ -789,7 +803,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONT2",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     },
     {
@@ -799,7 +813,7 @@
      "vis": 1793112013771,
      "de": "TECONT2",
      "para": "",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     }
    ]
@@ -839,7 +853,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONT1",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     },
     {
@@ -849,7 +863,7 @@
      "vis": 1793112013771,
      "de": "TECONT1",
      "para": "",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     }
    ]
@@ -893,7 +907,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "A4",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     },
     {
@@ -903,7 +917,7 @@
      "vis": 1793112013771,
      "de": "A4",
      "para": "",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     }
    ]
@@ -935,7 +949,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TPASSAGE2",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     }
    ]
@@ -967,7 +981,7 @@
      "vis": 1793112013771,
      "de": "BNIC-AMRJ",
      "para": "RIO BRASIL TERMINAL (EX-INHAÚMA)",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     }
    ]
@@ -1007,7 +1021,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     },
     {
@@ -1017,7 +1031,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     }
    ]
@@ -1057,7 +1071,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     },
     {
@@ -1067,7 +1081,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     }
    ]
@@ -1107,7 +1121,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     },
     {
@@ -1117,7 +1131,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     }
    ]
@@ -1157,7 +1171,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     },
     {
@@ -1167,7 +1181,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     }
    ]
@@ -1656,7 +1670,7 @@
      "vis": 1793129202316,
      "de": "WPT 81",
      "para": "",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     }
    ]
@@ -1919,7 +1933,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TPASSAGE2",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     },
     {
@@ -1929,7 +1943,7 @@
      "vis": 1793112013771,
      "de": "TPASSAGE2",
      "para": "",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     }
    ]
@@ -2028,7 +2042,7 @@
      "vis": 1793114790316,
      "de": "",
      "para": "TECONT3",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     },
     {
@@ -2038,7 +2052,7 @@
      "vis": 1793114790316,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     }
    ]
@@ -2078,7 +2092,7 @@
      "vis": 1793114790316,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     },
     {
@@ -2088,7 +2102,7 @@
      "vis": 1793114790316,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     }
    ]
@@ -2128,7 +2142,7 @@
      "vis": 1793125989055,
      "de": "",
      "para": "TECONT5",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     },
     {
@@ -2138,7 +2152,7 @@
      "vis": 1793125989055,
      "de": "TECONT5",
      "para": "",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
      "st": "prevista"
     }
    ]
@@ -2170,7 +2184,71 @@
      "vis": 1793125989055,
      "de": "",
      "para": "WPT 63",
-     "ult": 1793129202316,
+     "ult": 1793133824074,
+     "st": "prevista"
+    }
+   ]
+  },
+  "ANGRA DOS REIS DIVPPNAVIO PADDING 0 MARGIN 0 BORDER NONE FONT FAMILY VERDANA FONT SIZE 11PX WHITE SPACE NORMAL BACKGROUND COLOR FFF COLOR 000 FONT FAMILY MONOSPACE BORDER RADIUS 6PX MARGIN TOP 5PX MAX WIDTH 600PX MAX HEIGHT 400PX MIN WIDTH 300PX DIVPPNAVIO TABLE BORDER 0 BORDER COLLAPSE COLLAPSE BORDER SPACING 1PX DIVPPNAVIO TABLE TH PADDING 2PX TEXT ALIGN CENTER VERTICAL ALIGN MIDDLE BORDER 1PX SOLID BLACK BACKGROUND 6B6B6B COLOR EFEFEF DIVPPNAVIO TABLE TD BORDER 1PX SOLID BLACK VERTICAL ALIGN MIDDLE DIVPPNAVIO DIVPPNAVIO TD MARGIN 0 PADDING 0 BORDER 0 BORDER WIDTH 0 BORDER COLLAPSE COLLAPSE TBPPNAVIO TD BACKGROUND COLOR WHITE TBPPNAVIO TR TD PADDING 3PX 5PX BORDER 1PX SOLID BFD3EE TBPPNAVIO TR NTH CHILD EVEN TBPPNAVIO TR NTH CHILD EVEN TD BACKGROUND COLOR EDF5FF ANGRA DOS REIS": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1793133824074,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "28/10 00:00",
+     "navio": "ANGRA DOS REIS .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } ANGRA DOS REIS",
+     "m": "S",
+     "de": "PP-1",
+     "para": "",
+     "secao": "BAIA DE GUANABARA"
+    }
+   ],
+   "nome": "ANGRA DOS REIS .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } ANGRA DOS REIS",
+   "mov": [
+    {
+     "m": "S",
+     "pob": "28/10 00:00",
+     "ts": 1793156400000,
+     "vis": 1793133824074,
+     "de": "PP-1",
+     "para": "",
+     "ult": 1793133824074,
+     "st": "prevista"
+    }
+   ]
+  },
+  "MADRE DE DEUS DIVPPNAVIO PADDING 0 MARGIN 0 BORDER NONE FONT FAMILY VERDANA FONT SIZE 11PX WHITE SPACE NORMAL BACKGROUND COLOR FFF COLOR 000 FONT FAMILY MONOSPACE BORDER RADIUS 6PX MARGIN TOP 5PX MAX WIDTH 600PX MAX HEIGHT 400PX MIN WIDTH 300PX DIVPPNAVIO TABLE BORDER 0 BORDER COLLAPSE COLLAPSE BORDER SPACING 1PX DIVPPNAVIO TABLE TH PADDING 2PX TEXT ALIGN CENTER VERTICAL ALIGN MIDDLE BORDER 1PX SOLID BLACK BACKGROUND 6B6B6B COLOR EFEFEF DIVPPNAVIO TABLE TD BORDER 1PX SOLID BLACK VERTICAL ALIGN MIDDLE DIVPPNAVIO DIVPPNAVIO TD MARGIN 0 PADDING 0 BORDER 0 BORDER WIDTH 0 BORDER COLLAPSE COLLAPSE TBPPNAVIO TD BACKGROUND COLOR WHITE TBPPNAVIO TR TD PADDING 3PX 5PX BORDER 1PX SOLID BFD3EE TBPPNAVIO TR NTH CHILD EVEN TBPPNAVIO TR NTH CHILD EVEN TD BACKGROUND COLOR EDF5FF MADRE DE DEUS": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1793133824074,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "28/10 16:00",
+     "navio": "MADRE DE DEUS .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } MADRE DE DEUS",
+     "m": "E",
+     "de": "",
+     "para": "PP-1",
+     "secao": "BAIA DE GUANABARA"
+    }
+   ],
+   "nome": "MADRE DE DEUS .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } MADRE DE DEUS",
+   "mov": [
+    {
+     "m": "E",
+     "pob": "28/10 16:00",
+     "ts": 1793214000000,
+     "vis": 1793133824074,
+     "de": "",
+     "para": "PP-1",
+     "ult": 1793133824074,
      "st": "prevista"
     }
    ]
@@ -2178,9 +2256,9 @@
  },
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-27T19:26:42.316Z",
- "ultimoSucesso": "2026-10-27T19:26:42.316Z",
- "total": 39,
+ "atualizado": "2026-10-27T20:43:44.074Z",
+ "ultimoSucesso": "2026-10-27T20:43:44.074Z",
+ "total": 41,
  "secoes": [
   "BAIA DE GUANABARA",
   "BAIA DE SEPETIBA",
