@@ -1,21 +1,21 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-27T20:18:07.552Z",
- "ultimoSucesso": "2026-10-27T20:18:07.552Z",
+ "atualizado": "2026-10-27T22:12:29.972Z",
+ "ultimoSucesso": "2026-10-27T22:12:29.972Z",
  "total": 10,
- "previstos": 8,
+ "previstos": 7,
  "diag": {
   "linhas": 10,
-  "semInicio": 8,
-  "comInicio": 2,
+  "semInicio": 7,
+  "comInicio": 3,
   "finalizados": 0,
   "cancelados": 10,
   "icones": {
    "highlight_off": 10,
    "alarm": 10,
-   "check_circle": 2,
-   "directions_boat": 2
+   "check_circle": 3,
+   "directions_boat": 3
   },
   "modo": "so-data-inicio"
  }
