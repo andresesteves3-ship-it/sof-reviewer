@@ -1,6 +1,7 @@
 // Robô da Praticagem — roda no GitHub Actions a cada hora.
-// Lê https://www.praticagem-rj.com.br/, atualiza dados/praticagem.json com o histórico
-// (apareceu / cancelada / voltou / alterada / concluída) por navio.
+// Lê https://www.praticagem-rj.com.br/ (SÓ a seção BAÍA DE GUANABARA), atualiza dados/praticagem.json com o histórico
+// (apareceu / cancelada / voltou / alterada / concluída) por navio e GUARDA cada manobra (E = entrada, S = saída)
+// com o horário do prático (POB), porque o site apaga a linha depois que a manobra passa.
 const fs = require('fs');
 const path = require('path');
 const cheerio = require('cheerio');
@@ -23,22 +24,32 @@ function pobTs(s, ref) {
   return t;
 }
 
-function parse(html) {
+const SECAO = /^(BA[IÍ]A DE|PORTO D[OAE])\s+[A-ZÀ-Ú]+/i;
+function parse(html, secoesOut) {
   const $ = cheerio.load(html), out = [], vistos = new Set();
+  let secao = '', achouGuanabara = false;
+  const txt = el => $(el).text().replace(/\s+/g, ' ').trim();
   $('tr').each((_, tr) => {
     const c = $(tr).children('td,th').toArray();
-    if (c.length < 9) return;
-    const txt = el => $(el).text().replace(/\s+/g, ' ').trim();
+    const t = txt(tr);
+    if (c.length < 9) {                                        // linha de título de seção?
+      const m = SECAO.exec(t);
+      if (m) { secao = norm(m[0]); if (secoesOut && !secoesOut.includes(secao)) secoesOut.push(secao); if (/GUANABARA/.test(secao)) achouGuanabara = true; }
+      return;
+    }
     const pob = txt(c[0]);
     if (!/^\d\d\/\d\d \d\d:\d\d$/.test(pob)) return;
     const cel = $(c[1]).clone(); cel.find('table').remove();
     const navio = cel.text().replace(/\s+/g, ' ').trim();
     const m = txt(c[7]);
-    const k = pob + '|' + navio + '|' + m;
+    const k = secao + '|' + pob + '|' + navio + '|' + m;
     if (!navio || vistos.has(k)) return; vistos.add(k);
-    out.push({ pob, navio, m, de: c[8] ? txt(c[8]) : '', para: c[11] ? txt(c[11]) : '' });
+    out.push({ pob, navio, m, de: c[8] ? txt(c[8]) : '', para: c[11] ? txt(c[11]) : '', secao });
   });
-  return out;
+  // se a página não tem títulos de seção reconhecíveis, usa tudo (e avisa); se tem, só Guanabara
+  const temSecoes = out.some(x => x.secao);
+  if (temSecoes && !achouGuanabara) throw new Error('A seção BAÍA DE GUANABARA não foi encontrada (seções vistas: ' + (secoesOut || []).join(', ') + ').');
+  return temSecoes ? out.filter(x => /GUANABARA/.test(x.secao)) : out;
 }
 
 async function baixar() {
@@ -62,7 +73,9 @@ function salvar(d) {
   const primeira = !ant.ultimoSucesso;
   const d = { ...ant, hist: ant.hist || {}, atualizado: new Date(AGORA).toISOString() };
   try {
-    const man = parse(await baixar());
+    const secoes = [];
+    const man = parse(await baixar(), secoes);
+    d.secoes = secoes;
     if (!man.length) throw new Error('A página não trouxe nenhuma manobra (leitura ignorada para não gerar cancelamentos falsos).');
     const map = {};
     man.forEach(r => { (map[norm(r.navio)] = map[norm(r.navio)] || []).push(r); });
@@ -75,6 +88,28 @@ function salvar(d) {
       else if (sig !== antSig) h.ev.push({ t: AGORA, e: 'alterada' });
       h.est = 'marcada'; h.man = l; h.nome = l[0].navio;
     });
+    // ---- registro permanente das manobras (E = entrada, S = saída): fica salvo mesmo depois que o site apaga a linha ----
+    const presente = new Set();
+    Object.keys(map).forEach(k => {
+      const h = hist[k]; h.mov = h.mov || [];
+      map[k].forEach(x => {
+        const ts = pobTs(x.pob, AGORA), id = x.m + '|' + ts;
+        presente.add(k + '|' + id);
+        let mv = h.mov.find(y => y.m === x.m && y.ts === ts);
+        if (!mv) { mv = { m: x.m, pob: x.pob, ts, vis: AGORA }; h.mov.push(mv); }
+        mv.de = x.de; mv.para = x.para; mv.ult = AGORA; mv.st = 'prevista';
+      });
+    });
+    Object.keys(hist).forEach(k => {
+      const h = hist[k]; if (!h.mov) return;
+      h.mov.forEach(mv => {
+        if (presente.has(k + '|' + mv.m + '|' + mv.ts) || mv.st === 'realizada' || mv.st === 'cancelada' || mv.st === 'remarcada') return;
+        if (mv.ts <= AGORA + 36e5) mv.st = 'realizada';                           // sumiu depois do horário: manobra feita
+        else mv.st = h.mov.some(y => y !== mv && y.m === mv.m && y.st === 'prevista') ? 'remarcada' : 'cancelada';
+      });
+      h.mov.sort((a, b) => a.ts - b.ts);
+      if (h.mov.length > 40) h.mov = h.mov.slice(-40);
+    });
     Object.keys(hist).forEach(k => {
       const h = hist[k];
       if (!map[k] && h.est === 'marcada') {
@@ -85,7 +120,8 @@ function salvar(d) {
       if (h.ev.length > 20) h.ev = h.ev.slice(-20);
       // limpeza: encerrados há mais de 15 dias saem do arquivo
       const ult = h.ev.length ? h.ev[h.ev.length - 1].t : 0;
-      if (h.est !== 'marcada' && AGORA - ult > 15 * 864e5) delete hist[k];
+      const ultMov = Math.max(ult, ...((h.mov || []).map(x => x.ult || x.vis || 0)));
+      if (h.est !== 'marcada' && AGORA - ultMov > 30 * 864e5) delete hist[k];
     });
     d.ok = true; d.erro = ''; d.ultimoSucesso = d.atualizado; d.total = man.length;
     console.log('OK:', man.length, 'manobras;', Object.keys(hist).length, 'navios no histórico');
