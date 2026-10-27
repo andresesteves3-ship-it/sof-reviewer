@@ -1,22 +1,60 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-27T22:22:11.125Z",
- "ultimoSucesso": "2026-10-27T22:22:11.125Z",
+ "atualizado": "2026-10-27T22:42:40.655Z",
+ "ultimoSucesso": "2026-10-27T22:42:40.655Z",
  "total": 10,
- "previstos": 7,
+ "previstos": 0,
  "diag": {
   "linhas": 10,
+  "paginas": 1,
+  "totalPaginas": null,
   "semInicio": 7,
   "comInicio": 3,
   "finalizados": 0,
   "cancelados": 10,
   "icones": {
-   "highlight_off": 10,
-   "alarm": 10,
-   "check_circle": 3,
-   "directions_boat": 3
+   "close": {
+    "total": 10,
+    "ativo": 0,
+    "on": 0
+   },
+   "remove": {
+    "total": 3,
+    "ativo": 3,
+    "on": 0
+   },
+   "add": {
+    "total": 3,
+    "ativo": 3,
+    "on": 0
+   },
+   "highlight_off": {
+    "total": 10,
+    "ativo": 10,
+    "on": 10
+   },
+   "alarm": {
+    "total": 10,
+    "ativo": 10,
+    "on": 10
+   },
+   "check_circle": {
+    "total": 10,
+    "ativo": 3,
+    "on": 3
+   },
+   "directions_boat": {
+    "total": 10,
+    "ativo": 3,
+    "on": 3
+   },
+   "assignment_turned_in": {
+    "total": 10,
+    "ativo": 0,
+    "on": 0
+   }
   },
-  "modo": "so-data-inicio"
+  "modo": "cor"
  }
 }
