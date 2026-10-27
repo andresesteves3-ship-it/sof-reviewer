@@ -35,7 +35,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     }
    ]
@@ -117,7 +117,7 @@
      "vis": 1793112013771,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     }
    ]
@@ -180,7 +180,7 @@
      "vis": 1793112013771,
      "de": "TECONT5",
      "para": "",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     }
    ]
@@ -289,7 +289,7 @@
      "vis": 1793112013771,
      "de": "TECONT1",
      "para": "",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     }
    ]
@@ -398,7 +398,7 @@
      "vis": 1793112013771,
      "de": "TECONT2",
      "para": "",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     }
    ]
@@ -453,7 +453,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TOLEO",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     }
    ]
@@ -464,6 +464,10 @@
     {
      "t": 1793043679836,
      "e": "inicial"
+    },
+    {
+     "t": 1793114790316,
+     "e": "alterada"
     }
    ],
    "man": [
@@ -476,7 +480,7 @@
      "secao": "BAIA DE GUANABARA"
     },
     {
-     "pob": "28/10 19:00",
+     "pob": "28/10 22:00",
      "navio": "INDUSTRIAL CHARGER .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } INDUSTRIAL CHARGER",
      "m": "S",
      "de": "TECONT4",
@@ -493,7 +497,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONT4",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     },
     {
@@ -504,6 +508,16 @@
      "de": "TECONT4",
      "para": "",
      "ult": 1793112013771,
+     "st": "remarcada"
+    },
+    {
+     "m": "S",
+     "pob": "28/10 22:00",
+     "ts": 1793235600000,
+     "vis": 1793114790316,
+     "de": "TECONT4",
+     "para": "",
+     "ult": 1793114790316,
      "st": "prevista"
     }
    ]
@@ -543,7 +557,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONT3",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     },
     {
@@ -553,7 +567,7 @@
      "vis": 1793112013771,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     }
    ]
@@ -593,7 +607,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "BACS",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     },
     {
@@ -603,7 +617,7 @@
      "vis": 1793112013771,
      "de": "BACS",
      "para": "SIDERURG2",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     }
    ]
@@ -647,7 +661,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     },
     {
@@ -657,7 +671,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     }
    ]
@@ -697,7 +711,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONT2",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     },
     {
@@ -707,7 +721,7 @@
      "vis": 1793112013771,
      "de": "TECONT2",
      "para": "",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     }
    ]
@@ -747,7 +761,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONT1",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     },
     {
@@ -757,7 +771,7 @@
      "vis": 1793112013771,
      "de": "TECONT1",
      "para": "",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     }
    ]
@@ -801,7 +815,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "A4",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     },
     {
@@ -811,7 +825,7 @@
      "vis": 1793112013771,
      "de": "A4",
      "para": "",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     }
    ]
@@ -843,7 +857,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TPASSAGE2",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     }
    ]
@@ -875,7 +889,7 @@
      "vis": 1793112013771,
      "de": "BNIC-AMRJ",
      "para": "RIO BRASIL TERMINAL (EX-INHAÚMA)",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     }
    ]
@@ -915,7 +929,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     },
     {
@@ -925,7 +939,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     }
    ]
@@ -965,7 +979,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     },
     {
@@ -975,7 +989,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     }
    ]
@@ -1015,7 +1029,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     },
     {
@@ -1025,7 +1039,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     }
    ]
@@ -1065,7 +1079,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     },
     {
@@ -1075,7 +1089,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     }
    ]
@@ -1511,15 +1525,19 @@
     {
      "t": 1793065377386,
      "e": "alterada"
+    },
+    {
+     "t": 1793114790316,
+     "e": "alterada"
     }
    ],
    "man": [
     {
      "pob": "27/10 13:00",
      "navio": "BUENA CONFIANZA .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } BUENA CONFIANZA",
-     "m": "S",
+     "m": "M",
      "de": "I COMPRIDA",
-     "para": "",
+     "para": "WPT 81",
      "secao": "BAIA DE GUANABARA"
     }
    ],
@@ -1533,6 +1551,16 @@
      "de": "I COMPRIDA",
      "para": "",
      "ult": 1793112013771,
+     "st": "realizada"
+    },
+    {
+     "m": "M",
+     "pob": "27/10 13:00",
+     "ts": 1793116800000,
+     "vis": 1793114790316,
+     "de": "I COMPRIDA",
+     "para": "WPT 81",
+     "ult": 1793114790316,
      "st": "prevista"
     }
    ]
@@ -1751,7 +1779,7 @@
      "vis": 1793112013771,
      "de": "NEOLUBES (antiga SHELL)",
      "para": "WPT 61",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     }
    ]
@@ -1791,7 +1819,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TPASSAGE2",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     },
     {
@@ -1801,7 +1829,7 @@
      "vis": 1793112013771,
      "de": "TPASSAGE2",
      "para": "",
-     "ult": 1793112013771,
+     "ult": 1793114790316,
      "st": "prevista"
     }
    ]
@@ -1828,13 +1856,145 @@
     }
    ],
    "nome": "ASL ERA .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } ASL ERA"
+  },
+  "PARIS 24 DIVPPNAVIO PADDING 0 MARGIN 0 BORDER NONE FONT FAMILY VERDANA FONT SIZE 11PX WHITE SPACE NORMAL BACKGROUND COLOR FFF COLOR 000 FONT FAMILY MONOSPACE BORDER RADIUS 6PX MARGIN TOP 5PX MAX WIDTH 600PX MAX HEIGHT 400PX MIN WIDTH 300PX DIVPPNAVIO TABLE BORDER 0 BORDER COLLAPSE COLLAPSE BORDER SPACING 1PX DIVPPNAVIO TABLE TH PADDING 2PX TEXT ALIGN CENTER VERTICAL ALIGN MIDDLE BORDER 1PX SOLID BLACK BACKGROUND 6B6B6B COLOR EFEFEF DIVPPNAVIO TABLE TD BORDER 1PX SOLID BLACK VERTICAL ALIGN MIDDLE DIVPPNAVIO DIVPPNAVIO TD MARGIN 0 PADDING 0 BORDER 0 BORDER WIDTH 0 BORDER COLLAPSE COLLAPSE TBPPNAVIO TD BACKGROUND COLOR WHITE TBPPNAVIO TR TD PADDING 3PX 5PX BORDER 1PX SOLID BFD3EE TBPPNAVIO TR NTH CHILD EVEN TBPPNAVIO TR NTH CHILD EVEN TD BACKGROUND COLOR EDF5FF PARIS 24": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1793114790316,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "27/10 15:00",
+     "navio": "PARIS 24 .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } PARIS 24",
+     "m": "S",
+     "de": "WPT 62",
+     "para": "",
+     "secao": "BAIA DE GUANABARA"
+    }
+   ],
+   "nome": "PARIS 24 .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } PARIS 24",
+   "mov": [
+    {
+     "m": "S",
+     "pob": "27/10 15:00",
+     "ts": 1793124000000,
+     "vis": 1793114790316,
+     "de": "WPT 62",
+     "para": "",
+     "ult": 1793114790316,
+     "st": "prevista"
+    }
+   ]
+  },
+  "MSC MARIA MARILYN X DIVPPNAVIO PADDING 0 MARGIN 0 BORDER NONE FONT FAMILY VERDANA FONT SIZE 11PX WHITE SPACE NORMAL BACKGROUND COLOR FFF COLOR 000 FONT FAMILY MONOSPACE BORDER RADIUS 6PX MARGIN TOP 5PX MAX WIDTH 600PX MAX HEIGHT 400PX MIN WIDTH 300PX DIVPPNAVIO TABLE BORDER 0 BORDER COLLAPSE COLLAPSE BORDER SPACING 1PX DIVPPNAVIO TABLE TH PADDING 2PX TEXT ALIGN CENTER VERTICAL ALIGN MIDDLE BORDER 1PX SOLID BLACK BACKGROUND 6B6B6B COLOR EFEFEF DIVPPNAVIO TABLE TD BORDER 1PX SOLID BLACK VERTICAL ALIGN MIDDLE DIVPPNAVIO DIVPPNAVIO TD MARGIN 0 PADDING 0 BORDER 0 BORDER WIDTH 0 BORDER COLLAPSE COLLAPSE TBPPNAVIO TD BACKGROUND COLOR WHITE TBPPNAVIO TR TD PADDING 3PX 5PX BORDER 1PX SOLID BFD3EE TBPPNAVIO TR NTH CHILD EVEN TBPPNAVIO TR NTH CHILD EVEN TD BACKGROUND COLOR EDF5FF MSC MARIA MARILYN X": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1793114790316,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "28/10 17:30",
+     "navio": "MSC MARIA MARILYN X .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } MSC MARIA MARILYN X",
+     "m": "E",
+     "de": "",
+     "para": "TECONT3",
+     "secao": "BAIA DE GUANABARA"
+    },
+    {
+     "pob": "29/10 07:00",
+     "navio": "MSC MARIA MARILYN X .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } MSC MARIA MARILYN X",
+     "m": "S",
+     "de": "TECONT3",
+     "para": "",
+     "secao": "BAIA DE GUANABARA"
+    }
+   ],
+   "nome": "MSC MARIA MARILYN X .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } MSC MARIA MARILYN X",
+   "mov": [
+    {
+     "m": "E",
+     "pob": "28/10 17:30",
+     "ts": 1793219400000,
+     "vis": 1793114790316,
+     "de": "",
+     "para": "TECONT3",
+     "ult": 1793114790316,
+     "st": "prevista"
+    },
+    {
+     "m": "S",
+     "pob": "29/10 07:00",
+     "ts": 1793268000000,
+     "vis": 1793114790316,
+     "de": "TECONT3",
+     "para": "",
+     "ult": 1793114790316,
+     "st": "prevista"
+    }
+   ]
+  },
+  "KOTA SINGA DIVPPNAVIO PADDING 0 MARGIN 0 BORDER NONE FONT FAMILY VERDANA FONT SIZE 11PX WHITE SPACE NORMAL BACKGROUND COLOR FFF COLOR 000 FONT FAMILY MONOSPACE BORDER RADIUS 6PX MARGIN TOP 5PX MAX WIDTH 600PX MAX HEIGHT 400PX MIN WIDTH 300PX DIVPPNAVIO TABLE BORDER 0 BORDER COLLAPSE COLLAPSE BORDER SPACING 1PX DIVPPNAVIO TABLE TH PADDING 2PX TEXT ALIGN CENTER VERTICAL ALIGN MIDDLE BORDER 1PX SOLID BLACK BACKGROUND 6B6B6B COLOR EFEFEF DIVPPNAVIO TABLE TD BORDER 1PX SOLID BLACK VERTICAL ALIGN MIDDLE DIVPPNAVIO DIVPPNAVIO TD MARGIN 0 PADDING 0 BORDER 0 BORDER WIDTH 0 BORDER COLLAPSE COLLAPSE TBPPNAVIO TD BACKGROUND COLOR WHITE TBPPNAVIO TR TD PADDING 3PX 5PX BORDER 1PX SOLID BFD3EE TBPPNAVIO TR NTH CHILD EVEN TBPPNAVIO TR NTH CHILD EVEN TD BACKGROUND COLOR EDF5FF KOTA SINGA": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1793114790316,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "29/10 18:00",
+     "navio": "KOTA SINGA .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } KOTA SINGA",
+     "m": "E",
+     "de": "",
+     "para": "TECONTPROLONG",
+     "secao": "BAIA DE GUANABARA"
+    },
+    {
+     "pob": "30/10 10:00",
+     "navio": "KOTA SINGA .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } KOTA SINGA",
+     "m": "S",
+     "de": "TECONTPROLONG",
+     "para": "",
+     "secao": "BAIA DE GUANABARA"
+    }
+   ],
+   "nome": "KOTA SINGA .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } KOTA SINGA",
+   "mov": [
+    {
+     "m": "E",
+     "pob": "29/10 18:00",
+     "ts": 1793307600000,
+     "vis": 1793114790316,
+     "de": "",
+     "para": "TECONTPROLONG",
+     "ult": 1793114790316,
+     "st": "prevista"
+    },
+    {
+     "m": "S",
+     "pob": "30/10 10:00",
+     "ts": 1793365200000,
+     "vis": 1793114790316,
+     "de": "TECONTPROLONG",
+     "para": "",
+     "ult": 1793114790316,
+     "st": "prevista"
+    }
+   ]
   }
  },
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-27T14:40:13.771Z",
- "ultimoSucesso": "2026-10-27T14:40:13.771Z",
- "total": 34,
+ "atualizado": "2026-10-27T15:26:30.316Z",
+ "ultimoSucesso": "2026-10-27T15:26:30.316Z",
+ "total": 39,
  "secoes": [
   "BAIA DE GUANABARA",
   "BAIA DE SEPETIBA",
