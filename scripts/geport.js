@@ -62,13 +62,26 @@ async function lerTabela(page) {
   const ler = async () => {
     const rows = await page.evaluate(() => [].slice.call(document.querySelectorAll('table.q-table tbody tr')).map(tr => {
       const td = tr.children, x = i => td[i] ? td[i].innerText.replace(/\s+/g, ' ').trim() : '';
-      return { cod: x(0), navio: x(1), eta: x(2), etd: x(3), ini: x(4), fim: x(5), classe: x(6), carga: x(7), berco: x(8), origem: x(11),
-        sit: [].slice.call(td[9] ? td[9].querySelectorAll('i.on') : []).map(i => i.textContent.trim()) };
+      // ícones da coluna SITUAÇÃO: o Geport mostra o ícone ativo em preto e o inativo em cinza claro
+      const ic = [].slice.call(td[9] ? td[9].querySelectorAll('i') : []).map(i => {
+        const cs = getComputedStyle(i), c = (cs.color.match(/[\d.]+/g) || [0, 0, 0]).map(Number);
+        const lum = (0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]) / 255, alfa = (c.length > 3 ? c[3] : 1) * Number(cs.opacity || 1);
+        return { n: i.textContent.trim(), on: i.classList.contains('on'), escuro: lum < 0.45 && alfa > 0.6 && cs.visibility !== 'hidden' && cs.display !== 'none' };
+      }).filter(i => i.n);
+      return { cod: x(0), navio: x(1), eta: x(2), etd: x(3), ini: x(4), fim: x(5), classe: x(6), carga: x(7), berco: x(8), origem: x(11), ic };
     }));
     rows.forEach(r => { if (r.cod && r.navio && !vistos.has(r.cod)) { vistos.add(r.cod); out.push(r); } });
   };
-  const btn = n => page.locator('.q-table__bottom button, .q-table__bottom .q-btn', { hasText: n }).first();
   const off = async b => (await b.count()) === 0 || await b.evaluate(e => e.disabled || /disabled/.test(e.className) || e.getAttribute('aria-disabled') === 'true');
+  const pagInfo = () => page.evaluate(() => { const t = ((document.querySelector('.q-table__bottom') || {}).innerText || '').replace(/\s+/g, ' '); const m = t.match(/(\d+)\s*\/\s*(\d+)/); return m ? { at: +m[1], tot: +m[2] } : null; }).catch(() => null);
+  const RE_ICO = { primeira: /first_page|first|skip_previous|double_arrow_left|chevrons?-left|angle-double-left/i, seguinte: /keyboard_arrow_right|chevron_right|navigate_next|arrow_forward_ios|chevron-right|angle-right/i };
+  const btn = async tipo => {
+    const bs = page.locator('.q-table__bottom button, .q-table__bottom .q-btn');
+    const n = await bs.count();
+    for (let i = 0; i < n; i++) { const t = (await bs.nth(i).innerText().catch(() => '')) + ' ' + (await bs.nth(i).getAttribute('aria-label').catch(() => '') || ''); if (RE_ICO[tipo].test(t)) return bs.nth(i); }
+    if (n >= 4) return bs.nth(tipo === 'primeira' ? n - 4 : n - 2);  // ordem usual: |<  <  >  >|
+    return page.locator('#nao-existe');
+  };
   // tenta aumentar "resultados por página" para o máximo
   try {
     const sel = page.locator('.q-table__bottom .q-select').first();
@@ -79,12 +92,14 @@ async function lerTabela(page) {
       if (n) { await ops.nth(n - 1).click(); await page.waitForTimeout(2500); }
     }
   } catch (e) {}
-  const primeira = btn('first_page');
-  if (!(await off(primeira))) { await primeira.click(); await page.waitForTimeout(1200); }
+  let info = await pagInfo();
+  if (info && info.at > 1) { const pr = await btn('primeira'); if (!(await off(pr))) { await pr.click(); await page.waitForTimeout(1500); } }
   let paginas = 0;
   for (let i = 0; i < 80; i++) {
     await ler(); paginas++;
-    const nx = btn('keyboard_arrow_right');
+    info = await pagInfo();
+    if (info && info.at >= info.tot) break;
+    const nx = await btn('seguinte');
     if (await off(nx)) break;
     const antes = await page.evaluate(() => (document.querySelector('table.q-table tbody tr td') || {}).innerText);
     await nx.click();
@@ -92,6 +107,7 @@ async function lerTabela(page) {
   }
   const rodape = await page.evaluate(() => (document.querySelector('.q-table__bottom') || {}).innerText || '').catch(() => '');
   console.log('Paginas lidas:', paginas, '| Rodape:', String(rodape).replace(/\s+/g, ' ').slice(0, 120));
+  out.paginas = paginas; out.totalPaginas = info ? info.tot : null;
   return out;
 }
 
@@ -165,21 +181,18 @@ async function lerTabela(page) {
       const d = await page.evaluate(() => { const tr = document.querySelector('table.q-table tbody tr'); return { linhas: document.querySelectorAll('table.q-table tbody tr').length, colunas: tr ? tr.children.length : 0, cab: [].slice.call(document.querySelectorAll('table.q-table thead th')).length }; }).catch(() => ({}));
       throw new Error('A tabela veio sem navios (linhas=' + d.linhas + ' colunas=' + d.colunas + ' cabecalhos=' + d.cab + '); leitura ignorada.');
     }
-    // só guarda o que o Line Up usa: previstos (sem data de início, não finalizados/cancelados)
+    // situação: usa os ícones escuros (ativos); se nenhum ícone escuro foi reconhecido em nenhuma linha, usa a classe "on"
+    const usaCor = todos.some(r => r.ic.some(i => i.escuro));
+    todos.forEach(r => { r.sit = r.ic.filter(i => usaCor ? i.escuro : i.on).map(i => i.n); });
     const fin = r => r.sit.includes('assignment_turned_in'), canc = r => r.sit.includes('highlight_off');
-    const semIni = todos.filter(r => !r.ini);
-    let prev = semIni.filter(r => !fin(r) && !canc(r));
-    let modo = 'icones';
-    // se o filtro por ícones cortar tudo (ícones não informativos), usa só a data de início
-    if (!prev.length && semIni.length) { prev = semIni.map(r => ({ ...r, sit: [] })); modo = 'so-data-inicio'; }
     const contIcones = {};
-    todos.forEach(r => r.sit.forEach(i => { contIcones[i] = (contIcones[i] || 0) + 1; }));
-    const diag = { linhas: todos.length, semInicio: semIni.length, comInicio: todos.length - semIni.length, finalizados: todos.filter(fin).length, cancelados: todos.filter(canc).length, icones: contIcones, modo };
-    // além dos previstos, leva os demais navios (em operação, finalizados) só com nome e carga: o painel usa a carga para escolher o modelo do catálogo
-    const codsPrev = new Set(prev.map(r => r.cod));
-    const outros = todos.filter(r => !codsPrev.has(r.cod) && !canc(r)).map(r => ({ cod: r.cod, navio: r.navio, eta: r.eta, etd: '', ini: r.ini || 'sim', fim: '', classe: r.classe, carga: r.carga, berco: '', origem: '', sit: r.sit }));
-    const nPrev = prev.length;
-    prev = prev.map(r => ({ cod: r.cod, navio: r.navio, eta: r.eta, etd: '', ini: '', fim: '', classe: r.classe, carga: r.carga, berco: '', origem: '', sit: r.sit })).concat(outros);
+    todos.forEach(r => r.ic.forEach(i => { const c = contIcones[i.n] = contIcones[i.n] || { total: 0, ativo: 0, on: 0 }; c.total++; if (i.escuro) c.ativo++; if (i.on) c.on++; }));
+    const semIni = todos.filter(r => !r.ini);
+    const diag = { linhas: todos.length, paginas: todos.paginas, totalPaginas: todos.totalPaginas, semInicio: semIni.length, comInicio: todos.length - semIni.length,
+      finalizados: todos.filter(fin).length, cancelados: todos.filter(canc).length, icones: contIcones, modo: usaCor ? 'cor' : 'classe-on' };
+    // grava todos os navios lidos (previstos, em operação, finalizados e cancelados): o painel decide o que mostrar
+    const prev = todos.map(r => ({ cod: r.cod, navio: r.navio, eta: r.eta, etd: r.etd, ini: r.ini, fim: r.fim, classe: r.classe, carga: r.carga, berco: r.berco, origem: r.origem, sit: r.sit }));
+    const nPrev = semIni.filter(r => !fin(r) && !canc(r)).length;
     fs.mkdirSync(DIR, { recursive: true });
     fs.writeFileSync(ARQ_ENC, JSON.stringify({ ...cifrar({ geradoEm: Date.now(), dados: prev }), atualizado: st.atualizado }) + '\n');
     st = { ok: true, erro: '', atualizado: st.atualizado, ultimoSucesso: st.atualizado, total: todos.length, previstos: nPrev, diag };
