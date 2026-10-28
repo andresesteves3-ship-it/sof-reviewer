@@ -60,20 +60,31 @@ async function escolherContrato(page) {
 async function lerTabela(page) {
   const vistos = new Set(), out = [];
   const ler = async () => {
-    const rows = await page.evaluate(() => [].slice.call(document.querySelectorAll('table.q-table tbody tr')).map(tr => {
+    const rows = await page.evaluate(() => {
+    // coluna "CLASSIFICAÇÃO DA OPERAÇÃO" (importação / exportação) achada pelo cabeçalho; se não achar, usa a 7ª coluna
+    const ths = [].slice.call(document.querySelectorAll('table.q-table thead th')).map(th => (th.innerText || '').toUpperCase());
+    const iCl = ths.findIndex(h => /CLASSIFICA/.test(h)), iC = iCl >= 0 ? iCl : 6;
+    return [].slice.call(document.querySelectorAll('table.q-table tbody tr')).map(tr => {
       const td = tr.children, x = i => td[i] ? td[i].innerText.replace(/\s+/g, ' ').trim() : '';
       // ícones da coluna SITUAÇÃO: o Geport mostra o ícone ativo em preto e o inativo em cinza claro
       const ic = [].slice.call(td[9] ? td[9].querySelectorAll('i') : []).map(i => {
         const cs = getComputedStyle(i), c = (cs.color.match(/[\d.]+/g) || [0, 0, 0]).map(Number);
         const lum = (0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]) / 255, alfa = (c.length > 3 ? c[3] : 1) * Number(cs.opacity || 1);
-        return { n: i.textContent.trim(), on: i.classList.contains('on'), escuro: lum < 0.45 && alfa > 0.6 && cs.visibility !== 'hidden' && cs.display !== 'none' };
+        return { n: i.textContent.trim(), on: i.classList.contains('on'), cor: cs.color, op: cs.opacity, w: i.offsetWidth, cls: String(i.className || '').slice(0, 80), escuro: lum < 0.45 && alfa > 0.6 && cs.visibility !== 'hidden' && i.getClientRects().length > 0 && i.offsetWidth > 0 };
       }).filter(i => i.n);
-      return { cod: x(0), navio: x(1), eta: x(2), etd: x(3), ini: x(4), fim: x(5), classe: x(6), carga: x(7), berco: x(8), origem: x(11), ic };
-    }));
+      return { cod: x(0), navio: x(1), eta: x(2), etd: x(3), ini: x(4), fim: x(5), classe: x(iC), carga: x(7), berco: x(8), origem: x(11), ic };
+    });
+    });
     rows.forEach(r => { if (r.cod && r.navio && !vistos.has(r.cod)) { vistos.add(r.cod); out.push(r); } });
   };
   const off = async b => (await b.count()) === 0 || await b.evaluate(e => e.disabled || /disabled/.test(e.className) || e.getAttribute('aria-disabled') === 'true');
-  const pagInfo = () => page.evaluate(() => { const t = ((document.querySelector('.q-table__bottom') || {}).innerText || '').replace(/\s+/g, ' '); const m = t.match(/(\d+)\s*\/\s*(\d+)/); return m ? { at: +m[1], tot: +m[2] } : null; }).catch(() => null);
+  const pagInfo = () => page.evaluate(() => {
+    const b = document.querySelector('.q-table__bottom'); if (!b) return null;
+    const extra = [].slice.call(b.querySelectorAll('input')).map(i => (i.value || '') + ' ' + (i.placeholder || '')).join(' ');
+    const t = ((b.innerText || '') + ' ' + extra).replace(/\s+/g, ' ');
+    let m = t.match(/(\d+)\s*\/\s*(\d+)/); if (m) return { at: +m[1], tot: +m[2] };
+    m = t.match(/(\d+)\s*-\s*(\d+)\s*(?:de|of)\s*(\d+)/i); if (m) { const por = (+m[2]) - (+m[1]) + 1; return { at: Math.ceil(+m[2] / por), tot: Math.ceil(+m[3] / por), linhas: +m[3] }; }
+    return null; }).catch(() => null);
   const RE_ICO = { primeira: /first_page|first|skip_previous|double_arrow_left|chevrons?-left|angle-double-left/i, seguinte: /keyboard_arrow_right|chevron_right|navigate_next|arrow_forward_ios|chevron-right|angle-right/i };
   const btn = async tipo => {
     const bs = page.locator('.q-table__bottom button, .q-table__bottom .q-btn');
@@ -82,16 +93,28 @@ async function lerTabela(page) {
     if (n >= 4) return bs.nth(tipo === 'primeira' ? n - 4 : n - 2);  // ordem usual: |<  <  >  >|
     return page.locator('#nao-existe');
   };
-  // tenta aumentar "resultados por página" para o máximo
+  const dg = { porPagina: [], escolhido: '', botoes: [], rodape: '', tentativas: [] };
+  // tenta aumentar "resultados por página" para o máximo (ou "Todos")
   try {
-    const sel = page.locator('.q-table__bottom .q-select').first();
+    const sel = page.locator('.q-table__bottom .q-select, .q-table__bottom [role=combobox], .q-table__bottom select').first();
     if (await sel.count()) {
-      await sel.click(); await page.waitForTimeout(600);
-      const ops = page.locator('.q-menu .q-item');
-      const n = await ops.count();
-      if (n) { await ops.nth(n - 1).click(); await page.waitForTimeout(2500); }
+      if (await sel.evaluate(e => e.tagName === 'SELECT')) {
+        const t = await sel.locator('option').allTextContents(); dg.porPagina = t;
+        let i = t.findIndex(x => /todos|all/i.test(x)); if (i < 0) i = t.map(x => parseInt(x, 10) || 0).reduce((m, v, k, arr) => v > arr[m] ? k : m, 0);
+        await sel.selectOption({ index: i }); dg.escolhido = t[i]; await page.waitForTimeout(2500);
+      } else {
+        await sel.click(); await page.waitForTimeout(800);
+        const ops = page.locator('.q-menu .q-item, .q-menu [role=option], [role=listbox] [role=option]');
+        const n = await ops.count(); const t = [];
+        for (let k = 0; k < n; k++) t.push(((await ops.nth(k).innerText().catch(() => '')) || '').trim());
+        dg.porPagina = t;
+        if (n) {
+          let i = t.findIndex(x => /todos|all/i.test(x)); if (i < 0) i = t.map(x => parseInt(x, 10) || 0).reduce((m, v, k2, arr) => v > arr[m] ? k2 : m, 0);
+          await ops.nth(i).click(); dg.escolhido = t[i]; await page.waitForTimeout(2500);
+        } else { await page.keyboard.press('Escape').catch(() => {}); }
+      }
     }
-  } catch (e) {}
+  } catch (e) { dg.erroPorPagina = String(e.message || e).slice(0, 80); }
   let info = await pagInfo();
   if (info && info.at > 1) { const pr = await btn('primeira'); if (!(await off(pr))) { await pr.click(); await page.waitForTimeout(1500); } }
   let paginas = 0;
@@ -100,14 +123,17 @@ async function lerTabela(page) {
     info = await pagInfo();
     if (info && info.at >= info.tot) break;
     const nx = await btn('seguinte');
-    if (await off(nx)) break;
+    if (await off(nx)) { dg.tentativas.push('pag ' + paginas + ': botão seguinte não achado/desabilitado'); break; }
     const antes = await page.evaluate(() => (document.querySelector('table.q-table tbody tr td') || {}).innerText);
     await nx.click();
-    try { await page.waitForFunction(a => (document.querySelector('table.q-table tbody tr td') || {}).innerText !== a, antes, { timeout: 5000 }); } catch (e) { break; }
+    try { await page.waitForFunction(a => (document.querySelector('table.q-table tbody tr td') || {}).innerText !== a, antes, { timeout: 8000 }); } catch (e) { dg.tentativas.push('pag ' + paginas + ': cliquei em seguinte e a tabela não mudou'); break; }
   }
   const rodape = await page.evaluate(() => (document.querySelector('.q-table__bottom') || {}).innerText || '').catch(() => '');
   console.log('Paginas lidas:', paginas, '| Rodape:', String(rodape).replace(/\s+/g, ' ').slice(0, 120));
-  out.paginas = paginas; out.totalPaginas = info ? info.tot : null;
+  dg.rodape = String(rodape).replace(/\s+/g, ' ').slice(0, 160);
+  dg.botoes = await page.evaluate(() => [].slice.call(document.querySelectorAll('.q-table__bottom button, .q-table__bottom .q-btn')).map(b => ((b.innerText || '').trim() + '|' + (b.getAttribute('aria-label') || '') + '|' + ((b.querySelector('i') || {}).className || '') + (b.disabled || b.getAttribute('aria-disabled') === 'true' ? '|off' : '')).slice(0, 90))).catch(() => []);
+  dg.inputs = await page.evaluate(() => [].slice.call(document.querySelectorAll('.q-table__bottom input')).map(i => (i.value || '') + '|' + (i.placeholder || ''))).catch(() => []);
+  out.paginas = paginas; out.totalPaginas = info ? info.tot : null; out.dg = dg;
   return out;
 }
 
@@ -189,7 +215,9 @@ async function lerTabela(page) {
     todos.forEach(r => r.ic.forEach(i => { const c = contIcones[i.n] = contIcones[i.n] || { total: 0, ativo: 0, on: 0 }; c.total++; if (i.escuro) c.ativo++; if (i.on) c.on++; }));
     const semIni = todos.filter(r => !r.ini);
     const diag = { linhas: todos.length, paginas: todos.paginas, totalPaginas: todos.totalPaginas, semInicio: semIni.length, comInicio: todos.length - semIni.length,
-      finalizados: todos.filter(fin).length, cancelados: todos.filter(canc).length, icones: contIcones, modo: usaCor ? 'cor' : 'classe-on' };
+      classificacao: todos.reduce((a, r) => { const k = /EXPORT/i.test(r.classe) ? 'exportacao' : /IMPORT/i.test(r.classe) ? 'importacao' : (r.classe ? 'outro:' + String(r.classe).slice(0, 20) : 'vazio'); a[k] = (a[k] || 0) + 1; return a; }, {}),
+      finalizados: todos.filter(fin).length, cancelados: todos.filter(canc).length, icones: contIcones, modo: usaCor ? 'cor' : 'classe-on',
+      paginacao: todos.dg, exemploIcones: todos.slice(0, 2).map(r => r.ic.map(i => ({ n: i.n, cor: i.cor, op: i.op, w: i.w, on: i.on, cls: i.cls }))) };
     // grava todos os navios lidos (previstos, em operação, finalizados e cancelados): o painel decide o que mostrar
     const prev = todos.map(r => ({ cod: r.cod, navio: r.navio, eta: r.eta, etd: r.etd, ini: r.ini, fim: r.fim, classe: r.classe, carga: r.carga, berco: r.berco, origem: r.origem, sit: r.sit }));
     const nPrev = semIni.filter(r => !fin(r) && !canc(r)).length;
