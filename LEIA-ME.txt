@@ -108,3 +108,10 @@ Avisos (sino no topo): inspeção a solicitar, novidades da Praticagem, rotina p
 sem requisição no OGMO para o próximo período. Avisos do Windows só no turno de cada um (perfil). Clique em "Ativar avisos do Windows".
 Marcação automática: a requisição do próprio navio registrada no OGMO marca "Requisição de Estiva" do período (selo OGMO).
 Registro de atividade: Meu perfil mostra o da equipe toda, por dia e por pessoa (salvo no banco em /log).
+
+VERSÃO 0.27.0 — PASSAGEM DE SERVIÇO COM "CIENTE" E STATUS DOS ROBÔS
+- Publique de novo as regras do Firebase (firebase-regras.json): entrou o nó "passagens". Sem isso o PDF continua sendo baixado, mas não vai para o histórico.
+- Ao gerar a Passagem de serviço (Rotinas), o PDF fica salvo no banco. Quem assumir o turno vê o aviso (no topo das Rotinas e no sino)
+  e clica em "Dar ciente". Histórico dos últimos 7 dias no fim da aba Rotinas, com o PDF de cada passagem.
+- Administração > Status dos robôs: situação de cada robô, última tentativa/sucesso, última execução no GitHub (com link),
+  falhas recentes, quantas vezes o painel chamou o robô, diagnóstico (botão "Copiar diagnóstico") e "Rodar agora".

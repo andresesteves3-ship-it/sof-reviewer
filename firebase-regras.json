@@ -13,6 +13,10 @@
     "log": {
       ".read": "auth != null && (root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).exists() || auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br')",
       ".write": "auth != null && (root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).exists() || auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br')"
+    },
+    "passagens": {
+      ".read": "auth != null && (root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).exists() || auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br')",
+      ".write": "auth != null && (root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).exists() || auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br')"
     }
   }
 }
