@@ -1,16 +1,16 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-28T10:22:49.380Z",
- "ultimoSucesso": "2026-10-28T10:22:49.380Z",
+ "atualizado": "2026-10-28T11:19:21.835Z",
+ "ultimoSucesso": "2026-10-28T11:19:21.835Z",
  "total": 10,
- "previstos": 7,
+ "previstos": 6,
  "diag": {
   "linhas": 10,
   "paginas": 1,
   "totalPaginas": null,
-  "semInicio": 7,
-  "comInicio": 3,
+  "semInicio": 6,
+  "comInicio": 4,
   "classificacao": {
    "exportacao": 4,
    "outro:VIGIA": 1,
@@ -22,6 +22,16 @@
   "icones": {
    "close": {
     "total": 10,
+    "ativo": 0,
+    "on": 0
+   },
+   "remove": {
+    "total": 4,
+    "ativo": 0,
+    "on": 0
+   },
+   "add": {
+    "total": 4,
     "ativo": 0,
     "on": 0
    },
@@ -37,26 +47,16 @@
    },
    "check_circle": {
     "total": 10,
-    "ativo": 3,
-    "on": 3
+    "ativo": 4,
+    "on": 4
    },
    "directions_boat": {
     "total": 10,
-    "ativo": 3,
-    "on": 3
+    "ativo": 4,
+    "on": 4
    },
    "assignment_turned_in": {
     "total": 10,
-    "ativo": 0,
-    "on": 0
-   },
-   "remove": {
-    "total": 3,
-    "ativo": 0,
-    "on": 0
-   },
-   "add": {
-    "total": 3,
     "ativo": 0,
     "on": 0
    }
@@ -83,6 +83,22 @@
      "cls": ""
     },
     {
+     "n": "remove",
+     "cor": "rgb(0, 0, 0)",
+     "op": "1",
+     "w": 0,
+     "on": false,
+     "cls": ""
+    },
+    {
+     "n": "add",
+     "cor": "rgb(0, 0, 0)",
+     "op": "1",
+     "w": 0,
+     "on": false,
+     "cls": ""
+    },
+    {
      "n": "highlight_off",
      "cor": "rgb(0, 0, 0)",
      "op": "1",
@@ -100,19 +116,19 @@
     },
     {
      "n": "check_circle",
-     "cor": "rgb(187, 187, 187)",
+     "cor": "rgb(0, 0, 0)",
      "op": "1",
      "w": 18,
-     "on": false,
-     "cls": ""
+     "on": true,
+     "cls": "on"
     },
     {
      "n": "directions_boat",
-     "cor": "rgb(187, 187, 187)",
+     "cor": "rgb(0, 0, 0)",
      "op": "1",
      "w": 18,
-     "on": false,
-     "cls": ""
+     "on": true,
+     "cls": "on"
     },
     {
      "n": "assignment_turned_in",
