@@ -1,8 +1,8 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-28T09:23:51.863Z",
- "ultimoSucesso": "2026-10-28T09:23:51.863Z",
+ "atualizado": "2026-10-28T10:22:49.380Z",
+ "ultimoSucesso": "2026-10-28T10:22:49.380Z",
  "total": 10,
  "previstos": 7,
  "diag": {
@@ -12,9 +12,9 @@
   "semInicio": 7,
   "comInicio": 3,
   "classificacao": {
+   "exportacao": 4,
    "outro:VIGIA": 1,
-   "exportacao": 3,
-   "importacao": 5,
+   "importacao": 4,
    "outro:TRANSBORDO": 1
   },
   "finalizados": 0,
@@ -22,16 +22,6 @@
   "icones": {
    "close": {
     "total": 10,
-    "ativo": 0,
-    "on": 0
-   },
-   "remove": {
-    "total": 3,
-    "ativo": 0,
-    "on": 0
-   },
-   "add": {
-    "total": 3,
     "ativo": 0,
     "on": 0
    },
@@ -59,6 +49,16 @@
     "total": 10,
     "ativo": 0,
     "on": 0
+   },
+   "remove": {
+    "total": 3,
+    "ativo": 0,
+    "on": 0
+   },
+   "add": {
+    "total": 3,
+    "ativo": 0,
+    "on": 0
    }
   },
   "modo": "cor",
@@ -73,6 +73,56 @@
    "inputs": []
   },
   "exemploIcones": [
+   [
+    {
+     "n": "close",
+     "cor": "rgb(187, 187, 187)",
+     "op": "1",
+     "w": 0,
+     "on": false,
+     "cls": ""
+    },
+    {
+     "n": "highlight_off",
+     "cor": "rgb(0, 0, 0)",
+     "op": "1",
+     "w": 0,
+     "on": true,
+     "cls": "on"
+    },
+    {
+     "n": "alarm",
+     "cor": "rgb(0, 0, 0)",
+     "op": "1",
+     "w": 18,
+     "on": true,
+     "cls": "on"
+    },
+    {
+     "n": "check_circle",
+     "cor": "rgb(187, 187, 187)",
+     "op": "1",
+     "w": 18,
+     "on": false,
+     "cls": ""
+    },
+    {
+     "n": "directions_boat",
+     "cor": "rgb(187, 187, 187)",
+     "op": "1",
+     "w": 18,
+     "on": false,
+     "cls": ""
+    },
+    {
+     "n": "assignment_turned_in",
+     "cor": "rgb(187, 187, 187)",
+     "op": "1",
+     "w": 18,
+     "on": false,
+     "cls": ""
+    }
+   ],
    [
     {
      "n": "close",
@@ -129,56 +179,6 @@
      "w": 18,
      "on": true,
      "cls": "on"
-    },
-    {
-     "n": "assignment_turned_in",
-     "cor": "rgb(187, 187, 187)",
-     "op": "1",
-     "w": 18,
-     "on": false,
-     "cls": ""
-    }
-   ],
-   [
-    {
-     "n": "close",
-     "cor": "rgb(187, 187, 187)",
-     "op": "1",
-     "w": 0,
-     "on": false,
-     "cls": ""
-    },
-    {
-     "n": "highlight_off",
-     "cor": "rgb(0, 0, 0)",
-     "op": "1",
-     "w": 0,
-     "on": true,
-     "cls": "on"
-    },
-    {
-     "n": "alarm",
-     "cor": "rgb(0, 0, 0)",
-     "op": "1",
-     "w": 18,
-     "on": true,
-     "cls": "on"
-    },
-    {
-     "n": "check_circle",
-     "cor": "rgb(187, 187, 187)",
-     "op": "1",
-     "w": 18,
-     "on": false,
-     "cls": ""
-    },
-    {
-     "n": "directions_boat",
-     "cor": "rgb(187, 187, 187)",
-     "op": "1",
-     "w": 18,
-     "on": false,
-     "cls": ""
     },
     {
      "n": "assignment_turned_in",
