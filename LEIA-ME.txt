@@ -123,3 +123,12 @@ VERSÃO 0.28.0 — MEU PERFIL: ESCALA DA EQUIPE, TROCAS, AVISOS E PREFERÊNCIAS
 - "Avisos": escolher os tipos que quer receber, som junto com o aviso do Windows e botão "Testar aviso".
 - "Preferências do painel": aba que abre ao entrar, supervisor padrão do texto de inspeção e telefone. Tudo salvo na conta.
 Não precisa mexer nas regras do Firebase nesta versão.
+
+VERSÃO 0.29.0 — SOF REVIEWER INTEGRADO AO PAINEL
+- O SOF Reviewer deixou de ser uma página separada dentro de uma moldura: agora é uma aba do painel, com o cabeçalho, o menu,
+  o login e o visual do painel. As bibliotecas pesadas (leitura de Excel e dicionário de inglês) ficam em
+  ferramentas/sof-libs.js e só carregam quando alguém abre a aba; a análise fica em ferramentas/sof-app.js.
+- Glossário e ocorrências ignoradas agora são da EQUIPE: ficam no banco (/painel/sofListas) e valem em todos os computadores.
+  Na primeira abertura em cada computador, o que já existia ali é somado ao da equipe. O arquivo "Salvar/Carregar listas" continua como cópia.
+- Cada análise entra no Registro de atividade ("Analisou SOF").
+- Pode apagar do repositório o arquivo antigo ferramentas/sof-reviewer.html.
