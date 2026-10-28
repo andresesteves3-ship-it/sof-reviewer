@@ -572,15 +572,19 @@
     {
      "t": 1793129202316,
      "e": "apareceu"
+    },
+    {
+     "t": 1793217641655,
+     "e": "alterada"
     }
    ],
    "man": [
     {
      "pob": "29/10 15:00",
      "navio": "HODAKA GALAXY .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } HODAKA GALAXY",
-     "m": "S",
+     "m": "M",
      "de": "TOLEO",
-     "para": "",
+     "para": "COSAN",
      "secao": "BAIA DE GUANABARA"
     }
    ],
@@ -604,6 +608,16 @@
      "de": "TOLEO",
      "para": "",
      "ult": 1793208201159,
+     "st": "cancelada"
+    },
+    {
+     "m": "M",
+     "pob": "29/10 15:00",
+     "ts": 1793296800000,
+     "vis": 1793217641655,
+     "de": "TOLEO",
+     "para": "COSAN",
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -626,11 +640,15 @@
     {
      "t": 1793147533904,
      "e": "alterada"
+    },
+    {
+     "t": 1793217641655,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "28/10 22:00",
+     "pob": "29/10 02:00",
      "navio": "INDUSTRIAL CHARGER .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } INDUSTRIAL CHARGER",
      "m": "S",
      "de": "TECONT4",
@@ -678,6 +696,16 @@
      "de": "TECONT4",
      "para": "",
      "ult": 1793208201159,
+     "st": "remarcada"
+    },
+    {
+     "m": "S",
+     "pob": "29/10 02:00",
+     "ts": 1793250000000,
+     "vis": 1793217641655,
+     "de": "TECONT4",
+     "para": "",
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -755,7 +783,7 @@
      "vis": 1793208201159,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     },
     {
@@ -837,7 +865,7 @@
      "vis": 1793133824074,
      "de": "BACS",
      "para": "SIDERURG2",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     },
     {
@@ -847,7 +875,7 @@
      "vis": 1793208201159,
      "de": "SIDERURG2",
      "para": "",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -911,7 +939,7 @@
      "vis": 1793194453152,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -922,17 +950,13 @@
     {
      "t": 1793043679836,
      "e": "inicial"
+    },
+    {
+     "t": 1793217641655,
+     "e": "alterada"
     }
    ],
    "man": [
-    {
-     "pob": "28/10 14:00",
-     "navio": "HYUNDAI TOKYO .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } HYUNDAI TOKYO",
-     "m": "E",
-     "de": "",
-     "para": "TECONT2",
-     "secao": "BAIA DE GUANABARA"
-    },
     {
      "pob": "29/10 10:00",
      "navio": "HYUNDAI TOKYO .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } HYUNDAI TOKYO",
@@ -952,7 +976,7 @@
      "de": "",
      "para": "TECONT2",
      "ult": 1793208201159,
-     "st": "prevista"
+     "st": "realizada"
     },
     {
      "m": "S",
@@ -961,7 +985,7 @@
      "vis": 1793112013771,
      "de": "TECONT2",
      "para": "",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -1015,7 +1039,7 @@
      "vis": 1793194453152,
      "de": "",
      "para": "TECONT1",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     },
     {
@@ -1025,7 +1049,7 @@
      "vis": 1793112013771,
      "de": "TECONT1",
      "para": "",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -1069,7 +1093,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "A4",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     },
     {
@@ -1079,7 +1103,7 @@
      "vis": 1793112013771,
      "de": "A4",
      "para": "",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -1111,7 +1135,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TPASSAGE2",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -1143,7 +1167,7 @@
      "vis": 1793112013771,
      "de": "BNIC-AMRJ",
      "para": "RIO BRASIL TERMINAL (EX-INHAÚMA)",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -1183,7 +1207,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     },
     {
@@ -1193,7 +1217,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -1233,7 +1257,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     },
     {
@@ -1243,7 +1267,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -1283,7 +1307,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     },
     {
@@ -1293,7 +1317,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -1333,7 +1357,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     },
     {
@@ -1343,7 +1367,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -2085,7 +2109,7 @@
      "vis": 1793194453152,
      "de": "WPT 61",
      "para": "TECONTPROLONG",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     },
     {
@@ -2105,7 +2129,7 @@
      "vis": 1793208201159,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -2145,7 +2169,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TPASSAGE2",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     },
     {
@@ -2155,7 +2179,7 @@
      "vis": 1793112013771,
      "de": "TPASSAGE2",
      "para": "",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -2286,7 +2310,7 @@
      "vis": 1793208201159,
      "de": "",
      "para": "TECONT3",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     },
     {
@@ -2316,7 +2340,7 @@
      "vis": 1793184602514,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -2364,7 +2388,7 @@
      "vis": 1793140169821,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     },
     {
@@ -2394,7 +2418,7 @@
      "vis": 1793194453152,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -2440,7 +2464,7 @@
      "vis": 1793125989055,
      "de": "TECONT5",
      "para": "",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -2490,7 +2514,7 @@
      "vis": 1793208201159,
      "de": "WPT 63",
      "para": "",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -2558,7 +2582,7 @@
      "vis": 1793133824074,
      "de": "",
      "para": "PP-1",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -2626,7 +2650,7 @@
      "vis": 1793194453152,
      "de": "MACLAREN D",
      "para": "LARGO",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -2670,7 +2694,7 @@
      "vis": 1793208201159,
      "de": "",
      "para": "TECONT5",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     },
     {
@@ -2690,7 +2714,7 @@
      "vis": 1793194453152,
      "de": "TECONT5",
      "para": "",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -2730,7 +2754,7 @@
      "vis": 1793194453152,
      "de": "",
      "para": "TECONT3",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     },
     {
@@ -2740,7 +2764,7 @@
      "vis": 1793194453152,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -2772,7 +2796,7 @@
      "vis": 1793197656762,
      "de": "",
      "para": "FEITICEIRA - 2F03",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -2816,7 +2840,7 @@
      "vis": 1793197656762,
      "de": "",
      "para": "TECONT4",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     },
     {
@@ -2836,7 +2860,7 @@
      "vis": 1793208201159,
      "de": "TECONT4",
      "para": "",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -2880,7 +2904,7 @@
      "vis": 1793197656762,
      "de": "",
      "para": "TECONT5",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     },
     {
@@ -2900,7 +2924,7 @@
      "vis": 1793208201159,
      "de": "TECONT5",
      "para": "",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -2940,7 +2964,7 @@
      "vis": 1793197656762,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     },
     {
@@ -2950,7 +2974,7 @@
      "vis": 1793197656762,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -2990,7 +3014,7 @@
      "vis": 1793197656762,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     },
     {
@@ -3000,7 +3024,7 @@
      "vis": 1793197656762,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -3062,7 +3086,7 @@
      "vis": 1793208201159,
      "de": "",
      "para": "TECONT1",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     },
     {
@@ -3072,7 +3096,7 @@
      "vis": 1793201039746,
      "de": "TECONT1",
      "para": "TECONT4",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     },
     {
@@ -3082,7 +3106,7 @@
      "vis": 1793201039746,
      "de": "TECONT4",
      "para": "",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -3122,7 +3146,7 @@
      "vis": 1793208201159,
      "de": "",
      "para": "TECONT1",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
      "st": "prevista"
     },
     {
@@ -3132,7 +3156,89 @@
      "vis": 1793208201159,
      "de": "TECONT1",
      "para": "",
-     "ult": 1793208201159,
+     "ult": 1793217641655,
+     "st": "prevista"
+    }
+   ]
+  },
+  "HEEMSKERKGRACHT DIVPPNAVIO PADDING 0 MARGIN 0 BORDER NONE FONT FAMILY VERDANA FONT SIZE 11PX WHITE SPACE NORMAL BACKGROUND COLOR FFF COLOR 000 FONT FAMILY MONOSPACE BORDER RADIUS 6PX MARGIN TOP 5PX MAX WIDTH 600PX MAX HEIGHT 400PX MIN WIDTH 300PX DIVPPNAVIO TABLE BORDER 0 BORDER COLLAPSE COLLAPSE BORDER SPACING 1PX DIVPPNAVIO TABLE TH PADDING 2PX TEXT ALIGN CENTER VERTICAL ALIGN MIDDLE BORDER 1PX SOLID BLACK BACKGROUND 6B6B6B COLOR EFEFEF DIVPPNAVIO TABLE TD BORDER 1PX SOLID BLACK VERTICAL ALIGN MIDDLE DIVPPNAVIO DIVPPNAVIO TD MARGIN 0 PADDING 0 BORDER 0 BORDER WIDTH 0 BORDER COLLAPSE COLLAPSE TBPPNAVIO TD BACKGROUND COLOR WHITE TBPPNAVIO TR TD PADDING 3PX 5PX BORDER 1PX SOLID BFD3EE TBPPNAVIO TR NTH CHILD EVEN TBPPNAVIO TR NTH CHILD EVEN TD BACKGROUND COLOR EDF5FF HEEMSKERKGRACHT": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1793217641655,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "29/10 07:00",
+     "navio": "HEEMSKERKGRACHT .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } HEEMSKERKGRACHT",
+     "m": "E",
+     "de": "",
+     "para": "A7PARTE2",
+     "secao": "BAIA DE GUANABARA"
+    }
+   ],
+   "nome": "HEEMSKERKGRACHT .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } HEEMSKERKGRACHT",
+   "mov": [
+    {
+     "m": "E",
+     "pob": "29/10 07:00",
+     "ts": 1793268000000,
+     "vis": 1793217641655,
+     "de": "",
+     "para": "A7PARTE2",
+     "ult": 1793217641655,
+     "st": "prevista"
+    }
+   ]
+  },
+  "CMA CGM THORIUM DIVPPNAVIO PADDING 0 MARGIN 0 BORDER NONE FONT FAMILY VERDANA FONT SIZE 11PX WHITE SPACE NORMAL BACKGROUND COLOR FFF COLOR 000 FONT FAMILY MONOSPACE BORDER RADIUS 6PX MARGIN TOP 5PX MAX WIDTH 600PX MAX HEIGHT 400PX MIN WIDTH 300PX DIVPPNAVIO TABLE BORDER 0 BORDER COLLAPSE COLLAPSE BORDER SPACING 1PX DIVPPNAVIO TABLE TH PADDING 2PX TEXT ALIGN CENTER VERTICAL ALIGN MIDDLE BORDER 1PX SOLID BLACK BACKGROUND 6B6B6B COLOR EFEFEF DIVPPNAVIO TABLE TD BORDER 1PX SOLID BLACK VERTICAL ALIGN MIDDLE DIVPPNAVIO DIVPPNAVIO TD MARGIN 0 PADDING 0 BORDER 0 BORDER WIDTH 0 BORDER COLLAPSE COLLAPSE TBPPNAVIO TD BACKGROUND COLOR WHITE TBPPNAVIO TR TD PADDING 3PX 5PX BORDER 1PX SOLID BFD3EE TBPPNAVIO TR NTH CHILD EVEN TBPPNAVIO TR NTH CHILD EVEN TD BACKGROUND COLOR EDF5FF CMA CGM THORIUM": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1793217641655,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "10/11 12:00",
+     "navio": "CMA CGM THORIUM .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } CMA CGM THORIUM",
+     "m": "E",
+     "de": "",
+     "para": "TECONTPROLONG",
+     "secao": "BAIA DE GUANABARA"
+    },
+    {
+     "pob": "11/11 08:00",
+     "navio": "CMA CGM THORIUM .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } CMA CGM THORIUM",
+     "m": "S",
+     "de": "TECONTPROLONG",
+     "para": "",
+     "secao": "BAIA DE GUANABARA"
+    }
+   ],
+   "nome": "CMA CGM THORIUM .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } CMA CGM THORIUM",
+   "mov": [
+    {
+     "m": "E",
+     "pob": "10/11 12:00",
+     "ts": 1794322800000,
+     "vis": 1793217641655,
+     "de": "",
+     "para": "TECONTPROLONG",
+     "ult": 1793217641655,
+     "st": "prevista"
+    },
+    {
+     "m": "S",
+     "pob": "11/11 08:00",
+     "ts": 1794394800000,
+     "vis": 1793217641655,
+     "de": "TECONTPROLONG",
+     "para": "",
+     "ult": 1793217641655,
      "st": "prevista"
     }
    ]
@@ -3140,9 +3246,9 @@
  },
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-28T17:23:21.159Z",
- "ultimoSucesso": "2026-10-28T17:23:21.159Z",
- "total": 52,
+ "atualizado": "2026-10-28T20:00:41.655Z",
+ "ultimoSucesso": "2026-10-28T20:00:41.655Z",
+ "total": 54,
  "secoes": [
   "BAIA DE GUANABARA",
   "BAIA DE SEPETIBA",
