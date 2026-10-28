@@ -1,7 +1,7 @@
 name: Robô da Praticagem
 on:
   schedule:
-    - cron: '*/15 * * * *'   # a cada 15 minutos (o GitHub às vezes atrasa ou pula; quanto mais leituras, menos manobra perdida)
+    - cron: '7,22,37,52 * * * *'   # a cada 15 minutos, fora dos horários redondos (o GitHub atrasa/pula mais em :00/:15/:30/:45); o painel aberto chama o robô se ele ficar parado
   workflow_dispatch:          # permite rodar na hora pelo botão "Run workflow"
 permissions:
   contents: write
