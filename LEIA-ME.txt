@@ -155,3 +155,43 @@ VERSÃO 0.31.0 — INÍCIO COM O RESUMO DO TURNO
 - "Navios em andamento": cada navio ativo com as rotinas do período atual (em dia ou quantas pendentes), a próxima manobra
   da Praticagem e se a requisição do próximo período já está no OGMO (com o prazo, quando falta).
 - Selo dos robôs ao lado do título: verde quando todos estão funcionando; vermelho/amarelo com o problema; clique abre o Status dos robôs.
+
+VERSÃO 0.31.1 — 01x07 DO OGMO NO DIA CERTO
+- No OGMO, as requisições do dia 28/10 são 07-13, 13-19, 19-01 e 01-07; o 01-07 é a madrugada de 29/10, mas conta para o dia 28.
+  O painel estava procurando o 01x07 no dia seguinte do OGMO e avisava "Sem requisição" por engano. Corrigido no aviso,
+  no quadro "Navios em andamento" e na marcação automática da Requisição de Estiva.
+
+VERSÃO 0.32.0 — PASSAGEM DE SERVIÇO PARA QUEM ASSUME
+- A passagem ganhou o bloco "Para quem assume · próximos períodos": os 4 períodos a partir do fim do turno de quem passa
+  (Noite do dia 28 → 07x13, 13x19, 19x01 e 01x07 do dia 29; Dia do dia 28 → 19x01 e 01x07 do 28, 07x13 e 13x19 do 29),
+  com, para cada navio, a requisição de terno (pedido no OGMO / feito / sem operação / falta com prazo / vencido)
+  e o Plano B (operadores: feito / sem operação / falta).
+- Aparece no topo do PDF, no aviso "aguardando ciente" (com a situação de AGORA, atualizada) e no histórico de passagens.
+
+VERSÃO 0.32.1 — REQUISIÇÕES: ONTEM, HOJE E AMANHÃ
+- O robô do OGMO passa a ler 3 dias: hoje (primeiro), amanhã e ontem. Antes de ler cada dia ele confere a data da tela.
+- Na aba Requisições aparecem os botões Ontem, Hoje e Amanhã (em ordem de data); ao abrir, já vem em Hoje.
+- Para mudar os dias lidos sem mexer no código: variável OGMO_DIAS no workflow (ex.: "0,1,-1").
+
+VERSÃO 0.33.0 — AVISOS DAS ROTINAS DO PERÍODO
+- Para cada navio iniciado, as rotinas diárias sem marcação no período atual (menos a Requisição de Estiva, que tem os avisos de prazo):
+  aviso no começo do período (07:00, 13:00, 19:00, 01:00) e outro 1 h antes do fim ("Período 19x01 termina às 01:00: 6 a fazer").
+- Rotinas do período anterior que ficaram sem marcar viram "Não feitas no 13x19" (Urgente) até alguém marcar Feito, S/OP ou "passou para o próximo".
+- O "Agora no meu turno" e o quadro "Navios em andamento" passam a contar do mesmo jeito.
+- Liga/desliga em Meu perfil > Avisos ("Rotinas do período" e "Rotinas do período anterior").
+
+VERSÃO 0.33.1 — PRODUÇÃO E PAGAMENTOS SÃO DE FECHAMENTO
+- "Produção e operação" (Produção, SOF, Fatos) e "Pagamentos" (planilhas) do período P só podem ser feitas depois que P termina.
+  Por isso os avisos de agora cobram o FECHAMENTO do período anterior (+ o Plano B do período atual).
+  Ex.: no 19x01, "A fazer agora" = fechamento do 13x19 + Plano B do 19x01; 1 h antes das 01:00 vira Urgente;
+  se passar das 01:00 sem marcar, aparece "Ficaram sem marcar".
+- Na grade das Rotinas, esses dois grupos mostram "feitas depois que o período termina". O quadro do Início usa a mesma regra.
+
+== Versão 0.34.0 ==
+- Passagem de serviço reorganizada (PDF e aviso de "ciente"):
+  Página 1 "Para quem assume": quem passa → quem assume, resumo (tarefas / atrasadas / recados),
+  "O que você precisa fazer" em ordem de prazo (fechamentos, Plano B, requisição de terno e rotinas únicas),
+  "Fica para o turno seguinte", recados, "Já resolvido" e assinaturas.
+  Página 2 "Registro do turno": só os 2 períodos do turno; fechamento do último período aparece como
+  "fica p/ quem assume" (não como falha).
+- No aviso de ciente, quem assume pode clicar numa rotina (○) para marcá-la como feita.
