@@ -195,3 +195,12 @@ VERSÃO 0.33.1 — PRODUÇÃO E PAGAMENTOS SÃO DE FECHAMENTO
   Página 2 "Registro do turno": só os 2 períodos do turno; fechamento do último período aparece como
   "fica p/ quem assume" (não como falha).
 - No aviso de ciente, quem assume pode clicar numa rotina (○) para marcá-la como feita.
+
+== Versão 0.35.0 ==
+- Passagem de serviço refeita (PDF e aviso de ciente), no layout da proposta:
+  cabeçalho com o logo, Quem passa → Para quem assume, resumo colorido.
+  1 · O QUE FICOU DO TURNO ANTERIOR: só o que o turno que passa deixou (fechamento do último período,
+      o que ficou sem fazer, requisição de terno com prazo vencido, rotinas únicas em aberto).
+      As tarefas do próprio turno de quem assume NÃO aparecem mais.
+  2 · Recados · 3 · Já resolvido · assinaturas.
+  Página 2: checklist dos períodos do turno por navio + rotinas únicas.
