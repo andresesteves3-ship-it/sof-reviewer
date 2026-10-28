@@ -35,7 +35,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     }
    ]
@@ -335,7 +335,7 @@
    ]
   },
   "PLUTO MOON DIVPPNAVIO PADDING 0 MARGIN 0 BORDER NONE FONT FAMILY VERDANA FONT SIZE 11PX WHITE SPACE NORMAL BACKGROUND COLOR FFF COLOR 000 FONT FAMILY MONOSPACE BORDER RADIUS 6PX MARGIN TOP 5PX MAX WIDTH 600PX MAX HEIGHT 400PX MIN WIDTH 300PX DIVPPNAVIO TABLE BORDER 0 BORDER COLLAPSE COLLAPSE BORDER SPACING 1PX DIVPPNAVIO TABLE TH PADDING 2PX TEXT ALIGN CENTER VERTICAL ALIGN MIDDLE BORDER 1PX SOLID BLACK BACKGROUND 6B6B6B COLOR EFEFEF DIVPPNAVIO TABLE TD BORDER 1PX SOLID BLACK VERTICAL ALIGN MIDDLE DIVPPNAVIO DIVPPNAVIO TD MARGIN 0 PADDING 0 BORDER 0 BORDER WIDTH 0 BORDER COLLAPSE COLLAPSE TBPPNAVIO TD BACKGROUND COLOR WHITE TBPPNAVIO TR TD PADDING 3PX 5PX BORDER 1PX SOLID BFD3EE TBPPNAVIO TR NTH CHILD EVEN TBPPNAVIO TR NTH CHILD EVEN TD BACKGROUND COLOR EDF5FF PLUTO MOON": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1793043679836,
@@ -352,6 +352,10 @@
     {
      "t": 1793147533904,
      "e": "alterada"
+    },
+    {
+     "t": 1793163602188,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -384,7 +388,7 @@
      "de": "VISITA N",
      "para": "",
      "ult": 1793156625471,
-     "st": "prevista"
+     "st": "realizada"
     }
    ]
   },
@@ -446,7 +450,7 @@
      "vis": 1793156625471,
      "de": "LARGO",
      "para": "",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     }
    ]
@@ -486,7 +490,7 @@
      "vis": 1793112013771,
      "de": "TECONT2",
      "para": "",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     }
    ]
@@ -559,7 +563,7 @@
      "vis": 1793129202316,
      "de": "TOLEO",
      "para": "",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     }
    ]
@@ -633,7 +637,7 @@
      "vis": 1793114790316,
      "de": "TECONT4",
      "para": "",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     }
    ]
@@ -687,7 +691,7 @@
      "vis": 1793121064563,
      "de": "",
      "para": "TECONT3",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     },
     {
@@ -697,7 +701,7 @@
      "vis": 1793112013771,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     }
    ]
@@ -741,7 +745,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "BACS",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     },
     {
@@ -761,7 +765,7 @@
      "vis": 1793133824074,
      "de": "BACS",
      "para": "SIDERURG2",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     }
    ]
@@ -805,7 +809,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     },
     {
@@ -815,7 +819,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     }
    ]
@@ -855,7 +859,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONT2",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     },
     {
@@ -865,7 +869,7 @@
      "vis": 1793112013771,
      "de": "TECONT2",
      "para": "",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     }
    ]
@@ -905,7 +909,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONT1",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     },
     {
@@ -915,7 +919,7 @@
      "vis": 1793112013771,
      "de": "TECONT1",
      "para": "",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     }
    ]
@@ -959,7 +963,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "A4",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     },
     {
@@ -969,7 +973,7 @@
      "vis": 1793112013771,
      "de": "A4",
      "para": "",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     }
    ]
@@ -1001,7 +1005,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TPASSAGE2",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     }
    ]
@@ -1033,7 +1037,7 @@
      "vis": 1793112013771,
      "de": "BNIC-AMRJ",
      "para": "RIO BRASIL TERMINAL (EX-INHAÚMA)",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     }
    ]
@@ -1073,7 +1077,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     },
     {
@@ -1083,7 +1087,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     }
    ]
@@ -1123,7 +1127,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     },
     {
@@ -1133,7 +1137,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     }
    ]
@@ -1173,7 +1177,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     },
     {
@@ -1183,7 +1187,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     }
    ]
@@ -1223,7 +1227,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     },
     {
@@ -1233,7 +1237,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     }
    ]
@@ -1989,7 +1993,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TPASSAGE2",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     },
     {
@@ -1999,7 +2003,7 @@
      "vis": 1793112013771,
      "de": "TPASSAGE2",
      "para": "",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     }
    ]
@@ -2098,7 +2102,7 @@
      "vis": 1793114790316,
      "de": "",
      "para": "TECONT3",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     },
     {
@@ -2108,7 +2112,7 @@
      "vis": 1793114790316,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     }
    ]
@@ -2152,7 +2156,7 @@
      "vis": 1793140169821,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     },
     {
@@ -2172,7 +2176,7 @@
      "vis": 1793114790316,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     }
    ]
@@ -2212,7 +2216,7 @@
      "vis": 1793125989055,
      "de": "",
      "para": "TECONT5",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     },
     {
@@ -2222,7 +2226,7 @@
      "vis": 1793125989055,
      "de": "TECONT5",
      "para": "",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     }
    ]
@@ -2254,17 +2258,21 @@
      "vis": 1793125989055,
      "de": "",
      "para": "WPT 63",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     }
    ]
   },
   "ANGRA DOS REIS DIVPPNAVIO PADDING 0 MARGIN 0 BORDER NONE FONT FAMILY VERDANA FONT SIZE 11PX WHITE SPACE NORMAL BACKGROUND COLOR FFF COLOR 000 FONT FAMILY MONOSPACE BORDER RADIUS 6PX MARGIN TOP 5PX MAX WIDTH 600PX MAX HEIGHT 400PX MIN WIDTH 300PX DIVPPNAVIO TABLE BORDER 0 BORDER COLLAPSE COLLAPSE BORDER SPACING 1PX DIVPPNAVIO TABLE TH PADDING 2PX TEXT ALIGN CENTER VERTICAL ALIGN MIDDLE BORDER 1PX SOLID BLACK BACKGROUND 6B6B6B COLOR EFEFEF DIVPPNAVIO TABLE TD BORDER 1PX SOLID BLACK VERTICAL ALIGN MIDDLE DIVPPNAVIO DIVPPNAVIO TD MARGIN 0 PADDING 0 BORDER 0 BORDER WIDTH 0 BORDER COLLAPSE COLLAPSE TBPPNAVIO TD BACKGROUND COLOR WHITE TBPPNAVIO TR TD PADDING 3PX 5PX BORDER 1PX SOLID BFD3EE TBPPNAVIO TR NTH CHILD EVEN TBPPNAVIO TR NTH CHILD EVEN TD BACKGROUND COLOR EDF5FF ANGRA DOS REIS": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1793133824074,
      "e": "apareceu"
+    },
+    {
+     "t": 1793163602188,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -2287,7 +2295,7 @@
      "de": "PP-1",
      "para": "",
      "ult": 1793156625471,
-     "st": "prevista"
+     "st": "realizada"
     }
    ]
   },
@@ -2318,7 +2326,7 @@
      "vis": 1793133824074,
      "de": "",
      "para": "PP-1",
-     "ult": 1793156625471,
+     "ult": 1793163602188,
      "st": "prevista"
     }
    ]
@@ -2326,9 +2334,9 @@
  },
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-28T03:03:45.471Z",
- "ultimoSucesso": "2026-10-28T03:03:45.471Z",
- "total": 39,
+ "atualizado": "2026-10-28T05:00:02.188Z",
+ "ultimoSucesso": "2026-10-28T05:00:02.188Z",
+ "total": 37,
  "secoes": [
   "BAIA DE GUANABARA",
   "BAIA DE SEPETIBA",
