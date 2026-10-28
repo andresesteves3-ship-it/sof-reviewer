@@ -35,7 +35,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     }
    ]
@@ -348,11 +348,15 @@
     {
      "t": 1793140169821,
      "e": "apareceu"
+    },
+    {
+     "t": 1793147533904,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "27/10 23:30",
+     "pob": "28/10 01:00",
      "navio": "PLUTO MOON .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } PLUTO MOON",
      "m": "S",
      "de": "VISITA N",
@@ -370,6 +374,16 @@
      "de": "VISITA N",
      "para": "",
      "ult": 1793140995643,
+     "st": "remarcada"
+    },
+    {
+     "m": "S",
+     "pob": "28/10 01:00",
+     "ts": 1793160000000,
+     "vis": 1793147533904,
+     "de": "VISITA N",
+     "para": "",
+     "ult": 1793147533904,
      "st": "prevista"
     }
    ]
@@ -455,7 +469,7 @@
      "vis": 1793112013771,
      "de": "TECONT2",
      "para": "",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     }
    ]
@@ -528,7 +542,7 @@
      "vis": 1793129202316,
      "de": "TOLEO",
      "para": "",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     }
    ]
@@ -547,17 +561,13 @@
     {
      "t": 1793121064563,
      "e": "alterada"
+    },
+    {
+     "t": 1793147533904,
+     "e": "alterada"
     }
    ],
    "man": [
-    {
-     "pob": "27/10 20:00",
-     "navio": "INDUSTRIAL CHARGER .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } INDUSTRIAL CHARGER",
-     "m": "E",
-     "de": "",
-     "para": "TECONT4",
-     "secao": "BAIA DE GUANABARA"
-    },
     {
      "pob": "28/10 22:00",
      "navio": "INDUSTRIAL CHARGER .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } INDUSTRIAL CHARGER",
@@ -587,7 +597,7 @@
      "de": "",
      "para": "TECONT4",
      "ult": 1793140995643,
-     "st": "prevista"
+     "st": "realizada"
     },
     {
      "m": "S",
@@ -606,7 +616,7 @@
      "vis": 1793114790316,
      "de": "TECONT4",
      "para": "",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     }
    ]
@@ -660,7 +670,7 @@
      "vis": 1793121064563,
      "de": "",
      "para": "TECONT3",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     },
     {
@@ -670,7 +680,7 @@
      "vis": 1793112013771,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     }
    ]
@@ -714,7 +724,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "BACS",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     },
     {
@@ -734,7 +744,7 @@
      "vis": 1793133824074,
      "de": "BACS",
      "para": "SIDERURG2",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     }
    ]
@@ -778,7 +788,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     },
     {
@@ -788,7 +798,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     }
    ]
@@ -828,7 +838,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONT2",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     },
     {
@@ -838,7 +848,7 @@
      "vis": 1793112013771,
      "de": "TECONT2",
      "para": "",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     }
    ]
@@ -878,7 +888,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONT1",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     },
     {
@@ -888,7 +898,7 @@
      "vis": 1793112013771,
      "de": "TECONT1",
      "para": "",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     }
    ]
@@ -932,7 +942,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "A4",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     },
     {
@@ -942,7 +952,7 @@
      "vis": 1793112013771,
      "de": "A4",
      "para": "",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     }
    ]
@@ -974,7 +984,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TPASSAGE2",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     }
    ]
@@ -1006,7 +1016,7 @@
      "vis": 1793112013771,
      "de": "BNIC-AMRJ",
      "para": "RIO BRASIL TERMINAL (EX-INHAÚMA)",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     }
    ]
@@ -1046,7 +1056,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     },
     {
@@ -1056,7 +1066,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     }
    ]
@@ -1096,7 +1106,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     },
     {
@@ -1106,7 +1116,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     }
    ]
@@ -1146,7 +1156,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     },
     {
@@ -1156,7 +1166,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     }
    ]
@@ -1196,7 +1206,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     },
     {
@@ -1206,7 +1216,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     }
    ]
@@ -1962,7 +1972,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TPASSAGE2",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     },
     {
@@ -1972,7 +1982,7 @@
      "vis": 1793112013771,
      "de": "TPASSAGE2",
      "para": "",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     }
    ]
@@ -2071,7 +2081,7 @@
      "vis": 1793114790316,
      "de": "",
      "para": "TECONT3",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     },
     {
@@ -2081,7 +2091,7 @@
      "vis": 1793114790316,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     }
    ]
@@ -2125,7 +2135,7 @@
      "vis": 1793140169821,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     },
     {
@@ -2145,7 +2155,7 @@
      "vis": 1793114790316,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     }
    ]
@@ -2185,7 +2195,7 @@
      "vis": 1793125989055,
      "de": "",
      "para": "TECONT5",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     },
     {
@@ -2195,7 +2205,7 @@
      "vis": 1793125989055,
      "de": "TECONT5",
      "para": "",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     }
    ]
@@ -2227,7 +2237,7 @@
      "vis": 1793125989055,
      "de": "",
      "para": "WPT 63",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     }
    ]
@@ -2259,7 +2269,7 @@
      "vis": 1793133824074,
      "de": "PP-1",
      "para": "",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     }
    ]
@@ -2291,7 +2301,7 @@
      "vis": 1793133824074,
      "de": "",
      "para": "PP-1",
-     "ult": 1793140995643,
+     "ult": 1793147533904,
      "st": "prevista"
     }
    ]
@@ -2299,9 +2309,9 @@
  },
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-27T22:43:15.643Z",
- "ultimoSucesso": "2026-10-27T22:43:15.643Z",
- "total": 39,
+ "atualizado": "2026-10-28T00:32:13.904Z",
+ "ultimoSucesso": "2026-10-28T00:32:13.904Z",
+ "total": 38,
  "secoes": [
   "BAIA DE GUANABARA",
   "BAIA DE SEPETIBA",
