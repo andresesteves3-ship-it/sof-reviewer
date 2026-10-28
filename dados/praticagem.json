@@ -478,7 +478,7 @@
    ]
   },
   "MAERSK PANGANI DIVPPNAVIO PADDING 0 MARGIN 0 BORDER NONE FONT FAMILY VERDANA FONT SIZE 11PX WHITE SPACE NORMAL BACKGROUND COLOR FFF COLOR 000 FONT FAMILY MONOSPACE BORDER RADIUS 6PX MARGIN TOP 5PX MAX WIDTH 600PX MAX HEIGHT 400PX MIN WIDTH 300PX DIVPPNAVIO TABLE BORDER 0 BORDER COLLAPSE COLLAPSE BORDER SPACING 1PX DIVPPNAVIO TABLE TH PADDING 2PX TEXT ALIGN CENTER VERTICAL ALIGN MIDDLE BORDER 1PX SOLID BLACK BACKGROUND 6B6B6B COLOR EFEFEF DIVPPNAVIO TABLE TD BORDER 1PX SOLID BLACK VERTICAL ALIGN MIDDLE DIVPPNAVIO DIVPPNAVIO TD MARGIN 0 PADDING 0 BORDER 0 BORDER WIDTH 0 BORDER COLLAPSE COLLAPSE TBPPNAVIO TD BACKGROUND COLOR WHITE TBPPNAVIO TR TD PADDING 3PX 5PX BORDER 1PX SOLID BFD3EE TBPPNAVIO TR NTH CHILD EVEN TBPPNAVIO TR NTH CHILD EVEN TD BACKGROUND COLOR EDF5FF MAERSK PANGANI": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1793043679836,
@@ -495,6 +495,10 @@
     {
      "t": 1793176350558,
      "e": "alterada"
+    },
+    {
+     "t": 1793201039746,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -527,7 +531,7 @@
      "de": "TECONT2",
      "para": "",
      "ult": 1793197656762,
-     "st": "prevista"
+     "st": "realizada"
     }
    ]
   },
@@ -599,7 +603,7 @@
      "vis": 1793129202316,
      "de": "TOLEO",
      "para": "",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -673,7 +677,7 @@
      "vis": 1793114790316,
      "de": "TECONT4",
      "para": "",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -747,7 +751,7 @@
      "vis": 1793182190488,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -807,7 +811,7 @@
      "vis": 1793133824074,
      "de": "BACS",
      "para": "SIDERURG2",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -855,7 +859,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     },
     {
@@ -875,7 +879,7 @@
      "vis": 1793194453152,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -915,7 +919,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONT2",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     },
     {
@@ -925,7 +929,7 @@
      "vis": 1793112013771,
      "de": "TECONT2",
      "para": "",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -979,7 +983,7 @@
      "vis": 1793194453152,
      "de": "",
      "para": "TECONT1",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     },
     {
@@ -989,7 +993,7 @@
      "vis": 1793112013771,
      "de": "TECONT1",
      "para": "",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -1033,7 +1037,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "A4",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     },
     {
@@ -1043,7 +1047,7 @@
      "vis": 1793112013771,
      "de": "A4",
      "para": "",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -1075,7 +1079,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TPASSAGE2",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -1107,7 +1111,7 @@
      "vis": 1793112013771,
      "de": "BNIC-AMRJ",
      "para": "RIO BRASIL TERMINAL (EX-INHAÚMA)",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -1147,7 +1151,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     },
     {
@@ -1157,7 +1161,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -1197,7 +1201,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     },
     {
@@ -1207,7 +1211,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -1247,7 +1251,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     },
     {
@@ -1257,7 +1261,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -1297,7 +1301,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     },
     {
@@ -1307,7 +1311,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -2045,7 +2049,7 @@
      "vis": 1793194453152,
      "de": "WPT 61",
      "para": "TECONTPROLONG",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     },
     {
@@ -2055,7 +2059,7 @@
      "vis": 1793194453152,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -2095,7 +2099,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TPASSAGE2",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     },
     {
@@ -2105,7 +2109,7 @@
      "vis": 1793112013771,
      "de": "TPASSAGE2",
      "para": "",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -2222,7 +2226,7 @@
      "vis": 1793184602514,
      "de": "",
      "para": "TECONT3",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     },
     {
@@ -2252,7 +2256,7 @@
      "vis": 1793184602514,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -2300,7 +2304,7 @@
      "vis": 1793140169821,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     },
     {
@@ -2330,7 +2334,7 @@
      "vis": 1793194453152,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -2376,7 +2380,7 @@
      "vis": 1793125989055,
      "de": "TECONT5",
      "para": "",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -2480,7 +2484,7 @@
      "vis": 1793133824074,
      "de": "",
      "para": "PP-1",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -2512,7 +2516,7 @@
      "vis": 1793194453152,
      "de": "LARGO",
      "para": "",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -2544,7 +2548,7 @@
      "vis": 1793194453152,
      "de": "MACLAREN D",
      "para": "LARGO",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -2584,7 +2588,7 @@
      "vis": 1793194453152,
      "de": "",
      "para": "TECONT5",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     },
     {
@@ -2594,7 +2598,7 @@
      "vis": 1793194453152,
      "de": "TECONT5",
      "para": "",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -2634,7 +2638,7 @@
      "vis": 1793194453152,
      "de": "",
      "para": "TECONT3",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     },
     {
@@ -2644,7 +2648,7 @@
      "vis": 1793194453152,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -2676,7 +2680,7 @@
      "vis": 1793197656762,
      "de": "",
      "para": "FEITICEIRA - 2F03",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -2716,7 +2720,7 @@
      "vis": 1793197656762,
      "de": "",
      "para": "TECONT2",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     },
     {
@@ -2726,7 +2730,7 @@
      "vis": 1793197656762,
      "de": "TECONT2",
      "para": "",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -2766,7 +2770,7 @@
      "vis": 1793197656762,
      "de": "",
      "para": "TECONT5",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     },
     {
@@ -2776,7 +2780,7 @@
      "vis": 1793197656762,
      "de": "TECONT5",
      "para": "",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -2816,7 +2820,7 @@
      "vis": 1793197656762,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     },
     {
@@ -2826,7 +2830,7 @@
      "vis": 1793197656762,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -2866,7 +2870,7 @@
      "vis": 1793197656762,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
      "st": "prevista"
     },
     {
@@ -2876,7 +2880,75 @@
      "vis": 1793197656762,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793197656762,
+     "ult": 1793201039746,
+     "st": "prevista"
+    }
+   ]
+  },
+  "LOG IN PANTANAL DIVPPNAVIO PADDING 0 MARGIN 0 BORDER NONE FONT FAMILY VERDANA FONT SIZE 11PX WHITE SPACE NORMAL BACKGROUND COLOR FFF COLOR 000 FONT FAMILY MONOSPACE BORDER RADIUS 6PX MARGIN TOP 5PX MAX WIDTH 600PX MAX HEIGHT 400PX MIN WIDTH 300PX DIVPPNAVIO TABLE BORDER 0 BORDER COLLAPSE COLLAPSE BORDER SPACING 1PX DIVPPNAVIO TABLE TH PADDING 2PX TEXT ALIGN CENTER VERTICAL ALIGN MIDDLE BORDER 1PX SOLID BLACK BACKGROUND 6B6B6B COLOR EFEFEF DIVPPNAVIO TABLE TD BORDER 1PX SOLID BLACK VERTICAL ALIGN MIDDLE DIVPPNAVIO DIVPPNAVIO TD MARGIN 0 PADDING 0 BORDER 0 BORDER WIDTH 0 BORDER COLLAPSE COLLAPSE TBPPNAVIO TD BACKGROUND COLOR WHITE TBPPNAVIO TR TD PADDING 3PX 5PX BORDER 1PX SOLID BFD3EE TBPPNAVIO TR NTH CHILD EVEN TBPPNAVIO TR NTH CHILD EVEN TD BACKGROUND COLOR EDF5FF LOG IN PANTANAL": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1793201039746,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "30/10 02:00",
+     "navio": "LOG-IN PANTANAL .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } LOG-IN PANTANAL",
+     "m": "E",
+     "de": "",
+     "para": "TECONT1",
+     "secao": "BAIA DE GUANABARA"
+    },
+    {
+     "pob": "31/10 07:00",
+     "navio": "LOG-IN PANTANAL .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } LOG-IN PANTANAL",
+     "m": "M",
+     "de": "TECONT1",
+     "para": "TECONT4",
+     "secao": "BAIA DE GUANABARA"
+    },
+    {
+     "pob": "31/10 17:30",
+     "navio": "LOG-IN PANTANAL .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } LOG-IN PANTANAL",
+     "m": "S",
+     "de": "TECONT4",
+     "para": "",
+     "secao": "BAIA DE GUANABARA"
+    }
+   ],
+   "nome": "LOG-IN PANTANAL .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } LOG-IN PANTANAL",
+   "mov": [
+    {
+     "m": "E",
+     "pob": "30/10 02:00",
+     "ts": 1793336400000,
+     "vis": 1793201039746,
+     "de": "",
+     "para": "TECONT1",
+     "ult": 1793201039746,
+     "st": "prevista"
+    },
+    {
+     "m": "M",
+     "pob": "31/10 07:00",
+     "ts": 1793440800000,
+     "vis": 1793201039746,
+     "de": "TECONT1",
+     "para": "TECONT4",
+     "ult": 1793201039746,
+     "st": "prevista"
+    },
+    {
+     "m": "S",
+     "pob": "31/10 17:30",
+     "ts": 1793478600000,
+     "vis": 1793201039746,
+     "de": "TECONT4",
+     "para": "",
+     "ult": 1793201039746,
      "st": "prevista"
     }
    ]
@@ -2884,9 +2956,9 @@
  },
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-28T14:27:36.762Z",
- "ultimoSucesso": "2026-10-28T14:27:36.762Z",
- "total": 48,
+ "atualizado": "2026-10-28T15:23:59.746Z",
+ "ultimoSucesso": "2026-10-28T15:23:59.746Z",
+ "total": 50,
  "secoes": [
   "BAIA DE GUANABARA",
   "BAIA DE SEPETIBA",
