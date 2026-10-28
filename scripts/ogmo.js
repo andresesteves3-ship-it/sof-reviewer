@@ -292,6 +292,10 @@ const dm = d => String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth()
       const dt = new Date(y0, m0 - 1, d0 + off), lbl = dm(dt);
       try {
         if (off !== 0) { await trocarData(page, lbl); fr = await frameDaTela(page); await escolherFiltros(fr); }
+        // confere se a tela está mesmo no dia pedido (senão leria o dia errado com o rótulo deste)
+        fr = await frameDaTela(page);
+        const cd = await fr.evaluate(() => window.__rb.campoData());
+        if (!cd || cd.v !== lbl) throw new Error('a tela ficou em ' + (cd ? cd.v : '?') + ' em vez de ' + lbl);
         const reqs = await lerDia(page, fr);
         dias.push({ data: lbl, reqs });
       } catch (e) { dias.push({ data: lbl, reqs: [], erro: mascarar(String(e.message)).slice(0, 120) }); }
