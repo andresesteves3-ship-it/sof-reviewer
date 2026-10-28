@@ -132,3 +132,10 @@ VERSÃO 0.29.0 — SOF REVIEWER INTEGRADO AO PAINEL
   Na primeira abertura em cada computador, o que já existia ali é somado ao da equipe. O arquivo "Salvar/Carregar listas" continua como cópia.
 - Cada análise entra no Registro de atividade ("Analisou SOF").
 - Pode apagar do repositório o arquivo antigo ferramentas/sof-reviewer.html.
+
+VERSÃO 0.30.0 — PRAZO DA REQUISIÇÃO DE TERNO
+- Prazos: 07x13 até 03:45 · 13x19 até 09:45 · 19x01 até 15:45 · 01x07 até 19:35 (do mesmo dia operacional).
+- Para cada navio ativo nas Rotinas sem "Requisição de Estiva" marcada no período: avisos do Windows 2 h, 1 h e 30 min antes do prazo
+  (no turno de quem recebe). Depois de vencido, fica no sino (sem aviso do Windows) até o período terminar.
+- Na grade, a célula da Requisição de Estiva fica laranja quando faltam até 2 h e vermelha quando o prazo venceu.
+- Marcar "Feito", "Sem operação" ou a marcação automática do OGMO encerra os avisos. Pode ligar/desligar em Meu perfil > Avisos.
