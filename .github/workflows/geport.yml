@@ -40,6 +40,9 @@ jobs:
           if [ -f dados/geport.enc.json ]; then git add dados/geport.enc.json; fi
           if git diff --cached --quiet; then echo "Nada para salvar"; else
             git commit -m "Geport: atualização automática"
-            git pull --rebase origin "${GITHUB_REF_NAME}" || true
-            git push
+            # outro robô pode ter publicado ao mesmo tempo: tenta de novo até 5 vezes
+            for i in 1 2 3 4 5; do
+              git pull --rebase origin "${GITHUB_REF_NAME}" && git push && break
+              echo "push recusado, tentando de novo ($i)"; sleep $((i*7))
+            done
           fi
