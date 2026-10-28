@@ -1,0 +1,36 @@
+name: Cópia de segurança do banco
+on:
+  schedule:
+    - cron: '41 6 * * *'     # todo dia às 06:41 UTC (03:41 em Brasília)
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: backup
+  cancel-in-progress: false
+jobs:
+  copiar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/backup.js
+        env:
+          FB_ROBO_EMAIL: ${{ secrets.FB_ROBO_EMAIL }}
+          FB_ROBO_PASS: ${{ secrets.FB_ROBO_PASS }}
+          LINEUP_KEY: ${{ secrets.LINEUP_KEY }}
+      - name: Salvar cópia
+        run: |
+          git config user.name "robo-backup"
+          git config user.email "robo-backup@users.noreply.github.com"
+          git add -A dados/backup dados/backup-status.json
+          if git diff --cached --quiet; then echo "Nada para salvar"; else
+            git commit -m "Cópia de segurança diária"
+            for i in 1 2 3 4 5; do
+              git pull --rebase origin "${GITHUB_REF_NAME}" && git push && break
+              echo "push recusado, tentando de novo ($i)"; sleep $((i*7))
+            done
+          fi
