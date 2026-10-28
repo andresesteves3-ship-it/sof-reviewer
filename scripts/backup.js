@@ -1,6 +1,6 @@
 // Robô de cópia de segurança — roda no GitHub Actions uma vez por dia.
 // Entra no Firebase com o usuário do robô (Secrets FB_ROBO_EMAIL / FB_ROBO_PASS), lê o banco do painel
-// (/painel, /usuarios e os últimos 7 dias de /log) e grava dados/backup/AAAA-MM-DD.enc.json
+// (/painel, /usuarios, os últimos 7 dias de /log e 30 dias de /passagens) e grava dados/backup/AAAA-MM-DD.enc.json
 // CRIPTOGRAFADO com a chave LINEUP_KEY (o repositório é público). Guarda as cópias dos últimos 30 dias.
 // Só LÊ o banco: nunca grava nada no Firebase. Não imprime dados, e-mail nem senha no log.
 const fs = require('fs');
@@ -47,8 +47,9 @@ const mascarar = t => [EMAIL, PASS].filter(v => v && v.length > 2).reduce((r, v)
     const painel = await get('painel');
     const usuarios = await get('usuarios').catch(() => null);
     const log = await get('log', '&orderBy=%22%24key%22&startAt=%22' + ymd(ini) + '%22').catch(() => null);
+    const passagens = await get('passagens', '&orderBy=%22%24key%22&startAt=%22' + ymd(new Date(hoje.getTime() - 30 * 864e5)) + '%22').catch(() => null);
     if (!painel || typeof painel !== 'object') throw new Error('O banco veio vazio; cópia não gravada (a anterior foi mantida).');
-    const copia = { feitoEm: Date.now(), painel, usuarios: usuarios || {}, log: log || {} };
+    const copia = { feitoEm: Date.now(), painel, usuarios: usuarios || {}, log: log || {}, passagens: passagens || {} };
     fs.mkdirSync(DIR, { recursive: true });
     const nome = ymd(hoje) + '.enc.json';
     fs.writeFileSync(path.join(DIR, nome), JSON.stringify(cifrar(copia)) + '\n');
