@@ -8,6 +8,7 @@ const cheerio = require('cheerio');
 
 const URL_PRAT = 'https://www.praticagem-rj.com.br/';
 const ARQ = path.join(__dirname, '..', 'dados', 'praticagem.json');
+const ARQ_ST = path.join(__dirname, '..', 'dados', 'praticagem-status.json');
 const TESTE = process.env.PRAT_HTML_FILE || '';      // só para testes locais
 const AGORA = process.env.PRAT_AGORA ? +process.env.PRAT_AGORA : Date.now();
 
@@ -135,4 +136,8 @@ function salvar(d) {
   const dia = s => (s || '').slice(0, 10);
   if (mudou || dia(d.atualizado) !== dia(ant.atualizado)) salvar(d);
   else console.log('Sem mudanças; arquivo mantido.');
+  // sinal de vida: arquivo pequeno gravado em TODA rodada (o painel usa para saber que o robô está rodando)
+  let stAnt = {}; try { stAnt = JSON.parse(fs.readFileSync(ARQ_ST, 'utf8')); } catch (e) {}
+  fs.writeFileSync(ARQ_ST, JSON.stringify({ ok: d.ok !== false, erro: d.erro || '', atualizado: d.atualizado,
+    ultimoSucesso: d.ok !== false ? d.atualizado : (stAnt.ultimoSucesso || ant.ultimoSucesso || ''), total: d.total || 0, gravouDados: !!(mudou || dia(d.atualizado) !== dia(ant.atualizado)) }, null, 1) + '\n');
 })();
