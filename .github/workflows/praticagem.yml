@@ -23,12 +23,15 @@ jobs:
         run: |
           git config user.name "robo-praticagem"
           git config user.email "robo-praticagem@users.noreply.github.com"
-          git add dados/praticagem.json
+          git add dados/praticagem.json dados/praticagem-status.json
           if git diff --cached --quiet; then echo "Nada para salvar"; else
             git commit -m "Praticagem: atualização automática"
             # outro robô pode ter publicado ao mesmo tempo: tenta de novo até 5 vezes
+            ok=0
             for i in 1 2 3 4 5; do
-              git pull --rebase origin "${GITHUB_REF_NAME}" && git push && break
+              if git pull --rebase --autostash origin "${GITHUB_REF_NAME}" && git push; then ok=1; break; fi
+              git rebase --abort 2>/dev/null || true
               echo "push recusado, tentando de novo ($i)"; sleep $((i*7))
             done
+            if [ "$ok" != 1 ]; then echo "::error::Não consegui publicar os dados depois de 5 tentativas"; exit 1; fi
           fi

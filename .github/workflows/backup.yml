@@ -29,8 +29,11 @@ jobs:
           git add -A dados/backup dados/backup-status.json
           if git diff --cached --quiet; then echo "Nada para salvar"; else
             git commit -m "Cópia de segurança diária"
+            ok=0
             for i in 1 2 3 4 5; do
-              git pull --rebase origin "${GITHUB_REF_NAME}" && git push && break
+              if git pull --rebase --autostash origin "${GITHUB_REF_NAME}" && git push; then ok=1; break; fi
+              git rebase --abort 2>/dev/null || true
               echo "push recusado, tentando de novo ($i)"; sleep $((i*7))
             done
+            if [ "$ok" != 1 ]; then echo "::error::Não consegui publicar os dados depois de 5 tentativas"; exit 1; fi
           fi
