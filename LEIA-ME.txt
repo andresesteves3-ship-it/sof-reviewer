@@ -139,3 +139,19 @@ VERSÃO 0.30.0 — PRAZO DA REQUISIÇÃO DE TERNO
   (no turno de quem recebe). Depois de vencido, fica no sino (sem aviso do Windows) até o período terminar.
 - Na grade, a célula da Requisição de Estiva fica laranja quando faltam até 2 h e vermelha quando o prazo venceu.
 - Marcar "Feito", "Sem operação" ou a marcação automática do OGMO encerra os avisos. Pode ligar/desligar em Meu perfil > Avisos.
+
+VERSÃO 0.30.1 — CORREÇÃO DO "ROBÔ DA PRATICAGEM PARADO"
+- Causa: o robô rodava normalmente, mas só gravava o arquivo dados/praticagem.json quando alguma manobra mudava
+  (para não encher o repositório). Em horas sem mudança (principalmente à noite) o arquivo ficava com o horário antigo
+  e o painel achava que o robô estava parado.
+- Agora o robô grava também dados/praticagem-status.json em TODA rodada (arquivo pequeno, só com horário e situação),
+  e o painel usa esse arquivo para saber que o robô está vivo.
+- Os 4 robôs agora acusam erro de verdade no GitHub se não conseguirem publicar os dados (antes podiam aparecer como "deu certo").
+
+VERSÃO 0.31.0 — INÍCIO COM O RESUMO DO TURNO
+- "Agora no meu turno": as pendências do sino separadas em Urgente (prazo vencido ou a 30 min, passagem aguardando ciente),
+  Para fazer (prazos, rotinas pendentes, requisição faltando, inspeção) e Novidades (Praticagem). Cada item leva ao lugar certo.
+  Respeita as escolhas de Meu perfil > Avisos e atualiza sozinho a cada 15 s.
+- "Navios em andamento": cada navio ativo com as rotinas do período atual (em dia ou quantas pendentes), a próxima manobra
+  da Praticagem e se a requisição do próximo período já está no OGMO (com o prazo, quando falta).
+- Selo dos robôs ao lado do título: verde quando todos estão funcionando; vermelho/amarelo com o problema; clique abre o Status dos robôs.
