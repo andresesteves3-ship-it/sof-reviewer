@@ -115,3 +115,11 @@ VERSÃO 0.27.0 — PASSAGEM DE SERVIÇO COM "CIENTE" E STATUS DOS ROBÔS
   e clica em "Dar ciente". Histórico dos últimos 7 dias no fim da aba Rotinas, com o PDF de cada passagem.
 - Administração > Status dos robôs: situação de cada robô, última tentativa/sucesso, última execução no GitHub (com link),
   falhas recentes, quantas vezes o painel chamou o robô, diagnóstico (botão "Copiar diagnóstico") e "Rodar agora".
+
+VERSÃO 0.28.0 — MEU PERFIL: ESCALA DA EQUIPE, TROCAS, AVISOS E PREFERÊNCIAS
+- Clique num dia do calendário para lançar troca de turno, folga extra ou férias (pode ser um período com "Até").
+  Em "Troca com", o colega recebe o contrário no mesmo dia. A escala, o card "Hoje" e os avisos do Windows passam a seguir as trocas.
+- "Escala da equipe": quem está de turno agora, quem entra no próximo turno e os próximos 7 dias de todos, com telefone/WhatsApp.
+- "Avisos": escolher os tipos que quer receber, som junto com o aviso do Windows e botão "Testar aviso".
+- "Preferências do painel": aba que abre ao entrar, supervisor padrão do texto de inspeção e telefone. Tudo salvo na conta.
+Não precisa mexer nas regras do Firebase nesta versão.
