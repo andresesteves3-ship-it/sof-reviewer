@@ -1,16 +1,16 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-28T12:16:54.198Z",
- "ultimoSucesso": "2026-10-28T12:16:54.198Z",
+ "atualizado": "2026-10-28T13:36:16.546Z",
+ "ultimoSucesso": "2026-10-28T13:36:16.546Z",
  "total": 10,
- "previstos": 6,
+ "previstos": 5,
  "diag": {
   "linhas": 10,
   "paginas": 1,
   "totalPaginas": null,
-  "semInicio": 6,
-  "comInicio": 4,
+  "semInicio": 5,
+  "comInicio": 5,
   "classificacao": {
    "exportacao": 4,
    "outro:VIGIA": 1,
@@ -26,12 +26,12 @@
     "on": 0
    },
    "remove": {
-    "total": 4,
+    "total": 5,
     "ativo": 0,
     "on": 0
    },
    "add": {
-    "total": 4,
+    "total": 5,
     "ativo": 0,
     "on": 0
    },
@@ -47,13 +47,13 @@
    },
    "check_circle": {
     "total": 10,
-    "ativo": 4,
-    "on": 4
+    "ativo": 5,
+    "on": 5
    },
    "directions_boat": {
     "total": 10,
-    "ativo": 4,
-    "on": 4
+    "ativo": 5,
+    "on": 5
    },
    "assignment_turned_in": {
     "total": 10,
