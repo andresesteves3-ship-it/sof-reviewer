@@ -28,6 +28,19 @@ function cifrar(obj) {
   const ct = Buffer.concat([c.update(JSON.stringify(obj), 'utf8'), c.final(), c.getAuthTag()]);
   return { v: 1, salt: salt.toString('base64'), iv: iv.toString('base64'), ct: ct.toString('base64') };
 }
+function decifrar(o) {
+  const salt = Buffer.from(o.salt, 'base64'), iv = Buffer.from(o.iv, 'base64'), ct = Buffer.from(o.ct, 'base64');
+  const k = crypto.pbkdf2Sync(KEY, salt, 200000, 32, 'sha256');
+  const d = crypto.createDecipheriv('aes-256-gcm', k, iv); d.setAuthTag(ct.slice(ct.length - 16));
+  return JSON.parse(Buffer.concat([d.update(ct.slice(0, ct.length - 16)), d.final()]).toString('utf8'));
+}
+// leitura anterior (para não perder a composição quando o OGMO falha numa requisição)
+let ANT = {}, ANT_EM = 0;
+function carregarAnterior() {
+  try { const o = JSON.parse(fs.readFileSync(ARQ_ENC, 'utf8')); const d = decifrar(o); ANT_EM = d.geradoEm || 0;
+    (d.dias || []).forEach(dia => (dia.reqs || []).forEach(r => { if (r && r.req && ((r.comp || []).length || (r.ternos || []).length) && !r.erro) ANT[r.req] = r; })); } catch (e) {}
+}
+let RECUP = 0, REUSO = 0;
 function gravarStatus(st) { fs.mkdirSync(DIR, { recursive: true }); fs.writeFileSync(ARQ_ST, JSON.stringify(st, null, 1) + '\n'); }
 const mascarar = t => { let r = String(t || ''); [EMPRESA, USER, PASS].filter(v => v && v.length > 2).forEach(v => { r = r.split(v).join('***'); }); return r; };
 const espera = ms => new Promise(r => setTimeout(r, ms));
@@ -70,11 +83,11 @@ const NA_PAGINA = `
     principal: () => dados(acha(['Requisição', 'Navio', 'Período']), ['Requisição', 'Navio', 'Período'], 5),
     composicao: () => dados(acha(['Categoria', 'Função', 'Vagas']), ['Categoria', 'Função', 'Vagas'], 3),
     ternos: () => dados(acha(['Equipe', 'Faina 1']), ['Equipe', 'Faina 1'], 2),
-    marcar: i => { const t = acha(['Requisição', 'Navio', 'Período']); if (!t) return false; const L = [].slice.call(t.querySelectorAll('tr'));
+    marcar: (i, num) => { const t = acha(['Requisição', 'Navio', 'Período']); if (!t) return false; const L = [].slice.call(t.querySelectorAll('tr'));
       const h = L.findIndex(tr => [].slice.call(tr.children).some(c => norm(c.innerText).toLowerCase() === 'requisição'));
       const dd = L.slice(h + 1).filter(tr => tr.children.length >= 5 && /\\d{5,}/.test(norm(tr.children[1] ? tr.children[1].innerText : '')));
       document.querySelectorAll('[data-rb]').forEach(e => e.removeAttribute('data-rb'));
-      if (!dd[i]) return false; dd[i].children[1].setAttribute('data-rb', 'x'); return true; },
+      const alvo = (num && dd.find(tr => norm(tr.children[1].innerText) === num)) || dd[i]; if (!alvo) return false; alvo.children[1].setAttribute('data-rb', 'x'); return true; },
     selects: () => [].slice.call(document.querySelectorAll('select')).map((s, i) => ({ i, ops: [].slice.call(s.options).map(o => norm(o.text)) })),
     campoData: () => { const l = [].slice.call(document.querySelectorAll('input')); const i = l.findIndex(x => /^\\d{2}\\/\\d{2}\\/\\d{4}$/.test(x.value || '')); return i < 0 ? null : { i, v: l[i].value, ro: !!l[i].readOnly }; }
   };
@@ -142,6 +155,21 @@ async function frameDaTela(page) {
   await t.fr.waitForFunction(() => typeof window.SubmitClickConfirm !== 'function' || typeof window.GActivateLock !== 'undefined', null, { timeout: 25000 }).catch(() => {});
   await t.fr.evaluate(NA_PAGINA);
   return t.fr;
+}
+
+// a tela do OGMO (IntraWeb) às vezes recarrega, "tranca" ou a sessão cai no meio da leitura:
+// reabre Requisições > Registro, refaz os filtros e volta para o dia que estava sendo lido
+async function recuperar(page, lbl) {
+  let fr;
+  try { fr = await abrirRegistro(page); }
+  catch (e) { await entrar(page); fr = await abrirRegistro(page); }
+  await escolherFiltros(fr);
+  fr = await frameDaTela(page);
+  let c = await fr.evaluate(() => window.__rb.campoData());
+  if (!c || c.v !== lbl) { await trocarData(page, lbl); fr = await frameDaTela(page); await escolherFiltros(fr); fr = await frameDaTela(page); c = await fr.evaluate(() => window.__rb.campoData()); }
+  if (!c || c.v !== lbl) throw new Error('não consegui voltar para o dia ' + lbl);
+  RECUP++;
+  return fr;
 }
 
 // ---- relatório oficial (PDF) de cada requisição: o robô clica no botão "Gera Relatório da Requisição Selecionada" ----
@@ -223,8 +251,9 @@ async function protegerContexto(ctx) {
     return route.continue();
   });
 }
-async function lerDia(page, fr0) {
-  let fr = await frameDaTela(page);
+async function lerDia(page, fr0, lbl) {
+  let fr;
+  try { fr = await frameDaTela(page); } catch (e) { fr = await recuperar(page, lbl); }
   let P = await fr.evaluate(() => window.__rb.principal());
   for (let t = 0; t < 6 && (!P || !P.linhas.length); t++) { await espera(1200); fr = await frameDaTela(page); P = await fr.evaluate(() => window.__rb.principal()); }
   const reqs = [];
@@ -232,9 +261,10 @@ async function lerDia(page, fr0) {
   for (let i = 0; i < linhas.length; i++) {
     const r = linhas[i];
     const req = { cancelada: r[0], req: r[1], navio: r[2], periodo: r[3], local: r[4], escalada: r[5] || '', viagem: r[6] || '', comp: [], ternos: [] };
-    try {
-      fr = await frameDaTela(page);
-      if (await fr.evaluate(n => window.__rb.marcar(n), i)) {
+    for (let tent = 0; tent < 3; tent++) {
+      try {
+        fr = await frameDaTela(page);
+        if (!(await fr.evaluate(([n, num]) => window.__rb.marcar(n, num), [i, req.req]))) throw new Error('requisição não encontrada na grade');
         await fr.locator('[data-rb="x"]').first().click();
         await espera(1800);
         fr = await frameDaTela(page);
@@ -242,9 +272,24 @@ async function lerDia(page, fr0) {
         const T = await fr.evaluate(() => window.__rb.ternos());
         req.comp = (C ? C.linhas : []).map(c => ({ cancelado: c[0], categoria: c[1], funcao: c[2], vagas: c[3] }));
         req.ternos = (T ? T.linhas : []).map(c => ({ cancelado: c[0], equipe: c[1], fainas: c.slice(2).filter(Boolean) }));
-        if (PDFS && !/sim/i.test(req.cancelada || '')) { try { await pdfDaRequisicao(page, fr, req); } catch (e) { req.pdfErro = String(e.message).slice(0, 60); } fr = await frameDaTela(page); }
+        delete req.erro;
+        // o PDF oficial só é tentado na 1ª vez (é o passo que mais derruba a tela)
+        if (PDFS && tent === 0 && !/sim/i.test(req.cancelada || '')) {
+          try { await pdfDaRequisicao(page, fr, req); } catch (e) { req.pdfErro = String(e.message).slice(0, 60); }
+          try { fr = await frameDaTela(page); } catch (e) { fr = await recuperar(page, lbl); }
+        }
+        break;
+      } catch (e) {
+        req.erro = mascarar(String(e.message)).slice(0, 80);
+        if (tent < 2) { try { await espera(1500); await recuperar(page, lbl); } catch (x) { req.erro += ' (não recuperou: ' + mascarar(String(x.message)).slice(0, 60) + ')'; break; } }
       }
-    } catch (e) { req.erro = String(e.message).slice(0, 80); }
+    }
+    // não deu mesmo: usa a composição da leitura anterior, se a requisição for a mesma
+    const a = ANT[req.req];
+    if (req.erro && a && a.navio === req.navio && a.periodo === req.periodo) {
+      req.comp = a.comp || []; req.ternos = a.ternos || []; req.aviso = 'Composição da leitura anterior (' + new Date(ANT_EM).toISOString() + '); o OGMO falhou agora: ' + req.erro;
+      delete req.erro; REUSO++;
+    }
     reqs.push(req);
   }
   return reqs;
@@ -273,6 +318,7 @@ const dm = d => String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth()
   let browser, page;
   try {
     if (!EMPRESA || !USER || !PASS || !KEY) throw new Error('Faltam os Secrets OGMO_EMPRESA, OGMO_USER, OGMO_PASS e/ou LINEUP_KEY no GitHub.');
+    carregarAnterior();
     browser = await chromium.launch();
     CTX = await browser.newContext({ viewport: { width: 1500, height: 950 }, locale: 'pt-BR', acceptDownloads: true });
     await protegerContexto(CTX);
@@ -291,6 +337,7 @@ const dm = d => String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth()
     const [d0, m0, y0] = hoje.split('/').map(Number);
     for (const off of DIAS) {
       const dt = new Date(y0, m0 - 1, d0 + off), lbl = dm(dt);
+      for (let tent = 0; tent < 2; tent++) {
       try {
         { fr = await frameDaTela(page); const atual = await fr.evaluate(() => window.__rb.campoData());
           if (!atual || atual.v !== lbl) { await trocarData(page, lbl); fr = await frameDaTela(page); await escolherFiltros(fr); } }
@@ -298,9 +345,14 @@ const dm = d => String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth()
         fr = await frameDaTela(page);
         const cd = await fr.evaluate(() => window.__rb.campoData());
         if (!cd || cd.v !== lbl) throw new Error('a tela ficou em ' + (cd ? cd.v : '?') + ' em vez de ' + lbl);
-        const reqs = await lerDia(page, fr);
+        const reqs = await lerDia(page, fr, lbl);
         dias.push({ data: lbl, reqs });
-      } catch (e) { dias.push({ data: lbl, reqs: [], erro: mascarar(String(e.message)).slice(0, 120) }); }
+        break;
+      } catch (e) {
+        if (tent === 1) { dias.push({ data: lbl, reqs: [], erro: mascarar(String(e.message)).slice(0, 120) }); break; }
+        try { await recuperar(page, lbl); } catch (x) {}
+      }
+      }
     }
     const chaveD = s => s.split('/').reverse().join('');
     dias.sort((a, b) => chaveD(a.data) < chaveD(b.data) ? -1 : 1);
@@ -314,7 +366,7 @@ const dm = d => String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth()
     if (!dias.some(d => !d.erro)) throw new Error('Nenhum dia foi lido: ' + dias.map(d => d.data + ': ' + d.erro).join(' | '));
     fs.mkdirSync(DIR, { recursive: true });
     fs.writeFileSync(ARQ_ENC, JSON.stringify({ ...cifrar({ geradoEm: Date.now(), dias }), atualizado: st.atualizado }) + '\n');
-    st = { ok: true, erro: '', atualizado: st.atualizado, ultimoSucesso: st.atualizado, total, dias: dias.map(d => ({ data: d.data, n: d.reqs.length, erro: d.erro || '' })), diag };
+    st = { ok: true, erro: '', atualizado: st.atualizado, ultimoSucesso: st.atualizado, total, dias: dias.map(d => ({ data: d.data, n: d.reqs.length, erro: d.erro || '' })), diag: { ...diag, recuperacoes: RECUP, reaproveitadas: REUSO } };
     console.log('OK:', total, 'requisições lidas; dias:', JSON.stringify(st.dias), '(dados criptografados).');
   } catch (e) {
     let extra = '';
