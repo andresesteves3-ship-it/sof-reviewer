@@ -15,7 +15,8 @@ const USER = (process.env.OGMO_USER || '').trim();
 const PASS = process.env.OGMO_PASS || '';
 const KEY = (process.env.LINEUP_KEY || '').trim();
 const PORTO = process.env.OGMO_PORTO || 'RIO DE JANEIRO';
-const DIAS = (process.env.OGMO_DIAS || '0,1').split(',').map(x => parseInt(x, 10)).filter(x => !isNaN(x));
+const DIAS = (process.env.OGMO_DIAS || '0,1,-1')   // hoje primeiro (mais importante), depois amanhã e ontem
+  .split(',').map(x => parseInt(x, 10)).filter(x => !isNaN(x));
 const DIR = path.join(__dirname, '..', 'dados');
 const ARQ_ENC = path.join(DIR, 'ogmo.enc.json');
 const ARQ_ST = path.join(DIR, 'ogmo-status.json');
@@ -291,7 +292,8 @@ const dm = d => String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth()
     for (const off of DIAS) {
       const dt = new Date(y0, m0 - 1, d0 + off), lbl = dm(dt);
       try {
-        if (off !== 0) { await trocarData(page, lbl); fr = await frameDaTela(page); await escolherFiltros(fr); }
+        { fr = await frameDaTela(page); const atual = await fr.evaluate(() => window.__rb.campoData());
+          if (!atual || atual.v !== lbl) { await trocarData(page, lbl); fr = await frameDaTela(page); await escolherFiltros(fr); } }
         // confere se a tela está mesmo no dia pedido (senão leria o dia errado com o rótulo deste)
         fr = await frameDaTela(page);
         const cd = await fr.evaluate(() => window.__rb.campoData());
@@ -300,6 +302,8 @@ const dm = d => String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth()
         dias.push({ data: lbl, reqs });
       } catch (e) { dias.push({ data: lbl, reqs: [], erro: mascarar(String(e.message)).slice(0, 120) }); }
     }
+    const chaveD = s => s.split('/').reverse().join('');
+    dias.sort((a, b) => chaveD(a.data) < chaveD(b.data) ? -1 : 1);
     const total = dias.reduce((a, d) => a + d.reqs.length, 0);
     // índice dos PDFs e limpeza dos que não existem mais (só se todos os dias foram lidos)
     if (PDFS) {
