@@ -20,7 +20,7 @@ O registro de atividade fica salvo só no computador usado.
 LINE UP (0.5.0)
   Lista só os navios PREVISTOS do Geport (sem data de início, não finalizados/cancelados), com ETA e carga, e a situação do prático na Praticagem RJ.
   Geport: favorito "Enviar para o Line Up" (no Geport, Frente de Trabalho > Aquaviária, clique no favorito).
-  Praticagem: um ROBÔ no GitHub Actions lê praticagem-rj.com.br a cada 1 hora, mesmo com tudo fechado, e grava dados/praticagem.json (histórico: marcado, cancelado, voltou, alterado, concluído). O Line Up lê esse arquivo e recarrega sozinho a cada 5 minutos.
+  Praticagem: um ROBÔ no GitHub Actions lê praticagem-rj.com.br a cada 15 minutos, mesmo com tudo fechado, e grava dados/praticagem.json (histórico: marcado, cancelado, voltou, alterado, concluído). O Line Up lê esse arquivo e recarrega sozinho a cada 5 minutos.
     "Recarregar Praticagem" = relê o arquivo agora. "Pedir consulta agora" = abre o GitHub para você clicar em Run workflow (leitura na hora; espere ~1 min e recarregue).
   "Solicitar Inspeção": aparece nos navios com prático marcado; pergunta cabeço inicial, cabeço final e guindastes e gera texto p/ WhatsApp (MODELO PROVISÓRIO, ver textoInspecao() no index.html).
 
@@ -69,19 +69,42 @@ CATÁLOGO DE REQUISIÇÕES (v0.12.0)
 - Com o login Firebase configurado, os modelos e o histórico são compartilhados entre os Assistentes.
 - Em Requisições lidas, a coluna "Catálogo" compara a composição lida do OGMO com os modelos (confere / difere / sem modelo).
 
-EMITIR PDF DA REQUISIÇÃO E DA9 (aba Requisições)
-- Em cada requisição há os botões PDF e DA9 (o DA9 só habilita quando a equipe está escalada).
-- O painel pede ao robô (workflow ogmo-emitir.yml); em 1 a 2 minutos o arquivo aparece como link na própria tela.
-- Precisa de: scripts/ogmo.js atualizado, .github/workflows/ogmo-emitir.yml criado, os Secrets do OGMO e a chave do GitHub (Actions: Read and write) cadastrada na aba Line Up.
-- Os PDFs ficam criptografados no repositório (dados/emissao-*.enc.json) e são apagados depois de 1 dia.
-
 RELATÓRIO OFICIAL (PDF) DE CADA REQUISIÇÃO
 - O robô de leitura do OGMO (a cada hora) também clica em "Gera Relatório da Requisição Selecionada" e guarda o PDF, criptografado, em dados/rpdf/.
 - Só baixa de novo quando a requisição muda; até 15 novos por rodada (OGMO_PDFS_MAX); OGMO_PDFS=0 desliga.
 - O botão PDF do painel abre esse arquivo na hora. Se ainda não existir, o painel gera uma cópia própria.
 
-DA9 (aba Requisições)
-- O robô de leitura também baixa o DA9 das requisições já escaladas (dados/da9/, criptografado) e o botão DA9 abre na hora.
-- Se ainda não foi baixado, o botão pede ao robô (ogmo-emitir.yml) e o arquivo aparece em 1 a 2 minutos.
-- OGMO_DA9=0 desliga o download automático do DA9 (ele traz nome e matrícula dos trabalhadores).
+ROBÔ DO OGMO (aba Requisições)
 - Segurança do robô: ele bloqueia qualquer botão que inclua, altere, cancele ou duplique requisições; só consulta e baixa relatórios.
+
+PRATICAGEM: SÓ BAÍA DE GUANABARA
+- O robô lê apenas a seção "BAÍA DE GUANABARA" (ignora Sepetiba, Angra, Forno e Açu).
+- Cada manobra (E = entrada, S = saída) é guardada com o horário do prático (POB) e o estado (prevista, feita, cancelada, remarcada), mesmo depois de o site apagar a linha. Fica 30 dias.
+- O Line Up reconhece o navio mesmo com pequena diferença no nome (número ou zero no fim, ou início do nome).
+
+LINE UP (v0.21.0)
+- Mostra TODOS os navios lidos do Geport (previstos, em operação, finalizados/cancelados no Geport),
+  não só os sem início. O robô do Geport agora lê todas as páginas da tabela e reconhece a situação pela cor dos ícones.
+- Navio com frente aberta nas Rotinas continua no Line Up mesmo depois de finalizado/sumir do Geport;
+  sai só quando a frente é encerrada nas Rotinas (e volta se a frente for reaberta).
+- Botão "Ocultar": esconde o navio para toda a equipe (fica em /painel/ocultos no Firebase).
+  Para desfazer: "Navios ocultos", no fim da lista > "Mostrar de novo".
+
+VERSÃO 0.26.0 — AVISOS, MARCAÇÃO AUTOMÁTICA, REGISTRO DA EQUIPE, ADMINISTRAÇÃO E CÓPIAS DE SEGURANÇA
+Ordem para ativar (uma vez):
+1) Suba os arquivos (index.html, sw.js, firebase-regras.json, scripts/backup.js, .github/workflows/backup.yml).
+2) Firebase > Realtime Database > Regras: apague tudo, cole o conteúdo de firebase-regras.json e clique em Publicar.
+   (As regras agora consultam a lista de usuários do banco; Fellipe e Andres entram sempre, para poder cadastrar os demais.)
+3) Logo em seguida, Fellipe ou Andres abre o painel > Administração > "Cadastrar a equipe atual".
+   Até isso ser feito, os outros assistentes ficam sem acesso.
+4) Incluir alguém novo: Administração > Usuários > e-mail + nome > Adicionar usuário (cria a conta e manda e-mail para criar a senha).
+   Se aparecer "criação de contas desligada": Firebase > Authentication > Configurações > Ações do usuário > ative a criação.
+5) Cópia de segurança diária:
+   a) Administração > Adicionar usuário: e-mail robo.backup, nome "Robô cópia de segurança", senha provisória escolhida por você, MASTER desmarcado.
+   b) GitHub > Settings > Secrets and variables > Actions: FB_ROBO_EMAIL = robo.backup@triunfologistica.com.br e FB_ROBO_PASS = a senha do item a.
+   c) Actions > "Cópia de segurança do banco" > Run workflow (depois roda sozinho todo dia às 03:41).
+   As cópias ficam em dados/backup (30 dias, criptografadas com a LINEUP_KEY) e são restauradas em Administração > Cópias de segurança.
+Avisos (sino no topo): inspeção a solicitar, novidades da Praticagem, rotina pendente do período anterior e navio em operação
+sem requisição no OGMO para o próximo período. Avisos do Windows só no turno de cada um (perfil). Clique em "Ativar avisos do Windows".
+Marcação automática: a requisição do próprio navio registrada no OGMO marca "Requisição de Estiva" do período (selo OGMO).
+Registro de atividade: Meu perfil mostra o da equipe toda, por dia e por pessoa (salvo no banco em /log).

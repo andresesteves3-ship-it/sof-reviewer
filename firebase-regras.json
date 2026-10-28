@@ -1,0 +1,18 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "usuarios": {
+      ".read": "auth != null && (root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).exists() || auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br')",
+      ".write": "auth != null && (root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).child('master').val() == true || auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br')"
+    },
+    "painel": {
+      ".read": "auth != null && (root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).exists() || auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br')",
+      ".write": "auth != null && (root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).exists() || auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br')"
+    },
+    "log": {
+      ".read": "auth != null && (root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).exists() || auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br')",
+      ".write": "auth != null && (root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).exists() || auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br')"
+    }
+  }
+}
