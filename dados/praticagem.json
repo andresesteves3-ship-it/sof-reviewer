@@ -35,7 +35,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     }
    ]
@@ -383,7 +383,7 @@
      "vis": 1793147533904,
      "de": "VISITA N",
      "para": "",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     }
    ]
@@ -412,7 +412,7 @@
    "nome": "SEVEN CRUZEIRO .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } SEVEN CRUZEIRO"
   },
   "SKANDI MERCURY DIVPPNAVIO PADDING 0 MARGIN 0 BORDER NONE FONT FAMILY VERDANA FONT SIZE 11PX WHITE SPACE NORMAL BACKGROUND COLOR FFF COLOR 000 FONT FAMILY MONOSPACE BORDER RADIUS 6PX MARGIN TOP 5PX MAX WIDTH 600PX MAX HEIGHT 400PX MIN WIDTH 300PX DIVPPNAVIO TABLE BORDER 0 BORDER COLLAPSE COLLAPSE BORDER SPACING 1PX DIVPPNAVIO TABLE TH PADDING 2PX TEXT ALIGN CENTER VERTICAL ALIGN MIDDLE BORDER 1PX SOLID BLACK BACKGROUND 6B6B6B COLOR EFEFEF DIVPPNAVIO TABLE TD BORDER 1PX SOLID BLACK VERTICAL ALIGN MIDDLE DIVPPNAVIO DIVPPNAVIO TD MARGIN 0 PADDING 0 BORDER 0 BORDER WIDTH 0 BORDER COLLAPSE COLLAPSE TBPPNAVIO TD BACKGROUND COLOR WHITE TBPPNAVIO TR TD PADDING 3PX 5PX BORDER 1PX SOLID BFD3EE TBPPNAVIO TR NTH CHILD EVEN TBPPNAVIO TR NTH CHILD EVEN TD BACKGROUND COLOR EDF5FF SKANDI MERCURY": {
-   "est": "concluida",
+   "est": "marcada",
    "ev": [
     {
      "t": 1793043679836,
@@ -421,18 +421,35 @@
     {
      "t": 1793107630679,
      "e": "concluida"
+    },
+    {
+     "t": 1793156625471,
+     "e": "apareceu"
     }
    ],
    "man": [
     {
-     "pob": "27/10 07:00",
+     "pob": "28/10 05:00",
      "navio": "SKANDI MERCURY .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } SKANDI MERCURY",
-     "m": "E",
-     "de": "",
-     "para": "LARGO"
+     "m": "S",
+     "de": "LARGO",
+     "para": "",
+     "secao": "BAIA DE GUANABARA"
     }
    ],
-   "nome": "SKANDI MERCURY .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } SKANDI MERCURY"
+   "nome": "SKANDI MERCURY .divPPNavio { padding: 0; margin: 0; border: none; font-family: Verdana; font-size: 11px; white-space: normal; background-color: #fff; color: #000; font-family: monospace; border-radius: 6px; margin-top: 5px; max-width: 600px; max-height: 400px; min-width: 300px; } .divPPNavio table { border: 0; border-collapse: collapse; border-spacing: 1px; } .divPPNavio table th { padding: 2px; text-align: center; vertical-align: middle; border: 1px solid black; background: #6b6b6b; color: #efefef; } .divPPNavio table td { border: 1px solid black; vertical-align: middle; } .divPPNavio, .divPPNavio > td { margin: 0; padding: 0; border: 0; border-width: 0; border-collapse: collapse; } .tbPPNavio td { background-color: white; } .tbPPNavio tr td { padding: 3px 5px; border: 1px solid #bfd3ee; } .tbPPNavio tr:nth-child(even), .tbPPNavio tr:nth-child(even) td { background-color: #EDF5FF; } SKANDI MERCURY",
+   "mov": [
+    {
+     "m": "S",
+     "pob": "28/10 05:00",
+     "ts": 1793174400000,
+     "vis": 1793156625471,
+     "de": "LARGO",
+     "para": "",
+     "ult": 1793156625471,
+     "st": "prevista"
+    }
+   ]
   },
   "MAERSK PANGANI DIVPPNAVIO PADDING 0 MARGIN 0 BORDER NONE FONT FAMILY VERDANA FONT SIZE 11PX WHITE SPACE NORMAL BACKGROUND COLOR FFF COLOR 000 FONT FAMILY MONOSPACE BORDER RADIUS 6PX MARGIN TOP 5PX MAX WIDTH 600PX MAX HEIGHT 400PX MIN WIDTH 300PX DIVPPNAVIO TABLE BORDER 0 BORDER COLLAPSE COLLAPSE BORDER SPACING 1PX DIVPPNAVIO TABLE TH PADDING 2PX TEXT ALIGN CENTER VERTICAL ALIGN MIDDLE BORDER 1PX SOLID BLACK BACKGROUND 6B6B6B COLOR EFEFEF DIVPPNAVIO TABLE TD BORDER 1PX SOLID BLACK VERTICAL ALIGN MIDDLE DIVPPNAVIO DIVPPNAVIO TD MARGIN 0 PADDING 0 BORDER 0 BORDER WIDTH 0 BORDER COLLAPSE COLLAPSE TBPPNAVIO TD BACKGROUND COLOR WHITE TBPPNAVIO TR TD PADDING 3PX 5PX BORDER 1PX SOLID BFD3EE TBPPNAVIO TR NTH CHILD EVEN TBPPNAVIO TR NTH CHILD EVEN TD BACKGROUND COLOR EDF5FF MAERSK PANGANI": {
    "est": "marcada",
@@ -469,7 +486,7 @@
      "vis": 1793112013771,
      "de": "TECONT2",
      "para": "",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     }
    ]
@@ -542,7 +559,7 @@
      "vis": 1793129202316,
      "de": "TOLEO",
      "para": "",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     }
    ]
@@ -616,7 +633,7 @@
      "vis": 1793114790316,
      "de": "TECONT4",
      "para": "",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     }
    ]
@@ -670,7 +687,7 @@
      "vis": 1793121064563,
      "de": "",
      "para": "TECONT3",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     },
     {
@@ -680,7 +697,7 @@
      "vis": 1793112013771,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     }
    ]
@@ -724,7 +741,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "BACS",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     },
     {
@@ -744,7 +761,7 @@
      "vis": 1793133824074,
      "de": "BACS",
      "para": "SIDERURG2",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     }
    ]
@@ -788,7 +805,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     },
     {
@@ -798,7 +815,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     }
    ]
@@ -838,7 +855,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONT2",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     },
     {
@@ -848,7 +865,7 @@
      "vis": 1793112013771,
      "de": "TECONT2",
      "para": "",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     }
    ]
@@ -888,7 +905,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONT1",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     },
     {
@@ -898,7 +915,7 @@
      "vis": 1793112013771,
      "de": "TECONT1",
      "para": "",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     }
    ]
@@ -942,7 +959,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "A4",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     },
     {
@@ -952,7 +969,7 @@
      "vis": 1793112013771,
      "de": "A4",
      "para": "",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     }
    ]
@@ -984,7 +1001,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TPASSAGE2",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     }
    ]
@@ -1016,7 +1033,7 @@
      "vis": 1793112013771,
      "de": "BNIC-AMRJ",
      "para": "RIO BRASIL TERMINAL (EX-INHAÚMA)",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     }
    ]
@@ -1056,7 +1073,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     },
     {
@@ -1066,7 +1083,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     }
    ]
@@ -1106,7 +1123,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     },
     {
@@ -1116,7 +1133,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     }
    ]
@@ -1156,7 +1173,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     },
     {
@@ -1166,7 +1183,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     }
    ]
@@ -1206,7 +1223,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     },
     {
@@ -1216,7 +1233,7 @@
      "vis": 1793112013771,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     }
    ]
@@ -1972,7 +1989,7 @@
      "vis": 1793112013771,
      "de": "",
      "para": "TPASSAGE2",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     },
     {
@@ -1982,7 +1999,7 @@
      "vis": 1793112013771,
      "de": "TPASSAGE2",
      "para": "",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     }
    ]
@@ -2081,7 +2098,7 @@
      "vis": 1793114790316,
      "de": "",
      "para": "TECONT3",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     },
     {
@@ -2091,7 +2108,7 @@
      "vis": 1793114790316,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     }
    ]
@@ -2135,7 +2152,7 @@
      "vis": 1793140169821,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     },
     {
@@ -2155,7 +2172,7 @@
      "vis": 1793114790316,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     }
    ]
@@ -2195,7 +2212,7 @@
      "vis": 1793125989055,
      "de": "",
      "para": "TECONT5",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     },
     {
@@ -2205,7 +2222,7 @@
      "vis": 1793125989055,
      "de": "TECONT5",
      "para": "",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     }
    ]
@@ -2237,7 +2254,7 @@
      "vis": 1793125989055,
      "de": "",
      "para": "WPT 63",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     }
    ]
@@ -2269,7 +2286,7 @@
      "vis": 1793133824074,
      "de": "PP-1",
      "para": "",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     }
    ]
@@ -2301,7 +2318,7 @@
      "vis": 1793133824074,
      "de": "",
      "para": "PP-1",
-     "ult": 1793147533904,
+     "ult": 1793156625471,
      "st": "prevista"
     }
    ]
@@ -2309,9 +2326,9 @@
  },
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-28T00:32:13.904Z",
- "ultimoSucesso": "2026-10-28T00:32:13.904Z",
- "total": 38,
+ "atualizado": "2026-10-28T03:03:45.471Z",
+ "ultimoSucesso": "2026-10-28T03:03:45.471Z",
+ "total": 39,
  "secoes": [
   "BAIA DE GUANABARA",
   "BAIA DE SEPETIBA",
