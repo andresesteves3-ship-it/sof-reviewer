@@ -1,62 +1,63 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-29T01:09:24.010Z",
- "ultimoSucesso": "2026-10-29T01:09:24.010Z",
- "total": 10,
- "previstos": 5,
+ "atualizado": "2026-10-29T01:19:44.648Z",
+ "ultimoSucesso": "2026-10-29T01:19:44.648Z",
+ "total": 14,
+ "previstos": 8,
  "diag": {
-  "linhas": 10,
-  "paginas": 1,
-  "totalPaginas": null,
-  "semInicio": 5,
-  "comInicio": 5,
+  "linhas": 14,
+  "paginas": 2,
+  "totalPaginas": 2,
+  "semInicio": 8,
+  "comInicio": 6,
   "classificacao": {
-   "exportacao": 4,
+   "exportacao": 6,
    "outro:VIGIA": 1,
-   "importacao": 4,
-   "outro:TRANSBORDO": 1
+   "importacao": 5,
+   "outro:TRANSBORDO": 1,
+   "outro:STAND BY": 1
   },
   "finalizados": 0,
   "cancelados": 0,
   "icones": {
    "close": {
-    "total": 10,
+    "total": 14,
     "ativo": 0,
     "on": 0
    },
    "remove": {
-    "total": 5,
+    "total": 6,
     "ativo": 0,
     "on": 0
    },
    "add": {
-    "total": 5,
+    "total": 6,
     "ativo": 0,
     "on": 0
    },
    "highlight_off": {
-    "total": 10,
+    "total": 14,
     "ativo": 0,
-    "on": 10
+    "on": 14
    },
    "alarm": {
-    "total": 10,
-    "ativo": 10,
-    "on": 10
+    "total": 14,
+    "ativo": 14,
+    "on": 14
    },
    "check_circle": {
-    "total": 10,
-    "ativo": 5,
-    "on": 5
+    "total": 14,
+    "ativo": 6,
+    "on": 6
    },
    "directions_boat": {
-    "total": 10,
-    "ativo": 5,
-    "on": 5
+    "total": 14,
+    "ativo": 6,
+    "on": 6
    },
    "assignment_turned_in": {
-    "total": 10,
+    "total": 14,
     "ativo": 0,
     "on": 0
    }
@@ -65,18 +66,30 @@
   "paginacao": {
    "porPagina": [],
    "escolhido": "",
-   "botoes": [],
-   "rodape": "",
-   "tentativas": [
-    "pag 1: botão seguinte não achado/desabilitado"
+   "botoes": [
+    "first_page||",
+    "keyboard_arrow_left||",
+    "keyboard_arrow_right|||off",
+    "last_page|||off"
    ],
+   "rodape": "RESULTADOS POR PÁGINA 10 first_page keyboard_arrow_left keyboard_arrow_right last_page",
+   "tentativas": [],
    "linhasAntes": 12,
-   "caixa": {
-    "ok": false,
-    "motivo": "caixinha não achada",
-    "rod": "RESULTADOS POR PÁGINA"
+   "rodapeAchado": {
+    "tag": "DIV",
+    "cls": "row",
+    "txt": "RESULTADOS POR PÁGINA 10 first_page keyboard_arrow_left keyboard_arrow_right last_page",
+    "botoes": 4
    },
-   "inputs": []
+   "caixa": {
+    "ok": true,
+    "tag": "DIV",
+    "cls": "width-auto",
+    "txt": "10"
+   },
+   "inputs": [
+    "|2 / 2"
+   ]
   },
   "exemploIcones": [
    [
