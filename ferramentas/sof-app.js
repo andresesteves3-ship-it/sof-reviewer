@@ -166,7 +166,21 @@ function detectCols(matrix){
       if(n==='gang'&&cols.g===undefined)cols.g=j;
       if(n==='hold'&&cols.h===undefined)cols.h=j;
       if(/^(stoppages?|remarks|description)$/.test(n)&&cols.d===undefined)cols.d=j;
+      if(/^(date|data)$/.test(n)&&cols.dt===undefined)cols.dt=j;
+      if(/^(day|dia)$/.test(n)&&cols.dy===undefined)cols.dy=j;
+      if(n==='from'&&cols.fr===undefined)cols.fr=j;
+      if(n==='to'&&cols.to===undefined)cols.to=j;
     });
+    /* modelo diferente do padrão (DATE em B, DAY em C, FROM em D, TO em E): reorganiza a linha para essa ordem */
+    const dt=cols.dt!==undefined?cols.dt:1,fr=cols.fr,to=cols.to;
+    if(fr!==undefined&&to!==undefined&&!(dt===1&&fr===3&&to===4&&(cols.dy===undefined||cols.dy===2))){
+      const W=Math.max(...matrix.map(r=>r.length)),usa=[dt,cols.dy,fr,to].filter(x=>x!==undefined);
+      const ord=[usa.indexOf(0)<0?0:-1,dt,cols.dy!==undefined?cols.dy:-1,fr,to];
+      for(let j=0;j<W;j++)if(ord.indexOf(j)<0)ord.push(j);
+      const ni=o=>o===undefined?undefined:ord.indexOf(o);
+      cols.ord=ord;cols.g=ni(cols.g);cols.h=ni(cols.h);cols.d=ni(cols.d);
+      cols.labels=ord.map(i=>i<0?'':cols.labels[i]||'');
+    }
   }
   return cols;
 }
@@ -225,11 +239,13 @@ const HDR_FIELDS=[
 ];
 function buildHeader(ws,hdrIdx){
   if(hdrIdx===undefined||hdrIdx<1)return null;
-  const fields={}, drafts={}, surveys={}, lastCol=18;
+  const fields={}, drafts={}, surveys={}, lastCol=18, nomes=[]; let vessel='';
   for(let r=1;r<=hdrIdx;r++){
     for(let c=0;c<=lastCol;c++){
       const label=String(getRawCellValue(ws,XLSX.utils.encode_col(c)+r)??'').trim();
       if(!label||label.length>70)continue;
+      if(/^(vessel|ship|navio|agents?|owners?|port|flag|berth.*|shippers?|receivers?|charterers?|consignee|operators?|stevedores?|cargo.*)(\s*name)?\s*:?$/i.test(label)){for(let cc=c+1;cc<=c+6;cc++){const v=String(getRawCellValue(ws,XLSX.utils.encode_col(cc)+r)??'').trim();if(v){nomes.push(v);break}}}
+      if(!vessel&&/^(vessel|ship|navio)(\s*name)?\s*:?$/i.test(label)){for(let cc=c+1;cc<=c+6;cc++){const v=String(getRawCellValue(ws,XLSX.utils.encode_col(cc)+r)??'').trim();if(v){vessel=v;break}}}
       const f=HDR_FIELDS.find(x=>!fields[x.k]&&x.rx.test(label));
       if(f){
         let date=null,time=null,dcol,cand=[];
@@ -285,7 +301,7 @@ function buildHeader(ws,hdrIdx){
     if(!f.date&&!f.time){const c=f.cand.find(x=>dateCol===undefined||x.cc===dateCol); f.text=c?c.txt:''}
     delete f.cand; delete f.dcol;
   });
-  return Object.keys(fields).length?{fields,drafts,surveys}:null;
+  return Object.keys(fields).length?{fields,drafts,surveys,vessel,nomes}:null;
 }
 
 function extractRows(wb){
@@ -309,15 +325,16 @@ function extractRows(wb){
     const footIdx=matrix.findIndex((r,i)=>i>cols.hdr&&r.some(c=>/remarks|signature/i.test(String(c)))); // rodapé: observações e assinaturas
     const candidate=[]; let currentDate='', periodBlock=1;
     matrix.forEach((r,i)=>{
-      const rowNumber=i+1, vals=r.map(v=>String(v??'').trim());
+      const rowNumber=i+1, cru=r.map(v=>String(v??'').trim()), vals=cols.ord?cols.ord.map(j=>j<0?'':(cru[j]||'')):cru;
       if(!vals.some(Boolean))return;
-      const dateValue=excelDateFromValue(getRawCellValue(ws,'B'+rowNumber))||String(r[1]??'').trim();
-      const fromTime=excelTimeFromValue(getRawCellValue(ws,'D'+rowNumber));
-      const toTime=excelTimeFromValue(getRawCellValue(ws,'E'+rowNumber));
+      const cD=cols.dt!==undefined?cols.dt:1,cF=cols.fr!==undefined?cols.fr:3,cT=cols.to!==undefined?cols.to:4;
+      const dateValue=excelDateFromValue(getRawCellValue(ws,XLSX.utils.encode_col(cD)+rowNumber))||String(r[cD]??'').trim();
+      const fromTime=excelTimeFromValue(getRawCellValue(ws,XLSX.utils.encode_col(cF)+rowNumber));
+      const toTime=excelTimeFromValue(getRawCellValue(ws,XLSX.utils.encode_col(cT)+rowNumber));
       // A data da coluna B só atualiza a data corrente; o bloco só avança em "Period Total".
       if(dateValue&&parseDateValue(dateValue))currentDate=dateValue;
       const isPeriodTotal=/period\s*total/i.test(vals.join(' | '));
-      const isGrandTotal=!isPeriodTotal&&vals.some(v=>/^(grand\s*total|total(\s+(geral|general|cargo|carga|discharged|loaded))?)\s*:?$/i.test(v));
+      const isGrandTotal=!isPeriodTotal&&vals.some(v=>/^(grand\s*total|total(\s+(geral|general|cargo|carga|discharged|loaded|embarcado|descarregado))?(\s+(ashore|on\s*board|onboard|to\s+date|at\s+port))?)\s*:?$/i.test(v));
       if(fromTime)vals[3]=fromTime;
       if(toTime)vals[4]=toTime;
       const joined=vals.join(' | ');
@@ -548,7 +565,12 @@ function checkSpelling(english){
       dictState==='loading'?'O dicionário ainda está carregando. Clique em Analisar SOF de novo em alguns segundos.':'O dicionário não carregou. Recarregue a página e analise de novo.'));
     return;
   }
-  const gloss=getGloss(), found=new Map();
+  const gloss=getGloss(), found=new Map(), auto=new Set();
+  /* nomes próprios não são erro de ortografia: dados do cabeçalho (navio, agente, armador, porto...), navios/cargas do Line Up e nomes depois de "M/V" */
+  const addW=s=>(String(s||'').match(/[A-Za-z]+/g)||[]).forEach(w=>auto.add(w.toLowerCase()));
+  if(hdrInfo){addW(hdrInfo.vessel);(hdrInfo.nomes||[]).forEach(addW)}
+  try{const lu=JSON.parse(localStorage.getItem('painelLineup')||'null');((lu&&lu.dados)||[]).forEach(x=>{addW(x.navio);addW(x.carga);addW(x.berco);addW(x.origem)})}catch(e){}
+  rows.forEach(r=>(rowText(r).match(/\bM\s*\/?\.?\s*V\.?\s+[A-Za-z][A-Za-z0-9\- ]{2,30}/g)||[]).forEach(addW));
   rows.forEach(r=>{
     if(r.isPeriodTotal||r.isGrandTotal)return;
     r.values.forEach(cell=>{
@@ -559,7 +581,7 @@ function checkSpelling(english){
         if(w.length<3||/['’]/.test(w))return;
         if(w===w.toUpperCase()&&w.length<=5)return; // siglas (NOR, EOSP, WRC...)
         const k=w.toLowerCase();
-        if(gloss.has(k)||typo.check(w))return;
+        if(gloss.has(k)||auto.has(k)||typo.check(w))return;
         if(!found.has(k))found.set(k,{word:w,rows:[],ctx:t.trim().slice(0,100),sheet:r.sheet});
         const f=found.get(k); if(!f.rows.includes(r.row))f.rows.push(r.row);
       });
@@ -690,6 +712,48 @@ function checkHeader(errors,alerts){
       ['Linhas','cabeçalho '+f.row+', tabela '+ev.row],['Cabeçalho',tsText(th)],['Tabela',tsText(ev.ts)],['Diferença',fmtMin2(Math.abs(th-ev.ts))]
     ].concat(ev.late?[['Obs.','na tabela fica no 19x01 de '+ev.cycle+', depois da meia-noite (dia seguinte)']]:[]),'Conferir qual dos dois está correto e corrigir o outro.','CRÍTICO'));
   });
+}
+
+// ===== Erros grotescos (v0.44): produtividade impossível, data fora da estadia, dia da semana, linhas duplicadas, restos de modelo =====
+const DOW_EN=['sun','mon','tue','wed','thu','fri','sat'],DOW_PT=['dom','seg','ter','qua','qui','sex','sab'];
+function checkGrotescos(errors,alerts,all){
+  const F=hdrInfo?hdrInfo.fields:{};
+  // 4) Produtividade (t/h por linha de produção) muito fora do padrão do próprio SOF: vírgula/ponto trocados ou zero a mais
+  const prod=[];
+  all.forEach(r=>{if(!r.w||r.w<=0)return;const tp=timePairs(r);if(tp.length<2)return;const e=operationalEndMinutes(tp[0].min,tp[1].min);if(e===null)return;const dur=e-tp[0].min;
+    if(dur<=0){errors.push(issue('Produção registrada em intervalo de 0 minuto',[['Linha',ond(r.sheet,r.row)],['Registro',tp[0].time+' → '+tp[1].time],['Peso',fmtN(r.w)]],'Conferir o horário de início e fim.','CRÍTICO',{k:'g-dur0',t:'Produção em intervalo de 0 minuto',c:['Linha','Registro','Peso'],v:[ond(r.sheet,r.row),tp[0].time+' → '+tp[1].time,fmtN(r.w)]}));return}
+    prod.push({r,rate:r.w/(dur/60),dur,tp})});
+  if(prod.length>=4){
+    const s=prod.map(x=>x.rate).sort((a,b)=>a-b),med=s[Math.floor(s.length/2)];
+    prod.forEach(x=>{if(!(x.rate>4*med&&x.rate-med>150))return;const vezes=Math.round(x.rate/med);
+      const grave=vezes>=10;
+      errors.push(issue('Produtividade fora do padrão ('+fmtN(Math.round(x.rate))+' t/h)',[['Linha',ond(x.r.sheet,x.r.row)],['Registro',x.tp[0].time+' → '+x.tp[1].time+' ('+fmtMin2(x.dur*60000)+')'],['Peso',fmtN(x.r.w)],['Média do SOF',fmtN(Math.round(med))+' t/h ('+vezes+'x)']],
+        grave?'Muito acima do normal: provável vírgula/ponto trocados ou zero a mais no peso. Conferir com o tally.':'Bem acima das outras linhas. Conferir peso e horário.',grave?'CRÍTICO':'ALTO',
+        {k:'g-prod',t:'Produtividade fora do padrão',c:['Linha','Registro','Peso','t/h','Média do SOF'],v:[ond(x.r.sheet,x.r.row),x.tp[0].time+' → '+x.tp[1].time,fmtN(x.r.w),fmtN(Math.round(x.rate)),fmtN(Math.round(med))]}))});
+  }
+  // 5) Data da tabela fora da estadia do navio (antes da chegada ou depois da saída/fim)
+  const ini=F.arrival&&F.arrival.date||F.allfast&&F.allfast.date||null,fimF=[F.unberth,F.docs,F.completed].find(f=>f&&f.date),fim=fimF?fimF.date:null,vistos={};
+  if(ini||fim)all.forEach(r=>{const d=parseDateValue(r.operationalDate);if(!d||vistos[r.operationalDate])return;
+    const antes=ini&&diffDays(ini,d)<-1&&diffDays(ini,d)>=-31,depois=fim&&diffDays(fim,d)>1&&diffDays(fim,d)<=31;   /* mais longe que 31 dias já aparece em "Data muito distante" */if(!antes&&!depois)return;vistos[r.operationalDate]=1;
+    errors.push(issue('Data fora da estadia do navio ('+r.operationalDate+')',[['Linha',ond(r.sheet,r.row)],[antes?'Chegada (cabeçalho)':fimF.name+' (cabeçalho)',fmtDate(antes?ini:fim)]],
+      antes?'A data é anterior à chegada do navio. Provável erro de dia, mês ou ano.':'A data é posterior ao fim registrado no cabeçalho. Conferir a data (principalmente o ano) ou o cabeçalho.','CRÍTICO',
+      {k:'g-estadia',t:'Datas fora da estadia do navio',c:['Linha','Data','Referência'],v:[ond(r.sheet,r.row),r.operationalDate,(antes?'chegada ':'fim ')+fmtDate(antes?ini:fim)]}))});
+  // 6) Dia da semana (coluna DAY) não confere com a data
+  all.forEach(r=>{const d=parseDateValue(r.values[1]);if(!d)return;const w=String(r.values[2]||'').trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').slice(0,3);
+    let i=DOW_EN.indexOf(w);if(i<0)i=DOW_PT.indexOf(w);if(i<0||i===d.getDay())return;
+    const certo=DOW_EN[d.getDay()].replace(/^./,c=>c.toUpperCase());
+    errors.push(issue('Dia da semana não confere com a data',[['Linha',ond(r.sheet,r.row)],['Data',r.values[1]],['Escrito',r.values[2]],['Correto',certo]],'Corrigir o dia da semana (ou a data).','ALTO',
+      {k:'g-dow',t:'Dia da semana não confere com a data',c:['Linha','Data','Escrito','Correto'],v:[ond(r.sheet,r.row),r.values[1],r.values[2],certo]}))});
+  // 8) Linhas duplicadas: ficam na conferência de duplicados (que passa a ser CRÍTICA quando a linha tem produção)
+  // 9) Restos de modelo: XX, TBA, erros do Excel, 00:00 → 00:00, nome de outro navio, campos-chave do cabeçalho vazios
+  const RX_RESTO=/(^|[\s(|])(x{2,}|tba|tbc|tbd|a definir|\?{2,}|lorem)(?=$|[\s).,:|])|#(ref!|n\/a|value!|div\/0!|name\?|num!)/i;
+  all.forEach(r=>{const v=r.values.find(x=>RX_RESTO.test(' '+x+' '));if(v)alerts.push(issue('Resto de modelo / campo a preencher',[['Linha',ond(r.sheet,r.row)],['Texto',v]],'Preencher ou apagar antes de liberar o SOF.','ALTO',{k:'g-resto',t:'Restos de modelo / campos a preencher',c:['Linha','Texto'],v:[ond(r.sheet,r.row),v]}));
+    const tp=timePairs(r);if(tp.length===2&&tp[0].min===0&&tp[1].min===0)alerts.push(issue('Horário 00:00 → 00:00',[['Linha',ond(r.sheet,r.row)]],'Parece horário não preenchido. Conferir.','ALTO',{k:'g-zero',t:'Horários 00:00 → 00:00',c:['Linha'],v:[ond(r.sheet,r.row)]}))});
+  const vs=hdrInfo&&hdrInfo.vessel;
+  if(vs){const nv=t=>String(t||'').toUpperCase().replace(/[^A-Z0-9]+/g,' ').trim(),V=nv(vs),outros={};
+    all.forEach(r=>{const m=rowText(r).match(/\bM\s*\/?\.?\s*V\.?\s+([A-Za-z][A-Za-z0-9\- ]{2,30})/g);(m||[]).forEach(x=>{const n=nv(x.replace(/^M\s*\/?\.?\s*V\.?\s+/i,''));if(n&&V.indexOf(n)<0&&n.indexOf(V)<0&&!outros[n]){outros[n]=1;
+      errors.push(issue('Nome de outro navio no SOF',[['Linha',ond(r.sheet,r.row)],['Navio do cabeçalho',vs],['Encontrado',x.trim()]],'Provável SOF aproveitado de outro navio. Conferir o texto.','CRÍTICO'))}})})}
+  /* campos do cabeçalho em branco já entram em Pendências */
 }
 
 // Cabeçalho × corpo: o tipo de operação escrito no cabeçalho (Commenced/Completed Loading ou Discharging)
@@ -1089,8 +1153,9 @@ function analyzeCore(opts){
     const sig=(r.operationalDate+'|P:'+r.periodBlock+'|'+rowText(r)).toLowerCase();
     if(seen.has(sig)){
       const prev=seen.get(sig);
-      errors.push(issue('Registro potencialmente duplicado',[['Linhas',ond(r.sheet,prev.row+' e '+r.row)],['Data',r.operationalDate||'—']],
-        'Linhas idênticas no mesmo período. Se forem o mesmo evento, remover uma.','ALTO',{k:'dup',t:'Registros potencialmente duplicados',c:['Linhas','Data'],v:[ond(r.sheet,prev.row+' e '+r.row),r.operationalDate||'—']}));
+      const comProd=(r.w||r.vol);
+      errors.push(issue(comProd?'Linha duplicada (produção somada duas vezes)':'Registro potencialmente duplicado',[['Linhas',ond(r.sheet,prev.row+' e '+r.row)],['Data',r.operationalDate||'—']].concat(comProd?[['Peso',r.w?fmtN(r.w):'-'],['Volumes',r.vol?fmtN(r.vol):'-']]:[]),
+        comProd?'As duas linhas são iguais, inclusive a produção: o total fica somado em dobro. Apagar a repetida e conferir os totais.':'Linhas idênticas no mesmo período. Se forem o mesmo evento, remover uma.',comProd?'CRÍTICO':'ALTO',{k:'dup',t:'Registros potencialmente duplicados',c:['Linhas','Data'],v:[ond(r.sheet,prev.row+' e '+r.row),r.operationalDate||'—']}));
     }else seen.set(sig,r);
   }));
 
@@ -1108,6 +1173,19 @@ function analyzeCore(opts){
   safe('Equipes (Gang)',()=>checkGangs(errors));
   safe('Cabeçalho',()=>checkHeader(errors,alerts));
   safe('Cabeçalho × operação',()=>checkHeaderOp(errors,all));
+  safe('Erros grotescos',()=>checkGrotescos(errors,alerts,all));
+  /* o que o revisor NÃO conseguiu conferir (para não parecer que está tudo certo) */
+  safe('Cobertura da revisão',()=>{const falta=[];
+    if(!colInfo||colInfo.hdr===undefined||colInfo.hdr<0)falta.push(['Tabela de eventos','não achei a linha de títulos com FROM e TO']);
+    else{if(colInfo.w===undefined)falta.push(['Peso','coluna WEIGHT/PESO não encontrada: somatórias e produtividade não conferidas']);
+      if(colInfo.vol===undefined)falta.push(['Volumes','coluna VOLUMES não encontrada: somatórias não conferidas']);
+      if(colInfo.g===undefined)falta.push(['Equipes','coluna GANG não encontrada: conflitos de equipe não conferidos']);
+      if(colInfo.dt===undefined&&colInfo.ord)falta.push(['Datas','coluna DATE não encontrada'])}
+    if(!all.some(r=>parseDateValue(r.operationalDate)))falta.push(['Datas','nenhuma data reconhecida na tabela: cronologia e estadia não conferidas']);
+    if(!all.some(r=>timePairs(r).length>=2))falta.push(['Horários','nenhum horário de início e fim reconhecido']);
+    if(!hdrInfo)falta.push(['Cabeçalho','não reconheci o cabeçalho (Arrival, Pilot on board...): marcos e tipo de operação não conferidos']);
+    if(falta.length)errors.unshift(issue('Revisão incompleta: '+falta.length+' parte(s) do SOF não foram conferidas',falta,'O resultado não cobre essas partes. Confira-as manualmente ou verifique se o modelo da planilha mudou.','ATENÇÃO'));
+  });
   safe('Draft survey',()=>checkSurveys(errors));
   const planoRaw=[];
   safe('Plano de Carga (Stowage Plan)',()=>checkStowage(planoRaw));
