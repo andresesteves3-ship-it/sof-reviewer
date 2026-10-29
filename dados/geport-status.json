@@ -1,17 +1,18 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-29T12:17:04.553Z",
- "ultimoSucesso": "2026-10-29T12:17:04.553Z",
- "total": 14,
- "previstos": 7,
+ "atualizado": "2026-10-29T13:39:17.553Z",
+ "ultimoSucesso": "2026-10-29T13:39:17.553Z",
+ "total": 15,
+ "previstos": 8,
  "diag": {
-  "linhas": 14,
+  "linhas": 15,
   "paginas": 2,
   "totalPaginas": 2,
-  "semInicio": 7,
+  "semInicio": 8,
   "comInicio": 7,
   "classificacao": {
+   "outro:CABOTAGEM": 1,
    "exportacao": 6,
    "outro:VIGIA": 1,
    "importacao": 5,
@@ -22,7 +23,32 @@
   "cancelados": 0,
   "icones": {
    "close": {
-    "total": 14,
+    "total": 15,
+    "ativo": 0,
+    "on": 0
+   },
+   "highlight_off": {
+    "total": 15,
+    "ativo": 0,
+    "on": 15
+   },
+   "alarm": {
+    "total": 15,
+    "ativo": 15,
+    "on": 15
+   },
+   "check_circle": {
+    "total": 15,
+    "ativo": 8,
+    "on": 8
+   },
+   "directions_boat": {
+    "total": 15,
+    "ativo": 7,
+    "on": 7
+   },
+   "assignment_turned_in": {
+    "total": 15,
     "ativo": 0,
     "on": 0
    },
@@ -33,31 +59,6 @@
    },
    "add": {
     "total": 8,
-    "ativo": 0,
-    "on": 0
-   },
-   "highlight_off": {
-    "total": 14,
-    "ativo": 0,
-    "on": 14
-   },
-   "alarm": {
-    "total": 14,
-    "ativo": 14,
-    "on": 14
-   },
-   "check_circle": {
-    "total": 14,
-    "ativo": 8,
-    "on": 8
-   },
-   "directions_boat": {
-    "total": 14,
-    "ativo": 7,
-    "on": 7
-   },
-   "assignment_turned_in": {
-    "total": 14,
     "ativo": 0,
     "on": 0
    }
@@ -102,22 +103,6 @@
      "cls": ""
     },
     {
-     "n": "remove",
-     "cor": "rgb(0, 0, 0)",
-     "op": "1",
-     "w": 0,
-     "on": false,
-     "cls": ""
-    },
-    {
-     "n": "add",
-     "cor": "rgb(0, 0, 0)",
-     "op": "1",
-     "w": 0,
-     "on": false,
-     "cls": ""
-    },
-    {
      "n": "highlight_off",
      "cor": "rgb(0, 0, 0)",
      "op": "1",
@@ -135,19 +120,19 @@
     },
     {
      "n": "check_circle",
-     "cor": "rgb(0, 0, 0)",
+     "cor": "rgb(187, 187, 187)",
      "op": "1",
      "w": 18,
-     "on": true,
-     "cls": "on"
+     "on": false,
+     "cls": ""
     },
     {
      "n": "directions_boat",
-     "cor": "rgb(0, 0, 0)",
+     "cor": "rgb(187, 187, 187)",
      "op": "1",
      "w": 18,
-     "on": true,
-     "cls": "on"
+     "on": false,
+     "cls": ""
     },
     {
      "n": "assignment_turned_in",
