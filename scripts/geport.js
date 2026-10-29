@@ -57,13 +57,37 @@ async function escolherContrato(page) {
   return true;
 }
 
+// ---- acha o rodapé da tabela (onde fica "RESULTADOS POR PÁGINA 10" e "1 / 2") e marca com data-rbrod ----
+// No Geport esse rodapé NÃO é o .q-table__bottom padrão: procura pelo texto "POR PÁGINA" e sobe até o bloco que tem os botões.
+async function marcaRodape(page) {
+  return page.evaluate(() => {
+    document.querySelectorAll('[data-rbrod]').forEach(e => e.removeAttribute('data-rbrod'));
+    const n = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase();
+    let el = document.querySelector('.q-table__bottom');
+    if (!el || !/POR\s*P.{1,2}GINA|\d+\s*\/\s*\d+/.test(n(el.innerText))) {
+      const lab = [].slice.call(document.querySelectorAll('body *')).filter(e => /POR\s*P.{1,2}GINA/.test(n(e.innerText)) && (e.innerText || '').length < 400)
+        .sort((a, b) => a.innerText.length - b.innerText.length)[0];
+      el = lab || null;
+      for (let k = 0; k < 8 && el && el.parentElement; k++) {
+        if (el.querySelectorAll('button, .q-btn, [role=button]').length >= 2 && /\d+\s*\/\s*\d+/.test(el.innerText || '') ) break;
+        if (el.querySelectorAll('button, .q-btn, [role=button]').length >= 4) break;
+        el = el.parentElement;
+      }
+    }
+    if (!el) return null;
+    el.setAttribute('data-rbrod', '1');
+    return { tag: el.tagName, cls: String(el.className || '').slice(0, 80), txt: (el.innerText || '').replace(/\s+/g, ' ').slice(0, 150), botoes: el.querySelectorAll('button, .q-btn, [role=button]').length };
+  }).catch(() => null);
+}
+
 // ---- "Resultados por página": acha a caixinha do rodapé (a que mostra "10") e escolhe o maior valor ----
 async function porPaginaMax(page, dg) {
   const nLinhas = () => page.evaluate(() => document.querySelectorAll('table.q-table tbody tr').length).catch(() => 0);
   const antes = await nLinhas();
   dg.linhasAntes = antes;
+  dg.rodapeAchado = await marcaRodape(page);
   // 1) <select> nativo no rodapé
-  const nat = page.locator('.q-table__bottom select, .q-pagination select').first();
+  const nat = page.locator('[data-rbrod] select, .q-pagination select').first();
   if (await nat.count()) {
     const t = await nat.locator('option').allTextContents(); dg.porPagina = t;
     let i = t.findIndex(x => /todos|all/i.test(x)); if (i < 0) i = t.map(x => parseInt(x, 10) || 0).reduce((m, v, k, arr) => v > arr[m] ? k : m, 0);
@@ -72,7 +96,7 @@ async function porPaginaMax(page, dg) {
     // 2) caixinha do Quasar: marca o menor elemento clicável do rodapé que mostra só o número atual (ex.: "10")
     const achou = await page.evaluate(() => {
       document.querySelectorAll('[data-rbpp]').forEach(e => e.removeAttribute('data-rbpp'));
-      const rod = document.querySelector('.q-table__bottom') || [].slice.call(document.querySelectorAll('div')).filter(d => /por\s*p[aá]gina/i.test(d.innerText || '') && d.innerText.length < 300).pop();
+      const rod = document.querySelector('[data-rbrod]');
       if (!rod) return { ok: false, motivo: 'rodapé não achado' };
       const cands = [].slice.call(rod.querySelectorAll('.q-select, .q-field, [role=combobox], [role=button], .q-btn-dropdown, .q-btn, div, span'))
         .filter(e => { const r = e.getBoundingClientRect(); const tx = (e.innerText || '').replace(/arrow_drop_down|expand_more|keyboard_arrow_down/g, '').trim(); return r.width > 0 && r.height > 0 && /^\d{1,3}$|^todos$/i.test(tx); })
@@ -129,16 +153,17 @@ async function lerTabela(page) {
     rows.forEach(r => { if (r.cod && r.navio && !vistos.has(r.cod)) { vistos.add(r.cod); out.push(r); } });
   };
   const off = async b => (await b.count()) === 0 || await b.evaluate(e => e.disabled || /disabled/.test(e.className) || e.getAttribute('aria-disabled') === 'true');
-  const pagInfo = () => page.evaluate(() => {
-    const b = document.querySelector('.q-table__bottom'); if (!b) return null;
+  const pagInfo = async () => { await marcaRodape(page); return page.evaluate(() => {
+    const b = document.querySelector('[data-rbrod]'); if (!b) return null;
     const extra = [].slice.call(b.querySelectorAll('input')).map(i => (i.value || '') + ' ' + (i.placeholder || '')).join(' ');
     const t = ((b.innerText || '') + ' ' + extra).replace(/\s+/g, ' ');
     let m = t.match(/(\d+)\s*\/\s*(\d+)/); if (m) return { at: +m[1], tot: +m[2] };
     m = t.match(/(\d+)\s*-\s*(\d+)\s*(?:de|of)\s*(\d+)/i); if (m) { const por = (+m[2]) - (+m[1]) + 1; return { at: Math.ceil(+m[2] / por), tot: Math.ceil(+m[3] / por), linhas: +m[3] }; }
-    return null; }).catch(() => null);
+    return null; }).catch(() => null); };
   const RE_ICO = { primeira: /first_page|first|skip_previous|double_arrow_left|chevrons?-left|angle-double-left/i, seguinte: /keyboard_arrow_right|chevron_right|navigate_next|arrow_forward_ios|chevron-right|angle-right/i };
   const btn = async tipo => {
-    const bs = page.locator('.q-table__bottom button, .q-table__bottom .q-btn');
+    await marcaRodape(page);
+    const bs = page.locator('[data-rbrod] button, [data-rbrod] .q-btn, [data-rbrod] [role=button]');
     const n = await bs.count();
     for (let i = 0; i < n; i++) { const t = (await bs.nth(i).innerText().catch(() => '')) + ' ' + (await bs.nth(i).getAttribute('aria-label').catch(() => '') || ''); if (RE_ICO[tipo].test(t)) return bs.nth(i); }
     if (n >= 4) return bs.nth(tipo === 'primeira' ? n - 4 : n - 2);  // ordem usual: |<  <  >  >|
@@ -161,11 +186,12 @@ async function lerTabela(page) {
     await nx.click();
     try { await page.waitForFunction(a => (document.querySelector('table.q-table tbody tr td') || {}).innerText !== a, antes, { timeout: 8000 }); } catch (e) { dg.tentativas.push('pag ' + paginas + ': cliquei em seguinte e a tabela não mudou'); break; }
   }
-  const rodape = await page.evaluate(() => (document.querySelector('.q-table__bottom') || {}).innerText || '').catch(() => '');
+  await marcaRodape(page);
+  const rodape = await page.evaluate(() => (document.querySelector('[data-rbrod]') || {}).innerText || '').catch(() => '');
   console.log('Paginas lidas:', paginas, '| Rodape:', String(rodape).replace(/\s+/g, ' ').slice(0, 120));
   dg.rodape = String(rodape).replace(/\s+/g, ' ').slice(0, 160);
-  dg.botoes = await page.evaluate(() => [].slice.call(document.querySelectorAll('.q-table__bottom button, .q-table__bottom .q-btn')).map(b => ((b.innerText || '').trim() + '|' + (b.getAttribute('aria-label') || '') + '|' + ((b.querySelector('i') || {}).className || '') + (b.disabled || b.getAttribute('aria-disabled') === 'true' ? '|off' : '')).slice(0, 90))).catch(() => []);
-  dg.inputs = await page.evaluate(() => [].slice.call(document.querySelectorAll('.q-table__bottom input')).map(i => (i.value || '') + '|' + (i.placeholder || ''))).catch(() => []);
+  dg.botoes = await page.evaluate(() => [].slice.call(document.querySelectorAll('[data-rbrod] button, [data-rbrod] .q-btn, [data-rbrod] [role=button]')).map(b => ((b.innerText || '').trim() + '|' + (b.getAttribute('aria-label') || '') + '|' + ((b.querySelector('i') || {}).className || '') + (b.disabled || b.getAttribute('aria-disabled') === 'true' ? '|off' : '')).slice(0, 90))).catch(() => []);
+  dg.inputs = await page.evaluate(() => [].slice.call(document.querySelectorAll('[data-rbrod] input')).map(i => (i.value || '') + '|' + (i.placeholder || ''))).catch(() => []);
   out.paginas = paginas; out.totalPaginas = info ? info.tot : null; out.dg = dg;
   return out;
 }
