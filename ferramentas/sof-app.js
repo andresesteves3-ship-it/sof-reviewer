@@ -242,7 +242,7 @@ function buildHeader(ws,hdrIdx){
           else if(t&&!time&&!d)time=t;
           else if(!d&&!t&&!/^at$/i.test(String(raw).trim()))cand.push({cc,txt:String(raw).trim()});
         }
-        fields[f.k]={name:f.name,row:r,date,time,text:'',dcol,cand};
+        fields[f.k]={name:f.name,label,row:r,date,time,text:'',dcol,cand};
         continue;
       }
       const sv=label.match(/^\s*(initial|final)\s+draft\s+survey/i);
@@ -692,6 +692,22 @@ function checkHeader(errors,alerts){
   });
 }
 
+// Cabeçalho × corpo: o tipo de operação escrito no cabeçalho (Commenced/Completed Loading ou Discharging)
+// precisa ser o mesmo da operação descrita nas linhas do SOF.
+function checkHeaderOp(errors,all){
+  if(!hdrInfo)return;const F=hdrInfo.fields;let nl=0,nd=0;
+  /* só linhas da tabela de eventos (com horário de início e fim) e totais: o próprio cabeçalho não conta */
+  all.filter(r=>timePairs(r).length>=2||/total/i.test(rowText(r))).forEach(r=>{const t=rowText(r).toLowerCase();nl+=(t.match(/\b(loading|loaded|load)\b/g)||[]).length;nd+=(t.match(/\b(discharg\w*|unload\w*|offload\w*)\b/g)||[]).length});
+  const op=nd>=2&&nd>=3*nl?'disch':nl>=2&&nl>=3*nd?'load':null;if(!op)return;
+  const errados=['commenced','completed'].map(k=>F[k]).filter(f=>f&&f.label&&(op==='disch'?/load/i:/disch/i).test(f.label));
+  if(!errados.length)return;
+  const certo=op==='disch'?'Commenced Discharging / Completed Discharging':'Commenced Loading / Completed Loading';
+  errors.push(issue('Cabeçalho: tipo de operação não confere com o SOF',[
+    ['Linhas do cabeçalho',errados.map(f=>f.row).join(' e ')],['No cabeçalho',errados.map(f=>f.label).join(' / ')],
+    ['No corpo do SOF',op==='disch'?'descarga ('+nd+' menção(ões) a discharging; '+nl+' a loading)':'carregamento ('+nl+' menção(ões) a loading; '+nd+' a discharging)']
+  ],'O corpo do SOF é de '+(op==='disch'?'DESCARGA':'CARREGAMENTO')+'. No cabeçalho, usar “'+certo+'”.','CRÍTICO'));
+}
+
 // 5) Padronização dos textos e do preenchimento
 function checkTextStyle(english,alerts){
   if(!colInfo||colInfo.d===undefined)return;
@@ -1091,6 +1107,7 @@ function analyzeCore(opts){
   safe('Períodos por data',()=>checkCycles(errors));
   safe('Equipes (Gang)',()=>checkGangs(errors));
   safe('Cabeçalho',()=>checkHeader(errors,alerts));
+  safe('Cabeçalho × operação',()=>checkHeaderOp(errors,all));
   safe('Draft survey',()=>checkSurveys(errors));
   const planoRaw=[];
   safe('Plano de Carga (Stowage Plan)',()=>checkStowage(planoRaw));
