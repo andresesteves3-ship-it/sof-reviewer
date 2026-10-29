@@ -57,6 +57,57 @@ async function escolherContrato(page) {
   return true;
 }
 
+// ---- "Resultados por página": acha a caixinha do rodapé (a que mostra "10") e escolhe o maior valor ----
+async function porPaginaMax(page, dg) {
+  const nLinhas = () => page.evaluate(() => document.querySelectorAll('table.q-table tbody tr').length).catch(() => 0);
+  const antes = await nLinhas();
+  dg.linhasAntes = antes;
+  // 1) <select> nativo no rodapé
+  const nat = page.locator('.q-table__bottom select, .q-pagination select').first();
+  if (await nat.count()) {
+    const t = await nat.locator('option').allTextContents(); dg.porPagina = t;
+    let i = t.findIndex(x => /todos|all/i.test(x)); if (i < 0) i = t.map(x => parseInt(x, 10) || 0).reduce((m, v, k, arr) => v > arr[m] ? k : m, 0);
+    await nat.selectOption({ index: i }); dg.escolhido = t[i]; dg.modo = 'select';
+  } else {
+    // 2) caixinha do Quasar: marca o menor elemento clicável do rodapé que mostra só o número atual (ex.: "10")
+    const achou = await page.evaluate(() => {
+      document.querySelectorAll('[data-rbpp]').forEach(e => e.removeAttribute('data-rbpp'));
+      const rod = document.querySelector('.q-table__bottom') || [].slice.call(document.querySelectorAll('div')).filter(d => /por\s*p[aá]gina/i.test(d.innerText || '') && d.innerText.length < 300).pop();
+      if (!rod) return { ok: false, motivo: 'rodapé não achado' };
+      const cands = [].slice.call(rod.querySelectorAll('.q-select, .q-field, [role=combobox], [role=button], .q-btn-dropdown, .q-btn, div, span'))
+        .filter(e => { const r = e.getBoundingClientRect(); const tx = (e.innerText || '').replace(/arrow_drop_down|expand_more|keyboard_arrow_down/g, '').trim(); return r.width > 0 && r.height > 0 && /^\d{1,3}$|^todos$/i.test(tx); })
+        .filter(e => !e.closest('button[aria-label*="page" i]'));
+      // prefere componentes de seleção; senão o menor elemento
+      cands.sort((a, b) => { const s = e => (e.matches('.q-select, [role=combobox], .q-field') ? 0 : e.matches('.q-btn-dropdown') ? 1 : 2); const q = e => (/^10\b/.test((e.innerText || '').trim()) ? 0 : 1); return s(a) - s(b) || q(a) - q(b) || (a.innerText.length - b.innerText.length); });
+      const el = cands[0]; if (!el) return { ok: false, motivo: 'caixinha não achada', rod: (rod.innerText || '').replace(/\s+/g, ' ').slice(0, 120) };
+      const alvo = el.querySelector('.q-field__control, .q-field__native') || el; alvo.setAttribute('data-rbpp', '1');
+      return { ok: true, tag: el.tagName, cls: String(el.className || '').slice(0, 80), txt: (el.innerText || '').trim().slice(0, 20) };
+    });
+    dg.caixa = achou;
+    if (!achou.ok) return;
+    const cx = page.locator('[data-rbpp]').first();
+    const opsLoc = page.locator('.q-menu .q-item, .q-menu [role=option], [role=listbox] [role=option], .q-virtual-scroll__content .q-item');
+    let n = 0;
+    for (const modo of ['click', 'mouse', 'teclado']) {
+      if (modo === 'click') await cx.click({ timeout: 5000 }).catch(() => {});
+      else if (modo === 'mouse') { const bb = await cx.boundingBox(); if (bb) await page.mouse.click(bb.x + bb.width / 2, bb.y + bb.height / 2); }
+      else { await cx.focus().catch(() => {}); await page.keyboard.press('ArrowDown').catch(() => {}); }
+      await page.waitForTimeout(900);
+      n = await opsLoc.count();
+      if (n) { dg.abriu = modo; break; }
+    }
+    if (!n) { dg.porPagina = []; await page.keyboard.press('Escape').catch(() => {}); return; }
+    const t = []; for (let k = 0; k < n; k++) t.push(((await opsLoc.nth(k).innerText().catch(() => '')) || '').trim());
+    dg.porPagina = t;
+    let i = t.findIndex(x => /todos|all/i.test(x)); if (i < 0) i = t.map(x => parseInt(x, 10) || 0).reduce((m, v, k, arr) => v > arr[m] ? k : m, 0);
+    await opsLoc.nth(i).click(); dg.escolhido = t[i]; dg.modo = 'quasar';
+  }
+  // espera a tabela crescer
+  try { await page.waitForFunction(a => document.querySelectorAll('table.q-table tbody tr').length > a, antes, { timeout: 15000 }); } catch (e) { dg.naoCresceu = true; }
+  await page.waitForTimeout(1500);
+  dg.linhasDepois = await nLinhas();
+}
+
 async function lerTabela(page) {
   const vistos = new Set(), out = [];
   const ler = async () => {
@@ -94,27 +145,9 @@ async function lerTabela(page) {
     return page.locator('#nao-existe');
   };
   const dg = { porPagina: [], escolhido: '', botoes: [], rodape: '', tentativas: [] };
-  // tenta aumentar "resultados por página" para o máximo (ou "Todos")
-  try {
-    const sel = page.locator('.q-table__bottom .q-select, .q-table__bottom [role=combobox], .q-table__bottom select').first();
-    if (await sel.count()) {
-      if (await sel.evaluate(e => e.tagName === 'SELECT')) {
-        const t = await sel.locator('option').allTextContents(); dg.porPagina = t;
-        let i = t.findIndex(x => /todos|all/i.test(x)); if (i < 0) i = t.map(x => parseInt(x, 10) || 0).reduce((m, v, k, arr) => v > arr[m] ? k : m, 0);
-        await sel.selectOption({ index: i }); dg.escolhido = t[i]; await page.waitForTimeout(2500);
-      } else {
-        await sel.click(); await page.waitForTimeout(800);
-        const ops = page.locator('.q-menu .q-item, .q-menu [role=option], [role=listbox] [role=option]');
-        const n = await ops.count(); const t = [];
-        for (let k = 0; k < n; k++) t.push(((await ops.nth(k).innerText().catch(() => '')) || '').trim());
-        dg.porPagina = t;
-        if (n) {
-          let i = t.findIndex(x => /todos|all/i.test(x)); if (i < 0) i = t.map(x => parseInt(x, 10) || 0).reduce((m, v, k2, arr) => v > arr[m] ? k2 : m, 0);
-          await ops.nth(i).click(); dg.escolhido = t[i]; await page.waitForTimeout(2500);
-        } else { await page.keyboard.press('Escape').catch(() => {}); }
-      }
-    }
-  } catch (e) { dg.erroPorPagina = String(e.message || e).slice(0, 80); }
+  // aumenta "RESULTADOS POR PÁGINA" (rodapé da tabela) de 10 para o máximo disponível ("Todos" ou o maior número)
+  try { await porPaginaMax(page, dg); } catch (e) { dg.erroPorPagina = String(e.message || e).slice(0, 120); }
+  await ler();   // garante a leitura do que já está na tela
   let info = await pagInfo();
   if (info && info.at > 1) { const pr = await btn('primeira'); if (!(await off(pr))) { await pr.click(); await page.waitForTimeout(1500); } }
   let paginas = 0;
