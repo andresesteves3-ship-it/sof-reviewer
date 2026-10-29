@@ -1,16 +1,16 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-29T10:24:51.891Z",
- "ultimoSucesso": "2026-10-29T10:24:51.891Z",
+ "atualizado": "2026-10-29T11:19:46.620Z",
+ "ultimoSucesso": "2026-10-29T11:19:46.620Z",
  "total": 14,
- "previstos": 8,
+ "previstos": 7,
  "diag": {
   "linhas": 14,
   "paginas": 2,
   "totalPaginas": 2,
-  "semInicio": 8,
-  "comInicio": 6,
+  "semInicio": 7,
+  "comInicio": 7,
   "classificacao": {
    "exportacao": 6,
    "outro:VIGIA": 1,
@@ -53,8 +53,8 @@
    },
    "directions_boat": {
     "total": 14,
-    "ativo": 6,
-    "on": 6
+    "ativo": 7,
+    "on": 7
    },
    "assignment_turned_in": {
     "total": 14,
