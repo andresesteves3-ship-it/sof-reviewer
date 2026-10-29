@@ -1,8 +1,8 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-29T09:26:53.328Z",
- "ultimoSucesso": "2026-10-29T09:26:53.328Z",
+ "atualizado": "2026-10-29T10:24:51.891Z",
+ "ultimoSucesso": "2026-10-29T10:24:51.891Z",
  "total": 14,
  "previstos": 8,
  "diag": {
@@ -27,12 +27,12 @@
     "on": 0
    },
    "remove": {
-    "total": 6,
+    "total": 7,
     "ativo": 0,
     "on": 0
    },
    "add": {
-    "total": 6,
+    "total": 7,
     "ativo": 0,
     "on": 0
    },
@@ -48,8 +48,8 @@
    },
    "check_circle": {
     "total": 14,
-    "ativo": 6,
-    "on": 6
+    "ativo": 7,
+    "on": 7
    },
    "directions_boat": {
     "total": 14,
