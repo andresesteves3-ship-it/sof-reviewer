@@ -1,8 +1,8 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-29T00:08:54.437Z",
- "ultimoSucesso": "2026-10-29T00:08:54.437Z",
+ "atualizado": "2026-10-29T01:09:24.010Z",
+ "ultimoSucesso": "2026-10-29T01:09:24.010Z",
  "total": 10,
  "previstos": 5,
  "diag": {
@@ -70,6 +70,12 @@
    "tentativas": [
     "pag 1: botão seguinte não achado/desabilitado"
    ],
+   "linhasAntes": 12,
+   "caixa": {
+    "ok": false,
+    "motivo": "caixinha não achada",
+    "rod": "RESULTADOS POR PÁGINA"
+   },
    "inputs": []
   },
   "exemploIcones": [
