@@ -1,9 +1,9 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-29T15:16:09.032Z",
- "ultimoSucesso": "2026-10-29T15:16:09.032Z",
- "total": 23,
+ "atualizado": "2026-10-29T16:15:24.074Z",
+ "ultimoSucesso": "2026-10-29T16:15:24.074Z",
+ "total": 27,
  "dias": [
   {
    "data": "28/10/2026",
@@ -12,18 +12,18 @@
   },
   {
    "data": "29/10/2026",
-   "n": 7,
+   "n": 9,
    "erro": ""
   },
   {
    "data": "30/10/2026",
-   "n": 0,
+   "n": 2,
    "erro": ""
   }
  ],
  "diag": {
   "frames": 1,
-  "recuperacoes": 0,
+  "recuperacoes": 1,
   "reaproveitadas": 0
  }
 }
