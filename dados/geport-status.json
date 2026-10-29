@@ -1,18 +1,18 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-29T19:28:52.902Z",
- "ultimoSucesso": "2026-10-29T19:28:52.902Z",
- "total": 13,
+ "atualizado": "2026-10-29T20:19:47.382Z",
+ "ultimoSucesso": "2026-10-29T20:19:47.382Z",
+ "total": 12,
  "previstos": 8,
  "diag": {
-  "linhas": 13,
+  "linhas": 12,
   "paginas": 2,
   "totalPaginas": 2,
   "semInicio": 8,
-  "comInicio": 5,
+  "comInicio": 4,
   "classificacao": {
-   "importacao": 4,
+   "importacao": 3,
    "exportacao": 6,
    "outro:VIGIA": 1,
    "outro:TRANSBORDO": 1,
@@ -22,42 +22,42 @@
   "cancelados": 0,
   "icones": {
    "close": {
-    "total": 13,
+    "total": 12,
     "ativo": 0,
     "on": 0
    },
    "highlight_off": {
-    "total": 13,
+    "total": 12,
     "ativo": 0,
-    "on": 13
+    "on": 12
    },
    "alarm": {
-    "total": 13,
-    "ativo": 13,
-    "on": 13
+    "total": 12,
+    "ativo": 12,
+    "on": 12
    },
    "check_circle": {
-    "total": 13,
-    "ativo": 6,
-    "on": 6
-   },
-   "directions_boat": {
-    "total": 13,
+    "total": 12,
     "ativo": 5,
     "on": 5
    },
+   "directions_boat": {
+    "total": 12,
+    "ativo": 4,
+    "on": 4
+   },
    "assignment_turned_in": {
-    "total": 13,
+    "total": 12,
     "ativo": 0,
     "on": 0
    },
    "remove": {
-    "total": 6,
+    "total": 5,
     "ativo": 0,
     "on": 0
    },
    "add": {
-    "total": 6,
+    "total": 5,
     "ativo": 0,
     "on": 0
    }
