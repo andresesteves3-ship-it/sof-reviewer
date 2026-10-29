@@ -1,21 +1,20 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-29T18:20:50.547Z",
- "ultimoSucesso": "2026-10-29T18:20:50.547Z",
- "total": 14,
- "previstos": 7,
+ "atualizado": "2026-10-29T19:28:52.902Z",
+ "ultimoSucesso": "2026-10-29T19:28:52.902Z",
+ "total": 13,
+ "previstos": 8,
  "diag": {
-  "linhas": 14,
+  "linhas": 13,
   "paginas": 2,
   "totalPaginas": 2,
-  "semInicio": 7,
-  "comInicio": 7,
+  "semInicio": 8,
+  "comInicio": 5,
   "classificacao": {
-   "outro:CABOTAGEM": 1,
+   "importacao": 4,
    "exportacao": 6,
    "outro:VIGIA": 1,
-   "importacao": 4,
    "outro:TRANSBORDO": 1,
    "outro:STAND BY": 1
   },
@@ -23,42 +22,42 @@
   "cancelados": 0,
   "icones": {
    "close": {
-    "total": 14,
-    "ativo": 0,
-    "on": 0
-   },
-   "remove": {
-    "total": 8,
-    "ativo": 0,
-    "on": 0
-   },
-   "add": {
-    "total": 8,
+    "total": 13,
     "ativo": 0,
     "on": 0
    },
    "highlight_off": {
-    "total": 14,
+    "total": 13,
     "ativo": 0,
-    "on": 14
+    "on": 13
    },
    "alarm": {
-    "total": 14,
-    "ativo": 14,
-    "on": 14
+    "total": 13,
+    "ativo": 13,
+    "on": 13
    },
    "check_circle": {
-    "total": 14,
-    "ativo": 8,
-    "on": 8
+    "total": 13,
+    "ativo": 6,
+    "on": 6
    },
    "directions_boat": {
-    "total": 14,
-    "ativo": 7,
-    "on": 7
+    "total": 13,
+    "ativo": 5,
+    "on": 5
    },
    "assignment_turned_in": {
-    "total": 14,
+    "total": 13,
+    "ativo": 0,
+    "on": 0
+   },
+   "remove": {
+    "total": 6,
+    "ativo": 0,
+    "on": 0
+   },
+   "add": {
+    "total": 6,
     "ativo": 0,
     "on": 0
    }
@@ -103,22 +102,6 @@
      "cls": ""
     },
     {
-     "n": "remove",
-     "cor": "rgb(0, 0, 0)",
-     "op": "1",
-     "w": 0,
-     "on": false,
-     "cls": ""
-    },
-    {
-     "n": "add",
-     "cor": "rgb(0, 0, 0)",
-     "op": "1",
-     "w": 0,
-     "on": false,
-     "cls": ""
-    },
-    {
      "n": "highlight_off",
      "cor": "rgb(0, 0, 0)",
      "op": "1",
@@ -136,19 +119,19 @@
     },
     {
      "n": "check_circle",
-     "cor": "rgb(0, 0, 0)",
+     "cor": "rgb(187, 187, 187)",
      "op": "1",
      "w": 18,
-     "on": true,
-     "cls": "on"
+     "on": false,
+     "cls": ""
     },
     {
      "n": "directions_boat",
-     "cor": "rgb(0, 0, 0)",
+     "cor": "rgb(187, 187, 187)",
      "op": "1",
      "w": 18,
-     "on": true,
-     "cls": "on"
+     "on": false,
+     "cls": ""
     },
     {
      "n": "assignment_turned_in",
