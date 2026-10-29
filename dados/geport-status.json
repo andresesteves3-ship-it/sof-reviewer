@@ -1,8 +1,8 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-29T13:39:17.553Z",
- "ultimoSucesso": "2026-10-29T13:39:17.553Z",
+ "atualizado": "2026-10-29T15:28:06.964Z",
+ "ultimoSucesso": "2026-10-29T15:28:06.964Z",
  "total": 15,
  "previstos": 8,
  "diag": {
@@ -27,6 +27,16 @@
     "ativo": 0,
     "on": 0
    },
+   "remove": {
+    "total": 9,
+    "ativo": 0,
+    "on": 0
+   },
+   "add": {
+    "total": 9,
+    "ativo": 0,
+    "on": 0
+   },
    "highlight_off": {
     "total": 15,
     "ativo": 0,
@@ -39,8 +49,8 @@
    },
    "check_circle": {
     "total": 15,
-    "ativo": 8,
-    "on": 8
+    "ativo": 9,
+    "on": 9
    },
    "directions_boat": {
     "total": 15,
@@ -49,16 +59,6 @@
    },
    "assignment_turned_in": {
     "total": 15,
-    "ativo": 0,
-    "on": 0
-   },
-   "remove": {
-    "total": 8,
-    "ativo": 0,
-    "on": 0
-   },
-   "add": {
-    "total": 8,
     "ativo": 0,
     "on": 0
    }
@@ -103,6 +103,22 @@
      "cls": ""
     },
     {
+     "n": "remove",
+     "cor": "rgb(0, 0, 0)",
+     "op": "1",
+     "w": 0,
+     "on": false,
+     "cls": ""
+    },
+    {
+     "n": "add",
+     "cor": "rgb(0, 0, 0)",
+     "op": "1",
+     "w": 0,
+     "on": false,
+     "cls": ""
+    },
+    {
      "n": "highlight_off",
      "cor": "rgb(0, 0, 0)",
      "op": "1",
@@ -120,11 +136,11 @@
     },
     {
      "n": "check_circle",
-     "cor": "rgb(187, 187, 187)",
+     "cor": "rgb(0, 0, 0)",
      "op": "1",
      "w": 18,
-     "on": false,
-     "cls": ""
+     "on": true,
+     "cls": "on"
     },
     {
      "n": "directions_boat",
