@@ -1,21 +1,21 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-29T15:28:06.964Z",
- "ultimoSucesso": "2026-10-29T15:28:06.964Z",
- "total": 15,
- "previstos": 8,
+ "atualizado": "2026-10-29T16:28:38.230Z",
+ "ultimoSucesso": "2026-10-29T16:28:38.230Z",
+ "total": 14,
+ "previstos": 7,
  "diag": {
-  "linhas": 15,
+  "linhas": 14,
   "paginas": 2,
   "totalPaginas": 2,
-  "semInicio": 8,
+  "semInicio": 7,
   "comInicio": 7,
   "classificacao": {
    "outro:CABOTAGEM": 1,
    "exportacao": 6,
    "outro:VIGIA": 1,
-   "importacao": 5,
+   "importacao": 4,
    "outro:TRANSBORDO": 1,
    "outro:STAND BY": 1
   },
@@ -23,42 +23,42 @@
   "cancelados": 0,
   "icones": {
    "close": {
-    "total": 15,
+    "total": 14,
     "ativo": 0,
     "on": 0
    },
    "remove": {
-    "total": 9,
+    "total": 8,
     "ativo": 0,
     "on": 0
    },
    "add": {
-    "total": 9,
+    "total": 8,
     "ativo": 0,
     "on": 0
    },
    "highlight_off": {
-    "total": 15,
+    "total": 14,
     "ativo": 0,
-    "on": 15
+    "on": 14
    },
    "alarm": {
-    "total": 15,
-    "ativo": 15,
-    "on": 15
+    "total": 14,
+    "ativo": 14,
+    "on": 14
    },
    "check_circle": {
-    "total": 15,
-    "ativo": 9,
-    "on": 9
+    "total": 14,
+    "ativo": 8,
+    "on": 8
    },
    "directions_boat": {
-    "total": 15,
+    "total": 14,
     "ativo": 7,
     "on": 7
    },
    "assignment_turned_in": {
-    "total": 15,
+    "total": 14,
     "ativo": 0,
     "on": 0
    }
@@ -144,11 +144,11 @@
     },
     {
      "n": "directions_boat",
-     "cor": "rgb(187, 187, 187)",
+     "cor": "rgb(0, 0, 0)",
      "op": "1",
      "w": 18,
-     "on": false,
-     "cls": ""
+     "on": true,
+     "cls": "on"
     },
     {
      "n": "assignment_turned_in",
