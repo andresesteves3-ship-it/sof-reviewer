@@ -1,8 +1,8 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-29T04:09:01.983Z",
- "ultimoSucesso": "2026-10-29T04:09:01.983Z",
+ "atualizado": "2026-10-29T05:07:35.871Z",
+ "ultimoSucesso": "2026-10-29T05:07:35.871Z",
  "total": 21,
  "dias": [
   {
@@ -23,7 +23,7 @@
  ],
  "diag": {
   "frames": 1,
-  "recuperacoes": 0,
+  "recuperacoes": 1,
   "reaproveitadas": 0
  }
 }
