@@ -1,7 +1,30 @@
 {
- "ok": false,
- "erro": "Perdi a tela de requisições. Frames=[{\"sel\":0,\"tab\":0,\"inp\":0,\"txt\":\"\"}]",
- "atualizado": "2026-10-30T21:56:46.898Z",
- "ultimoSucesso": "2026-10-30T21:00:24.407Z",
- "falhasSeguidas": 1
+ "ok": true,
+ "erro": "",
+ "atualizado": "2026-10-30T22:57:22.763Z",
+ "ultimoSucesso": "2026-10-30T22:57:22.763Z",
+ "total": 15,
+ "dias": [
+  {
+   "data": "29/10/2026",
+   "n": 9,
+   "erro": ""
+  },
+  {
+   "data": "30/10/2026",
+   "n": 5,
+   "erro": ""
+  },
+  {
+   "data": "31/10/2026",
+   "n": 1,
+   "erro": ""
+  }
+ ],
+ "diag": {
+  "frames": 1,
+  "recuperacoes": 1,
+  "reaproveitadas": 0
+ },
+ "falhasSeguidas": 0
 }
