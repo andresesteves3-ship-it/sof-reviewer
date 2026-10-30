@@ -1,15 +1,10 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-30T01:28:29.769Z",
- "ultimoSucesso": "2026-10-30T01:28:29.769Z",
- "total": 27,
+ "atualizado": "2026-10-30T03:01:06.541Z",
+ "ultimoSucesso": "2026-10-30T03:01:06.541Z",
+ "total": 11,
  "dias": [
-  {
-   "data": "28/10/2026",
-   "n": 16,
-   "erro": ""
-  },
   {
    "data": "29/10/2026",
    "n": 9,
@@ -19,11 +14,16 @@
    "data": "30/10/2026",
    "n": 2,
    "erro": ""
+  },
+  {
+   "data": "31/10/2026",
+   "n": 0,
+   "erro": ""
   }
  ],
  "diag": {
   "frames": 1,
-  "recuperacoes": 0,
+  "recuperacoes": 3,
   "reaproveitadas": 0
  }
 }
