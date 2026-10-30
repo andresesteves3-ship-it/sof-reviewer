@@ -204,3 +204,123 @@ VERSÃO 0.33.1 — PRODUÇÃO E PAGAMENTOS SÃO DE FECHAMENTO
       As tarefas do próprio turno de quem assume NÃO aparecem mais.
   2 · Recados · 3 · Já resolvido · assinaturas.
   Página 2: checklist dos períodos do turno por navio + rotinas únicas.
+
+== Versão 0.35.1 ==
+- Passagem: as requisições de terno do turno de quem assume que ainda não estão no OGMO voltaram a aparecer no tópico 1, em vermelho, com a etiqueta "ainda não está no OGMO".
+
+== Versão 0.35.2 ==
+- Robô do OGMO (scripts/ogmo.js): quando a tela do OGMO cai/recarrega no meio da leitura ("Perdi a tela de requisições"), o robô reabre Requisições > Registro, refaz os filtros, volta ao dia e tenta a requisição de novo (até 3 vezes). Se ainda assim falhar, usa a composição da leitura anterior (o painel avisa).
+
+== Versão 0.36.0 ==
+- Rotinas: nova tarefa no grupo ESTIVA, "Enviar DA9 - Ao grupo da Liderança" (feita no próprio período; nome corrigido na 0.36.1). Entra nos avisos e na Passagem de Serviço.
+
+== Versão 0.37.0 ==
+- Robô do Geport (scripts/geport.js): lê a coluna "Classificação da operação" pelo cabeçalho (importação/exportação) e mostra a contagem no diagnóstico.
+- Line Up: etiqueta Importação/Exportação embaixo da carga.
+- Rotinas: na IMPORTAÇÃO o grupo Averbação (Inclusão e Fatos da Averbação) não aparece ("não se aplica") e não conta nas Únicas, nos avisos nem na Passagem de Serviço.
+
+== Versão 0.37.1 ==
+- Robô do Geport: muda "Resultados por página" no rodapé do Geport de 10 para o maior valor disponível (ou "Todos") antes de ler, assim todos os navios entram numa página só. Se não conseguir, continua tentando passar as páginas.
+- Line Up: a linha do robô mostra quantos "por página" foram usados.
+
+== Versão 0.37.2 ==
+- Robô do Geport: o rodapé da tabela do Geport (RESULTADOS POR PÁGINA 10 · 1/2 · setas) não é o rodapé padrão que o robô procurava. Agora ele acha o rodapé pelo texto "POR PÁGINA", aumenta para o maior valor e, se não der, passa as páginas pelas setas.
+
+== Versão 0.38.0 ==
+- Rotinas > Histórico de passagens de serviço: filtros De/Até (busca no banco, até 2 meses por vez), Assistente, Turno e Ciente. "Últimos 7 dias" volta ao padrão. Para passagens antigas, a coluna Pendências mostra quantas ficaram ao passar o turno.
+
+== Versão 0.38.1 ==
+- Passagem de serviço: UMA por turno (dia + turno). Gerar de novo substitui a anterior (versão 2, 3...), apaga as cópias antigas desse turno e zera o ciente, para quem assume confirmar a versão final. O histórico mostra só a mais recente de cada turno.
+
+== Versão 0.39.0 ==
+- NOVA FERRAMENTA "Solicitações" (menu e card no Início), com 3 abas:
+  1) Inspeção de guindaste: lista dos navios, gera o texto e guarda o HISTÓRICO (berço, cabeços, guindastes, POB,
+     supervisor, quem pediu, texto). O botão do Line Up virou atalho para cá.
+  2) Dobra: navios em operação → perguntas (operação, local, data, período, função, ternos e trabalhadores) →
+     e-mail no modelo (copiar formatado, assunto, abrir no Outlook) → "Efetuar solicitação".
+     Situação: Enviada ao comercial → Encaminhada ao OGMO → Pagamento efetuado (ou Cancelada), com histórico de quem mudou.
+  3) Plano B (operadores): tabela do dia (áreas fixas + navios das Rotinas + Stay by), gera a IMAGEM JPEG no formato
+     do e-mail, copia a imagem, texto e Outlook. "Registrar como enviada" guarda e MARCA "Solicitar Plano B" nas Rotinas.
+- IMPORTANTE: publique as regras novas do Firebase (Administração › Regras › Copiar regras), agora com a parte "solic".
+
+== Versão 0.39.1 ==
+- Solicitações: navios ocultos no Line Up não aparecem em nenhuma aba (Inspeção, Dobra e Plano B). A tela se atualiza sozinha quando o Line Up/Rotinas recarregam (sem atrapalhar quem está digitando no Plano B).
+
+== Versão 0.39.2 ==
+- Solicitações > Inspeção: botão direito na linha do navio > "Não precisa de inspeção (Heavy Lift)". Fica marcado nas Rotinas (Solicitar Inspeção = não precisa), no Line Up ("Sem inspeção · Heavy Lift") e no histórico. Botão direito de novo para desfazer.
+- 0.39.3: no lugar do texto "botão direito para desfazer", um botão "Desfazer Heavy Lift".
+
+== Versão 0.40.0 ==
+- Rotinas: a tarefa "Solicitar Plano B" (Contingência) só aparece para navios de POTÁSSIO e PIG IRON (gusa). Nos demais não aparece, não conta no total, não gera aviso e não entra na Passagem de Serviço nem na tabela do Plano B. Navio sem carga informada continua com o Plano B.
+- 0.40.1: na importação o grupo Averbação simplesmente não aparece (sem a linha "Não se aplica").
+- 0.40.2: o aviso "Solicitar inspeção de guindaste" (Início e sino) some quando o navio está como "não precisa (Heavy Lift)". O "Abrir" do aviso leva para Solicitações › Inspeção.
+- 0.40.3: Novidades da Praticagem (Início e sino) mostram a manobra como está agora (ex.: "Entrada 29/10 07:00 → A7PARTE2 (prevista)") e quando o prático foi marcado/alterado; só a novidade mais recente de cada navio.
+- 0.40.4: Plano B: e-mail sem "Cordialmente/nome" (a assinatura do Outlook já tem); "Copiar imagem" é o botão principal (gera, mostra e copia); baixar o JPEG virou opcional ("Baixar JPEG").
+- 0.40.5: removido o botão "Baixar JPEG" do Plano B (só "Copiar imagem").
+
+== Versão 0.41.0 ==
+- Plano B: imagem no layout novo (opção A): logo e título, dia da operação, tabela vermelha, navio em destaque com berço e carga, linha de TOTAL por período e rodapé com quem solicitou. Berço corrigido ("Berço 6/7").
+- 0.41.1: Plano B: a linha do navio mostra só o nome e a carga (sem o berço), na imagem e na tabela de edição.
+- 0.41.2: Plano B: linha do navio com a mesma cor das outras (sem vermelho).
+
+== Versão 0.42.0 ==
+- Inspeção de guindaste: campo "Grupo do WhatsApp" (link de convite, salvo no banco para toda a equipe) e botão "Enviar no grupo": copia o texto e abre o grupo no WhatsApp; é só colar (Ctrl+V) e enviar. O link não fica no código porque o site é público.
+- 0.42.1: desfeito o "Enviar no grupo" (voltou o "Compartilhar no WhatsApp" de antes).
+
+== Versão 0.43.0 ==
+- Rotinas > Requisição de Estiva: botão direito > "Requisição cancelada" (✕ CANC, vermelho tracejado). Conta como resolvida (sem aviso de prazo), aparece como "cancelada" na Passagem de Serviço e no Início, e o robô do OGMO não remarca por cima.
+- 0.43.1: o OGMO prevalece na Requisição de Estiva: requisição ativa no OGMO = ✓ OGMO; só requisição(ões) cancelada(s) = ✕ CANC automático. A marcação manual é substituída pelo que estiver no OGMO (dias lidos: ontem, hoje e amanhã). Se alguém desmarcar a marca do robô, ele não remarca aquela célula.
+
+== Versão 0.43.2 ==
+- SOF Reviewer: nova checagem CRÍTICA "Cabeçalho: tipo de operação não confere com o SOF": se o corpo do SOF é de descarga (Discharging) e o cabeçalho diz Commenced/Completed Loading (ou o contrário), aponta a linha e o texto certo.
+
+== Versão 0.44.0 ==
+- SOF Reviewer, novas checagens de erros grosseiros:
+  * Produtividade fora do padrão (t/h da linha muito acima da média do próprio SOF: vírgula/ponto ou zero a mais) e produção em intervalo de 0 minuto.
+  * Data fora da estadia do navio (antes da chegada ou depois do fim no cabeçalho).
+  * Dia da semana (coluna DAY) que não confere com a data.
+  * Linha duplicada com produção agora é CRÍTICA (soma em dobro).
+  * Restos de modelo: XX, TBA/TBC, ??, erros do Excel (#REF!, #N/A...), 00:00 → 00:00 e nome de outro navio (M/V ...) diferente do cabeçalho.
+
+== Versão 0.45.0 ==
+- SOF Reviewer mais confiável:
+  * Alarmes falsos: reconhece "TOTAL LOADED ASHORE" (e variações) como total final; nomes do cabeçalho (navio, agente, armador, porto...), navios/cargas do Line Up e nomes depois de "M/V" não contam como erro de ortografia.
+  * Lê a tabela pelo nome das colunas (DATE, DAY, FROM, TO, GANG, HOLD): funciona mesmo se o modelo tiver colunas em outra posição.
+  * Novo aviso "Revisão incompleta": diz quais partes do SOF não foram conferidas (tabela, peso, volumes, equipes, datas, horários, cabeçalho).
+
+== Versão 0.46.0 ==
+- Line Up passa a ler a planilha "Produção" (aba LINEUP) no lugar do Geport. Configure uma vez: Line Up > "Fonte dos navios (planilha de Produção)" > cole o link da aba LINEUP > Salvar (fica no banco para toda a equipe).
+  Colunas usadas: NAVIO, GEPORT (nº da atracação), OPERAÇÃO, CARGA, PESO, CLIENTE, LOCAL, AGENTE, PROGRESSO, ETA (LOA e ETS não).
+  Situação pelo PROGRESSO: 0% = previsto, 1-99% = em operação, 100% = concluído (some do Line Up, a não ser que a frente ainda esteja aberta nas Rotinas).
+  Atualiza a cada 5 minutos e no botão "Atualizar Line Up agora". A planilha precisa estar como "qualquer pessoa com o link pode ver".
+- O robô do Geport não é mais usado pelo Line Up (pode ser desativado no GitHub, Actions > Robô do Geport > Disable workflow).
+- 0.46.1: com o Line Up pela planilha, o robô do Geport some do Status dos robôs e o painel não pede mais leituras dele (pode desativar o workflow no GitHub).
+
+== Arquivos do Geport (Line Up agora é pela planilha) ==
+- Podem ser apagados do GitHub: .github/workflows/geport.yml, scripts/geport.js, dados/geport.enc.json, dados/geport-status.json. Secrets GEPORT_USER e GEPORT_PASS também. NÃO apagar LINEUP_KEY (usada pelo OGMO e pelo backup).
+- 0.46.2: o link da planilha de Produção (aba LINEUP) já vem no painel; não é preciso configurar nada. Removido o campo "Fonte dos navios".
+
+== Versão 0.47.0 ==
+- Line Up em blocos: Em operação / frente aberta · Próximos 7 dias (abertos) · Mais adiante · A definir (TBN) (fechados, abrem com um clique). Filtros no topo: Todos, Em operação, Próx. 7 dias, Importação, Exportação (cada pessoa tem o seu, fica guardado no computador). Na busca, todos os blocos abrem.
+
+== Versão 0.48.0 ==
+- Rotinas para BALSA de gusa (nome no formato "BALSA (NAVIO)", ex.: RIO PORT II (TOMINI SYMPHONY), ou RIO PORT / SÃO LUÍS): sem Atualizar o SOF, sem Planilha de Pagamentos ao Comercial e sem rotinas únicas (inspeção/laudo de guindaste, averbação, documentos). Sem botão/aviso de inspeção no Line Up, no Início e em Solicitações.
+
+== Versão 0.49.0 ==
+- Meu perfil: o campo Função virou uma lista: "Assistente de Operações" (escala 2x2, turno Dia 07x19 ou Noite 19x07) ou "Analista" (escala 5x2: segunda a sexta, 07:00 às 17:00, folga sábado e domingo). Para Analista não é preciso escolher turno nem primeiro dia. Início, calendário, quadro da equipe, avisos do Windows (só no turno) e trocas seguem a escala de cada função.
+- 0.49.1: quando o GitHub responde erro 500 (instabilidade dele) ao pedir "Atualizar agora", o painel explica que é problema do GitHub e que o robô continua no horário.
+
+== Versão 0.50.0 ==
+- Solicitar Inspeção: "Previsão de início das inspeções" já vem como POB + 2 h e "Previsão de início da operação" como o início do período seguinte da estiva (01, 07, 13 ou 19 h). São sugestões: dá para alterar, e o que for alterado à mão não é sobrescrito. Navio de ferro gusa: 4 guindastes automático e sem o campo "Quais guindastes".
+- 0.50.1: Inspeção: "Compartilhar no WhatsApp" já vai para o grupo das inspeções (incluído no painel): copia o texto e abre o grupo no WhatsApp do computador (se não abrir, abre o link do grupo no navegador). É só colar (Ctrl+V) e enviar. "Outra conversa" mantém a lista de contatos.
+- 0.50.2: desfeito o envio direto ao grupo; "Compartilhar no WhatsApp" volta a abrir a lista para escolher o grupo ou contato.
+
+=== Versão 0.51.0 — TPAs na Dobra + Robô TPA (DA9) ===
+- Solicitações › Dobra: botão "Inclusão de TPA" (nome + matrícula, busca e remoção). Banco no Firebase em /solic/tpa (as regras atuais já cobrem).
+- Ao digitar o nome do trabalhador na dobra aparece a lista por aproximação; escolheu, a matrícula vem junto. Digitar a matrícula de um TPA conhecido preenche o nome.
+- "Navios em operação" da Dobra também mostra navios com requisição no OGMO hoje/ontem (ex.: navio fora do Line Up).
+- Robô TPA: scripts/tpa.js + .github/workflows/tpa.yml. Roda às 04:35, 10:35, 16:35 e 19:35 (horário do DA9 + 5 min) e pelo botão "Atualizar TPA agora (DA9)".
+  Lê as requisições de hoje e amanhã; para as escaladas e não canceladas, baixa o DA9, guarda criptografado em dados/da9/ e inclui no banco os TPAs novos (nome + matrícula).
+  Usa os mesmos Secrets do OGMO (OGMO_EMPRESA, OGMO_USER, OGMO_PASS, LINEUP_KEY). Nenhum Secret novo.
+- Requisições: botão "DA9" ao lado do PDF quando o robô já baixou o DA9 daquela requisição.
+- scripts/ogmo.js: agora também serve de módulo para o robô TPA (comportamento do Robô do OGMO igual). package.json ganhou pdfjs-dist (leitura do PDF).

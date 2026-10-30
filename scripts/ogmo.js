@@ -195,10 +195,11 @@ async function botaoPorTexto(fr, tipo) {
   return (await a.count()) ? a : null;
 }
 // aciona o botão e devolve os bytes do PDF (download, resposta application/pdf ou janela impressa)
-async function baixar(page, fr, tipo) {
-  const iw = await iwTem(fr);
-  let alvo = null;
-  if (!iw) { alvo = await botaoPorTexto(fr, tipo); if (!alvo) throw new Error('botão do relatório não encontrado'); }
+// alvoDado: elemento já localizado (ex.: botão DA9); senão usa o botão do relatório da requisição
+async function baixar(page, fr, tipo, alvoDado) {
+  const iw = alvoDado ? false : await iwTem(fr);
+  let alvo = alvoDado || null;
+  if (!iw && !alvo) { alvo = await botaoPorTexto(fr, tipo); if (!alvo) throw new Error('botão do relatório não encontrado'); }
   PDFBUF.length = 0;
   let pop = null, down = null;
   CTX.waitForEvent('page', { timeout: 30000 }).then(p => { pop = p; }, () => {});
@@ -239,13 +240,13 @@ async function pdfDaRequisicao(page, fr, req) {
 // Segurança e velocidade: nenhum botão que altera requisição sai do navegador; imagens viram um GIF vazio (a tela só inicia depois de carregá-las).
 const GIF = Buffer.from('R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==', 'base64');
 const PROIBIDO = /^(BTN(?!ENTRAR$)|IWBUTTON)/i;
-let BLOQUEADO = '';
+let BLOQUEADO = '', PERMITIDO = '';   // PERMITIDO: nome exato do botão DA9 (relatório, só leitura), usado pelo robô TPA
 async function protegerContexto(ctx) {
   await ctx.route('**/*', route => {
     const rq = route.request();
     if (rq.method() === 'POST' && /\/EXEC$/i.test(rq.url())) {
       let ac = ''; try { ac = new URLSearchParams(rq.postData() || '').get('IW_Action') || ''; } catch (e) {}
-      if (PROIBIDO.test(ac)) { BLOQUEADO = ac; return route.abort(); }
+      if (PROIBIDO.test(ac) && !/DA9/i.test(ac) && !(PERMITIDO && ac.toUpperCase() === PERMITIDO)) { BLOQUEADO = ac; return route.abort(); }
     }
     if (['image', 'media', 'font'].includes(rq.resourceType())) return route.fulfill({ status: 200, contentType: 'image/gif', body: GIF });
     return route.continue();
@@ -312,7 +313,7 @@ async function trocarData(page, ddmmyyyy) {
 const dm = d => String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth() + 1).padStart(2, '0') + '/' + d.getFullYear();
 
 
-(async () => {
+async function main() {
   let st = { ok: false, erro: '', atualizado: new Date().toISOString() };
   try { st.ultimoSucesso = JSON.parse(fs.readFileSync(ARQ_ST, 'utf8')).ultimoSucesso; } catch (e) {}
   let browser, page;
@@ -377,4 +378,11 @@ const dm = d => String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth()
     if (browser) await browser.close();
   }
   gravarStatus(st);
-})();
+}
+
+// o robô TPA (scripts/tpa.js) reaproveita o login e a navegação deste robô
+module.exports = {
+  entrar, abrirRegistro, escolherFiltros, frameDaTela, trocarData, recuperar, protegerContexto, baixar, cifrar, decifrar, mascarar, espera, resumoFrames, dm,
+  PDFBUF, usarContexto: c => { CTX = c; }, permitir: n => { PERMITIDO = String(n || '').toUpperCase(); }, bloqueado: () => BLOQUEADO
+};
+if (require.main === module) main();

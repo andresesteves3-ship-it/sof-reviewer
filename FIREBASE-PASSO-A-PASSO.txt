@@ -1,0 +1,60 @@
+FIREBASE: LOGIN DO PAINEL + ROTINAS COMPARTILHADAS (gratuito)
+Faça uma vez só. O painel só abre com o Firebase configurado: o login é e-mail + senha (contas criadas aqui).
+
+PARTE 1 - Criar o projeto
+1) https://console.firebase.google.com (conta Google sua) > Criar projeto > nome: painel-assistentes
+   > desative o Google Analytics > Criar.
+
+PARTE 2 - Ativar o login
+2) Menu Criação (Build) > Authentication > Começar > aba "Método de login"
+   > "E-mail/senha" > ative a primeira chave (NÃO a de "link por e-mail") > Salvar.
+
+PARTE 3 - Banco de dados
+3) Criação > Realtime Database > Criar banco de dados > local padrão > MODO BLOQUEADO > Ativar.
+4) Copie o endereço do topo, parecido com https://painel-assistentes-xxxx-default-rtdb.firebaseio.com
+5) Aba "Regras": apague tudo, cole o texto abaixo e clique em Publicar.
+   (Só estes 4 usuários entram. Para incluir mais alguém depois, acrescente o e-mail no texto.)
+
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "painel": {
+      ".read": "auth != null && (auth.token.email == 'andres.santos@triunfologistica.com.br' || auth.token.email == 'helio.marques@triunfologistica.com.br' || auth.token.email == 'roger.macedo@triunfologistica.com.br' || auth.token.email == 'matheus.santos@triunfologistica.com.br')",
+      ".write": "auth != null && (auth.token.email == 'andres.santos@triunfologistica.com.br' || auth.token.email == 'helio.marques@triunfologistica.com.br' || auth.token.email == 'roger.macedo@triunfologistica.com.br' || auth.token.email == 'matheus.santos@triunfologistica.com.br')"
+    }
+  }
+}
+
+PARTE 4 - Chave da API
+6) Engrenagem (Configurações do projeto) > Geral > "Seus apps" > ícone </> (Web) > apelido: painel
+   > Registrar app. Copie o valor de apiKey (começa com AIza...). Não precisa de mais nada.
+
+PARTE 5 - Arquivo de configuração no GitHub
+7) No repositório sof-reviewer: Add file > Create new file > nome: firebase-config.json
+   Conteúdo (com os SEUS valores):
+   {
+     "apiKey": "AIza...",
+     "dbUrl": "https://painel-assistentes-xxxx-default-rtdb.firebaseio.com"
+   }
+   > Commit changes. (A apiKey do Firebase pode ficar no repositório: quem protege os dados são as regras acima.)
+
+PARTE 6 - Criar os usuários (e-mail + senha)
+8) Firebase > Authentication > aba "Usuários" > "Adicionar usuário".
+   E-mail: nome.sobrenome@triunfologistica.com.br   Senha: uma senha provisória (mínimo 6 caracteres).
+   Crie os 4: andres.santos, helio.marques, roger.macedo e matheus.santos.
+   (Se algum já existia de testes antigos, exclua e crie de novo: as senhas antigas eram PINs.)
+9) Passe a senha provisória a cada pessoa. No painel, ela entra com o e-mail e a senha e, se quiser,
+   troca em "Meu perfil" > "Alterar senha". A senha vale em qualquer computador.
+   O painel NÃO cria contas: só entra quem estiver cadastrado aqui E listado nas regras da Parte 3.
+   Para incluir mais alguém: cadastre aqui e acrescente o e-mail nas regras.
+
+ESQUECI A SENHA
+- Na tela de login: digite o e-mail e clique em "Esqueci minha senha": o Firebase envia um link
+  para o e-mail da pessoa (precisa ser uma caixa de e-mail real).
+- Ou, no Firebase: Authentication > Usuários > menu (três pontos) > "Redefinir senha" / excluir e criar de novo.
+
+OBSERVAÇÕES
+- O Firebase bloqueia tentativas em excesso.
+- Chave do Line Up, chave do GitHub e perfil de cada pessoa ficam salvos na conta (Firebase):
+  ao entrar em outro computador tudo aparece sozinho. Ao clicar em Sair, o computador esquece tudo.
