@@ -25,6 +25,13 @@ function pobTs(s, ref) {
   return t;
 }
 
+// o site passou a trazer um bloco de CSS (".divPPNavio { ... }") dentro da célula do navio: corta antes dele
+function nomeLimpo(t) {
+  let s = String(t || '');
+  const i = s.search(/\s[.#][A-Za-z][\w-]*[\s,{>:]/); if (i > 0) s = s.slice(0, i);
+  const j = s.indexOf('{'); if (j > 0) s = s.slice(0, j);
+  return s.replace(/\s+/g, ' ').trim();
+}
 const SECAO = /^(BA[IÍ]A DE|PORTO D[OAE])\s+[A-ZÀ-Ú]+/i;
 function parse(html, secoesOut) {
   const $ = cheerio.load(html), out = [], vistos = new Set();
@@ -40,12 +47,12 @@ function parse(html, secoesOut) {
     }
     const pob = txt(c[0]);
     if (!/^\d\d\/\d\d \d\d:\d\d$/.test(pob)) return;
-    const cel = $(c[1]).clone(); cel.find('table').remove();
-    const navio = cel.text().replace(/\s+/g, ' ').trim();
+    const cel = $(c[1]).clone(); cel.find('table,style,script').remove();
+    const navio = nomeLimpo(cel.text());
     const m = txt(c[7]);
     const k = secao + '|' + pob + '|' + navio + '|' + m;
     if (!navio || vistos.has(k)) return; vistos.add(k);
-    out.push({ pob, navio, m, de: c[8] ? txt(c[8]) : '', para: c[11] ? txt(c[11]) : '', secao });
+    out.push({ pob, navio, m, de: c[8] ? nomeLimpo(txt(c[8])) : '', para: c[11] ? nomeLimpo(txt(c[11])) : '', secao });
   });
   // se a página não tem títulos de seção reconhecíveis, usa tudo (e avisa); se tem, só Guanabara
   const temSecoes = out.some(x => x.secao);
@@ -73,6 +80,20 @@ function salvar(d) {
   try { ant = JSON.parse(fs.readFileSync(ARQ, 'utf8')); } catch (e) {}
   const primeira = !ant.ultimoSucesso;
   const d = { ...ant, hist: ant.hist || {}, atualizado: new Date(AGORA).toISOString() };
+  // migração: chaves antigas com CSS no nome viram a chave limpa (junta as manobras se a limpa já existir)
+  Object.keys(d.hist).forEach(k => {
+    const h = d.hist[k]; const nm = nomeLimpo(h.nome || k), nk = norm(nm) || k;
+    (h.mov || []).forEach(m => { m.de = nomeLimpo(m.de); m.para = nomeLimpo(m.para); });
+    (h.man || []).forEach(m => { m.navio = nomeLimpo(m.navio); m.de = nomeLimpo(m.de); m.para = nomeLimpo(m.para); });
+    if (h.nome) h.nome = nm;
+    if (nk === k) return;
+    delete d.hist[k];
+    const a = d.hist[nk];
+    if (!a) { d.hist[nk] = h; return; }
+    (h.mov || []).forEach(m => { a.mov = a.mov || []; if (!a.mov.some(y => y.m === m.m && y.ts === m.ts)) a.mov.push(m); });
+    a.ev = (a.ev || []).concat(h.ev || []).sort((x, y) => x.t - y.t);
+    if (h.est === 'marcada' && a.est !== 'marcada') { a.est = 'marcada'; a.man = h.man; }
+  });
   try {
     const secoes = [];
     const man = parse(await baixar(), secoes);
