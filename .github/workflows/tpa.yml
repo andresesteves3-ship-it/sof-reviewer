@@ -1,0 +1,51 @@
+name: Robô TPA (DA9)
+on:
+  schedule:
+    # horários do DA9 + 5 min (Brasília = UTC-3): 04:35 (07x13), 10:35 (13x19), 16:35 (19x01) e 19:35 (01x07)
+    - cron: '35 7,13,19,22 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ogmo          # nunca entra no OGMO ao mesmo tempo que o Robô do OGMO
+  cancel-in-progress: false
+jobs:
+  ler:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-audit --no-fund
+      - uses: actions/cache@v4
+        id: pw
+        with:
+          path: ~/.cache/ms-playwright
+          key: pw-${{ runner.os }}-1.49.1
+      - if: steps.pw.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium
+      - if: steps.pw.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
+      - run: node scripts/tpa.js
+        env:
+          OGMO_EMPRESA: ${{ secrets.OGMO_EMPRESA }}
+          OGMO_USER: ${{ secrets.OGMO_USER }}
+          OGMO_PASS: ${{ secrets.OGMO_PASS }}
+          LINEUP_KEY: ${{ secrets.LINEUP_KEY }}
+      - name: Salvar dados
+        run: |
+          git config user.name "robo-tpa"
+          git config user.email "robo-tpa@users.noreply.github.com"
+          git add -A dados
+          if git diff --cached --quiet; then echo "Nada para salvar"; else
+            git commit -m "TPA: DA9 lido automaticamente"
+            ok=0
+            for i in 1 2 3 4 5; do
+              if git pull --rebase --autostash origin "${GITHUB_REF_NAME}" && git push; then ok=1; break; fi
+              git rebase --abort 2>/dev/null || true
+              echo "push recusado, tentando de novo ($i)"; sleep $((i*7))
+            done
+            if [ "$ok" != 1 ]; then echo "::error::Não consegui publicar os dados depois de 5 tentativas"; exit 1; fi
+          fi
