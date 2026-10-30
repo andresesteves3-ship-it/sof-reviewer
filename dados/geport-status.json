@@ -1,19 +1,19 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-30T12:15:40.235Z",
- "ultimoSucesso": "2026-10-30T12:15:40.235Z",
- "total": 12,
- "previstos": 8,
+ "atualizado": "2026-10-30T13:38:07.414Z",
+ "ultimoSucesso": "2026-10-30T13:38:07.414Z",
+ "total": 13,
+ "previstos": 9,
  "diag": {
-  "linhas": 12,
+  "linhas": 13,
   "paginas": 2,
   "totalPaginas": 2,
-  "semInicio": 8,
+  "semInicio": 9,
   "comInicio": 4,
   "classificacao": {
+   "exportacao": 7,
    "importacao": 3,
-   "exportacao": 6,
    "outro:VIGIA": 1,
    "outro:TRANSBORDO": 1,
    "outro:STAND BY": 1
@@ -22,32 +22,32 @@
   "cancelados": 0,
   "icones": {
    "close": {
-    "total": 12,
+    "total": 13,
     "ativo": 0,
     "on": 0
    },
    "highlight_off": {
-    "total": 12,
+    "total": 13,
     "ativo": 0,
-    "on": 12
+    "on": 13
    },
    "alarm": {
-    "total": 12,
-    "ativo": 12,
-    "on": 12
+    "total": 13,
+    "ativo": 13,
+    "on": 13
    },
    "check_circle": {
-    "total": 12,
+    "total": 13,
     "ativo": 5,
     "on": 5
    },
    "directions_boat": {
-    "total": 12,
+    "total": 13,
     "ativo": 4,
     "on": 4
    },
    "assignment_turned_in": {
-    "total": 12,
+    "total": 13,
     "ativo": 0,
     "on": 0
    },
@@ -152,22 +152,6 @@
      "cls": ""
     },
     {
-     "n": "remove",
-     "cor": "rgb(0, 0, 0)",
-     "op": "1",
-     "w": 0,
-     "on": false,
-     "cls": ""
-    },
-    {
-     "n": "add",
-     "cor": "rgb(0, 0, 0)",
-     "op": "1",
-     "w": 0,
-     "on": false,
-     "cls": ""
-    },
-    {
      "n": "highlight_off",
      "cor": "rgb(0, 0, 0)",
      "op": "1",
@@ -185,19 +169,19 @@
     },
     {
      "n": "check_circle",
-     "cor": "rgb(0, 0, 0)",
+     "cor": "rgb(187, 187, 187)",
      "op": "1",
      "w": 18,
-     "on": true,
-     "cls": "on"
+     "on": false,
+     "cls": ""
     },
     {
      "n": "directions_boat",
-     "cor": "rgb(0, 0, 0)",
+     "cor": "rgb(187, 187, 187)",
      "op": "1",
      "w": 18,
-     "on": true,
-     "cls": "on"
+     "on": false,
+     "cls": ""
     },
     {
      "n": "assignment_turned_in",
