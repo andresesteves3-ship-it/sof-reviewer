@@ -324,3 +324,12 @@ VERSÃO 0.33.1 — PRODUÇÃO E PAGAMENTOS SÃO DE FECHAMENTO
   Usa os mesmos Secrets do OGMO (OGMO_EMPRESA, OGMO_USER, OGMO_PASS, LINEUP_KEY). Nenhum Secret novo.
 - Requisições: botão "DA9" ao lado do PDF quando o robô já baixou o DA9 daquela requisição.
 - scripts/ogmo.js: agora também serve de módulo para o robô TPA (comportamento do Robô do OGMO igual). package.json ganhou pdfjs-dist (leitura do PDF).
+
+=== Versão 0.51.1 ===
+- Administração › Status dos robôs: a barra de carregamento do "Rodar agora" ocupa a linha inteira do cartão e não sai mais do esquadro.
+
+=== Versão 0.52.0 — Dobra parada · Aviso de robô · Celular ===
+- Dobra parada: dobra "Enviada ao comercial" ou "Encaminhada ao OGMO" há 2 dias ou mais sem avançar vai para o sino (cobrar OGMO/pagamento) e aparece "⚠ parada há X dias" na lista. Pode ser desligado nas preferências de avisos.
+- Aviso de robô: faixa vermelha no topo de todas as telas (menos Administração) quando o robô do OGMO ou o TPA falha 2 vezes seguidas ou fica parado. O selo "Robôs" do Início agora inclui o TPA.
+  scripts/ogmo.js e scripts/tpa.js passaram a gravar "falhasSeguidas" no status (precisa subir os dois).
+- Celular: Rotinas com os 4 períodos na tela; Solicitações (Inspeção, Dobra, Plano B, TPAs) com linhas em cartões e botões à vista; Plano B com área em cima e períodos embaixo; dias das Requisições lado a lado.

@@ -315,7 +315,8 @@ const dm = d => String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth()
 
 async function main() {
   let st = { ok: false, erro: '', atualizado: new Date().toISOString() };
-  try { st.ultimoSucesso = JSON.parse(fs.readFileSync(ARQ_ST, 'utf8')).ultimoSucesso; } catch (e) {}
+  let FANT = 0;   // falhas seguidas até a rodada anterior (o painel avisa a partir de 2)
+  try { const a = JSON.parse(fs.readFileSync(ARQ_ST, 'utf8')); st.ultimoSucesso = a.ultimoSucesso; FANT = a.falhasSeguidas || 0; } catch (e) {}
   let browser, page;
   try {
     if (!EMPRESA || !USER || !PASS || !KEY) throw new Error('Faltam os Secrets OGMO_EMPRESA, OGMO_USER, OGMO_PASS e/ou LINEUP_KEY no GitHub.');
@@ -377,6 +378,7 @@ async function main() {
   } finally {
     if (browser) await browser.close();
   }
+  st.falhasSeguidas = st.ok ? 0 : FANT + 1;
   gravarStatus(st);
 }
 

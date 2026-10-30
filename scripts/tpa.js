@@ -194,6 +194,7 @@ async function main() {
   } finally {
     if (browser) await browser.close();
   }
+  st.falhasSeguidas = st.ok ? 0 : (ant.falhasSeguidas || 0) + 1;   // o painel avisa a partir de 2
   fs.mkdirSync(DIR, { recursive: true }); fs.writeFileSync(ARQ_ST, JSON.stringify(st, null, 1) + '\n');
 }
 
