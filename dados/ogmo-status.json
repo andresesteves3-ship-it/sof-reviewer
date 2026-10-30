@@ -1,7 +1,30 @@
 {
- "ok": false,
- "erro": "Não achei o menu \"Requisições\" depois do login. Frames=[{\"sel\":0,\"tab\":0,\"inp\":0,\"txt\":\"\"}]",
- "atualizado": "2026-10-30T19:13:08.376Z",
- "ultimoSucesso": "2026-10-30T18:38:08.477Z",
- "falhasSeguidas": 1
+ "ok": true,
+ "erro": "",
+ "atualizado": "2026-10-30T20:01:03.915Z",
+ "ultimoSucesso": "2026-10-30T20:01:03.915Z",
+ "total": 13,
+ "dias": [
+  {
+   "data": "29/10/2026",
+   "n": 9,
+   "erro": ""
+  },
+  {
+   "data": "30/10/2026",
+   "n": 4,
+   "erro": ""
+  },
+  {
+   "data": "31/10/2026",
+   "n": 0,
+   "erro": ""
+  }
+ ],
+ "diag": {
+  "frames": 1,
+  "recuperacoes": 0,
+  "reaproveitadas": 0
+ },
+ "falhasSeguidas": 0
 }
