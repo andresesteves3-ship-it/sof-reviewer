@@ -1,0 +1,36 @@
+name: Robô de regras do Firebase
+on:
+  push:
+    paths:
+      - 'firebase-regras.json'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: regras
+  cancel-in-progress: false
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/regras.js
+        env:
+          FIREBASE_SA: ${{ secrets.FIREBASE_SA }}
+      - name: Salvar situação
+        if: always()
+        run: |
+          git config user.name "robo-regras"
+          git config user.email "robo-regras@users.noreply.github.com"
+          git add dados/regras-status.json
+          if git diff --cached --quiet; then echo "Nada para salvar"; else
+            git commit -m "Regras: situação da publicação"
+            for i in 1 2 3 4 5; do
+              if git pull --rebase --autostash origin "${GITHUB_REF_NAME}" && git push; then break; fi
+              git rebase --abort 2>/dev/null || true; sleep $((i*5))
+            done
+          fi
