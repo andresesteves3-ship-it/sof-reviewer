@@ -1259,6 +1259,16 @@ function showResults(opts,tA){
   if(tA!==undefined)$('timing').textContent='Leitura do arquivo: '+fmtMs(loadMs)+'  •  Análise: '+fmtMs(performance.now()-tA);
   $('results').classList.remove('hidden');
   if(!(opts&&opts.noScroll))window.scrollTo({top:$('results').offsetTop-20,behavior:'smooth'});
+  // Painel dos Assistentes: avisa até que data/hora o SOF está preenchido (marca "Atualizar o SOF" nas Rotinas)
+  try{window.dispatchEvent(new CustomEvent('sof-analisado',{detail:resumoParaPainel(anomalias.concat(eng,volIssues,pesoIssues,plano,pend))}))}catch(e){}
+}
+// último horário registrado na tabela do SOF (fim da última linha com horário) + ocorrências críticas que continuam abertas
+function resumoParaPainel(abertas){
+  let ate=0,de=0,linhas=0;
+  rows.forEach(r=>{if(r.isPeriodTotal||r.isGrandTotal)return;const d=parseDateValue(r.operationalDate);if(!d)return;const tp=timePairs(r);if(!tp.length)return;
+    const fim=tp.length>1?operationalEndMinutes(tp[0].min,tp[1].min):tp[0].min;if(fim===null)return;
+    const ts=d.getTime()+fim*60000,t0=d.getTime()+tp[0].min*60000;linhas++;if(ts>ate)ate=ts;if(!de||t0<de)de=t0});
+  return {arquivo:fileLabel,navio:hdrInfo&&hdrInfo.vessel||'',nomes:(hdrInfo&&hdrInfo.nomes)||[],ate,de,linhas,criticos:abertas.filter(h=>/sev-crit/.test(h)).length};
 }
 // Agrupamento das anomalias por tipo
 const GROUPS=[
