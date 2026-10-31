@@ -462,3 +462,18 @@ VERSÃO 0.33.1 — PRODUÇÃO E PAGAMENTOS SÃO DE FECHAMENTO
 2. Robôs estáveis (sem a faixa vermelha de falha seguida).
 3. Os quatro assistentes usando o painel no dia a dia.
 4. Regras do Firebase publicadas (as da 0.64.0).
+
+=== Versão 0.65.0 — Robô de regras do Firebase ===
+- Quando o firebase-regras.json muda no GitHub, o robô (.github/workflows/regras.yml + scripts/regras.js) publica as regras no Firebase.
+- Administração mostra se as regras publicadas são as desta versão do painel. O robô aparece em "Status dos robôs" (botão Rodar agora).
+
+CONFIGURAÇÃO (uma vez):
+1. Abra o console do Firebase › ⚙ Configurações do projeto › Contas de serviço.
+2. Clique em "Gerar nova chave privada" e confirme. O navegador baixa um arquivo .json.
+3. Abra o arquivo .json num editor de texto (Bloco de Notas). Copie o conteúdo inteiro.
+4. No GitHub (repositório sof-reviewer): Settings › Secrets and variables › Actions › New repository secret.
+5. Nome: FIREBASE_SA. Valor: cole o conteúdo do arquivo. Clique em Add secret.
+6. Apague o arquivo .json do seu computador. Atenção: a chave dá acesso total ao banco. Ela fica só no Secret.
+7. Suba os arquivos desta versão (inclusive o firebase-regras.json). O robô roda sozinho e publica as regras.
+   Para rodar de novo: Administração › Status dos robôs › Regras do Firebase › Rodar agora.
+- Subir: index.html, sw.js, versao.json, scripts/regras.js, .github/workflows/regras.yml e firebase-regras.json.
