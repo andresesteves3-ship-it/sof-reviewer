@@ -1,7 +1,30 @@
 {
- "ok": false,
- "erro": "Tela de login do OGMO não apareceu. Frames=[{\"sel\":0,\"tab\":0,\"inp\":0,\"txt\":\"\"}]",
- "atualizado": "2026-10-31T09:00:50.087Z",
- "ultimoSucesso": "2026-10-31T08:13:02.320Z",
- "falhasSeguidas": 1
+ "ok": true,
+ "erro": "",
+ "atualizado": "2026-10-31T09:59:32.756Z",
+ "ultimoSucesso": "2026-10-31T09:59:32.756Z",
+ "total": 6,
+ "dias": [
+  {
+   "data": "30/10/2026",
+   "n": 5,
+   "erro": ""
+  },
+  {
+   "data": "31/10/2026",
+   "n": 1,
+   "erro": ""
+  },
+  {
+   "data": "01/11/2026",
+   "n": 0,
+   "erro": ""
+  }
+ ],
+ "diag": {
+  "frames": 1,
+  "recuperacoes": 0,
+  "reaproveitadas": 0
+ },
+ "falhasSeguidas": 0
 }
