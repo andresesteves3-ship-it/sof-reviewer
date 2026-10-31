@@ -406,14 +406,14 @@ function checkDates(errors,alerts){
     if(Math.abs(off)>31){
       const dist=Math.abs(off)+' dias '+(off>0?'depois':'antes')+' da data central ('+fmtDate(median)+')';
       errors.push(issue('Data muito distante das demais ('+x.text+')',[['Linha',ond(x.sheet,x.row)],['Distância',dist]],
-        'Provável erro de dia, mês ou ano.','ALTO',{k:'d-dist',t:'Datas muito distantes das demais',c:['Linha','Data','Distância'],v:[ond(x.sheet,x.row),x.text,dist]}));
+        'Confira o dia, o mês e o ano.','ALTO',{k:'d-dist',t:'Datas muito distantes das demais',c:['Linha','Data','Distância'],v:[ond(x.sheet,x.row),x.text,dist]}));
     }else ok.push(x);
   });
 
   // 2. Datas no futuro em relação a hoje
   ok.forEach(x=>{
     if(diffDays(today,x.d)>2)alerts.push(issue('Data no futuro ('+x.text+')',[['Linha',ond(x.sheet,x.row)],['Hoje',fmtDate(today)]],
-      'Conferir a data, principalmente o ano.','',{k:'d-fut',t:'Datas no futuro',c:['Linha','Data'],v:[ond(x.sheet,x.row),x.text]}));
+      'Confira a data, principalmente o ano.','',{k:'d-fut',t:'Datas no futuro',c:['Linha','Data'],v:[ond(x.sheet,x.row),x.text]}));
   });
 
   // 3. Ordem crescente e saltos (23 → 24 → 25)
@@ -422,10 +422,10 @@ function checkDates(errors,alerts){
     if(g<=0){
       const prob=g===0?'data repetida depois de outra':'volta '+Math.abs(g)+' dia(s)';
       errors.push(issue('Datas fora de ordem cronológica',[['Linhas',ond(c.sheet,p.row+' → '+c.row)],['Sequência',p.text+' → '+c.text],['Problema',prob]],
-        'Conferir a data das duas linhas. Afeta o cálculo de laytime.','CRÍTICO',{k:'d-ord',t:'Datas fora de ordem cronológica',c:['Linhas','Sequência','Problema'],v:[ond(c.sheet,p.row+' → '+c.row),p.text+' → '+c.text,prob]}));
+        'Confira a data das duas linhas. Atenção: o erro afeta o cálculo de laytime.','CRÍTICO',{k:'d-ord',t:'Datas fora de ordem cronológica',c:['Linhas','Sequência','Problema'],v:[ond(c.sheet,p.row+' → '+c.row),p.text+' → '+c.text,prob]}));
     }else if(g>1){
       alerts.push(issue('Salto de '+g+' dias entre datas consecutivas',[['Linhas',ond(c.sheet,p.row+' → '+c.row)],['Sequência',p.text+' → '+c.text]],
-        'Confirmar se não houve registros nos dias que faltam.','',{k:'d-salto',t:'Saltos entre datas consecutivas',c:['Linhas','Sequência','Dias'],v:[ond(c.sheet,p.row+' → '+c.row),p.text+' → '+c.text,g]}));
+        'Confirme que não há registros nos dias que faltam.','',{k:'d-salto',t:'Saltos entre datas consecutivas',c:['Linhas','Sequência','Dias'],v:[ond(c.sheet,p.row+' → '+c.row),p.text+' → '+c.text,g]}));
     }
   }
 }
@@ -457,24 +457,24 @@ function checkVW(volOut,pesoOut){
       if(!b.tr)return;
       if(b.total===null){
         if(b.n&&b.sum>def.tol)def.out.push(issue('Period Total sem valor de '+def.name,[['Linha',ond(b.tr.sheet,b.tr.row)],['Data',b.date||'—'],['Soma das linhas',fmtN(b.sum)]],
-          'Preencher o total do período ou restaurar a fórmula.','',{k:'pt0-'+k,t:'Period Total sem valor de '+def.name,c:['Linha','Data','Soma das linhas'],v:[ond(b.tr.sheet,b.tr.row),b.date||'—',fmtN(b.sum)]}));
+          'Preencha o total do período ou restaure a fórmula.','',{k:'pt0-'+k,t:'Period Total sem valor de '+def.name,c:['Linha','Data','Soma das linhas'],v:[ond(b.tr.sheet,b.tr.row),b.date||'—',fmtN(b.sum)]}));
         return;
       }
       sumTotals+=b.total; nTotals++;
       if(Math.abs(b.sum-b.total)>def.tol)def.out.push(issue('Somatória do período não confere — '+def.name,[
         ['Linha',ond(b.tr.sheet,b.tr.row)],['Data',b.date||'—'],['Total informado',fmtN(b.total)],['Soma das linhas',fmtN(b.sum)],['Diferença',fmtN(Math.abs(b.sum-b.total))],
         ['Linhas somadas',b.lines.slice(0,15).join(', ')+(b.lines.length>15?' …':'')]
-      ].concat(b.skipped.length?[['Paralisações (fora da soma)',b.skipped.join(', ')]]:[]),'Conferir linha faltando, duplicada ou com valor errado, e o intervalo da fórmula do total.','ALTO',
+      ].concat(b.skipped.length?[['Paralisações (fora da soma)',b.skipped.join(', ')]]:[]),'Confira se há linha faltando, duplicada ou com valor errado. Confira também o intervalo da fórmula do total.','ALTO',
         {k:'pt-'+k,t:'Somatórias de período que não conferem — '+def.name,c:['Linha','Data','Informado','Soma','Diferença'],v:[ond(b.tr.sheet,b.tr.row),b.date||'—',fmtN(b.total),fmtN(b.sum),fmtN(Math.abs(b.sum-b.total))]}));
     });
     const g=grand.filter(r=>r[k]!==null).pop();
     if(!g){
       def.out.push(issue('Total final de '+def.name+' não identificado',[],
-        'Conferir se a linha "Total" / "Grand Total" existe e está preenchida.'));
+        'Confira se a linha "Total" ou "Grand Total" existe e está preenchida.'));
     }else if(nTotals&&Math.abs(g[k]-sumTotals)>def.tol){
       def.out.push(issue('Total final não confere — '+def.name,[
         ['Linha',ond(g.sheet,g.row)],['Informado',fmtN(g[k])],['Soma dos períodos',fmtN(sumTotals)+' ('+nTotals+')'],['Diferença',fmtN(Math.abs(g[k]-sumTotals))]
-      ],'Conferir se algum período ficou fora da soma final.','CRÍTICO'));
+      ],'Confira se algum período ficou fora da soma final.','CRÍTICO'));
     }
   });
 }
@@ -519,7 +519,7 @@ function checkMilestones(errors){
     if(c.ts<p.ts){
       errors.push(issue('Marcos do navio fora de ordem cronológica',[
         ['Linhas',ond(c.sheet,p.row+' e '+c.row)],[p.m.name,tsText(p.ts)],[c.m.name,tsText(c.ts)],['Diferença',fmtMin2(p.ts-c.ts)+' antes']
-      ],'Conferir data e hora dos dois marcos.','CRÍTICO',{k:'marcos',t:'Marcos do navio fora de ordem cronológica',c:['Linhas','Marco anterior','Marco seguinte','Diferença'],v:[ond(c.sheet,p.row+' e '+c.row),p.m.name+' '+tsText(p.ts),c.m.name+' '+tsText(c.ts),fmtMin2(p.ts-c.ts)+' antes']}));
+      ],'Confira a data e a hora dos dois marcos.','CRÍTICO',{k:'marcos',t:'Marcos do navio fora de ordem cronológica',c:['Linhas','Marco anterior','Marco seguinte','Diferença'],v:[ond(c.sheet,p.row+' e '+c.row),p.m.name+' '+tsText(p.ts),c.m.name+' '+tsText(c.ts),fmtMin2(p.ts-c.ts)+' antes']}));
     }
   }
 }
@@ -535,7 +535,7 @@ function checkStopProduction(errors){
     if(!prod.length)return;
     const reg=findCellText(r,/not\s+worked|awaiting/i)||t, pr=prod.map(x=>x[0]+' '+fmtN(x[1])).join(' · ');
     errors.push(issue('Produção lançada em linha paralisada',[['Linha',ond(r.sheet,r.row)],['Data',r.operationalDate||'—'],['Registro',reg],['Produção',pr]],
-      'Conferir se o motivo ou a produção estão na linha errada.','ALTO',{k:'prodpar',t:'Produção lançada em linha paralisada',c:['Linha','Data','Registro','Produção'],v:[ond(r.sheet,r.row),r.operationalDate||'—',reg,pr]}));
+      'Confira se o motivo ou a produção está na linha errada.','ALTO',{k:'prodpar',t:'Produção lançada em linha paralisada',c:['Linha','Data','Registro','Produção'],v:[ond(r.sheet,r.row),r.operationalDate||'—',reg,pr]}));
   });
 }
 
@@ -592,12 +592,12 @@ function checkSpelling(english){
     let sug=[]; if(i<40){try{sug=(typo.suggest(f.word,5)||[]).filter(x=>!/\d/.test(x)).slice(0,3)}catch(e){}}
     const lin=ond(f.sheet,f.rows.slice(0,10).join(', ')+(f.rows.length>10?' …':'')), sg=sug.length?sug.join(', '):'—';
     let h=issue('Possível erro de ortografia: “'+f.word+'”',[['Linhas',lin],['Trecho',f.ctx],['Sugestão',sg]],
-      'Corrigir no documento ou, se a palavra estiver certa, adicionar ao glossário.','REVISAR',{k:'orto',t:'Possíveis erros de ortografia',c:['Palavra','Linhas','Trecho','Sugestão'],v:[f.word,lin,f.ctx,sg]});
+      'Corrija a palavra no documento. Se a palavra está certa, adicione ao glossário.','REVISAR',{k:'orto',t:'Possíveis erros de ortografia',c:['Palavra','Linhas','Trecho','Sugestão'],v:[f.word,lin,f.ctx,sg]});
     h=h.replace('<!--BTN-->','<button class="addGloss" data-word="'+esc(f.word.toLowerCase())+'" title="A palavra está certa: não marcar mais">+ Glossário</button><!--BTN-->');
     english.push(h);
   });
   if(all.length>shown.length)english.push(issue('Mais '+(all.length-shown.length)+' palavra(s) não reconhecida(s)',[],
-    'Não foram listadas. Se forem nomes ou termos técnicos, adicione ao glossário e analise de novo.'));
+    'O painel não listou estas palavras. Se são nomes ou termos técnicos, adicione ao glossário e analise de novo.'));
 }
 
 // ===== Regras 1 a 5: ciclos por data, equipes, peso por unidade, cabeçalho e padronização =====
@@ -622,7 +622,7 @@ function checkCycles(errors){
       const d=parseDateValue(b.date), next=d?fmtDate(new Date(d.getFullYear(),d.getMonth(),d.getDate()+1)):'';
       const per=CYC[idx]+' depois de '+CYC[prev.idx]+' (linha '+prev.row+')', sgd=idx===0&&prev.idx===3&&next?'data provável: '+next:'—';
       errors.push(issue('Período fora de ordem dentro da data '+b.date,[['Linha',ond(b.sheet,b.row)],['Período',per]].concat(sgd!=='—'?[['Sugestão',sgd]]:[]),
-        'Cada data segue 01x07, 07x13, 13x19, 19x01. Conferir a data deste bloco.','ALTO',{k:'per',t:'Períodos fora de ordem dentro da data',c:['Linha','Data','Período','Sugestão'],v:[ond(b.sheet,b.row),b.date,per,sgd]}));
+        'Cada data segue 01x07, 07x13, 13x19, 19x01. Confira a data deste bloco.','ALTO',{k:'per',t:'Períodos fora de ordem dentro da data',c:['Linha','Data','Período','Sugestão'],v:[ond(b.sheet,b.row),b.date,per,sgd]}));
     }
     prev={date:b.date,idx,row:b.row};
   });
@@ -663,7 +663,7 @@ function checkGangs(errors){
       const rr=list.map(x=>x.row);
       const lns=ond(list[0].sheet,Math.min(...rr)+' a '+Math.max(...rr)), pb=probs.join('; ');
       errors.push(issue('Equipe '+label+': conflito de horários no período',[['Linhas',lns],['Data',list[0].date||'—'],['Problema',pb]],
-        'Conferir a equipe das paralisações e se falta ou sobra registro (linhas com "-" valem para todas).','ALTO',{k:'gang',t:'Equipes com conflito de horários',c:['Equipe','Linhas','Data','Problema'],v:[label,lns,list[0].date||'—',pb]}));
+        'Confira a equipe das paralisações. Confira se falta ou sobra registro. Linha com "-" vale para todas as equipes.','ALTO',{k:'gang',t:'Equipes com conflito de horários',c:['Equipe','Linhas','Data','Problema'],v:[label,lns,list[0].date||'—',pb]}));
     });
   });
 }
@@ -676,7 +676,7 @@ function checkFractionalVolumes(out){
   if(!bad.length)return;
   out.push(issue((key==='vol'?'Volume':'Carretas')+' com casas decimais',
     bad.slice(0,10).map(r=>['Linha '+r.row,fmtN(r[key])+' ('+(r.operationalDate||'sem data')+')']),
-    'Volumes são inteiros. Conferir se a linha foi rateada ou digitada errada.','ATENÇÃO'));
+    'Volumes são inteiros. Confira se a linha foi rateada ou digitada errada.','ATENÇÃO'));
 }
 
 // 4) Cabeçalho: campos em branco, ordem dos marcos, Pilot x chegada e cabeçalho x tabela
@@ -689,28 +689,28 @@ function checkHeader(errors,alerts){
     const ta=tsOf(A),tb=tsOf(B), bad=(ta!==null&&tb!==null)?tb<ta:B.date<A.date;
     if(bad)errors.push(issue('Cabeçalho: marcos fora de ordem cronológica',[
       ['Linhas do cabeçalho',A.row+' e '+B.row],[A.name,fmtDate(A.date)+(A.time?' '+A.time:'')],[B.name,fmtDate(B.date)+(B.time?' '+B.time:'')]
-    ],B.name+' está antes de '+A.name+'. Conferir os dois campos.','CRÍTICO'));
+    ],B.name+' está antes de '+A.name+'. Confira os dois campos.','CRÍTICO'));
   });
   // Pilot on board muito antes de Made all fast
   const PILOT_MAX_H=6, tpil=tsOf(F.pilot), tfast=tsOf(F.allfast);
   if(tpil!==null&&tfast!==null&&tfast-tpil>PILOT_MAX_H*3600000)alerts.push(issue('Cabeçalho: Pilot on board muito antes de Made all fast',[
     ['Linhas do cabeçalho',F.pilot.row+' e '+F.allfast.row],['Pilot on board',tsText(tpil)],['Made all fast',tsText(tfast)],['Intervalo',fmtMin2(tfast-tpil)]
-  ],'O prático costuma embarcar poucas horas antes da atracação. Conferir hora e data.','ATENÇÃO'));
+  ],'Confira a hora e a data. O prático costuma embarcar poucas horas antes da atracação.','ATENÇÃO'));
   // Sailing Drafts preenchidos antes do fim da operação
   const sd=hdrInfo.drafts.sailing;
   if(sd&&sd.fwd!==null&&sd.aft!==null&&!found[6]&&tsOf(F.completed)===null)alerts.push(issue('Cabeçalho: Sailing Drafts preenchidos antes do fim da operação',[
     ['Linha do cabeçalho',sd.row],['Sailing Drafts','fwd '+fmtN(sd.fwd)+' m / aft '+fmtN(sd.aft)+' m']
-  ],'Os calados de saída são medidos no fim do carregamento. Confirmar se são estimados.','ATENÇÃO'));
+  ],'Atenção: os calados de saída são medidos no fim da operação. Confirme se estes valores são estimados.','ATENÇÃO'));
   const ta=tsOf(F.arrival), tp=tsOf(F.pilot);
   if(ta!==null&&tp!==null&&ta===tp)alerts.push(issue('Cabeçalho: Pilot on board no mesmo horário da chegada',[
     ['Linhas do cabeçalho',F.arrival.row+' e '+F.pilot.row],['Horário',tsText(ta)]
-  ],'Pode ser cópia do horário de Arrival. Conferir o horário real de Pilot on board.'));
+  ],'Confira o horário real de Pilot on board. O valor pode ser uma cópia do Arrival.'));
   [['commenced',5],['completed',6]].forEach(([k,rank])=>{
     const f=F[k], ev=found[rank], th=tsOf(f);
     if(!f||!ev||th===null||th===ev.ts)return;
     errors.push(issue('Cabeçalho × tabela: '+f.name+' não confere',[
       ['Linhas','cabeçalho '+f.row+', tabela '+ev.row],['Cabeçalho',tsText(th)],['Tabela',tsText(ev.ts)],['Diferença',fmtMin2(Math.abs(th-ev.ts))]
-    ].concat(ev.late?[['Obs.','na tabela fica no 19x01 de '+ev.cycle+', depois da meia-noite (dia seguinte)']]:[]),'Conferir qual dos dois está correto e corrigir o outro.','CRÍTICO'));
+    ].concat(ev.late?[['Obs.','na tabela fica no 19x01 de '+ev.cycle+', depois da meia-noite (dia seguinte)']]:[]),'Confira qual dos dois está correto. Corrija o outro.','CRÍTICO'));
   });
 }
 
@@ -721,14 +721,14 @@ function checkGrotescos(errors,alerts,all){
   // 4) Produtividade (t/h por linha de produção) muito fora do padrão do próprio SOF: vírgula/ponto trocados ou zero a mais
   const prod=[];
   all.forEach(r=>{if(!r.w||r.w<=0)return;const tp=timePairs(r);if(tp.length<2)return;const e=operationalEndMinutes(tp[0].min,tp[1].min);if(e===null)return;const dur=e-tp[0].min;
-    if(dur<=0){errors.push(issue('Produção registrada em intervalo de 0 minuto',[['Linha',ond(r.sheet,r.row)],['Registro',tp[0].time+' → '+tp[1].time],['Peso',fmtN(r.w)]],'Conferir o horário de início e fim.','CRÍTICO',{k:'g-dur0',t:'Produção em intervalo de 0 minuto',c:['Linha','Registro','Peso'],v:[ond(r.sheet,r.row),tp[0].time+' → '+tp[1].time,fmtN(r.w)]}));return}
+    if(dur<=0){errors.push(issue('Produção registrada em intervalo de 0 minuto',[['Linha',ond(r.sheet,r.row)],['Registro',tp[0].time+' → '+tp[1].time],['Peso',fmtN(r.w)]],'Confira o horário de início e de fim.','CRÍTICO',{k:'g-dur0',t:'Produção em intervalo de 0 minuto',c:['Linha','Registro','Peso'],v:[ond(r.sheet,r.row),tp[0].time+' → '+tp[1].time,fmtN(r.w)]}));return}
     prod.push({r,rate:r.w/(dur/60),dur,tp})});
   if(prod.length>=4){
     const s=prod.map(x=>x.rate).sort((a,b)=>a-b),med=s[Math.floor(s.length/2)];
     prod.forEach(x=>{if(!(x.rate>4*med&&x.rate-med>150))return;const vezes=Math.round(x.rate/med);
       const grave=vezes>=10;
       errors.push(issue('Produtividade fora do padrão ('+fmtN(Math.round(x.rate))+' t/h)',[['Linha',ond(x.r.sheet,x.r.row)],['Registro',x.tp[0].time+' → '+x.tp[1].time+' ('+fmtMin2(x.dur*60000)+')'],['Peso',fmtN(x.r.w)],['Média do SOF',fmtN(Math.round(med))+' t/h ('+vezes+'x)']],
-        grave?'Muito acima do normal: provável vírgula/ponto trocados ou zero a mais no peso. Conferir com o tally.':'Bem acima das outras linhas. Conferir peso e horário.',grave?'CRÍTICO':'ALTO',
+        grave?'Confira o peso com o tally. A produção está muito acima do normal: pode haver vírgula trocada ou zero a mais.':'Confira o peso e o horário. A produção está bem acima das outras linhas.',grave?'CRÍTICO':'ALTO',
         {k:'g-prod',t:'Produtividade fora do padrão',c:['Linha','Registro','Peso','t/h','Média do SOF'],v:[ond(x.r.sheet,x.r.row),x.tp[0].time+' → '+x.tp[1].time,fmtN(x.r.w),fmtN(Math.round(x.rate)),fmtN(Math.round(med))]}))});
   }
   // 5) Data da tabela fora da estadia do navio (antes da chegada ou depois da saída/fim)
@@ -736,23 +736,23 @@ function checkGrotescos(errors,alerts,all){
   if(ini||fim)all.forEach(r=>{const d=parseDateValue(r.operationalDate);if(!d||vistos[r.operationalDate])return;
     const antes=ini&&diffDays(ini,d)<-1&&diffDays(ini,d)>=-31,depois=fim&&diffDays(fim,d)>1&&diffDays(fim,d)<=31;   /* mais longe que 31 dias já aparece em "Data muito distante" */if(!antes&&!depois)return;vistos[r.operationalDate]=1;
     errors.push(issue('Data fora da estadia do navio ('+r.operationalDate+')',[['Linha',ond(r.sheet,r.row)],[antes?'Chegada (cabeçalho)':fimF.name+' (cabeçalho)',fmtDate(antes?ini:fim)]],
-      antes?'A data é anterior à chegada do navio. Provável erro de dia, mês ou ano.':'A data é posterior ao fim registrado no cabeçalho. Conferir a data (principalmente o ano) ou o cabeçalho.','CRÍTICO',
+      antes?'A data é anterior à chegada do navio. Confira o dia, o mês e o ano.':'A data é posterior ao fim registrado no cabeçalho. Confira a data, principalmente o ano. Ou confira o cabeçalho.','CRÍTICO',
       {k:'g-estadia',t:'Datas fora da estadia do navio',c:['Linha','Data','Referência'],v:[ond(r.sheet,r.row),r.operationalDate,(antes?'chegada ':'fim ')+fmtDate(antes?ini:fim)]}))});
   // 6) Dia da semana (coluna DAY) não confere com a data
   all.forEach(r=>{const d=parseDateValue(r.values[1]);if(!d)return;const w=String(r.values[2]||'').trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').slice(0,3);
     let i=DOW_EN.indexOf(w);if(i<0)i=DOW_PT.indexOf(w);if(i<0||i===d.getDay())return;
     const certo=DOW_EN[d.getDay()].replace(/^./,c=>c.toUpperCase());
-    errors.push(issue('Dia da semana não confere com a data',[['Linha',ond(r.sheet,r.row)],['Data',r.values[1]],['Escrito',r.values[2]],['Correto',certo]],'Corrigir o dia da semana (ou a data).','ALTO',
+    errors.push(issue('Dia da semana não confere com a data',[['Linha',ond(r.sheet,r.row)],['Data',r.values[1]],['Escrito',r.values[2]],['Correto',certo]],'Corrija o dia da semana ou a data.','ALTO',
       {k:'g-dow',t:'Dia da semana não confere com a data',c:['Linha','Data','Escrito','Correto'],v:[ond(r.sheet,r.row),r.values[1],r.values[2],certo]}))});
   // 8) Linhas duplicadas: ficam na conferência de duplicados (que passa a ser CRÍTICA quando a linha tem produção)
   // 9) Restos de modelo: XX, TBA, erros do Excel, 00:00 → 00:00, nome de outro navio, campos-chave do cabeçalho vazios
   const RX_RESTO=/(^|[\s(|])(x{2,}|tba|tbc|tbd|a definir|\?{2,}|lorem)(?=$|[\s).,:|])|#(ref!|n\/a|value!|div\/0!|name\?|num!)/i;
-  all.forEach(r=>{const v=r.values.find(x=>RX_RESTO.test(' '+x+' '));if(v)alerts.push(issue('Resto de modelo / campo a preencher',[['Linha',ond(r.sheet,r.row)],['Texto',v]],'Preencher ou apagar antes de liberar o SOF.','ALTO',{k:'g-resto',t:'Restos de modelo / campos a preencher',c:['Linha','Texto'],v:[ond(r.sheet,r.row),v]}));
-    const tp=timePairs(r);if(tp.length===2&&tp[0].min===0&&tp[1].min===0)alerts.push(issue('Horário 00:00 → 00:00',[['Linha',ond(r.sheet,r.row)]],'Parece horário não preenchido. Conferir.','ALTO',{k:'g-zero',t:'Horários 00:00 → 00:00',c:['Linha'],v:[ond(r.sheet,r.row)]}))});
+  all.forEach(r=>{const v=r.values.find(x=>RX_RESTO.test(' '+x+' '));if(v)alerts.push(issue('Resto de modelo / campo a preencher',[['Linha',ond(r.sheet,r.row)],['Texto',v]],'Preencha ou apague antes de liberar o SOF.','ALTO',{k:'g-resto',t:'Restos de modelo / campos a preencher',c:['Linha','Texto'],v:[ond(r.sheet,r.row),v]}));
+    const tp=timePairs(r);if(tp.length===2&&tp[0].min===0&&tp[1].min===0)alerts.push(issue('Horário 00:00 → 00:00',[['Linha',ond(r.sheet,r.row)]],'Confira o horário. Ele parece não preenchido.','ALTO',{k:'g-zero',t:'Horários 00:00 → 00:00',c:['Linha'],v:[ond(r.sheet,r.row)]}))});
   const vs=hdrInfo&&hdrInfo.vessel;
   if(vs){const nv=t=>String(t||'').toUpperCase().replace(/[^A-Z0-9]+/g,' ').trim(),V=nv(vs),outros={};
     all.forEach(r=>{const m=rowText(r).match(/\bM\s*\/?\.?\s*V\.?\s+([A-Za-z][A-Za-z0-9\- ]{2,30})/g);(m||[]).forEach(x=>{const n=nv(x.replace(/^M\s*\/?\.?\s*V\.?\s+/i,''));if(n&&V.indexOf(n)<0&&n.indexOf(V)<0&&!outros[n]){outros[n]=1;
-      errors.push(issue('Nome de outro navio no SOF',[['Linha',ond(r.sheet,r.row)],['Navio do cabeçalho',vs],['Encontrado',x.trim()]],'Provável SOF aproveitado de outro navio. Conferir o texto.','CRÍTICO'))}})})}
+      errors.push(issue('Nome de outro navio no SOF',[['Linha',ond(r.sheet,r.row)],['Navio do cabeçalho',vs],['Encontrado',x.trim()]],'Confira o texto. O SOF pode ter sido copiado de outro navio.','CRÍTICO'))}})})}
   /* campos do cabeçalho em branco já entram em Pendências */
 }
 
@@ -804,7 +804,7 @@ function checkTextStyle(english,alerts){
     const sing=/ches$/i.test(m[1])?m[1].slice(0,-2):m[1].slice(0,-1);
     const ls=ev.filter(y=>y.t===x.t).map(y=>y.r.row).slice(0,8).join(', ');
     english.push(issue('Redação: plural antes de outro substantivo',[['Linhas',ls],['Texto',x.t],['Sugestão',x.t.replace(m[1],sing)]],
-      'Usar o singular antes de outro substantivo.','REVISAR',{k:'plural',t:'Redação: plural antes de outro substantivo',c:['Linhas','Texto','Sugestão'],v:[ls,x.t,x.t.replace(m[1],sing)]}));
+      'Use o singular antes de outro substantivo.','REVISAR',{k:'plural',t:'Redação: plural antes de outro substantivo',c:['Linhas','Texto','Sugestão'],v:[ls,x.t,x.t.replace(m[1],sing)]}));
   });
   if(colInfo.labels&&ev.length>=10){
     // células vazias: só linhas de operação (com horário); títulos de seção não têm gang, porão nem volumes
@@ -815,7 +815,7 @@ function checkTextStyle(english,alerts){
       if(blanks.length&&1-blanks.length/evr.length>=0.9)
         campos.push([lab.charAt(0).toUpperCase()+lab.slice(1),'linha(s) '+blanks.slice(0,12).map(r=>r.row).join(', ')+(blanks.length>12?' …':'')]);
     });
-    if(campos.length)alerts.push(issue('Células vazias onde o padrão é preencher',campos,'Preencher com o valor ou com "-".'));
+    if(campos.length)alerts.push(issue('Células vazias onde o padrão é preencher',campos,'Preencha com o valor ou com "-".'));
   }
 }
 
@@ -875,7 +875,7 @@ function checkStowage(errors){
     const p=P[h]||zero, t=T[h]||zero;
     if(bad(p,t)){
       errors.push(issue('Tabela × Stowage Plan: Porão '+h+' não confere',[['Plano',fmt(p)],['Tabela',fmt(t)],['Diferença',dif(p,t)]],
-        'Conferir o porão na tabela e no plano.','ALTO',{k:'stow',t:'Tabela × Stowage Plan: porões que não conferem',c:['Porão','Plano','Tabela','Diferença'],v:[h,fmt(p),fmt(t),dif(p,t)]}));
+        'Confira o porão na tabela e no plano.','ALTO',{k:'stow',t:'Tabela × Stowage Plan: porões que não conferem',c:['Porão','Plano','Tabela','Diferença'],v:[h,fmt(p),fmt(t),dif(p,t)]}));
       return;
     }
     if(Object.keys(p.c).length<2&&Object.keys(t.c).length<2)return;
@@ -883,14 +883,14 @@ function checkStowage(errors){
       if(!c)return;
       const a=p.c[c]||{vol:0,w:0}, b=t.c[c]||{vol:0,w:0};
       if(bad(a,b))errors.push(issue('Tabela × Stowage Plan: Porão '+h+', carga "'+c+'" não confere',[['Plano',fmt(a)],['Tabela',fmt(b)],['Diferença',dif(a,b)]],
-        'O porão bate, mas a divisão entre cargas não. Conferir os rótulos de carga.','ALTO',{k:'stowc',t:'Tabela × Stowage Plan: cargas que não conferem',c:['Porão','Carga','Plano','Tabela','Diferença'],v:[h,c,fmt(a),fmt(b),dif(a,b)]}));
+        'Confira os rótulos de carga. O total do porão está certo, mas a divisão entre as cargas não.','ALTO',{k:'stowc',t:'Tabela × Stowage Plan: cargas que não conferem',c:['Porão','Carga','Plano','Tabela','Diferença'],v:[h,c,fmt(a),fmt(b),dif(a,b)]}));
     });
   });
   stowPlans.forEach(p=>{
     const sw=p.entries.reduce((x,e)=>x+e.w,0), sv=p.entries.reduce((x,e)=>x+(e.vol||0),0), hasV=p.entries.some(e=>e.vol!==null), f=[];
     if(p.totalW!==null&&Math.abs(p.totalW-sw)>0.011)f.push(['Peso total',fmtN(p.totalW)+' t (porões: '+fmtN(sw)+' t)']);
     if(p.totalVol!==null&&hasV&&Math.abs(p.totalVol-sv)>0.5)f.push(['Volumes totais',fmtN(p.totalVol)+' (porões: '+fmtN(sv)+')']);
-    if(f.length)errors.push(issue('Stowage Plan "'+p.name+'": total não confere com os porões',f,'Conferir o total digitado no topo do plano.','ALTO'));
+    if(f.length)errors.push(issue('Stowage Plan "'+p.name+'": total não confere com os porões',f,'Confira o total digitado no topo do plano.','ALTO'));
   });
 }
 
@@ -899,7 +899,7 @@ function checkSurveys(errors){
   if(!hdrInfo||!hdrInfo.surveys)return;
   const S=hdrInfo.surveys, F=hdrInfo.fields, found=collectMilestones();
   const ts=x=>x&&x.date&&x.time?x.date.getTime()+parseTime(x.time)*60000:null;
-  const bad=(title,f)=>errors.push(issue('Cabeçalho: '+title,f,'Conferir datas e horários do draft survey e dos marcos.','ALTO'));
+  const bad=(title,f)=>errors.push(issue('Cabeçalho: '+title,f,'Confira as datas e os horários do draft survey e dos marcos.','ALTO'));
   [['initial','Initial'],['final','Final']].forEach(([k,nm])=>{
     const s=S[k]; if(!s)return; const a=ts(s.from), b=ts(s.to);
     if(a!==null&&b!==null&&b<a)bad(nm+' draft survey termina antes de começar',[['Início',tsText(a)],['Fim',tsText(b)]]);
@@ -946,7 +946,7 @@ function buildChecklist(){
     const lab='Stowage Plan'+(stowPlans.length>1?' "'+p.name+'"':'')+': '+nm;
     if(p[k])ok.push(lab); else if(!done)wait.push(lab); else miss.stw.push([lab,'em branco']);
   }));
-  const pend=[],act='Preencher antes de liberar o SOF.';
+  const pend=[],act='Preencha antes de liberar o SOF.';
   if(miss.cab.length)pend.push(issue('Pendência: cabeçalho com campos em branco',miss.cab,act));
   if(miss.drf.length)pend.push(issue('Pendência: drafts em branco',miss.drf,act));
   if(miss.srv.length)pend.push(issue('Pendência: draft survey em branco',miss.srv,act));
@@ -1014,7 +1014,7 @@ function auditWorkbook(wb,sofName){
     const other=names.filter(n=>sofVessel&&normVessel(n)&&normVessel(n)!==normVessel(sofVessel));
     if(other.length)items.push(issue('Aba oculta com dados de outro navio: "'+s.n+'"',[
       ['Aba',s.n+' (oculta)'],['Navio encontrado',other.join(' / ')],['Navio do SOF',sofVessel]
-    ],'Limpar ou excluir a aba oculta, para que dados antigos não sejam usados por engano.','ALTO'));
+    ],'Limpe ou exclua a aba oculta. Assim ninguém usa dados antigos por engano.','ALTO'));
   });
 
   // 2) fórmulas que apontam para outra aba (inexistente ou oculta, em vez da aba do SOF)
@@ -1032,7 +1032,7 @@ function auditWorkbook(wb,sofName){
     else if(isHid(e.t)&&sofName&&e.t!==sofName)msg='aponta para a aba oculta "'+e.t+'", e não para a aba do SOF ("'+sofName+'")';
     if(msg)items.push(issue('Fórmulas apontando para a aba errada em "'+e.src+'"',[
       ['Aba',e.src],['Fórmulas',e.n+' (primeira em '+e.ex+')'],['Problema','A fórmula '+msg+'.']
-    ],'Ajustar as fórmulas para a aba do SOF, ou remover a aba se não for mais usada.','ALTO'));
+    ],'Ajuste as fórmulas para a aba do SOF. Se a aba não é mais usada, remova a aba.','ALTO'));
   });
 
   // 3) fórmulas diferentes dentro de uma sequência da mesma coluna
@@ -1052,7 +1052,7 @@ function auditWorkbook(wb,sofName){
     });
     if(flagged.length)items.push(issue('Fórmula diferente das vizinhas em "'+s.n+(s.hid?' (oculta)':'')+'"',
       flagged.slice(0,8).map(g=>['Célula '+g.x.k,'='+g.x.f+'   (vizinhas: ='+g.ex.f+')']),
-      'Conferir se a diferença é intencional. Fórmulas iguais na coluna costumam ter o mesmo formato.','ATENÇÃO'));
+      'Confira se a diferença é intencional. Fórmulas iguais na mesma coluna costumam ter o mesmo formato.','ATENÇÃO'));
   });
 
   // 4) dados fora da área de impressão e formatação excessiva (abas visíveis)
@@ -1062,25 +1062,25 @@ function auditWorkbook(wb,sofName){
       const out=cs.filter(x=>x.a.r<pa.s.r||x.a.r>pa.e.r||x.a.c<pa.s.c||x.a.c>pa.e.c);
       if(out.length)items.push(issue('Dados fora da área de impressão em "'+s.n+'"',[
         ['Células',out.slice(0,8).map(x=>x.k+' ('+String(x.c.v).slice(0,20)+')').join(', ')+(out.length>8?' …':'')],['Quantidade',String(out.length)]
-      ],'Conferir se são cálculos de apoio feitos de propósito. Se sobraram de testes, apagar.','ATENÇÃO'));
+      ],'Confira se as fórmulas são cálculos de apoio. Apague as fórmulas que sobraram de testes.','ATENÇÃO'));
     }
     const ref=s.ws['!ref'];
     if(ref){const rg=XLSX.utils.decode_range(ref), used=cs.reduce((m,x)=>Math.max(m,x.a.r),0);
       if(rg.e.r>5000&&used<2000)items.push(issue('Formatação até a linha '+(rg.e.r+1)+' em "'+s.n+'"',[
         ['Última linha com dados',String(used+1)],['Última linha formatada',String(rg.e.r+1)]
-      ],'Apagar as linhas em branco abaixo dos dados deixa o arquivo mais leve e rápido de abrir.','ATENÇÃO'))}
+      ],'Apague as linhas em branco abaixo dos dados. O arquivo fica mais leve.','ATENÇÃO'))}
   });
 
   // 5) campos de modelo sem preencher e nome do navio no Stowage Plan
   vis.forEach(s=>cells(s).filter(x=>/^\s*vessel name\s*$/i.test(txt(x))).forEach(x=>items.push(issue('Campo de modelo sem preencher em "'+s.n+'"',[
-    ['Célula',x.k],['Texto','"'+txt(x).trim()+'"']],'Substituir pelo nome do navio.','ALTO'))));
+    ['Célula',x.k],['Texto','"'+txt(x).trim()+'"']],'Escreva o nome do navio.','ALTO'))));
   if(sofVessel)vis.filter(s=>/stowage/i.test(s.n)).forEach(s=>{
     const cs=cells(s), names=[];
     const top=cs.filter(x=>x.a.r<=4&&txt(x).trim()&&!/stowage|cargo plan|description|total|date/i.test(txt(x))).sort((p,q)=>p.a.r-q.a.r||p.a.c-q.a.c)[0]; if(top)names.push(txt(top).trim());
     const lab=cs.find(x=>/chief officer\s*\/\s*master/i.test(txt(x)));
     if(lab){const b=cs.find(x=>x.a.r===lab.a.r+1&&x.a.c===lab.a.c&&txt(x).trim()); if(b)names.push(txt(b).trim())}
     const bad=names.filter(n=>normVessel(n)!==normVessel(sofVessel));
-    if(bad.length)items.push(issue('Nome do navio diferente no Stowage Plan: "'+s.n+'"',[['No plano',bad.join(' / ')],['No SOF',sofVessel]],'Corrigir o nome do navio no plano.','ALTO'));
+    if(bad.length)items.push(issue('Nome do navio diferente no Stowage Plan: "'+s.n+'"',[['No plano',bad.join(' / ')],['No SOF',sofVessel]],'Corrija o nome do navio no plano.','ALTO'));
   });
 
   // 6) erros comuns de grafia nos rótulos do modelo (e dicionário nos títulos de coluna, se carregado)
@@ -1088,7 +1088,7 @@ function auditWorkbook(wb,sofName){
   sheets.forEach(s=>cells(s).forEach(x=>{
     const t=txt(x); if(!t||t.length>140)return;
     COMMON_TYPOS.forEach(([rx,fix])=>{const m=t.match(rx); if(m&&!seen.has(s.n+x.k)){seen.add(s.n+x.k);
-      items.push(issue('Rótulo com erro de grafia: "'+m[0]+'"',[['Aba',s.n+(s.hid?' (oculta)':'')],['Célula',x.k],['Texto',t.trim().slice(0,80)],['Sugestão',fix]],'Corrigir o rótulo no modelo.','REVISAR'))}});
+      items.push(issue('Rótulo com erro de grafia: "'+m[0]+'"',[['Aba',s.n+(s.hid?' (oculta)':'')],['Célula',x.k],['Texto',t.trim().slice(0,80)],['Sugestão',fix]],'Corrija o rótulo no modelo.','REVISAR'))}});
   }));
   if(dictState==='ok'&&sof&&colInfo&&colInfo.hdr>=0){
     const unk=new Map();
@@ -1097,7 +1097,7 @@ function auditWorkbook(wb,sofName){
         const w=raw.replace(/['’]s$/i,''); if(w.length<3||/['’]/.test(w)||(w===w.toUpperCase()&&w.length<=5))return;
         if(gloss.has(w.toLowerCase())||typo.check(w))return; if(!unk.has(w.toLowerCase()))unk.set(w.toLowerCase(),{w,k:x.k})});
     });
-    unk.forEach(u=>items.push(issue('Rótulo possivelmente com erro de grafia: "'+u.w+'"',[['Aba',sof.n],['Célula',u.k]],'Conferir a grafia no modelo.','REVISAR')));
+    unk.forEach(u=>items.push(issue('Rótulo possivelmente com erro de grafia: "'+u.w+'"',[['Aba',sof.n],['Célula',u.k]],'Confira a grafia no modelo.','REVISAR')));
   }
   return {summary,items};
 }
@@ -1120,7 +1120,7 @@ function safe(name,fn,fallback){
 }
 function failIssues(){
   return ruleFails.map(f=>issue('Verificação não concluída: '+f.name,[['Detalhe técnico',f.msg]],
-    'Erro interno nesta verificação (as demais rodaram). Conferir este ponto manualmente e informar o arquivo para correção.','ATENÇÃO'));
+    'Esta verificação teve um erro interno. As outras verificações rodaram. Confira este ponto manualmente e envie o arquivo para correção.','ATENÇÃO'));
 }
 
 function analyze(opts){
@@ -1139,10 +1139,10 @@ function analyzeCore(opts){
     const a=tp[0],b=tp[1], endOp=operationalEndMinutes(a.min,b.min), label=periodLabel(a.min,b.min);
     if(endOp!==null&&endOp<a.min){
       errors.push(issue('Horário impossível',[['Linha',ond(r.sheet,r.row)],['Data',r.operationalDate||'—'],['Registro',a.time+' → '+b.time]],
-        'O término não fecha no relógio de 24h. Conferir o horário original.','CRÍTICO',{k:'h-imp',t:'Horários impossíveis',c:['Linha','Data','Registro'],v:[ond(r.sheet,r.row),r.operationalDate||'—',a.time+' → '+b.time]}));
+        'Confira o horário original. O término não existe no relógio de 24 h.','CRÍTICO',{k:'h-imp',t:'Horários impossíveis',c:['Linha','Data','Registro'],v:[ond(r.sheet,r.row),r.operationalDate||'—',a.time+' → '+b.time]}));
     }else if(label==='fora do padrão / requer conferência'){
       alerts.push(issue('Horário fora do padrão dos períodos de estiva',[['Linha',ond(r.sheet,r.row)],['Data',r.operationalDate||'—'],['Registro',a.time+' → '+b.time]],
-        'Não cabe em 07x13, 13x19, 19x01 ou 01x07. Conferir o período e as linhas vizinhas.','',{k:'h-pad',t:'Horários fora dos períodos de estiva',c:['Linha','Data','Registro'],v:[ond(r.sheet,r.row),r.operationalDate||'—',a.time+' → '+b.time]}));
+        'Confira o período e as linhas vizinhas. O horário não cabe em 07x13, 13x19, 19x01 ou 01x07.','',{k:'h-pad',t:'Horários fora dos períodos de estiva',c:['Linha','Data','Registro'],v:[ond(r.sheet,r.row),r.operationalDate||'—',a.time+' → '+b.time]}));
     }
   }));
 
@@ -1155,14 +1155,14 @@ function analyzeCore(opts){
       const prev=seen.get(sig);
       const comProd=(r.w||r.vol);
       errors.push(issue(comProd?'Linha duplicada (produção somada duas vezes)':'Registro potencialmente duplicado',[['Linhas',ond(r.sheet,prev.row+' e '+r.row)],['Data',r.operationalDate||'—']].concat(comProd?[['Peso',r.w?fmtN(r.w):'-'],['Volumes',r.vol?fmtN(r.vol):'-']]:[]),
-        comProd?'As duas linhas são iguais, inclusive a produção: o total fica somado em dobro. Apagar a repetida e conferir os totais.':'Linhas idênticas no mesmo período. Se forem o mesmo evento, remover uma.',comProd?'CRÍTICO':'ALTO',{k:'dup',t:'Registros potencialmente duplicados',c:['Linhas','Data'],v:[ond(r.sheet,prev.row+' e '+r.row),r.operationalDate||'—']}));
+        comProd?'As duas linhas são iguais, inclusive a produção: o total fica somado em dobro. Apagar a repetida e conferir os totais.':'As linhas são iguais no mesmo período. Se são o mesmo evento, remova uma.',comProd?'CRÍTICO':'ALTO',{k:'dup',t:'Registros potencialmente duplicados',c:['Linhas','Data'],v:[ond(r.sheet,prev.row+' e '+r.row),r.operationalDate||'—']}));
     }else seen.set(sig,r);
   }));
 
   // 4. #REF!
   safe('Fórmulas (#REF!)',()=>all.forEach(r=>{
     if(r.values.some(v=>String(v).includes('#REF!')))errors.push(issue('Referência de fórmula quebrada (#REF!)',[['Linha',ond(r.sheet,r.row)]],
-      'Restaurar a fórmula e recalcular os totais.','CRÍTICO',{k:'ref',t:'Referências de fórmula quebradas (#REF!)',c:['Linha'],v:[ond(r.sheet,r.row)]}));
+      'Restaure a fórmula e calcule os totais de novo.','CRÍTICO',{k:'ref',t:'Referências de fórmula quebradas (#REF!)',c:['Linha'],v:[ond(r.sheet,r.row)]}));
   }));
 
   // 5. Datas e demais verificações
@@ -1200,7 +1200,7 @@ function analyzeCore(opts){
     if(isDischarge&&/loading operation commenced/i.test(t))english.push(issue('Possível uso de “Loading” em operação de descarga',[['Linha',ond(r.sheet,r.row)]],
       'O restante do SOF fala só em descarga. Usar “Discharging operation commenced.”','REVISAR'));
     if(/adjusting equipment\.\./i.test(t))english.push(issue('Pontuação/redação inadequada',[['Linha',ond(r.sheet,r.row)],['Texto',t]],
-      'Preferir “Not worked due to equipment adjustment.”','REVISAR'));
+      'Use “Not worked due to equipment adjustment.”','REVISAR'));
   });
   });
 
@@ -1209,7 +1209,7 @@ function analyzeCore(opts){
   // 8. Awaiting invoice
   safe('Motivos a esclarecer',()=>all.forEach(r=>{
     if(/awaiting invoice/i.test(rowText(r)))alerts.push(issue('Motivo “awaiting invoice” requer esclarecimento',[['Linha',ond(r.sheet,r.row)],['Registro',findCellText(r,/awaiting invoice/i)]],
-      'Informar qual documento estava pendente.','',{k:'inv',t:'Motivos “awaiting invoice” a esclarecer',c:['Linha','Registro'],v:[ond(r.sheet,r.row),findCellText(r,/awaiting invoice/i)]}));
+      'Informe qual documento estava pendente.','',{k:'inv',t:'Motivos “awaiting invoice” a esclarecer',c:['Linha','Registro'],v:[ond(r.sheet,r.row),findCellText(r,/awaiting invoice/i)]}));
   }));
 
   const volRaw=[], pesoRaw=[];

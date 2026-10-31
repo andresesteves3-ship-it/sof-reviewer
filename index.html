@@ -283,6 +283,9 @@ table.eq td.af{background:#F1E6F7;color:#6B2C8A}table.eqm tr.eq-cob td{font-size
 .eq-leg{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:8px;font-size:12px}.eq-leg span{padding:1px 8px;border-radius:4px}.eq-leg .di{background:#FFF4E0;color:#9A5B00}.eq-leg .no{background:#E7EAF0;color:#2F3A4E}.eq-leg .fo{color:var(--trl-gray)}.eq-leg .fe{background:#E3EEFB;color:#1F5FA8}.eq-leg .af{background:#F1E6F7;color:#6B2C8A}.eq-leg .ex{color:var(--trl-gray)}.eq-leg .desc{background:#FBE3E4;color:#B8161F}
 .ps-com{font-size:12px;margin-top:3px;color:var(--trl-text)}.com-it{padding:10px 0;border-bottom:1px solid var(--trl-line)}.com-it:last-child{border:0}.com-h{display:flex;gap:10px;align-items:baseline}.com-h small{color:var(--trl-gray)}.com-txt{white-space:pre-wrap;font-size:14px;margin:6px 0}.com-ci{font-size:12.5px;margin:4px 0 0}
 #comDlg .com-txt{max-height:50vh;overflow:auto;background:var(--trl-soft);padding:10px 12px;border-radius:6px}
+#ajBusca{width:100%;padding:10px 12px;border:1px solid var(--trl-line);border-radius:var(--trl-radius);font:inherit;font-size:15px;background:#fff;box-sizing:border-box}
+.aj details{background:var(--trl-card);border-radius:var(--trl-radius);box-shadow:var(--trl-shadow);margin:0 0 10px;padding:0 18px}.aj summary{cursor:pointer;font-weight:700;padding:14px 0;font-size:16px}.aj ol{margin:0 0 14px 20px;padding:0;font-size:14.5px;line-height:1.55}.aj li{margin:4px 0}.aj-lider summary::after{content:" · Analista/Gerente";font-weight:400;color:var(--trl-gray);font-size:13px}
+.aj-bt{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-weight:800;font-size:18px;color:var(--trl-text)}
 .lg-qt{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin:2px 0 6px 26px;font-size:13px}.lg-qt span{color:var(--trl-gray)}.lg-qt input{width:70px;padding:3px 6px;border:1px solid var(--trl-line);border-radius:5px;font:inherit;margin-left:4px}
 .lg-turnos{display:flex;flex-wrap:wrap;gap:8px}.lg-tu{display:flex;align-items:center;gap:6px;border:1px solid var(--trl-line);border-radius:8px;padding:6px 10px;background:#fff;font-size:13px}.lg-tu.on{border-color:var(--trl-ok);background:#F2FAF3}.lg-tu span{color:var(--trl-gray)}.lg-tu input[type=time]{padding:3px 4px;border:1px solid var(--trl-line);border-radius:5px;font:inherit}
 .lg-cols{display:grid;grid-template-columns:1fr;gap:6px}.lg-col{border-top:1px solid var(--trl-line);margin-top:10px}
@@ -625,7 +628,7 @@ table.ps-prox td{padding:5px 6px;border-bottom:1px solid #EEE;vertical-align:top
   </form>
 </section>
 <header class="top">
-  <a class="brand" href="#inicio" aria-label="Início"><img id="hdrLogo" src="data:image/png;base64,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" alt="Triunfo Logística"><span class="nome">Painel dos Assistentes<small id="hdrVersao" title="Ver as novidades de cada versão" role="button" tabindex="0">Versão 0.63.2 · BETA</small></span></a>
+  <a class="brand" href="#inicio" aria-label="Início"><img id="hdrLogo" src="data:image/png;base64,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" alt="Triunfo Logística"><span class="nome">Painel dos Assistentes<small id="hdrVersao" title="Ver as novidades de cada versão" role="button" tabindex="0">Versão 0.64.0 · BETA</small></span></a>
   <nav class="nav" aria-label="Seções">
     <a href="#inicio" data-r="inicio">Início</a>
     <a href="#lineup" data-r="lineup">Line Up</a>
@@ -637,6 +640,7 @@ table.ps-prox td{padding:5px 6px;border-bottom:1px solid #EEE;vertical-align:top
     <a href="#lideranca" data-r="lideranca" id="navLid" hidden>Liderança</a>
     <a href="#admin" data-r="admin">Administração</a>
   </nav>
+  <a class="sino aj-bt" href="#ajuda" aria-label="Como usar" title="Como usar">?</a>
   <button type="button" class="sino" id="sino" aria-label="Avisos" title="Avisos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><b id="sinoN" hidden>0</b></button>
   <div id="avPainel" hidden role="dialog" aria-label="Avisos"><h3>Avisos e pendências</h3><div id="avCorpo"></div></div>
   <a class="user" href="#perfil" data-r="perfil" id="userLink"><span class="av" id="uAv">?</span><span class="tx"><span id="uNome">Meu perfil</span><small id="uSub">Completar perfil</small></span></a>
@@ -683,6 +687,7 @@ table.ps-prox td{padding:5px 6px;border-bottom:1px solid #EEE;vertical-align:top
       <a class="card tool" href="#rotinas"><div class="ic">RO</div><h3>Rotinas</h3><p>Rotinas de cada navio, por período. Toda a equipe vê as mesmas marcações.</p><div class="rod"><span class="badge beta">Beta</span><span>Abrir →</span></div></a>
       <a class="card tool" href="#requisicoes"><div class="ic">RQ</div><h3>Requisições</h3><p>Requisições do OGMO, com composição e ternos. O painel compara cada requisição com o catálogo.</p><div class="rod"><span class="badge beta">Beta</span><span>Abrir →</span></div></a>
       <a class="card tool" href="#solicitacoes"><div class="ic">SL</div><h3>Solicitações</h3><p>Inspeção de guindaste, dobra, Plano B e operação ao largo, com histórico.</p><div class="rod"><span class="badge beta">Beta</span><span>Abrir →</span></div></a>
+      <a class="card tool" href="#ajuda"><div class="ic">?</div><h3>Como usar</h3><p>Passo a passo de cada aba, com busca.</p><div class="rod"><span></span><span>Abrir →</span></div></a>
       <a class="card tool" href="#revisor"><div class="ic">SOF</div><h3>SOF Reviewer</h3><p>Revisão automática de Statement of Facts: horários, datas, somatórias e ortografia.</p><div class="rod"><span class="badge beta">Beta</span><span>Abrir →</span></div></a>
     </div>
   </section>
@@ -1058,6 +1063,99 @@ table.ps-prox td{padding:5px 6px;border-bottom:1px solid #EEE;vertical-align:top
 </div></div>
 <span id="year" hidden></span>
   </section>
+  <!-- COMO USAR -->
+  <section class="view" id="view-ajuda" hidden>
+    <div class="eyebrow">Ajuda</div>
+    <h1 class="titulo">Como usar</h1>
+    <p class="sub">Passo a passo de cada aba. Clique no assunto para abrir. Use a busca para encontrar um assunto.</p>
+    <div class="campo" style="max-width:480px"><input type="text" id="ajBusca" placeholder="Buscar (ex.: dobra, ciente, DA9)" aria-label="Buscar na ajuda"></div>
+    <div class="aj" id="ajLista">
+      <details><summary>Primeiros passos</summary><ol>
+        <li>Entre com o seu e-mail da Triunfo e a senha.</li>
+        <li>Abra <b>Meu perfil</b>. Informe o nome, o turno e um dia de trabalho. Clique em Salvar.</li>
+        <li>Abra o <b>Line Up</b>. Informe a chave do Line Up uma vez. O painel guarda a chave neste computador.</li>
+        <li>No sino, clique em <b>Ativar avisos do Windows</b>. Os avisos aparecem só no seu turno.</li></ol></details>
+      <details><summary>Line Up</summary><ol>
+        <li>A lista mostra os navios da planilha de Produção e as manobras da Praticagem.</li>
+        <li>Clique em <b>INICIAR</b> para criar a frente do navio nas Rotinas.</li>
+        <li>Clique em <b>Solicitar inspeção</b> quando o prático de entrada estiver marcado.</li>
+        <li>Clique em <b>Ocultar</b> para tirar um navio da lista. Para desfazer, abra "Navios ocultos" no fim da lista.</li></ol></details>
+      <details><summary>Rotinas: marcar o que foi feito</summary><ol>
+        <li>Cada navio iniciado tem uma frente com as rotinas diárias, por período, e as rotinas únicas.</li>
+        <li>Clique no círculo (○) para marcar a rotina como feita.</li>
+        <li>Clique com o botão direito para marcar S/OP (sem operação), PRÓX (passa para o próximo período) ou CANC (requisição cancelada).</li>
+        <li>As rotinas de Produção e Pagamentos são de fechamento. Marque essas rotinas depois que o período termina.</li>
+        <li>Atenção: o prazo da requisição do terno é 03:45 (07x13), 09:45 (13x19), 15:45 (19x01) e 19:35 (01x07).</li></ol></details>
+      <details><summary>Passagem de serviço e ciente</summary><ol>
+        <li>No fim do turno, clique em <b>Passagem de serviço</b> nas Rotinas.</li>
+        <li>Confira as pendências e escreva os recados. Clique em Salvar.</li>
+        <li>Quem assume o turno recebe o aviso no sino. Leia a passagem e clique em <b>Dar ciente</b>.</li>
+        <li>Se você salvar de novo, a passagem nova substitui a anterior. A pessoa precisa dar ciente de novo.</li></ol></details>
+      <details><summary>Requisições e DA9</summary><ol>
+        <li>O robô do OGMO lê as requisições de ontem, hoje e amanhã a cada hora.</li>
+        <li>Escolha o dia. Clique no navio para ver as requisições.</li>
+        <li>Clique em <b>PDF</b> para abrir o relatório da requisição. Clique em <b>DA9</b> para abrir os TPAs escalados.</li>
+        <li>Navios sem relação com a nossa programação ficam no bloco "Fora da programação". Clique em <b>Ocultar</b> ou em <b>É da nossa programação</b>.</li>
+        <li>Para atualizar fora do horário, clique em <b>Atualizar OGMO agora</b>.</li></ol></details>
+      <details><summary>Inspeção de guindaste</summary><ol>
+        <li>Abra Solicitações › Inspeção de guindaste. Escolha o navio.</li>
+        <li>Confira os dados: berço, cabeços, guindastes, POB e início das inspeções.</li>
+        <li>Clique em Gerar texto. Copie o texto e envie ao grupo.</li>
+        <li>Clique em Finalizar. O painel marca a rotina nas Rotinas.</li>
+        <li>Navio sem inspeção (Heavy Lift): clique com o botão direito na linha do navio.</li></ol></details>
+      <details><summary>Dobra: solicitar</summary><ol>
+        <li>Abra Solicitações › Dobra. Clique em <b>Solicitar dobra</b> no navio.</li>
+        <li>Preencha operação, local, data, período e função.</li>
+        <li>Digite o nome de cada trabalhador. Escolha o nome na lista. O painel preenche a matrícula.</li>
+        <li>Clique em <b>Gerar e-mail</b>. Clique em Copiar e-mail e em Abrir no Outlook. Cole o texto e envie.</li>
+        <li>Clique em <b>Registrar solicitação</b>. A dobra fica como Enviada ao comercial.</li>
+        <li>Navio encerrado ou dobra antiga: use <b>+ Dobra avulsa</b>.</li></ol></details>
+      <details><summary>Dobra: pagamento e reforço</summary><ol>
+        <li>Quando o comercial encaminhar, clique em <b>→ Encaminhada ao OGMO</b>.</li>
+        <li>Quando o OGMO pagar, clique em <b>→ Pagamento efetuado</b>.</li>
+        <li>Desmarque quem não recebeu e escolha o motivo. Informe o nº da requisição de pagamento.</li>
+        <li>Se ninguém recebeu, clique em <b>Não paga</b> e informe o motivo.</li>
+        <li>Dobra parada há 2 dias ou mais: clique em <b>Reforçar</b>. Envie o e-mail e clique em <b>Registrar reforço</b>.</li></ol></details>
+      <details><summary>Plano B e operação ao largo</summary><ol>
+        <li>Plano B: abra Solicitações › Plano B. Confira os operadores de cada período. Copie a imagem e envie o e-mail. Clique em Registrar envio.</li>
+        <li>Operação ao largo: clique em <b>+ Nova operação ao largo</b>. Preencha o navio, a data e os turnos com o horário da lancha.</li>
+        <li>Envie o e-mail da Equipe de apoio. Clique em Registrar envio.</li>
+        <li>Confira a tabela de lanchas. Envie o e-mail das Lanchas. Clique em Registrar envio.</li>
+        <li>Para cancelar uma lancha já solicitada, marque Cancelar e envie o e-mail de alteração.</li></ol></details>
+      <details><summary>SOF Reviewer</summary><ol>
+        <li>Abra a aba SOF Reviewer. Escolha a planilha do SOF (.xlsx ou .xls).</li>
+        <li>Clique em <b>Analisar SOF</b>. Leia as ocorrências de cada cartão.</li>
+        <li>Corrija o SOF. Clique em <b>Corrigido</b> na ocorrência resolvida. Clique em <b>Ignorar</b> quando não é um problema.</li>
+        <li>Sem ocorrência CRÍTICA, o painel marca "Atualizar o SOF" nas Rotinas até o último horário do SOF.</li></ol></details>
+      <details><summary>Sino e avisos</summary><ol>
+        <li>O sino mostra as pendências do seu turno: prazos, rotinas, passagens, comunicados e dobras paradas.</li>
+        <li>Clique no aviso para abrir a tela certa.</li>
+        <li>Em Meu perfil, escolha os avisos que você quer receber.</li>
+        <li>Faixa vermelha no topo: um robô falhou. Os dados daquela aba podem estar desatualizados.</li>
+        <li>Faixa azul no topo: há uma versão nova. Clique em <b>Atualizar agora</b>.</li></ol></details>
+      <details><summary>Troca, folga e férias</summary><ol>
+        <li>Abra Meu perfil. Clique no dia no calendário.</li>
+        <li>Escolha troca, folga ou férias. Para vários dias, informe a data final.</li>
+        <li>Clique em Salvar. O pedido vai para o Analista.</li>
+        <li>A resposta chega no sino. Depois da aprovação, a escala muda para toda a equipe.</li></ol></details>
+      <details class="aj-lider"><summary>Analista e Gerente: aba Equipe</summary><ol>
+        <li>Escala: clique no dia de um assistente para lançar folga, férias, afastamento, troca ou plantão extra.</li>
+        <li>Atenção: turno descoberto fica em vermelho. A lista mostra quem está de folga e pode cobrir.</li>
+        <li>Pedidos: clique em Aprovar ou em Recusar. Na recusa, informe o motivo.</li>
+        <li>Passagens: clique em Cobrar ciente ou em Comentar.</li>
+        <li>Comunicados: escreva o título e o texto. Clique em Publicar. A lista mostra quem já deu ciente.</li></ol></details>
+      <details class="aj-lider"><summary>Analista e Gerente: aba Liderança</summary><ol>
+        <li>A aba mostra a operação agora: navios, requisições, manobras de 24 h e o que precisa de decisão.</li>
+        <li>A aba é só para leitura. Ela atualiza a cada 1 min.</li></ol></details>
+      <details><summary>Problemas comuns</summary><ol>
+        <li>"Chave incorreta": digite a chave do Line Up de novo, sem espaços.</li>
+        <li>"O GitHub não respondeu": tente de novo em 5 min. O robô continua a rodar no horário normal.</li>
+        <li>Dados diferentes entre dois computadores: recarregue a página (F5).</li>
+        <li>Erro que não está nesta lista: abra Administração › Robôs › Diagnóstico e envie o texto ao Analista.</li></ol></details>
+    </div>
+    <p class="aj-vazio ajuda" id="ajVazio" hidden>Nenhum assunto com essa busca.</p>
+  </section>
+
   <!-- EQUIPE (Analista e Gerente) -->
   <section class="view" id="view-equipe" hidden>
     <div class="eyebrow">Gestão</div>
@@ -1397,7 +1495,8 @@ table.ps-prox td{padding:5px 6px;border-bottom:1px solid #EEE;vertical-align:top
   }
   function carregarForm(){
     var pf=ler()||{};
-    $('pNome').value=pf.nome||(U?U.nome:'');$('pProf').value=FUNCOES.indexOf(pf.prof)>=0?pf.prof:eh5x2(pf)?'Analista':'Assistente de Operações';pProfMuda();
+    $('pNome').value=pf.nome||(U?U.nome:'');$('pProf').value=FUNCOES.indexOf(pf.prof)>=0?pf.prof:eh5x2(pf)?'Analista':'Assistente de Operações';
+    var fc=U?funcaoEk(emailChave(emailDe(U.u))):null;if(fc){$('pProf').value=fc;$('pProf').disabled=true;$('pProf').title='O MASTER define a função em Administração › Usuários.'}else{$('pProf').disabled=false;$('pProf').title=''}pProfMuda();
     $('pInicio').value=pf.inicio||'';
     var r=document.querySelector('input[name=turno][value='+(TURNO[pf.turno]?pf.turno:'dia')+']');if(r)r.checked=true;
   }
@@ -3149,10 +3248,24 @@ async function readPdf(file){await loadPdf();
       Object.keys(USR.lista).forEach(function(k){var x=USR.lista[k],u=String(x.email||'').split('@')[0];if(u&&x.nome&&!USERS.some(function(y){return y.u===u}))USERS.push({u:u,nome:x.nome})})},
       function(e){USR.erro=e.message})
   }
-  function regrasTexto(){
-    var ok="auth != null && (root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).exists() || auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br')";
-    var mst="auth != null && (root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).child('master').val() == true || auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br')";
-    return JSON.stringify({rules:{'.read':false,'.write':false,usuarios:{'.read':ok,'.write':mst},painel:{'.read':ok,'.write':ok},log:{'.read':ok,'.write':ok},passagens:{'.read':ok,'.write':ok},solic:{'.read':ok,'.write':ok}}},null,2)}
+  /* v0.64 — regras por função: a função (Assistente/Analista/Gerente) fica em /usuarios/<email>/funcao e só o MASTER muda.
+     Escala dos outros, pedidos (aprovar) e comunicados: só Analista/Gerente. Perfil: o próprio dono ou Analista/Gerente. Restaurar o banco inteiro: Analista/Gerente ou dono do repositório. */
+  function regrasObj(){
+    var ek="auth.token.email.toLowerCase().replace('.', ',')",dono="auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br'";
+    var ok="auth != null && (root.child('usuarios').child("+ek+").exists() || "+dono+")";
+    var mst="auth != null && (root.child('usuarios').child("+ek+").child('master').val() == true || "+dono+")";
+    var fn="root.child('usuarios').child("+ek+").child('funcao').val()";
+    var lider="auth != null && ("+fn+" == 'Analista' || "+fn+" == 'Gerente' || "+dono+")";
+    var meu=function(v){return "auth.token.email.toLowerCase().replace('.', '_').beginsWith("+v+" + '@')"};
+    return {rules:{'.read':false,'.write':false,
+      usuarios:{'.read':ok,'.write':mst},
+      painel:{'.read':ok,'.write':lider,
+        perfis:{'$k':{'.write':'('+ok+') && (('+lider+') || '+meu('$k')+')'}},
+        pedidos:{'$id':{'.write':'('+ok+') && (('+lider+') || (!data.exists() && newData.child(\'st\').val() == \'pend\' && '+meu("newData.child('k').val()")+'))'}},
+        comunicados:{'$id':{'.write':lider,cientes:{'$k':{'.write':'('+ok+') && '+meu('$k')}}}},
+        '$outro':{'.write':ok}},
+      log:{'.read':ok,'.write':ok},passagens:{'.read':ok,'.write':ok},solic:{'.read':ok,'.write':ok}}}}
+  function regrasTexto(){return JSON.stringify(regrasObj(),null,2)}
   function admMsg(t,ruim){var m=$('admMsg');m.textContent=t||'';m.style.color=ruim?'var(--trl-red)':'var(--trl-ok)'}
   function renderUsuarios(){
     $('admRegras').value=regrasTexto();
@@ -3162,11 +3275,11 @@ async function readPdf(file){await loadPdf();
     if(!USR.lista){box.innerHTML='<p class="ajuda">Carregando…</p>';return}
     var ks=Object.keys(USR.lista).sort(function(a,b){return String(USR.lista[a].nome).localeCompare(String(USR.lista[b].nome))});
     if(!ks.length){box.innerHTML='<div class="aviso atencao"><div><strong>A lista de usuários está vazia.</strong>Clique para cadastrar a equipe atual (Andres, Helio, Roger, Matheus, Henrique e Fellipe), todos MASTER.</div><button type="button" class="btn pri" id="admSemear">Cadastrar a equipe atual</button></div>';return}
-    box.innerHTML='<table class="rq"><thead><tr><th>Nome</th><th>E-mail</th><th>MASTER</th><th></th></tr></thead><tbody>'+ks.map(function(k){var x=USR.lista[k],eu=emailChave(emailDe(U.u))===k;
-      return '<tr><td><b>'+esc(x.nome||'')+'</b>'+(eu?' <small>(você)</small>':'')+'</td><td>'+esc(x.email||'')+'</td><td><input type="checkbox" data-admm="'+esc(k)+'"'+(x.master?' checked':'')+(eu?' disabled title="Você não pode tirar o seu próprio MASTER"':'')+' aria-label="MASTER"></td><td style="white-space:nowrap"><button type="button" class="btn" data-admlink="'+esc(k)+'">Enviar link de senha</button> '+(eu?'':'<button type="button" class="btn" data-admdel="'+esc(k)+'">Remover</button>')+'</td></tr>'}).join('')+'</tbody></table>';
+    box.innerHTML='<table class="rq"><thead><tr><th>Nome</th><th>E-mail</th><th>Função</th><th>MASTER</th><th></th></tr></thead><tbody>'+ks.map(function(k){var x=USR.lista[k],eu=emailChave(emailDe(U.u))===k,fu=x.funcao||'Assistente de Operações';
+      return '<tr><td><b>'+esc(x.nome||'')+'</b>'+(eu?' <small>(você)</small>':'')+'</td><td>'+esc(x.email||'')+'</td><td><select data-admf="'+esc(k)+'" aria-label="Função">'+FUNCOES.map(function(f){return '<option'+(f===fu?' selected':'')+'>'+f+'</option>'}).join('')+'</select></td><td><input type="checkbox" data-admm="'+esc(k)+'"'+(x.master?' checked':'')+(eu?' disabled title="Você não pode tirar o seu próprio MASTER"':'')+' aria-label="MASTER"></td><td style="white-space:nowrap"><button type="button" class="btn" data-admlink="'+esc(k)+'">Enviar link de senha</button> '+(eu?'':'<button type="button" class="btn" data-admdel="'+esc(k)+'">Remover</button>')+'</td></tr>'}).join('')+'</tbody></table>';
   }
   function admSalvaUsuario(email,nome,master){
-    var o={email:email,nome:nome,master:!!master,por:U.nome,em:Date.now()};
+    var ant=USR.lista&&USR.lista[emailChave(email)],o={email:email,nome:nome,master:!!master,por:U.nome,em:Date.now()};if(ant&&ant.funcao)o.funcao=ant.funcao;
     return fbRaizSet('usuarios/'+emailChave(email),o).then(function(r){if(r.ok)USR.lista[emailChave(email)]=o;return r})}
   function senhaAleatoria(){var a=new Uint8Array(9);crypto.getRandomValues(a);return Array.prototype.map.call(a,function(x){return 'abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789'.charAt(x%56)}).join('')}
 
@@ -3610,7 +3723,7 @@ async function readPdf(file){await loadPdf();
 
 
   /* ---------- SOF Reviewer integrado: carrega as bibliotecas ao abrir; glossário e ignoradas compartilhados no banco ---------- */
-  var SOF={estado:0},SOF_V='0.55.0';
+  var SOF={estado:0},SOF_V='0.64.0';
   function sofScript(src){return new Promise(function(ok,ko){var e=document.createElement('script');e.src=src;e.onload=ok;e.onerror=function(){ko(new Error('não consegui carregar '+src.split('?')[0]))};document.body.appendChild(e)})}
   function sofGlobal(code){try{return (new Function(code))()}catch(e){return undefined}}
   function sofListasLocais(){var g=[],i={};try{g=JSON.parse(lsGet('sofGlossary')||'[]')}catch(e){}try{i=JSON.parse(lsGet('sofIgnored')||'{}')}catch(e){}return {g:Array.isArray(g)?g:[],i:i||{}}}
@@ -3820,6 +3933,9 @@ async function readPdf(file){await loadPdf();
       if(!confirm('Remover '+y.nome+' ('+y.email+') do painel?\n\nEle perde o acesso aos dados na hora. A conta continua no Firebase (Authentication) e pode ser excluída lá, se quiser.'))return;
       fbRaizSet('usuarios/'+k,null).then(function(r){if(r.ok){delete USR.lista[k];admMsg(y.nome+' removido.');registrar('Removeu usuário',y.email)}else admMsg('O banco recusou (HTTP '+r.st+').',true);renderUsuarios()})}
   });
+  $('admLista').addEventListener('change',function(e){var sf=e.target.closest('[data-admf]');if(!sf)return;var k=sf.getAttribute('data-admf'),x=USR.lista[k],ant=x.funcao||'Assistente de Operações',nv=sf.value;
+    if(FUNC_LIDER[nv]&&!confirm('Dar a função '+nv+' para '+x.nome+'?\n\nAtenção: '+nv+' altera a escala dos outros, aprova pedidos e publica comunicados.')){sf.value=ant;return}
+    fbRaizSet('usuarios/'+k+'/funcao',nv).then(function(r){if(r.ok){x.funcao=nv;admMsg(x.nome+': função '+nv+'.');registrar('Alterou função',x.email+' → '+nv);navLider();navEquipe()}else{sf.value=ant;admMsg('O banco recusou (HTTP '+r.st+'). Só o MASTER muda a função.',true)}})});
   $('admLista').addEventListener('change',function(e){var c=e.target.closest('[data-admm]');if(!c)return;var k=c.getAttribute('data-admm'),x=USR.lista[k];
     admSalvaUsuario(x.email,x.nome,c.checked).then(function(r){if(r.ok){admMsg(x.nome+(c.checked?' agora é MASTER.':' deixou de ser MASTER.'));registrar('Alterou MASTER',x.email+' → '+(c.checked?'sim':'não'))}else{c.checked=!c.checked;admMsg('O banco recusou (HTTP '+r.st+').',true)}})});
   $('admForm').addEventListener('submit',function(e){
@@ -4513,7 +4629,12 @@ async function readPdf(file){await loadPdf();
   /* =====================================================================
      v0.54 — PAINEL DA LIDERANÇA (#lideranca): só leitura, só para Analista e Gerente
      ===================================================================== */
-  function ehLider(){var pf=ler();return !!pf&&(pf.prof==='Analista'||pf.prof==='Gerente')}
+  /* função de cada um: /usuarios/<email>/funcao (o MASTER define em Administração). Sem a lista carregada, vale o perfil. */
+  var FUNC_LIDER={Analista:1,Gerente:1};
+  function funcaoEk(ek){var x=USR.lista&&USR.lista[ek];return x?(x.funcao||'Assistente de Operações'):null}
+  function minhaFuncao(){var f=U?funcaoEk(emailChave(emailDe(U.u))):null;if(f)return f;var pf=ler();return pf&&pf.prof||'Assistente de Operações'}
+  function ehLider(){return !!FUNC_LIDER[minhaFuncao()]}
+  function funcaoK(k){var u=eqUser(k);var f=u?funcaoEk(emailChave(emailDe(u.u))):null;return f||(PERFIS&&PERFIS[k]&&PERFIS[k].prof)||'Assistente de Operações'}
   function navLider(){var a=$('navLid');if(a)a.hidden=!ehLider()}
   function numBR(v){var s=String(v==null?'':v).trim();if(!s)return null;if(/,/.test(s))s=s.replace(/\./g,'').replace(',','.');else if(/^\d{1,3}(\.\d{3})+$/.test(s))s=s.replace(/\./g,'');var n=parseFloat(s.replace(/[^\d.\-]/g,''));return isNaN(n)?null:n}
   function tFmt(n){return Math.round(n).toLocaleString('pt-BR')+' t'}
@@ -4611,6 +4732,7 @@ async function readPdf(file){await loadPdf();
      ===================================================================== */
   var VERSAO=(/Versão\s+([\d.]+)/.exec($('hdrVersao').textContent)||[])[1]||'0';
   var NOVIDADES=[
+    {v:'0.64.0',d:'31/10/2026',l:['Nova página "Como usar" (botão ? no topo e cartão no Início): passo a passo de cada aba, com busca.','SOF Reviewer: as ações das ocorrências agora começam com o verbo (Confira, Corrija, Preencha), no mesmo padrão de redação do painel.','A função (Assistente, Analista ou Gerente) agora é definida pelo MASTER em Administração › Usuários. No Meu perfil, o campo Função fica travado.','Regras novas do Firebase: o banco também bloqueia o que é só do Analista e do Gerente.']},
     {v:'0.63.2',d:'31/10/2026',l:['Início: os cartões Rotinas e Requisições agora mostram "Abrir →", como os outros.']},
     {v:'0.63.1',d:'31/10/2026',l:['Textos do painel revisados no padrão de redação técnica simplificada (ASD-STE100 adaptado): frases curtas, uma ação por frase e os mesmos termos em todas as telas.','Botões renomeados: Registrar solicitação, Registrar envio, Registrar reforço, Registrar sem e-mail e Dar ciente.']},
     {v:'0.63.0',d:'31/10/2026',l:['Nova aba "Equipe" (Analista e Gerente): escala do mês de todos os assistentes, com folga, férias, afastamento, troca e plantão extra; turnos descobertos em vermelho.','Assistente: troca ou folga lançada no "Meu perfil" vira pedido ao Analista; a resposta chega no sino.','Comunicados: o Analista publica e cada um dá ciente ao entrar no painel.','Analista: acompanhamento do mês por assistente e passagens de serviço com "Cobrar ciente" e comentários.']},
@@ -4662,8 +4784,8 @@ async function readPdf(file){await loadPdf();
   function minhaK(){return U?fbChave(U.u):''}
   function eqUser(k){return USERS.filter(function(y){return fbChave(y.u)===k})[0]||null}
   function eqNomeK(k){var u=eqUser(k);return u?u.nome:((PERFIS&&PERFIS[k]&&PERFIS[k].nome)||k)}
-  function eqAssist(){return Object.keys(PERFIS||{}).filter(function(k){var pf=PERFIS[k];return pf&&completo(pf)&&!ehLiderPf(pf)&&!eh5x2(pf)}).sort(function(a,b){return String(PERFIS[a].nome).localeCompare(String(PERFIS[b].nome))})}
-  function existeLider(){return Object.keys(PERFIS||{}).some(function(k){return ehLiderPf(PERFIS[k])})}
+  function eqAssist(){return Object.keys(PERFIS||{}).filter(function(k){var pf=PERFIS[k];return pf&&completo(pf)&&!FUNC_LIDER[funcaoK(k)]&&!eh5x2(pf)}).sort(function(a,b){return String(PERFIS[a].nome).localeCompare(String(PERFIS[b].nome))})}
+  function existeLider(){if(USR.lista)return Object.keys(USR.lista).some(function(k){return FUNC_LIDER[USR.lista[k].funcao]});return Object.keys(PERFIS||{}).some(function(k){return ehLiderPf(PERFIS[k])})}
   var EXC_NM={trab:'Trabalha (troca/extra)',folga:'Folga (troca/extra)',ferias:'Férias',afast:'Afastamento'};
   /* grava exceções dia a dia direto no banco (não sobrescreve o perfil inteiro) */
   function excAplica(k,dias,t,turno,comKey,obs,quem){var pf=PERFIS&&PERFIS[k]||ler()||{},col=comKey&&PERFIS?PERFIS[comKey]:null,ps=[],agora=Date.now();
@@ -4804,16 +4926,22 @@ async function readPdf(file){await loadPdf();
     (EQ.ped||[]).forEach(function(p){if(p.st==='pend')out.push({k:'ped|'+p.id,tipo:'tarefa',tit:'Pedido de '+p.nome+' aguardando aprovação',txt:pedTxt(p),href:'#equipe?aba=pedidos'})});
     if(PERFIS){var ks=eqAssist();if(ks.length)for(var i=0;i<7;i++){var d=addDias(new Date(),i),c=cobertura(d,ks);['dia','noite'].forEach(function(t){if(!c[t].length)out.push({k:'cob|'+chaveDia(d)+'|'+t,tipo:'tarefa',tit:'Turno descoberto: '+TURNO[t].nome+' de '+p2(d.getDate())+'/'+p2(d.getMonth()+1),txt:'Ninguém escalado no turno '+TURNO[t].faixa+'. Veja em Equipe › Escala quem está de folga.',href:'#equipe'})})}}}
 
+  /* o perfil acompanha a função definida pelo MASTER */
+  function funcaoSincroniza(){if(!U)return;var f=funcaoEk(emailChave(emailDe(U.u))),pf=ler();if(!f||!pf||pf.prof===f){navLider();navEquipe();topo();return}
+    pf.prof=f;if(FUNC_LIDER[f]){pf.escala='5x2';pf.turno='adm'}else if(pf.escala==='5x2'){pf.escala='2x2';if(!TURNO[pf.turno]||pf.turno==='adm')pf.turno='dia'}
+    perfilPut(pf).then(function(){topo();navLider();navEquipe();rota()})}
+  /* Como usar: busca nos assuntos */
+  $('ajBusca').addEventListener('input',function(){var q=norm(this.value),n=0;document.querySelectorAll('#ajLista details').forEach(function(d){if(d.classList.contains('aj-lider')&&!ehLider()){d.hidden=true;return}var ok=!q||norm(d.textContent).indexOf(q)>=0;d.hidden=!ok;if(ok)n++;d.open=!!q&&ok});$('ajVazio').hidden=n>0});
   /* ---------- rotas ---------- */
   var SOON={};
   var frame=null,lastRota='';
   function rota(){
     if(!U){mostrarLogin();return}
     var r=(location.hash||'#inicio').replace('#','').split('?')[0];
-    if(!/^(inicio|perfil|revisor|lineup|rotinas|requisicoes|solicitacoes|admin|lideranca|equipe)$/.test(r))r='inicio';
+    if(!/^(inicio|perfil|revisor|lineup|rotinas|requisicoes|solicitacoes|admin|lideranca|equipe|ajuda)$/.test(r))r='inicio';
     navLider();navEquipe();if((r==='lideranca'||r==='equipe')&&!ehLider())r='inicio';
-    var v=r==='perfil'?'perfil':r==='revisor'?'revisor':r==='lineup'?'lineup':r==='rotinas'?'rotinas':r==='requisicoes'?'requisicoes':r==='solicitacoes'?'solicitacoes':r==='admin'?'admin':r==='lideranca'?'lideranca':r==='equipe'?'equipe':SOON[r]?'soon':'inicio';
-    ['inicio','perfil','lineup','rotinas','requisicoes','solicitacoes','soon','revisor','admin','lideranca','equipe'].forEach(function(x){$('view-'+x).hidden=(x!==v)});
+    var v=r==='perfil'?'perfil':r==='revisor'?'revisor':r==='lineup'?'lineup':r==='rotinas'?'rotinas':r==='requisicoes'?'requisicoes':r==='solicitacoes'?'solicitacoes':r==='admin'?'admin':r==='lideranca'?'lideranca':r==='equipe'?'equipe':r==='ajuda'?'ajuda':SOON[r]?'soon':'inicio';
+    ['inicio','perfil','lineup','rotinas','requisicoes','solicitacoes','soon','revisor','admin','lideranca','equipe','ajuda'].forEach(function(x){$('view-'+x).hidden=(x!==v)});
     $('main').hidden=false;$('main').classList.toggle('largo',v==='lineup'||v==='rotinas'||v==='requisicoes'||v==='solicitacoes'||v==='revisor'||v==='lideranca'||v==='equipe');
     if(v==='revisor'){sofAbrir();if(lastRota!=='revisor')registrar('Abriu o SOF Reviewer')}
     if(v==='soon'){$('soonIc').textContent=SOON[r][0];$('soonNome').textContent=SOON[r][1]}
@@ -4822,6 +4950,7 @@ async function readPdf(file){await loadPdf();
     if(v==='rotinas'){renderRot();rtCarregar();carregarPassagens();if(lastRota!=='rotinas')registrar('Abriu as Rotinas')}
     if(v==='requisicoes'){renderReq();carregarReq();if(location.hash.indexOf('catalogo')>0)rqAba(true);if(lastRota!=='requisicoes')registrar('Abriu as Requisições')}
     if(v==='solicitacoes'){rtCarregar();carregarGeport();slAbrir();if(lastRota!=='solicitacoes')registrar('Abriu as Solicitações')}
+    if(v==='ajuda'){document.querySelectorAll('#ajLista .aj-lider').forEach(function(d){d.hidden=!ehLider()});if(lastRota!=='ajuda')registrar('Abriu Como usar')}
     if(v==='equipe'){eqAbrir();if(lastRota!=='equipe')registrar('Abriu Equipe')}
     if(v==='lideranca'){lidAbrir();if(lastRota!=='lideranca')registrar('Abriu o Painel da Liderança')}
     if(v==='inicio'){renderInicio();renderAgora();rtCarregar();carregarPrat();carregarGeport();carregarReq();
@@ -4832,7 +4961,7 @@ async function readPdf(file){await loadPdf();
     lastRota=r;
     document.querySelectorAll('[data-r]').forEach(function(a){
       if(a.getAttribute('data-r')===r)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
-    document.title='Triunfo Logística — '+(v==='revisor'?'SOF Reviewer':v==='perfil'?'Meu perfil':v==='lineup'?'Line Up':v==='rotinas'?'Rotinas':v==='requisicoes'?'Requisições':v==='solicitacoes'?'Solicitações':v==='admin'?'Administração':v==='lideranca'?'Painel da Liderança':v==='equipe'?'Equipe':v==='soon'?SOON[r][1]:'Painel dos Assistentes');
+    document.title='Triunfo Logística — '+(v==='revisor'?'SOF Reviewer':v==='perfil'?'Meu perfil':v==='lineup'?'Line Up':v==='rotinas'?'Rotinas':v==='requisicoes'?'Requisições':v==='solicitacoes'?'Solicitações':v==='admin'?'Administração':v==='lideranca'?'Painel da Liderança':v==='equipe'?'Equipe':v==='ajuda'?'Como usar':v==='soon'?SOON[r][1]:'Painel dos Assistentes');
     window.scrollTo(0,0);
   }
   window.addEventListener('hashchange',rota);
@@ -4875,7 +5004,7 @@ async function readPdf(file){await loadPdf();
   function mostrarApp(){
     document.body.classList.remove('sem-login');$('login').hidden=true;topo();rota();
     nuvemSync().then(function(mud){if(mud&&U){lastRota='';topo();rota();if(typeof carregarForm==='function')carregarForm()}if(U)abaInicial()});
-    carregarUsuarios();setTimeout(atualizaAvisos,3000);setTimeout(vigiaAtualiza,5000);
+    carregarUsuarios().then(funcaoSincroniza);setTimeout(atualizaAvisos,3000);setTimeout(vigiaAtualiza,5000);
     setTimeout(function(){try{novMostra()}catch(e){}},1500);setTimeout(versaoChecar,10000);
     carregarPerfis();eqCarregaPed().then(function(){atualizaAvisos()});setTimeout(comAoEntrar,3500);navEquipe();
   }

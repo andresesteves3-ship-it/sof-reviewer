@@ -333,3 +333,132 @@ VERSÃO 0.33.1 — PRODUÇÃO E PAGAMENTOS SÃO DE FECHAMENTO
 - Aviso de robô: faixa vermelha no topo de todas as telas (menos Administração) quando o robô do OGMO ou o TPA falha 2 vezes seguidas ou fica parado. O selo "Robôs" do Início agora inclui o TPA.
   scripts/ogmo.js e scripts/tpa.js passaram a gravar "falhasSeguidas" no status (precisa subir os dois).
 - Celular: Rotinas com os 4 períodos na tela; Solicitações (Inspeção, Dobra, Plano B, TPAs) com linhas em cartões e botões à vista; Plano B com área em cima e períodos embaixo; dias das Requisições lado a lado.
+
+=== Versão 0.53.0 — Requisição × Line Up · Resumo do turno ===
+- Requisição × Line Up: o aviso "Sem requisição no OGMO para o próximo período" agora vale para navio em operação no Line Up (mesmo sem frente nas Rotinas), com frente aberta, ou que CHEGA (prático de entrada previsto) antes do início do período. Mostra o prazo (03:45, 09:45, 15:45, 19:35) e quanto falta; a 1 h do prazo ou vencido vira Urgente.
+- Resumo do turno (Início): navios em operação/chegando, requisição do próximo período, inspeção a solicitar, dobras em aberto, tarefas atrasadas e passagem sem ciente. Cada quadro abre a aba certa. Botão "Copiar resumo" para colar no WhatsApp/e-mail.
+
+=== Versão 0.54.0 — Painel da Liderança + função Gerente ===
+- Nova função no perfil: Gerente (escala 5x2, 07:00 às 17:00, como o Analista).
+- Nova aba "Liderança" (#lideranca), só aparece para quem tem a função Analista ou Gerente no perfil. Só leitura, atualiza a cada 1 min:
+  números do turno, navios em operação/chegando (progresso da planilha, ternos e DA9 do período atual, requisição do próximo período, rotinas, próxima manobra),
+  manobras das próximas 24 h, "Atenção da liderança" (requisição/prazo, dobra parada, inspeção, rotinas atrasadas, robô, berço disputado),
+  última passagem de serviço, dobras no mês por navio e prazos de requisição do dia operacional.
+- Para ver: Meu perfil › Função = Gerente (ou Analista) › Salvar.
+
+=== Versão 0.54.1 — correção da Praticagem / Painel da Liderança ===
+- O site da Praticagem passou a trazer um bloco de CSS (".divPPNavio { ... }") dentro da célula do nome do navio, e o robô gravava isso como parte do nome.
+  scripts/praticagem.js: remove o CSS, limpa o nome e corrige o histórico já gravado (junta o navio "sujo" com o "limpo").
+  O painel também limpa os nomes ao ler, então já fica certo antes do robô rodar.
+- Liderança: a linha do tempo e o "berço disputado" mostram só navios da Triunfo (Line Up + Rotinas), não o porto inteiro.
+- Liderança: a tela se redesenha quando Line Up, Rotinas, OGMO e Praticagem terminam de carregar.
+
+=== Versão 0.55.0 — SOF Reviewer marca "Atualizar o SOF" nas Rotinas ===
+- Ao clicar em "Analisar SOF", o painel vê até que data/hora a tabela do SOF está preenchida e marca "Atualizar o SOF" nas Rotinas do navio
+  em todos os períodos já terminados que o SOF cobre (marca "✓ SOF"). Aparece uma faixa verde na tela do SOF Reviewer dizendo o que foi marcado.
+- Não marca: se o SOF tiver ocorrência CRÍTICA em aberto (faixa amarela explica), se não houver frente aberta para o navio, períodos antes da
+  primeira linha do SOF ou antes de a frente começar, períodos já marcados, e marcas que alguém desmarcou à mão.
+- O navio é achado pelo nome do cabeçalho do SOF (Vessel), pelos nomes do cabeçalho ou pelo nome do arquivo.
+- Arquivos: index.html, sw.js e ferramentas/sof-app.js.
+
+=== Versão 0.56.0 — Requisições: navios fora da programação ===
+- Navios do OGMO que não estão no Line Up nem com frente aberta nas Rotinas descem para o bloco "Fora da programação" (fechado), no fim da lista.
+- Em cada navio desse bloco: "É da nossa programação" (sobe para a lista principal, com selo "✓ marcado como nosso") ou "Ocultar" (vai para "Ocultos" e sai também da Dobra).
+- Botão direito no nome do navio: ocultar, marcar como nosso ou desfazer. As marcações valem para todos os assistentes (banco /painel/config/ognav).
+- Busca por navio abre o bloco "Fora da programação" automaticamente.
+
+=== Versão 0.57.0 — Dobra avulsa ===
+- Solicitações › Dobra: botão "+ Dobra avulsa" (ao lado de "Inclusão de TPA"), para navio que já encerrou ou dobra antiga que ficou de fora.
+- Navio digitado à mão com sugestões (Line Up, Rotinas, navios do OGMO e das dobras já lançadas); data livre (pode ser de dias anteriores).
+- "Situação ao lançar": Enviada ao comercial, Encaminhada ao OGMO ou Pagamento efetuado.
+- "Só registrar (sem e-mail)": lança direto no histórico. "Gerar e-mail" continua disponível para quando o e-mail ainda vai ser enviado.
+- Na lista, as avulsas têm o selo "AVULSA" e seguem o mesmo fluxo (avançar, cancelar, dobra parada, Resumo, Liderança).
+
+=== Versão 0.58.0 — Nº da requisição de pagamento da dobra ===
+- "→ Pagamento efetuado" agora pede o nº da requisição de pagamento gerada pelo OGMO (obrigatório; formato livre).
+- Dobra avulsa lançada como "Pagamento efetuado" pede o nº no próprio formulário.
+- Na lista: "Req. <nº>" embaixo da situação, com "editar" (a troca fica no histórico: passe o mouse na situação).
+- Dobras já pagas sem número mostram "sem nº da requisição — incluir"; filtro "Pagas sem nº da requisição".
+- Busca na lista de dobras: navio, função, trabalhador, matrícula ou nº da requisição.
+
+=== Versão 0.59.0 — Aviso de nova versão e Novidades ===
+- Novo arquivo na raiz do repositório: versao.json (ex.: {"v":"0.59.0","resumo":"..."}). O painel aberto confere esse arquivo a cada 5 min
+  (e quando a janela volta a ficar ativa); se a versão publicada for mais nova, aparece a faixa azul "Nova versão disponível · Atualizar agora / Depois".
+- IMPORTANTE: em toda versão nova, subir o versao.json junto com o index.html e o sw.js (se esquecer, o painel só não avisa).
+- Depois de atualizar, cada pessoa vê uma vez o quadro "Novidades desta versão". Clicar no número da versão (embaixo de "Painel dos Assistentes")
+  mostra o histórico de versões.
+- Regra de numeração: X.Y.Z — Z = correção/ajuste pequeno; Y = função nova ou mudança percebida no uso; X = 1.0.0 quando sair do BETA.
+
+=== Versão 0.60.0 — Pagamento da dobra por trabalhador ===
+- "→ Pagamento efetuado" abre a conferência: lista dos trabalhadores (todos marcados como pagos); desmarque quem não recebeu e escolha o motivo
+  (Não houve falta no plantão · TPA escalado em outra operadora · Matrícula/dados incorretos · Outro).
+- Resultado: todos pagos = "Pagamento efetuado"; alguns = "Pagamento parcial" (lista mostra "Pago 3 de 4"; passe o mouse para ver quem e por quê);
+  nenhum = "Não paga". Nº da requisição só é pedido se alguém recebeu.
+- Botão "Não paga" (em Enviada/Encaminhada): só pede o motivo e encerra a dobra.
+- Link "conferir" refaz a conferência depois (fica no histórico). Filtros "Pagamento parcial" e "Não paga".
+- Parcial e Não paga contam como encerradas (sem aviso de dobra parada); Liderança mostra pagas/parciais/não pagas no mês.
+- Subir: index.html, sw.js e versao.json.
+
+=== Versão 0.61.0 — Reforçar dobra parada ===
+- Dobra parada há 2 dias ou mais: botão "Reforçar" ao lado de "⚠ parada há X dias" (e o aviso do sino abre direto o reforço).
+- E-mail pronto ao Comercial (Para/Cc das dobras): assunto "RE: <assunto original>" (cai na mesma conversa), saudação, dados da dobra,
+  trabalhadores e há quantos dias está pendente. Copiar e-mail / Copiar assunto / Abrir no Outlook.
+- "Reforçar todas (N) em um e-mail" quando houver várias paradas.
+- "Reforço enviado" registra no histórico ("reforçada 1x · última dd/mm") e recomeça a contagem: o sino só volta a avisar em 2 dias.
+- Subir: index.html, sw.js e versao.json.
+
+=== Versão 0.62.0 — Operação ao Largo ===
+- Solicitações › nova aba "Operação ao Largo". "+ Nova operação ao largo": navio, operação, data, início, local de saída (Arm. 18) e os turnos com o horário da lancha.
+- E-mail 1 — Equipe de apoio: socorristas, TST para o DDS (com os horários de saída por turno), pá carregadeira (quantidade por extenso),
+  quentinhas (automático: passou das 13h pede; acaba no 07x13 avisa que não precisa) e OBS. Assunto "OPERAÇÃO AO LARGO - NAVIO - OPERAÇÃO - DATA".
+- E-mail 2 — Lanchas: tabela (data, qtd, de, para, hora, finalidade) montada a partir dos turnos; "Cancelar" numa lancha já pedida sai em vermelho.
+  Assunto "SOLICITAÇÃO DE LANCHAS - ...". Na alteração, os assuntos ganham "RE:".
+- "Nomes e destinatários": nomes citados (Marcio Silva, TSTs, Tondato, Bruna) e Para/Cc ficam salvos para todos; troque quando alguém sair.
+  Lanchas já vêm para faturamento@antoniocarlos.net e antoniocarlosindustrianaval@gmail.com.
+- Rotinas: navio ao largo ganha as únicas "Solicitar Equipe de Apoio" e "Solicitar Lanchas", marcadas ao "Registrar como enviado".
+- Banco: /solic/largo (as regras atuais já cobrem). Subir: index.html, sw.js e versao.json.
+
+=== Versão 0.62.1 ===
+- Operação ao Largo: quantidade de quentinhas por turno (aparece para os turnos depois do 07x13). O e-mail sai como
+  "favor providenciar 35 (trinta e cinco) quentinhas para o turno de 13x19 e 28 (vinte e oito) quentinhas para o turno de 19x01".
+
+=== Versão 0.63.0 — Equipe (funções gerenciais do Analista e do Gerente) ===
+- Nova aba "Equipe" (só Analista e Gerente):
+  1) Escala: calendário do mês com todos os assistentes; clique num dia para lançar folga, férias, afastamento, troca ou plantão extra (vários dias de uma vez).
+  2) Turnos descobertos: dia/noite sem ninguém fica em vermelho, com a lista de quem está de folga e pode cobrir; aviso no sino (próximos 7 dias).
+  3) Pedidos: o assistente que lança troca/folga no "Meu perfil" agora PEDE; o Analista aprova (a escala muda na hora) ou recusa com motivo. Resposta no sino.
+     (Se não houver nenhum Analista/Gerente cadastrado, continua como antes: o assistente lança direto.)
+  4) Acompanhamento do mês por assistente: dias de escala, rotinas marcadas, requisição de estiva no prazo, passagens feitas/com pendência, cientes, dobras, inspeções, op. ao largo.
+  5) Passagens do mês: "Cobrar ciente" (o assistente vê no sino "cobrado por ...") e "Comentar" (aparece no histórico de passagens).
+  6) Comunicados: o Analista publica; todos veem ao entrar e dão ciente; o Analista vê quem já leu e quem falta.
+- Banco: /painel/pedidos e /painel/comunicados (as regras atuais já cobrem). Subir: index.html, sw.js e versao.json.
+
+=== Versão 0.63.1 — Textos no padrão ASD-STE100 adaptado ("80%") ===
+- ~100 textos de tela revisados (ajuda, notas, subtítulos, mensagens de erro, confirmações, avisos): frases curtas, uma ação por frase,
+  voz ativa, aviso antes da ação e os mesmos termos em todas as telas (guia e glossário: sof-reviewer/GUIA-REDACAO-STE.md no projeto).
+- Botões: "Registrar solicitação" (era Efetuar solicitação), "Registrar envio" (era Registrar como enviado/a), "Registrar reforço" (era Reforço enviado),
+  "Registrar sem e-mail" (era Só registrar) e "Dar ciente" (era Li e dou ciente).
+- Não mudou: texto dos e-mails enviados (dobra, inspeção, Plano B, operação ao largo, reforço). O SOF Reviewer fica para a próxima etapa.
+
+=== Versão 0.63.2 ===
+- Início: "Abrir →" nos cartões Rotinas e Requisições.
+
+=== Versão 0.64.0 — Segurança por função, Como usar e SOF Reviewer no padrão de redação ===
+- FUNÇÃO: agora é definida pelo MASTER em Administração › Usuários (coluna Função: Assistente de Operações / Analista / Gerente).
+  No Meu perfil, o campo Função fica travado. O perfil acompanha a função (Analista/Gerente = escala 5x2).
+  ATENÇÃO: depois de subir esta versão, defina a função do Analista (e do Gerente) em Administração › Usuários.
+  Até isso, ninguém vê as abas Equipe e Liderança.
+- REGRAS DO FIREBASE (firebase-regras.json, também em Administração › Regras): publique as regras novas.
+  * Escala dos outros, aprovar pedidos, publicar/apagar comunicados e restaurar o banco inteiro: só Analista/Gerente (e o dono do repositório).
+  * Perfil: o próprio dono ou Analista/Gerente. Pedido de troca: o assistente cria só o próprio pedido. Ciente de comunicado: só o próprio.
+  * O resto (Rotinas, Solicitações, passagens, log) continua liberado para toda a equipe.
+- COMO USAR: nova página (botão "?" no topo e cartão no Início) com o passo a passo de cada aba e busca.
+- SOF REVIEWER: as ações das ocorrências começam com o verbo (Confira, Corrija, Preencha, Apague). Os títulos não mudaram
+  (assim as ocorrências marcadas como Corrigido/Ignorar continuam valendo).
+- Subir: index.html, sw.js, versao.json, ferramentas/sof-app.js e firebase-regras.json (e publicar as regras no Firebase).
+
+=== Critério para a versão 1.0 (sair do BETA) — aprovado pelo Fellipe ===
+1. Duas semanas sem erro novo informado pela equipe.
+2. Robôs estáveis (sem a faixa vermelha de falha seguida).
+3. Os quatro assistentes usando o painel no dia a dia.
+4. Regras do Firebase publicadas (as da 0.64.0).
