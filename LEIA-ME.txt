@@ -547,3 +547,10 @@ CONFIGURAÇÃO (uma vez):
 - O painel lembra o que cada pessoa abriu ou fechou, naquele computador.
 - O turno de Analista e Gerente aparece como "Dia" (07:00 às 17:00), no lugar de "07x17".
 - Subir: index.html, sw.js e versao.json.
+
+=== Versão 0.73.0 ===
+- F5 / atualizar: o painel abre direto na aba em que você estava, sem passar pela tela de entrada. Enquanto carrega, aparece só a logo.
+- O acesso é conferido com o Firebase por trás. Se expirou ou a pessoa foi removida, aparece a tela de entrada com o aviso "Seu acesso expirou. Entre de novo com e-mail e senha."
+- Sem internet: o painel abre com o que está salvo no computador (igual antes).
+- A segurança não muda: o banco continua exigindo acesso válido, e "Sair" apaga a sessão do computador.
+- Subir: index.html, sw.js e versao.json.
