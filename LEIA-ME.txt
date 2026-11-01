@@ -531,3 +531,9 @@ CONFIGURAÇÃO (uma vez):
 - Computador: o menu cabe inteiro em telas de 1400 px (o nome do usuário fica só no avatar até 1500 px).
 - Testado: as 14 abas no celular (390 px) sem nada passando da largura da tela, nos temas claro e escuro.
 - Subir: index.html, sw.js e versao.json.
+
+=== Versão 0.71.1 ===
+- Correção: no celular, as listas de Solicitações piscavam a cada atualização automática (a cada poucos segundos).
+  Causa: a sincronização das Rotinas mandava redesenhar Solicitações mesmo sem nada novo, e os rótulos dos cartões entravam um instante depois.
+  Agora a aba só redesenha quando os dados mudam (ou uma vez por minuto, por causa dos prazos), e os rótulos entram antes de a tela ser pintada.
+- Subir: index.html, sw.js e versao.json.
