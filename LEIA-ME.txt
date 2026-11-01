@@ -477,3 +477,20 @@ CONFIGURAÇÃO (uma vez):
 7. Suba os arquivos desta versão (inclusive o firebase-regras.json). O robô roda sozinho e publica as regras.
    Para rodar de novo: Administração › Status dos robôs › Regras do Firebase › Rodar agora.
 - Subir: index.html, sw.js, versao.json, scripts/regras.js, .github/workflows/regras.yml e firebase-regras.json.
+
+=== Versão 0.65.1 ===
+- Administração: botão "Publicar regras agora" ao lado da situação das regras. Ele roda o robô Regras do Firebase.
+- O texto das regras foi para "Avançado", no fim da Administração, fechado. Use só se o robô falhar.
+- Subir: index.html, sw.js e versao.json.
+
+=== Versão 0.66.0 ===
+- Créditos: link "Créditos" no rodapé de todas as telas e aba "Créditos" na janela de versões (clique na versão, no topo).
+- Para mudar nomes ou funções nos créditos: edite o bloco id="novCred" no index.html.
+- Subir: index.html, sw.js e versao.json.
+
+=== Versão 0.67.0 ===
+- Novo link "Relatar problema" no rodapé de todas as telas e no "Como usar".
+- A pessoa escolhe o tipo (Erro, Sugestão ou Dúvida) e descreve o que aconteceu. O painel envia junto o nome, a tela e a versão.
+- Administração: lista "Problemas relatados" (Abertos ou Todos) com o botão "Marcar como resolvido". Só Analista e Gerente marcam.
+- Regras do Firebase: novo nó painel/relatos. Qualquer membro cria; só líder altera. O robô publica sozinho quando o firebase-regras.json sobe.
+- Subir: index.html, sw.js, versao.json e firebase-regras.json.
