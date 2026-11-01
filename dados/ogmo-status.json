@@ -1,8 +1,8 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-01T13:16:03.095Z",
- "ultimoSucesso": "2026-11-01T13:16:03.095Z",
+ "atualizado": "2026-11-01T14:02:25.104Z",
+ "ultimoSucesso": "2026-11-01T14:02:25.104Z",
  "total": 1,
  "dias": [
   {
@@ -18,12 +18,12 @@
   {
    "data": "02/11/2026",
    "n": 0,
-   "erro": "Perdi a tela de requisições."
+   "erro": ""
   }
  ],
  "diag": {
   "frames": 1,
-  "recuperacoes": 1,
+  "recuperacoes": 0,
   "reaproveitadas": 0
  },
  "falhasSeguidas": 0
