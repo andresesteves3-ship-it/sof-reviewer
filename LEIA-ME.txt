@@ -512,3 +512,22 @@ CONFIGURAÇÃO (uma vez):
 - Para desenvolvedor: o tema escuro é gerado do CSS claro por ferramentas/gera_escuro.py. Rode de novo depois de mudar cores no CSS.
 - Subir: index.html, sw.js, versao.json, manifest.webmanifest, a pasta icons (4 arquivos) e ferramentas/gera_escuro.py.
 - Depois de subir: aperte Ctrl+F5. O ícone do app instalado pode levar alguns dias para trocar no Windows; se quiser na hora, desinstale e instale o app de novo.
+
+=== Versão 0.70.0 ===
+- Passagem de serviço: o painel mostra quem assume o próximo turno, pela escala (com trocas, folgas e férias). O nome aparece na janela da passagem, no PDF ("QUEM ASSUME") e no histórico.
+- Quem assume recebe no sino e nas Rotinas: "A passagem de serviço é para você: dê ciente". Os outros continuam podendo dar ciente.
+- Sem escala para o turno: o PDF mostra o turno e a janela avisa para conferir a escala.
+- App instalado: orientação sempre vertical (manifest). No iPhone e na aba do navegador, o sistema decide.
+- Subir: index.html, sw.js, versao.json e manifest.webmanifest.
+
+=== Versão 0.71.0 ===
+- Celular (até 700 px de largura):
+  - barra de abas no rodapé: Início, Rotinas, Requisições e Solicitações. "Mais" abre Line Up, SOF Reviewer, Equipe, Liderança, Administração, Meu perfil, Como usar e Sair;
+  - cabeçalho numa linha; faixa do robô com 2 linhas (toque para ler tudo);
+  - abas internas deslizam para o lado sem empurrar a página;
+  - Line Up, Requisições, Liderança, Administração e "Navios em andamento" em cartões;
+  - Rotinas: período atual em destaque; botão "Ver os 4 períodos";
+  - botões mais altos e campos com letra de 16 px (o iPhone não dá zoom).
+- Computador: o menu cabe inteiro em telas de 1400 px (o nome do usuário fica só no avatar até 1500 px).
+- Testado: as 14 abas no celular (390 px) sem nada passando da largura da tela, nos temas claro e escuro.
+- Subir: index.html, sw.js e versao.json.
