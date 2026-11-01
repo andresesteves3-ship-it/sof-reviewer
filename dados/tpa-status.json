@@ -1,16 +1,16 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-10-31T23:07:47.505Z",
- "ultimoSucesso": "2026-10-31T23:07:47.505Z",
+ "atualizado": "2026-11-01T08:21:55.615Z",
+ "ultimoSucesso": "2026-11-01T08:21:55.615Z",
  "dias": [
   {
-   "data": "31/10/2026",
-   "reqs": 1,
-   "escaladas": 1
+   "data": "01/11/2026",
+   "reqs": 0,
+   "escaladas": 0
   },
   {
-   "data": "01/11/2026",
+   "data": "02/11/2026",
    "reqs": 0,
    "escaladas": 0
   }
