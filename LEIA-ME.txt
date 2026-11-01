@@ -494,3 +494,21 @@ CONFIGURAÇÃO (uma vez):
 - Administração: lista "Problemas relatados" (Abertos ou Todos) com o botão "Marcar como resolvido". Só Analista e Gerente marcam.
 - Regras do Firebase: novo nó painel/relatos. Qualquer membro cria; só líder altera. O robô publica sozinho quando o firebase-regras.json sobe.
 - Subir: index.html, sw.js, versao.json e firebase-regras.json.
+
+=== Versão 0.68.0 ===
+- Dobra: cada solicitação ganha um código único no formato DOB-AAMMDD-XXXX (ex.: DOB-261101-K7Q2).
+- O código vai no fim do assunto, entre colchetes, e numa linha no fim do texto do e-mail.
+- Para achar o e-mail no Outlook: na lista de dobras, clique em "copiar" ao lado do código e cole na busca do Outlook.
+- A busca das dobras aceita o código. O e-mail de reforço e o histórico do pagamento mostram o código.
+- Dobras enviadas antes desta versão aparecem com "sem código".
+- Subir: index.html, sw.js e versao.json.
+
+=== Versão 0.69.0 ===
+- Logo oficial da Triunfo (SVG do brandbook) no cabeçalho e na tela de entrada. No modo escuro, entra a logo branca.
+- PDF da Passagem de serviço, SOF exportado e imagem do Plano B usam a logo oficial em alta resolução.
+- Ícones novos do app (aba do navegador, app instalado, avisos do Windows e iPhone) com o símbolo oficial.
+- Fontes do brandbook: DIN Bold nos títulos e Poppins nos textos.
+- Modo escuro: Meu perfil › Preferências › Tema (Automático, Claro ou Escuro). O Automático segue o Windows. Os PDFs e os e-mails continuam claros.
+- Para desenvolvedor: o tema escuro é gerado do CSS claro por ferramentas/gera_escuro.py. Rode de novo depois de mudar cores no CSS.
+- Subir: index.html, sw.js, versao.json, manifest.webmanifest, a pasta icons (4 arquivos) e ferramentas/gera_escuro.py.
+- Depois de subir: aperte Ctrl+F5. O ícone do app instalado pode levar alguns dias para trocar no Windows; se quiser na hora, desinstale e instale o app de novo.
