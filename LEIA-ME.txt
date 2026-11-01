@@ -537,3 +537,13 @@ CONFIGURAÇÃO (uma vez):
   Causa: a sincronização das Rotinas mandava redesenhar Solicitações mesmo sem nada novo, e os rótulos dos cartões entravam um instante depois.
   Agora a aba só redesenha quando os dados mudam (ou uma vez por minuto, por causa dos prazos), e os rótulos entram antes de a tela ser pintada.
 - Subir: index.html, sw.js e versao.json.
+
+=== Versão 0.72.0 ===
+- Seções que abrem e fecham com um toque no título (seta ▸ ▾). Começam fechadas e mostram um resumo:
+  - Administração: Usuários (nº de usuários), Status dos robôs (todos funcionando / com falha), Cópias de segurança (situação), Problemas relatados (em aberto);
+  - Meu perfil: Escala da equipe, Avisos (quantos ligados), Preferências (tema), Alterar senha, Registro de atividade;
+  - Rotinas: Observações gerais (com ou sem recado);
+  - Solicitações: Histórico de inspeções, Solicitações de dobra (em andamento e total), Solicitações enviadas do Plano B.
+- O painel lembra o que cada pessoa abriu ou fechou, naquele computador.
+- O turno de Analista e Gerente aparece como "Dia" (07:00 às 17:00), no lugar de "07x17".
+- Subir: index.html, sw.js e versao.json.
