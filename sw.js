@@ -1,6 +1,6 @@
-// Painel dos Assistentes — service worker (0.76.1)
+// Painel dos Assistentes — service worker (0.77.0)
 // Rede primeiro (sempre pede a versão mais nova ao servidor); sem internet, usa a cópia guardada.
-const VERSION = '0.76.1';
+const VERSION = '0.77.0';
 const CACHE = 'painel-assistentes-' + VERSION;
 const SHELL = ['./', './index.html', './ferramentas/sof-libs.js', './ferramentas/sof-app.js', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/apple-touch-icon.png'];
