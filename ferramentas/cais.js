@@ -199,22 +199,64 @@ FERRAMENTAS.forEach(function(f){var e=ESTR[f.id];if(!e)return;
 function realca(id,on){var e=porId[id];if(!e)return;e.mats.forEach(function(m){if(m.emissive){m.emissive.setHex(on?0x3A0B0E:0x000000)}});precisa()}
 
 /* =====================================================================
-   7) RÓTULOS HTML (nítidos, focáveis, com descrição no hover/foco)
+   7) RÓTULOS: só nome + selo; cada um escolhe uma posição livre.
+      A descrição vai para a barra de legenda na base do quadro (nada abre por cima da cena).
    ===================================================================== */
-var ROT={};
+var ROT={},LEG_PADRAO=(window.matchMedia&&matchMedia('(hover: none)').matches)?'Toque em uma estrutura para abrir a ferramenta.':'Passe o mouse ou toque em uma estrutura para ver o que ela abre.';
+var linhas=document.createElementNS('http://www.w3.org/2000/svg','svg');linhas.setAttribute('class','cais-linhas');linhas.setAttribute('aria-hidden','true');camadaRot.appendChild(linhas);
+var leg=document.createElement('div');leg.className='cais-legenda';leg.setAttribute('aria-live','polite');leg.innerHTML='<span class="lg-t">'+LEG_PADRAO+'</span>';palco.appendChild(leg);
 FERRAMENTAS.forEach(function(f){if(!ESTR[f.id])return;var a=document.createElement('a');a.className='rot';a.href=f.rota;a.dataset.f=f.id;
-  a.setAttribute('aria-label',f.nome+': '+f.desc);a.innerHTML='<span class="pl"><span class="nm">'+esc(f.nome)+'</span><span class="sl" hidden></span><span class="ds">'+esc(f.desc)+'</span></span><span class="ln" aria-hidden="true"></span>';
+  a.setAttribute('aria-label',f.nome+': '+f.desc);a.innerHTML='<span class="pl"><span class="nm">'+esc(f.nome)+'</span><span class="sl" hidden></span></span>';
   a.addEventListener('mouseenter',function(){foca(f.id)});a.addEventListener('mouseleave',function(){foca(null)});a.addEventListener('focus',function(){foca(f.id)});a.addEventListener('blur',function(){foca(null)});
   camadaRot.appendChild(a);ROT[f.id]=a});
-var atual=null;
-function foca(id){if(atual===id)return;if(atual){realca(atual,false);ROT[atual]&&ROT[atual].classList.remove('on')}atual=id;if(id){realca(id,true);ROT[id]&&ROT[id].classList.add('on')}palco.classList.toggle('hover',!!id)}
-var tmpV=new T.Vector3();
-function posRotulos(){var W=palco.clientWidth,H=palco.clientHeight,lst=[];
-  FERRAMENTAS.forEach(function(f){var e=ESTR[f.id],a=ROT[f.id];if(!e||!a)return;tmpV.copy(e.ancora).project(cam);var x=(tmpV.x+1)/2*W,y=(1-tmpV.y)/2*H;var r=a.querySelector('.pl').getBoundingClientRect();lst.push({a:a,x:x,y:y,y0:y,w:r.width+12,h:r.height+22})});
-  // evita sobreposição: empurra para cima o rótulo mais alto do par
-  lst.sort(function(p,q){return q.y-p.y});
-  for(var it=0;it<4;it++)for(var i=0;i<lst.length;i++)for(var j=0;j<i;j++){var A=lst[i],B=lst[j];if(Math.abs(A.x-B.x)<(A.w+B.w)/2&&Math.abs(A.y-B.y)<(A.h+B.h)/2){A.y=B.y-(A.h+B.h)/2-2}}
-  lst.forEach(function(p){var x=Math.max(p.w/2+4,Math.min(W-p.w/2-4,p.x)),y=Math.max(p.h+2,Math.min(H-4,p.y));p.a.style.transform='translate('+Math.round(x)+'px,'+Math.round(Math.max(y,p.y0))+'px) translate(-50%,-100%)';p.a.classList.toggle('ds-e',x<W*0.28);p.a.classList.toggle('ds-d',x>W*0.72);p.a.classList.toggle('ds-c',Math.max(y,p.y0)>H*0.72);p.a.querySelector('.ln').style.height=Math.max(14,Math.round(p.y0-y+14))+'px'})}
+var atual=null,porF={};FERRAMENTAS.forEach(function(f){porF[f.id]=f});
+function foca(id){if(atual===id)return;if(atual){realca(atual,false);ROT[atual]&&ROT[atual].classList.remove('on')}atual=id;
+  if(id){realca(id,true);ROT[id]&&ROT[id].classList.add('on');var f=porF[id];leg.innerHTML='<b>'+esc(f.nome)+'</b><span class="lg-t">'+esc(f.desc)+'</span>';leg.classList.add('on')}
+  else{leg.innerHTML='<span class="lg-t">'+LEG_PADRAO+'</span>';leg.classList.remove('on')}
+  palco.classList.toggle('hover',!!id);desenhaLinhas()}
+var tmpV=new T.Vector3(),LAY=[],LOBST=[];
+/* geometria simples: retângulos e segmentos */
+function cruzaR(a,b,m){m=m||0;return a.x<b.x+b.w+m&&a.x+a.w+m>b.x&&a.y<b.y+b.h+m&&a.y+a.h+m>b.y}
+function segR(x1,y1,x2,y2,r){ // segmento cruza retângulo (Liang–Barsky)
+  var t0=0,t1=1,dx=x2-x1,dy=y2-y1,p=[-dx,dx,-dy,dy],q=[x1-r.x,r.x+r.w-x1,y1-r.y,r.y+r.h-y1];
+  for(var i=0;i<4;i++){if(p[i]===0){if(q[i]<0)return false}else{var t=q[i]/p[i];if(p[i]<0){if(t>t1)return false;if(t>t0)t0=t}else{if(t<t0)return false;if(t<t1)t1=t}}}return t0<t1}
+function segSeg(a,b){function o(p,q,r){var v=(q.y-p.y)*(r.x-q.x)-(q.x-p.x)*(r.y-q.y);return v>0?1:v<0?-1:0}
+  var o1=o(a.p,a.q,b.p),o2=o(a.p,a.q,b.q),o3=o(b.p,b.q,a.p),o4=o(b.p,b.q,a.q);return o1!==o2&&o3!==o4}
+function posRotulos(){var W=palco.clientWidth,H=palco.clientHeight;if(!W||!H)return;
+  var lh=leg.offsetHeight||36,lim={x:4,y:4,w:W-8,h:H-lh-14},ls=[];
+  FERRAMENTAS.forEach(function(f){var e=ESTR[f.id],a=ROT[f.id];if(!e||!a)return;tmpV.copy(e.ancora).project(cam);
+    var r=a.querySelector('.pl').getBoundingClientRect();ls.push({id:f.id,a:a,ax:(tmpV.x+1)/2*W,ay:(1-tmpV.y)/2*H,w:Math.ceil(r.width),h:Math.ceil(r.height)})});
+  var ancoras=ls.map(function(p){return {x:p.ax-5,y:p.ay-5,w:10,h:10}});
+  // a placa "?" da torre também é obstáculo: nenhum rótulo fica por cima dela
+  var obst=[];if(ESTR.ajuda){var wp=ESTR.ajuda.grupo.localToWorld(new T.Vector3(0,6.6,0)),wr=wp.clone().add(new T.Vector3(1,0,0).applyQuaternion(cam.quaternion).multiplyScalar(0.9));
+    wp.project(cam);wr.project(cam);var px=(wp.x+1)/2*W,py=(1-wp.y)/2*H,rr=Math.abs((wr.x-wp.x)/2*W)+4;obst.push({x:px-rr,y:py-rr,w:rr*2,h:rr*2})}LOBST=obst;
+  function coloca(ordem){var feitos=[],segs=[],tot=0,res={};
+    ordem.forEach(function(k){var p=ls[k],best=null,bestS=1e12;
+      [16,40,66,94,124,156].forEach(function(L){[0,-1,1,-0.5,0.5,-1.6,1.6].forEach(function(lado){[-1,1].forEach(function(dir){
+        var cx=p.ax+lado*(p.w/2+14),R={x:cx-p.w/2,y:dir<0?p.ay-L-p.h:p.ay+L,w:p.w,h:p.h};
+        if(R.x<lim.x)R.x=lim.x;if(R.x+R.w>lim.x+lim.w)R.x=lim.x+lim.w-R.w;
+        var bx=R.x+R.w/2,by=dir<0?R.y+R.h:R.y,sg={p:{x:p.ax,y:p.ay},q:{x:bx,y:by}},sc=0;
+        if(R.y<lim.y)sc+=1e6+(lim.y-R.y)*1000;if(R.y+R.h>lim.y+lim.h)sc+=1e6+(R.y+R.h-lim.y-lim.h)*1000;
+        feitos.forEach(function(o){if(cruzaR(R,o,6))sc+=1e5});
+        segs.forEach(function(o){if(segR(o.p.x,o.p.y,o.q.x,o.q.y,{x:R.x-3,y:R.y-3,w:R.w+6,h:R.h+6}))sc+=4e4});
+        feitos.forEach(function(o){if(segR(sg.p.x,sg.p.y,sg.q.x,sg.q.y,{x:o.x-2,y:o.y-2,w:o.w+4,h:o.h+4}))sc+=4e4});
+        segs.forEach(function(o){if(segSeg(sg,o))sc+=2e4});
+        ancoras.forEach(function(o,m){if(m!==k&&cruzaR(R,o,3))sc+=1e4});
+        obst.forEach(function(o){if(cruzaR(R,o,3))sc+=3e4;if(segR(sg.p.x,sg.p.y,sg.q.x,sg.q.y,o))sc+=5e3});
+        sc+=L*3+Math.abs(lado)*40+(dir>0?160:0);   // prefere linha curta, reta e para cima
+        if(sc<bestS){bestS=sc;best={R:R,sg:sg}}})})});
+      feitos.push(best.R);segs.push(best.sg);res[k]=best;tot+=bestS});
+    return {tot:tot,res:res}}
+  // testa várias ordens de escolha e fica com a melhor combinação
+  var idx=ls.map(function(_,k){return k}),ord=[idx.slice().sort(function(a,b){return ls[b].ay-ls[a].ay}),idx.slice().sort(function(a,b){return ls[a].ay-ls[b].ay}),idx.slice().sort(function(a,b){return ls[a].ax-ls[b].ax}),idx.slice().sort(function(a,b){return ls[b].ax-ls[a].ax})];
+  var sem=7;function rnd(){sem=(sem*16807)%2147483647;return sem/2147483647}
+  for(var n=0;n<36;n++){var o=idx.slice();for(var q=o.length-1;q>0;q--){var r2=Math.floor(rnd()*(q+1)),tm=o[q];o[q]=o[r2];o[r2]=tm}ord.push(o)}
+  var melhor=null;ord.forEach(function(o){var c=coloca(o);if(!melhor||c.tot<melhor.tot)melhor=c});
+  ls.forEach(function(p,k){var b=melhor.res[k];p.R=b.R;p.sg=b.sg;p.a.style.transform='translate('+Math.round(b.R.x)+'px,'+Math.round(b.R.y)+'px)'});
+  LAY=ls;desenhaLinhas()}
+function desenhaLinhas(){var h='';LAY.forEach(function(p){if(!p.sg)return;var on=p.id===atual;
+  h+='<line x1="'+p.sg.p.x.toFixed(1)+'" y1="'+p.sg.p.y.toFixed(1)+'" x2="'+p.sg.q.x.toFixed(1)+'" y2="'+p.sg.q.y.toFixed(1)+'" class="'+(on?'on':'')+'"/><circle cx="'+p.sg.p.x.toFixed(1)+'" cy="'+p.sg.p.y.toFixed(1)+'" r="4.5" class="'+(on?'on':'')+'"/>'});
+  linhas.innerHTML=h}
 
 /* =====================================================================
    8) CÂMERA ADAPTÁVEL (enquadra tudo, conforme tamanho e orientação)
@@ -232,7 +274,7 @@ function enquadra(){var W=palco.clientWidth,H=palco.clientHeight;if(!W||!H)retur
   w*=padX;h*=1+padTop;cy+=h*padTop*0.32;
   if(w/h>asp)h=w/asp;else w=h*asp;
   cam.left=cx-w/2;cam.right=cx+w/2;cam.top=cy+h/2;cam.bottom=cy-h/2;cam.updateProjectionMatrix();
-  precisa()}
+  posRotulos();precisa()}
 var ro=new ResizeObserver(enquadra);ro.observe(palco);
 
 /* =====================================================================
@@ -255,7 +297,7 @@ var visivel=true,emTela=true,sujo=true,t0=performance.now(),medidas=[],raf=0;
 function precisa(){sujo=true;if(!raf)raf=requestAnimationFrame(quadro)}
 var io=new IntersectionObserver(function(es){emTela=es[0].isIntersecting;if(emTela)precisa()},{threshold:0});io.observe(palco);
 document.addEventListener('visibilitychange',function(){visivel=!document.hidden;if(visivel)precisa()});
-var navio=ESTR.lineup.grupo,placa=ESTR.ajuda.placa;
+var navio=ESTR.lineup.grupo,placa=ESTR.ajuda.placa,placaBase=new T.Vector3(0,6.6,0),vistaDir=new T.Vector3();
 function quadro(now){raf=0;if(!visivel||!emTela)return;
   var t=(now-t0)/1000;
   if(!reduz){
@@ -263,8 +305,8 @@ function quadro(now){raf=0;if(!visivel||!emTela)return;
     navio.rotation.z=Math.sin(t*0.6)*0.006;navio.position.y=Math.sin(t*0.8)*0.04;
     lanca.rotation.y=Math.sin(t*0.25)*0.12;
   }
-  placa.quaternion.copy(cam.quaternion);
-  renderer.render(cena,cam);posRotulos();
+  placa.quaternion.copy(cam.quaternion);vistaDir.set(0,0,1).applyQuaternion(cam.quaternion);placa.position.copy(placaBase).addScaledVector(vistaDir,1.8);
+  renderer.render(cena,cam);
   // qualidade adaptativa: se ficar lento, reduz resolução e sombras
   if(medidas.length<90){medidas.push(now);if(medidas.length===90){var ms=(medidas[89]-medidas[0])/89;if(ms>30){renderer.setPixelRatio(1);sol.castShadow=false;renderer.shadowMap.enabled=false;enquadra()}}}
   sujo=false;if(!reduz)raf=requestAnimationFrame(quadro)}
@@ -274,7 +316,8 @@ function destruir(){cancelAnimationFrame(raf);ro.disconnect();io.disconnect();ge
 
 /* selos com números reais (mapa id → {n, c:'r'|'a'|''}); sem número, o selo some */
 function selos(m){FERRAMENTAS.forEach(function(f){var a=ROT[f.id];if(!a)return;var s=a.querySelector('.sl'),v=m&&m[f.id];
-  if(v&&v.n){s.hidden=false;s.textContent=v.n;s.className='sl'+(v.c?' sl-'+v.c:'');a.setAttribute('aria-label',f.nome+' ('+v.t+'): '+f.desc)}else{s.hidden=true;a.setAttribute('aria-label',f.nome+': '+f.desc)}});precisa()}
-return {selos:selos,enquadra:enquadra,destruir:destruir};
+  if(v&&v.n){s.hidden=false;s.textContent=v.n;s.className='sl'+(v.c?' sl-'+v.c:'');a.setAttribute('aria-label',f.nome+' ('+v.t+'): '+f.desc)}else{s.hidden=true;a.setAttribute('aria-label',f.nome+': '+f.desc)}});posRotulos();precisa()}
+function diagnostico(){var r=palco.getBoundingClientRect();return {W:palco.clientWidth,H:palco.clientHeight,legenda:(function(){var b=leg.getBoundingClientRect();return {x:b.left-r.left,y:b.top-r.top,w:b.width,h:b.height}})(),placa:LOBST[0]||null,rot:LAY.map(function(p){var b=p.a.querySelector('.pl').getBoundingClientRect();return {id:p.id,R:{x:b.left-r.left,y:b.top-r.top,w:b.width,h:b.height},sg:p.sg}})}}
+return {selos:selos,enquadra:enquadra,destruir:destruir,diagnostico:diagnostico};
 }};
 })();

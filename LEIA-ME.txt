@@ -570,3 +570,11 @@ CONFIGURAÇÃO (uma vez):
   Agora a descrição aparece num balão por baixo do nome, sem mover o rótulo. Perto das bordas, o balão se alinha para dentro; perto da borda de baixo, abre para cima.
 - Em telas de toque, o balão não aparece (o toque já abre a ferramenta).
 - Subir: index.html, sw.js, versao.json e ferramentas/cais.js.
+
+=== Versão 0.74.2 ===
+- Cais do Início: a descrição de cada estrutura aparece numa barra na base da cena. Nada abre por cima dos prédios.
+- Os rótulos mostram só o nome e o selo. Cada rótulo escolhe um lugar livre e tem uma linha até a estrutura. Os rótulos não ficam um sobre o outro, nem sobre a barra, nem sobre a placa "?".
+- A placa "?" da torre de controle fica sempre na frente da torre.
+- Celular: em "Navios em andamento" e nas listas em cartão, os títulos de duas linhas não ficam mais por cima do título de baixo.
+- Teste automático de sobreposição (tr109) aprovado em 7 tamanhos: 360, 390, 430, tablet, 1280, 1440 e 1920.
+- Subir: index.html, sw.js, versao.json e ferramentas/cais.js. Depois, Ctrl+F5.
