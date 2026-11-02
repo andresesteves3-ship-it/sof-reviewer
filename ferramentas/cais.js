@@ -203,7 +203,7 @@ function realca(id,on){var e=porId[id];if(!e)return;e.mats.forEach(function(m){i
    ===================================================================== */
 var ROT={};
 FERRAMENTAS.forEach(function(f){if(!ESTR[f.id])return;var a=document.createElement('a');a.className='rot';a.href=f.rota;a.dataset.f=f.id;
-  a.setAttribute('aria-label',f.nome+': '+f.desc);a.innerHTML='<span class="pl"><span class="nm">'+esc(f.nome)+'</span><span class="sl" hidden></span></span><span class="ds">'+esc(f.desc)+'</span><span class="ln" aria-hidden="true"></span>';
+  a.setAttribute('aria-label',f.nome+': '+f.desc);a.innerHTML='<span class="pl"><span class="nm">'+esc(f.nome)+'</span><span class="sl" hidden></span><span class="ds">'+esc(f.desc)+'</span></span><span class="ln" aria-hidden="true"></span>';
   a.addEventListener('mouseenter',function(){foca(f.id)});a.addEventListener('mouseleave',function(){foca(null)});a.addEventListener('focus',function(){foca(f.id)});a.addEventListener('blur',function(){foca(null)});
   camadaRot.appendChild(a);ROT[f.id]=a});
 var atual=null;
@@ -214,7 +214,7 @@ function posRotulos(){var W=palco.clientWidth,H=palco.clientHeight,lst=[];
   // evita sobreposição: empurra para cima o rótulo mais alto do par
   lst.sort(function(p,q){return q.y-p.y});
   for(var it=0;it<4;it++)for(var i=0;i<lst.length;i++)for(var j=0;j<i;j++){var A=lst[i],B=lst[j];if(Math.abs(A.x-B.x)<(A.w+B.w)/2&&Math.abs(A.y-B.y)<(A.h+B.h)/2){A.y=B.y-(A.h+B.h)/2-2}}
-  lst.forEach(function(p){var x=Math.max(p.w/2+4,Math.min(W-p.w/2-4,p.x)),y=Math.max(p.h+2,Math.min(H-4,p.y));p.a.style.transform='translate('+Math.round(x)+'px,'+Math.round(Math.max(y,p.y0))+'px) translate(-50%,-100%)';p.a.querySelector('.ln').style.height=Math.max(14,Math.round(p.y0-y+14))+'px'})}
+  lst.forEach(function(p){var x=Math.max(p.w/2+4,Math.min(W-p.w/2-4,p.x)),y=Math.max(p.h+2,Math.min(H-4,p.y));p.a.style.transform='translate('+Math.round(x)+'px,'+Math.round(Math.max(y,p.y0))+'px) translate(-50%,-100%)';p.a.classList.toggle('ds-e',x<W*0.28);p.a.classList.toggle('ds-d',x>W*0.72);p.a.classList.toggle('ds-c',Math.max(y,p.y0)>H*0.72);p.a.querySelector('.ln').style.height=Math.max(14,Math.round(p.y0-y+14))+'px'})}
 
 /* =====================================================================
    8) CÂMERA ADAPTÁVEL (enquadra tudo, conforme tamanho e orientação)

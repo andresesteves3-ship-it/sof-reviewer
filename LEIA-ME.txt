@@ -564,3 +564,9 @@ CONFIGURAÇÃO (uma vez):
 - O 3D só carrega quando o Início abre (ferramentas/three.min.js e ferramentas/cais.js, no próprio site). Pausa fora da tela e com a aba oculta. Respeita "reduzir movimento".
 - Créditos: ideia e prompt de Fellipe Mourão; ajustes de Andres Santos.
 - Subir: index.html, sw.js, versao.json, ferramentas/three.min.js e ferramentas/cais.js.
+
+=== Versão 0.74.1 ===
+- Correção: no cais do Início, ao passar o mouse, a descrição empurrava o nome do rótulo para fora da cena (ex.: Requisições no alto).
+  Agora a descrição aparece num balão por baixo do nome, sem mover o rótulo. Perto das bordas, o balão se alinha para dentro; perto da borda de baixo, abre para cima.
+- Em telas de toque, o balão não aparece (o toque já abre a ferramenta).
+- Subir: index.html, sw.js, versao.json e ferramentas/cais.js.
