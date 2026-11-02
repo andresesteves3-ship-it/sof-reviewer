@@ -578,3 +578,7 @@ CONFIGURAÇÃO (uma vez):
 - Celular: em "Navios em andamento" e nas listas em cartão, os títulos de duas linhas não ficam mais por cima do título de baixo.
 - Teste automático de sobreposição (tr109) aprovado em 7 tamanhos: 360, 390, 430, tablet, 1280, 1440 e 1920.
 - Subir: index.html, sw.js, versao.json e ferramentas/cais.js. Depois, Ctrl+F5.
+
+=== Versão 0.74.3 ===
+- Equipe: na grade dos próximos 7 dias, o turno de Analista e Gerente aparece como "Dia", no lugar de "07x17". (Na 0.72 este lugar ficou sem a troca.)
+- Subir: index.html, sw.js e versao.json. Depois, Ctrl+F5.
