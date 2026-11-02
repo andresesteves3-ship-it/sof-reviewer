@@ -554,3 +554,13 @@ CONFIGURAÇÃO (uma vez):
 - Sem internet: o painel abre com o que está salvo no computador (igual antes).
 - A segurança não muda: o banco continua exigindo acesso válido, e "Sair" apaga a sessão do computador.
 - Subir: index.html, sw.js e versao.json.
+
+=== Versão 0.74.0 — Cais 3D no Início ===
+- Início: cais portuário 3D da Triunfo como menu das ferramentas.
+  Navio → Line Up · Guindaste → Rotinas · Central do OGMO → Requisições · Prédio administrativo → Solicitações · Torre de controle → Como usar · Central documental → SOF Reviewer.
+- Rótulos com selos de números reais: navios previstos (7 dias), rotinas atrasadas, requisição que falta e solicitações pendentes. Sem pendência, sem selo.
+- Computador: pendências à esquerda e cais à direita (o cais acompanha a rolagem). Celular: Resumo → Agora no meu turno → cais → Navios em andamento.
+- Meu perfil › Preferências › "Mostrar o cais 3D no Início" (ligado por padrão). Desligado, sem WebGL ou se o 3D não carregar: volta a grade de atalhos.
+- O 3D só carrega quando o Início abre (ferramentas/three.min.js e ferramentas/cais.js, no próprio site). Pausa fora da tela e com a aba oculta. Respeita "reduzir movimento".
+- Créditos: ideia e prompt de Fellipe Mourão; ajustes de Andres Santos.
+- Subir: index.html, sw.js, versao.json, ferramentas/three.min.js e ferramentas/cais.js.
