@@ -582,3 +582,9 @@ CONFIGURAÇÃO (uma vez):
 === Versão 0.74.3 ===
 - Equipe: na grade dos próximos 7 dias, o turno de Analista e Gerente aparece como "Dia", no lugar de "07x17". (Na 0.72 este lugar ficou sem a troca.)
 - Subir: index.html, sw.js e versao.json. Depois, Ctrl+F5.
+
+=== Versão 0.75.0 ===
+- Ferramentas com ícones no lugar das siglas: Line Up = navio, Rotinas = prancheta com check, Requisições = documento, Solicitações = avião de papel, Como usar = círculo com "?", SOF Reviewer = documento com lupa.
+- Os mesmos ícones ficam na barra do celular e no menu "Mais".
+- Sem o cais 3D (preferência desligada, aparelho sem 3D ou falha ao carregar), o Início volta ao layout de antes da 0.74: uma coluna, e "Ferramentas" no fim, na largura toda.
+- Subir: index.html, sw.js e versao.json. Depois, Ctrl+F5.
