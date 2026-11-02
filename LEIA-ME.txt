@@ -588,3 +588,75 @@ CONFIGURAÇÃO (uma vez):
 - Os mesmos ícones ficam na barra do celular e no menu "Mais".
 - Sem o cais 3D (preferência desligada, aparelho sem 3D ou falha ao carregar), o Início volta ao layout de antes da 0.74: uma coluna, e "Ferramentas" no fim, na largura toda.
 - Subir: index.html, sw.js e versao.json. Depois, Ctrl+F5.
+
+=== Versão 0.76.0 ===
+- Rotinas › Requisição de Estiva marcada pelo Robô OGMO: a marcação mostra "✓ ? OGMO" com borda tracejada até alguém confirmar quem fez.
+  Toque na marcação e confirme "fui eu que fiz a requisição". O nome fica registrado ("✓ AS OGMO").
+  Quem pode confirmar: quem está de turno agora, ou quem estava de turno nas 8 horas antes de a requisição aparecer no OGMO. Analista e Gerente sempre podem.
+  Botão direito (ou toque longo no celular): "Confirmar que fui eu" ou "Tirar a confirmação". "Desmarcar" continua no mesmo menu.
+- Atualizar o SOF mostra quem analisou o SOF ("✓ AS SOF"). A Passagem de Serviço também mostra as iniciais.
+- Equipe › Acompanhamento: as marcações automáticas contam para quem fez: SOF (quem analisou), Plano B e operação ao largo (quem salvou ou enviou) e OGMO (quem confirmou).
+  Em "Req. de estiva no prazo", a requisição do OGMO usa a hora em que ela apareceu no OGMO.
+- Não precisa publicar regras novas do Firebase.
+- Subir: index.html, sw.js e versao.json. Depois, Ctrl+F5.
+
+=== Versão 0.76.1 ===
+- Correção: no aviso "dê ciente" da passagem de serviço (Início e Rotinas), o quadro mostra "Quem assume" com o nome de quem assume e o turno, igual ao PDF. Antes mostrava "Para quem assume" e só o turno.
+- Subir: index.html, sw.js e versao.json. Depois, Ctrl+F5.
+
+=== Versão 0.77.0 ===
+- Passagem de serviço em duas etapas:
+  1. "Dar ciente": registra que você recebeu. O quadro continua aberto e mostra "✓ Ciente: nome às hh:mm".
+  2. "Concluir": registra a hora e fecha o quadro. Se ainda tem pendência, o painel pergunta antes.
+- Sem Concluir, o quadro fecha no fim do turno de quem assume. No histórico fica "ciente, não concluída".
+- Histórico de passagens: "Abrir de novo" volta o quadro, enquanto o turno de quem assumiu não termina.
+- Liderança e Equipe veem a hora do ciente e a hora da conclusão. Equipe › Acompanhamento tem a coluna "Passagens concluídas".
+- O ciente de uma pessoa vale para todos que assumem. O Concluir também.
+- Não precisa publicar regras novas do Firebase.
+- Subir: index.html, sw.js e versao.json. Depois, Ctrl+F5.
+
+=== Versão 0.77.1 ===
+- Créditos com layout novo: logo, função e nome em duas colunas, com o cargo de cada pessoa.
+  Idealização e coordenação: Andres Santos · Apoio institucional: Fellipe Mourão · Validação operacional: Hélio Marques, Roger Macedo, Matheus Santos e Henrique Gonçalves · Módulo Cais 3D: conceito de Fellipe Mourão, ajustes de Andres Santos · Desenvolvimento: Claude (IA · Anthropic), sob direção de Andres Santos.
+- Correção: no celular, o rodapé (Créditos e Relatar problema) ficava atrás da barra de abas.
+- Subir: index.html, sw.js e versao.json. Depois, Ctrl+F5.
+
+=== Versão 0.77.2 ===
+- Descrições revisadas: cada ferramenta tem a mesma frase curta no cartão, no cais 3D e no subtítulo da tela.
+- Subtítulos das telas mais diretos. Meu perfil não diz mais "Salvo neste navegador".
+- Mensagens dos robôs no Line Up, em Requisições e no "Atualizar agora": para a equipe, sem GitHub nem detalhes técnicos; quando algo falha, a mensagem pede para avisar o administrador. Andres e Fellipe continuam a ver os detalhes técnicos.
+- Subir: index.html, sw.js e versao.json. Depois, Ctrl+F5.
+
+=== Versão 0.77.3 ===
+- Observações das telas revisadas (aprovadas no documento de revisão): Meu perfil, Line Up, Rotinas, Requisições, Solicitações, Equipe e tela de entrada.
+- Para a equipe: faixa vermelha "Requisições do OGMO atrasadas desde..." e selo do Início "Dados em dia" / "Dados atrasados". Andres e Fellipe continuam a ver o detalhe dos robôs e o link "Ver status dos robôs".
+- Rotinas: sem ligação com o banco, a equipe vê "avise o administrador"; o formulário fica só para o administrador.
+- Como usar: nova seção "Administrador: robôs e GitHub"; em Problemas comuns, "avise o administrador" leva ao Relatar problema.
+- Subir: index.html, sw.js e versao.json. Depois, Ctrl+F5.
+
+=== Versão 0.78.0 ===
+- Dobra: o trabalhador precisa estar no cadastro de TPAs. Escolha da lista (busca por nome ou matrícula no mesmo campo).
+- Nome fora do cadastro fica vermelho ("Escolha um TPA do cadastro") e a dobra não gera e-mail nem registra.
+- Não achou? "+ Incluir no cadastro" na própria lista: informe nome e matrícula; o TPA entra no cadastro e já vai para a linha.
+- Matrícula preenchida pela escolha (não se digita à mão).
+- Dobras antigas continuam como estão: ao abrir uma dobra já gravada, os trabalhadores que já estavam nela continuam aceitos.
+- Subir: index.html, sw.js e versao.json. Depois, Ctrl+F5.
+
+=== Versão 0.79.0 — Rotinas administrativas ===
+- Rotinas: novo cartão "Rotinas administrativas" no topo (não depende de navio).
+  - Solicitar Plano B (Arará e Recebimento), por período: marcado ao salvar o Plano B em Solicitações (quantidade > 0 = feito; 0 = sem operação).
+  - Atualizar Line Up, por plantão: no início do plantão o painel guarda a planilha; cada mudança (navio novo, saiu, ETA, operação, carga, local, peso, cliente, agente, progresso) fica "a confirmar". O operador confere e confirma; o nome fica registrado. Só registra enquanto alguém está com o painel aberto.
+  - Criação da pasta do navio na rede, por plantão: janela com os navios previstos e em operação do Line Up; marque os que têm pasta. Clique de novo para incluir mais.
+  - Organizar pastas da rede, por plantão: registro em texto (pasta e documentos). Clique de novo para incluir mais.
+- Passagem de serviço (PDF), página 2: "Rotinas administrativas do turno" e "Atualizações do Line Up no turno".
+- Nova rotina única do navio: Incluir navio na planilha Dados dos Navios (grupo Documentos).
+- Banco: /painel/luhist e /painel/pastas (sem regras novas).
+- Subir: index.html, sw.js e versao.json. Depois, Ctrl+F5.
+
+=== Versão 0.80.0 ===
+- Solicitações: nova aba "Pedidos de estiva". O assistente cola o texto do e-mail ou a imagem do pedido do especialista (Adriano Melo ou Mário Zam). O painel lê navio, data, período, ternos e funções. O assistente confere, corrige e confirma. O painel registra quem confirmou.
+- A leitura de imagem (OCR) acontece no navegador. Os arquivos ficam na pasta ferramentas/ocr (uns 9 MB). Eles só baixam quando alguém lê a primeira imagem.
+- Requisições: nova coluna "Pedido": ✓ igual ao pedido, ≠ diferente (com o que falta ou sobra) ou sem pedido. Aviso no grupo do navio quando falta a requisição de um terno do pedido.
+- Sino (novo tipo "Requisição do OGMO diferente do pedido de estiva") e Resumo do turno (cartão "OGMO × pedido de estiva").
+- Banco: /solic/pedest/<id>. As regras do Firebase não mudam.
+Subir: index.html, sw.js, versao.json, LEIA-ME.txt e a pasta ferramentas/ocr inteira (5 arquivos: tesseract.min.js, worker.min.js, tesseract-core-simd-lstm.wasm.js, tesseract-core-lstm.wasm.js, por.traineddata.gz).
