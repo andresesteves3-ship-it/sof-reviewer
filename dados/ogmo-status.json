@@ -1,7 +1,30 @@
 {
- "ok": false,
- "erro": "Não achei o menu \"Requisições\" depois do login. Frames=[{\"sel\":0,\"tab\":0,\"inp\":0,\"txt\":\"Erro do Servidor 500 - Erro de servidor interno. Existe um problema com o recurso que você está procurando e ele não pode ser exibido.\"}]",
- "atualizado": "2026-11-03T22:07:27.712Z",
- "ultimoSucesso": "2026-11-03T21:09:26.305Z",
- "falhasSeguidas": 1
+ "ok": true,
+ "erro": "",
+ "atualizado": "2026-11-03T23:05:35.657Z",
+ "ultimoSucesso": "2026-11-03T23:05:35.657Z",
+ "total": 4,
+ "dias": [
+  {
+   "data": "02/11/2026",
+   "n": 0,
+   "erro": ""
+  },
+  {
+   "data": "03/11/2026",
+   "n": 0,
+   "erro": ""
+  },
+  {
+   "data": "04/11/2026",
+   "n": 4,
+   "erro": ""
+  }
+ ],
+ "diag": {
+  "frames": 1,
+  "recuperacoes": 0,
+  "reaproveitadas": 0
+ },
+ "falhasSeguidas": 0
 }
