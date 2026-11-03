@@ -1,7 +1,7 @@
 {
  "ok": false,
  "erro": "A tela \"Requisição de Trabalhadores\" não carregou. Frames=[{\"sel\":0,\"tab\":0,\"inp\":0,\"txt\":\"\"}]",
- "atualizado": "2026-11-03T20:13:11.258Z",
+ "atualizado": "2026-11-03T20:20:21.670Z",
  "ultimoSucesso": "2026-11-03T20:11:41.871Z",
- "falhasSeguidas": 1
+ "falhasSeguidas": 2
 }
