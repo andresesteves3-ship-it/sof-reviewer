@@ -1,8 +1,8 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-03T14:30:52.655Z",
- "ultimoSucesso": "2026-11-03T14:30:52.655Z",
+ "atualizado": "2026-11-03T20:26:16.407Z",
+ "ultimoSucesso": "2026-11-03T20:26:16.407Z",
  "dias": [
   {
    "data": "03/11/2026",
@@ -11,8 +11,7 @@
   },
   {
    "data": "04/11/2026",
-   "reqs": 0,
-   "escaladas": 0
+   "erro": "locator.selectOption: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('select').nth(2)\n"
   }
  ],
  "da9": [],
