@@ -1,7 +1,30 @@
 {
- "ok": false,
- "erro": "A tela \"Requisição de Trabalhadores\" não carregou. Frames=[{\"sel\":0,\"tab\":0,\"inp\":0,\"txt\":\"\"}]",
- "atualizado": "2026-11-03T20:20:21.670Z",
- "ultimoSucesso": "2026-11-03T20:11:41.871Z",
- "falhasSeguidas": 2
+ "ok": true,
+ "erro": "",
+ "atualizado": "2026-11-03T20:32:02.672Z",
+ "ultimoSucesso": "2026-11-03T20:32:02.672Z",
+ "total": 4,
+ "dias": [
+  {
+   "data": "02/11/2026",
+   "n": 0,
+   "erro": ""
+  },
+  {
+   "data": "03/11/2026",
+   "n": 0,
+   "erro": ""
+  },
+  {
+   "data": "04/11/2026",
+   "n": 4,
+   "erro": ""
+  }
+ ],
+ "diag": {
+  "frames": 1,
+  "recuperacoes": 0,
+  "reaproveitadas": 0
+ },
+ "falhasSeguidas": 0
 }
