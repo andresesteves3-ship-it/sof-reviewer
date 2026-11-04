@@ -690,3 +690,10 @@ Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
 - Cada mudança tem uma caixa (todas marcadas no início). Só as marcadas são confirmadas; as outras ficam pendentes. A rotina fica feita quando não resta nenhuma pendente.
 - Link "Ver no Line Up" em cada navio (abre o Line Up filtrado nesse navio).
 Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
+
+=== Versão 0.80.5 ===
+- Balsa: no Line Up (Manobra / Prático), no Início e na Liderança (Próxima manobra) aparece "Movimentação interna". O painel não procura a balsa na Praticagem.
+- Liderança: balsa e TBN não entram em "Manobras nas próximas 24 h".
+- Inspeção de guindaste: navios TBN não aparecem na lista nem no sino. Eles aparecem quando a planilha troca TBN pelo nome real.
+- Dobra: TBN não aparece na lista de navios sugeridos.
+Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
