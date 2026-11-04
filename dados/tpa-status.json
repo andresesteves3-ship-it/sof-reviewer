@@ -1,17 +1,18 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-03T23:19:49.926Z",
- "ultimoSucesso": "2026-11-03T23:19:49.926Z",
+ "atualizado": "2026-11-04T08:34:52.725Z",
+ "ultimoSucesso": "2026-11-04T08:34:52.725Z",
  "dias": [
   {
-   "data": "03/11/2026",
-   "reqs": 0,
+   "data": "04/11/2026",
+   "reqs": 4,
    "escaladas": 0
   },
   {
-   "data": "04/11/2026",
-   "erro": "locator.selectOption: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('select').nth(2)\n"
+   "data": "05/11/2026",
+   "reqs": 0,
+   "escaladas": 0
   }
  ],
  "da9": [],
