@@ -1,7 +1,30 @@
 {
- "ok": false,
- "erro": "locator.selectOption: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('select').nth(2)\n Frames=[{\"sel\":0,\"tab\":0,\"inp\":0,\"txt\":\"\"}]",
- "atualizado": "2026-11-04T23:49:58.984Z",
- "ultimoSucesso": "2026-11-04T23:45:30.571Z",
- "falhasSeguidas": 1
+ "ok": true,
+ "erro": "",
+ "atualizado": "2026-11-04T23:51:31.255Z",
+ "ultimoSucesso": "2026-11-04T23:51:31.255Z",
+ "total": 18,
+ "dias": [
+  {
+   "data": "03/11/2026",
+   "n": 0,
+   "erro": ""
+  },
+  {
+   "data": "04/11/2026",
+   "n": 8,
+   "erro": ""
+  },
+  {
+   "data": "05/11/2026",
+   "n": 10,
+   "erro": ""
+  }
+ ],
+ "diag": {
+  "frames": 1,
+  "recuperacoes": 1,
+  "reaproveitadas": 0
+ },
+ "falhasSeguidas": 0
 }
