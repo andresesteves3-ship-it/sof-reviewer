@@ -697,3 +697,10 @@ Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
 - Inspeção de guindaste: navios TBN não aparecem na lista nem no sino. Eles aparecem quando a planilha troca TBN pelo nome real.
 - Dobra: TBN não aparece na lista de navios sugeridos.
 Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
+
+=== Versão 0.80.6 ===
+- Balsa: a rotina diária tem "Enviar Planilha de Pagamentos · Ao Comercial" e não tem mais "Fatos Operacionais" (balsa não faz SOF nem Fatos).
+- Esqueci minha senha: a mensagem mostra o remetente (noreply@<projeto>.firebaseapp.com) e pede para conferir o Lixo eletrônico e a quarentena.
+- Pedidos de estiva: botão "+ Pedido avulso". Campos obrigatórios: navio, data, período, ternos, quem pediu e composição. Na lista aparece "pedido avulso".
+- Dobra: a requisição de balsa conta só para a balsa. O navio-mãe só aparece com requisição de navio ou frente aberta.
+Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
