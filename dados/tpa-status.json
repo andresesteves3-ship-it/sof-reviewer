@@ -1,8 +1,8 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-04T22:40:46.228Z",
- "ultimoSucesso": "2026-11-04T22:40:46.228Z",
+ "atualizado": "2026-11-04T23:20:58.161Z",
+ "ultimoSucesso": "2026-11-04T23:20:58.161Z",
  "dias": [
   {
    "data": "04/11/2026",
@@ -19,34 +19,13 @@
   {
    "req": "25053367-1",
    "data": "04/11/2026",
-   "n": 0,
-   "erro": "locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('[data-da9=\"x\"]",
-   "aviso": ""
-  },
-  {
-   "req": "25053368-1",
-   "data": "04/11/2026",
-   "n": 1,
-   "erro": "",
-   "aviso": ""
-  },
-  {
-   "req": "25053365-1",
-   "data": "04/11/2026",
    "n": 6,
-   "erro": "",
-   "aviso": ""
-  },
-  {
-   "req": "25053366-1",
-   "data": "04/11/2026",
-   "n": 1,
    "erro": "",
    "aviso": ""
   }
  ],
- "novos": 8,
- "total": 19,
+ "novos": 6,
+ "total": 25,
  "diag": {
   "da9": [
    {
