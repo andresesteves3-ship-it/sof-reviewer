@@ -1,14 +1,14 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-04T13:22:55.063Z",
- "ultimoSucesso": "2026-11-04T13:22:55.063Z",
- "total": 8,
+ "atualizado": "2026-11-04T13:34:15.823Z",
+ "ultimoSucesso": "2026-11-04T13:34:15.823Z",
+ "total": 16,
  "dias": [
   {
    "data": "03/11/2026",
    "n": 0,
-   "erro": "Perdi a tela de requisições."
+   "erro": ""
   },
   {
    "data": "04/11/2026",
@@ -17,8 +17,8 @@
   },
   {
    "data": "05/11/2026",
-   "n": 0,
-   "erro": "Perdi a tela de requisições."
+   "n": 8,
+   "erro": ""
   }
  ],
  "diag": {
