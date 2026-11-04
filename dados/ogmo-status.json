@@ -1,9 +1,9 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-04T11:29:24.779Z",
- "ultimoSucesso": "2026-11-04T11:29:24.779Z",
- "total": 10,
+ "atualizado": "2026-11-04T12:09:41.035Z",
+ "ultimoSucesso": "2026-11-04T12:09:41.035Z",
+ "total": 16,
  "dias": [
   {
    "data": "03/11/2026",
@@ -17,13 +17,13 @@
   },
   {
    "data": "05/11/2026",
-   "n": 2,
+   "n": 8,
    "erro": ""
   }
  ],
  "diag": {
   "frames": 1,
-  "recuperacoes": 0,
+  "recuperacoes": 2,
   "reaproveitadas": 0
  },
  "falhasSeguidas": 0
