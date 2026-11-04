@@ -4582,7 +4582,7 @@
    ]
   },
   "SEVEN CRUZEIRO SEVEN CRUZEIRO": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1793380654230,
@@ -4607,6 +4607,10 @@
     {
      "t": 1793733412806,
      "e": "alterada"
+    },
+    {
+     "t": 1793808767059,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -4659,7 +4663,7 @@
      "de": "TERMINAL BARDELA",
      "para": "",
      "ult": 1793791680951,
-     "st": "prevista"
+     "st": "realizada"
     }
    ]
   },
@@ -4954,7 +4958,7 @@
      "vis": 1793719788972,
      "de": "",
      "para": "TECONT3",
-     "ult": 1793791680951,
+     "ult": 1793808767059,
      "st": "prevista"
     },
     {
@@ -4964,7 +4968,7 @@
      "vis": 1793719788972,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793791680951,
+     "ult": 1793808767059,
      "st": "prevista"
     }
    ]
@@ -5699,11 +5703,15 @@
     {
      "t": 1793791680951,
      "e": "alterada"
+    },
+    {
+     "t": 1793808767059,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "04/11 13:30",
+     "pob": "04/11 13:00",
      "navio": "CMA CGM COBALT CMA CGM COBALT",
      "m": "S",
      "de": "TECONTPROLONG",
@@ -5765,13 +5773,23 @@
     },
     {
      "m": "S",
+     "pob": "04/11 13:00",
+     "ts": 1793808000000,
+     "vis": 1793808767059,
+     "de": "TECONTPROLONG",
+     "para": "",
+     "ult": 1793808767059,
+     "st": "prevista"
+    },
+    {
+     "m": "S",
      "pob": "04/11 13:30",
      "ts": 1793809800000,
      "vis": 1793791680951,
      "de": "TECONTPROLONG",
      "para": "",
      "ult": 1793791680951,
-     "st": "prevista"
+     "st": "realizada"
     },
     {
      "m": "S",
@@ -5809,11 +5827,15 @@
     {
      "t": 1793791680951,
      "e": "alterada"
+    },
+    {
+     "t": 1793808767059,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "04/11 15:30",
+     "pob": "04/11 15:00",
      "navio": "EVER FAIR EVER FAIR",
      "m": "E",
      "de": "",
@@ -5843,13 +5865,23 @@
     },
     {
      "m": "E",
+     "pob": "04/11 15:00",
+     "ts": 1793815200000,
+     "vis": 1793808767059,
+     "de": "",
+     "para": "TECONTPROLONG",
+     "ult": 1793808767059,
+     "st": "prevista"
+    },
+    {
+     "m": "E",
      "pob": "04/11 15:30",
      "ts": 1793817000000,
      "vis": 1793791680951,
      "de": "",
      "para": "TECONTPROLONG",
      "ult": 1793791680951,
-     "st": "prevista"
+     "st": "remarcada"
     },
     {
      "m": "E",
@@ -5878,7 +5910,7 @@
      "vis": 1793498478660,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793791680951,
+     "ult": 1793808767059,
      "st": "prevista"
     }
    ]
@@ -5893,17 +5925,13 @@
     {
      "t": 1793715394773,
      "e": "alterada"
+    },
+    {
+     "t": 1793808767059,
+     "e": "alterada"
     }
    ],
    "man": [
-    {
-     "pob": "04/11 10:00",
-     "navio": "CHEM SCEPTRUM CHEM SCEPTRUM",
-     "m": "E",
-     "de": "",
-     "para": "TOLEO",
-     "secao": "BAIA DE GUANABARA"
-    },
     {
      "pob": "05/11 11:00",
      "navio": "CHEM SCEPTRUM CHEM SCEPTRUM",
@@ -5933,7 +5961,7 @@
      "de": "",
      "para": "TOLEO",
      "ult": 1793791680951,
-     "st": "prevista"
+     "st": "realizada"
     },
     {
      "m": "S",
@@ -5942,7 +5970,7 @@
      "vis": 1793380654230,
      "de": "TOLEO",
      "para": "",
-     "ult": 1793791680951,
+     "ult": 1793808767059,
      "st": "prevista"
     }
    ]
@@ -5957,11 +5985,15 @@
     {
      "t": 1793791680951,
      "e": "alterada"
+    },
+    {
+     "t": 1793808767059,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "04/11 21:00",
+     "pob": "04/11 17:30",
      "navio": "YM MOBILITY YM MOBILITY",
      "m": "E",
      "de": "",
@@ -5991,13 +6023,23 @@
     },
     {
      "m": "E",
+     "pob": "04/11 17:30",
+     "ts": 1793824200000,
+     "vis": 1793808767059,
+     "de": "",
+     "para": "TECONT2",
+     "ult": 1793808767059,
+     "st": "prevista"
+    },
+    {
+     "m": "E",
      "pob": "04/11 21:00",
      "ts": 1793836800000,
      "vis": 1793791680951,
      "de": "",
      "para": "TECONT2",
      "ult": 1793791680951,
-     "st": "prevista"
+     "st": "remarcada"
     },
     {
      "m": "S",
@@ -6006,7 +6048,7 @@
      "vis": 1793380654230,
      "de": "TECONT2",
      "para": "",
-     "ult": 1793791680951,
+     "ult": 1793808767059,
      "st": "prevista"
     }
    ]
@@ -6046,7 +6088,7 @@
      "vis": 1793380654230,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793791680951,
+     "ult": 1793808767059,
      "st": "prevista"
     },
     {
@@ -6056,7 +6098,7 @@
      "vis": 1793380654230,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793791680951,
+     "ult": 1793808767059,
      "st": "prevista"
     }
    ]
@@ -6096,7 +6138,7 @@
      "vis": 1793380654230,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793791680951,
+     "ult": 1793808767059,
      "st": "prevista"
     },
     {
@@ -6106,7 +6148,7 @@
      "vis": 1793380654230,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793791680951,
+     "ult": 1793808767059,
      "st": "prevista"
     }
    ]
@@ -6146,7 +6188,7 @@
      "vis": 1793380654230,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793791680951,
+     "ult": 1793808767059,
      "st": "prevista"
     },
     {
@@ -6156,7 +6198,7 @@
      "vis": 1793380654230,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793791680951,
+     "ult": 1793808767059,
      "st": "prevista"
     }
    ]
@@ -6196,7 +6238,7 @@
      "vis": 1793380654230,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793791680951,
+     "ult": 1793808767059,
      "st": "prevista"
     },
     {
@@ -6206,7 +6248,7 @@
      "vis": 1793380654230,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793791680951,
+     "ult": 1793808767059,
      "st": "prevista"
     }
    ]
@@ -6898,7 +6940,7 @@
    ]
   },
   "ANGRA DOS REIS ANGRA DOS REIS": {
-   "est": "concluida",
+   "est": "marcada",
    "ev": [
     {
      "t": 1793461973229,
@@ -6919,15 +6961,19 @@
     {
      "t": 1793707654274,
      "e": "concluida"
+    },
+    {
+     "t": 1793808767059,
+     "e": "apareceu"
     }
    ],
    "man": [
     {
-     "pob": "03/11 08:00",
+     "pob": "04/11 16:00",
      "navio": "ANGRA DOS REIS ANGRA DOS REIS",
-     "m": "M",
-     "de": "PP-1",
-     "para": "WPT 62",
+     "m": "S",
+     "de": "WPT 62",
+     "para": "",
      "secao": "BAIA DE GUANABARA"
     }
    ],
@@ -6962,6 +7008,16 @@
      "para": "WPT 62",
      "ult": 1793704548160,
      "st": "realizada"
+    },
+    {
+     "m": "S",
+     "pob": "04/11 16:00",
+     "ts": 1793818800000,
+     "vis": 1793808767059,
+     "de": "WPT 62",
+     "para": "",
+     "ult": 1793808767059,
+     "st": "prevista"
     }
    ]
   },
@@ -7456,7 +7512,7 @@
    ]
   },
   "ITHACA ITHACA": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1793541556928,
@@ -7477,6 +7533,10 @@
     {
      "t": 1793791680951,
      "e": "alterada"
+    },
+    {
+     "t": 1793808767059,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -7539,7 +7599,7 @@
      "de": "TECONT2",
      "para": "",
      "ult": 1793791680951,
-     "st": "prevista"
+     "st": "realizada"
     }
    ]
   },
@@ -7732,7 +7792,7 @@
      "vis": 1793620136088,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793791680951,
+     "ult": 1793808767059,
      "st": "prevista"
     }
    ]
@@ -7888,7 +7948,7 @@
      "vis": 1793760591846,
      "de": "PETROBRSC2",
      "para": "",
-     "ult": 1793791680951,
+     "ult": 1793808767059,
      "st": "prevista"
     }
    ]
@@ -8034,7 +8094,7 @@
    ]
   },
   "REM SALTIRE REM SALTIRE": {
-   "est": "concluida",
+   "est": "marcada",
    "ev": [
     {
      "t": 1793628918315,
@@ -8043,15 +8103,19 @@
     {
      "t": 1793744705042,
      "e": "concluida"
+    },
+    {
+     "t": 1793808767059,
+     "e": "apareceu"
     }
    ],
    "man": [
     {
-     "pob": "03/11 17:00",
+     "pob": "04/11 20:00",
      "navio": "REM SALTIRE REM SALTIRE",
-     "m": "E",
-     "de": "",
-     "para": "AF06 OESTE",
+     "m": "S",
+     "de": "AF06 OESTE",
+     "para": "",
      "secao": "BAIA DE GUANABARA"
     }
    ],
@@ -8066,6 +8130,16 @@
      "para": "AF06 OESTE",
      "ult": 1793736498023,
      "st": "realizada"
+    },
+    {
+     "m": "S",
+     "pob": "04/11 20:00",
+     "ts": 1793833200000,
+     "vis": 1793808767059,
+     "de": "AF06 OESTE",
+     "para": "",
+     "ult": 1793808767059,
+     "st": "prevista"
     }
    ]
   },
@@ -8104,7 +8178,7 @@
      "vis": 1793632458979,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793791680951,
+     "ult": 1793808767059,
      "st": "prevista"
     },
     {
@@ -8114,7 +8188,7 @@
      "vis": 1793632458979,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793791680951,
+     "ult": 1793808767059,
      "st": "prevista"
     }
    ]
@@ -8322,7 +8396,7 @@
      "vis": 1793744705042,
      "de": "WPT 82",
      "para": "PS-2",
-     "ult": 1793791680951,
+     "ult": 1793808767059,
      "st": "prevista"
     }
    ]
@@ -8463,11 +8537,15 @@
     {
      "t": 1793733412806,
      "e": "alterada"
+    },
+    {
+     "t": 1793808767059,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "05/11 02:00",
+     "pob": "05/11 01:30",
      "navio": "FINCH ARROW FINCH ARROW",
      "m": "E",
      "de": "",
@@ -8487,13 +8565,23 @@
    "mov": [
     {
      "m": "E",
+     "pob": "05/11 01:30",
+     "ts": 1793853000000,
+     "vis": 1793808767059,
+     "de": "",
+     "para": "TECONT1",
+     "ult": 1793808767059,
+     "st": "prevista"
+    },
+    {
+     "m": "E",
      "pob": "05/11 02:00",
      "ts": 1793854800000,
      "vis": 1793733412806,
      "de": "",
      "para": "TECONT1",
      "ult": 1793791680951,
-     "st": "prevista"
+     "st": "remarcada"
     },
     {
      "m": "E",
@@ -8512,7 +8600,7 @@
      "vis": 1793719788972,
      "de": "TECONT1",
      "para": "",
-     "ult": 1793791680951,
+     "ult": 1793808767059,
      "st": "prevista"
     },
     {
@@ -8612,7 +8700,7 @@
      "vis": 1793719788972,
      "de": "",
      "para": "TECONT2",
-     "ult": 1793791680951,
+     "ult": 1793808767059,
      "st": "prevista"
     },
     {
@@ -8622,7 +8710,7 @@
      "vis": 1793719788972,
      "de": "TECONT2",
      "para": "",
-     "ult": 1793791680951,
+     "ult": 1793808767059,
      "st": "prevista"
     }
    ]
@@ -8662,7 +8750,7 @@
      "vis": 1793719788972,
      "de": "",
      "para": "TPASSAGE2",
-     "ult": 1793791680951,
+     "ult": 1793808767059,
      "st": "prevista"
     },
     {
@@ -8672,17 +8760,21 @@
      "vis": 1793719788972,
      "de": "TPASSAGE2",
      "para": "",
-     "ult": 1793791680951,
+     "ult": 1793808767059,
      "st": "prevista"
     }
    ]
   },
   "ZHONG YUAN HAI YUN JIN QU ZHONG YUAN HAI YUN JIN QU": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1793733412806,
      "e": "apareceu"
+    },
+    {
+     "t": 1793808767059,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -8705,16 +8797,20 @@
      "de": "",
      "para": "VISITA S",
      "ult": 1793791680951,
-     "st": "prevista"
+     "st": "realizada"
     }
    ]
   },
   "MAERSK KATARINA MAERSK KATARINA": {
-   "est": "marcada",
+   "est": "cancelada",
    "ev": [
     {
      "t": 1793744705042,
      "e": "apareceu"
+    },
+    {
+     "t": 1793808767059,
+     "e": "cancelada"
     }
    ],
    "man": [
@@ -8737,7 +8833,7 @@
      "de": "",
      "para": "PP-2",
      "ult": 1793791680951,
-     "st": "prevista"
+     "st": "cancelada"
     }
    ]
   },
@@ -8751,11 +8847,15 @@
     {
      "t": 1793772633961,
      "e": "alterada"
+    },
+    {
+     "t": 1793808767059,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "04/11 19:00",
+     "pob": "04/11 23:30",
      "navio": "SEVEN SUN SEVEN SUN",
      "m": "S",
      "de": "TECONT1",
@@ -8783,6 +8883,48 @@
      "de": "TECONT1",
      "para": "",
      "ult": 1793791680951,
+     "st": "remarcada"
+    },
+    {
+     "m": "S",
+     "pob": "04/11 23:30",
+     "ts": 1793845800000,
+     "vis": 1793808767059,
+     "de": "TECONT1",
+     "para": "",
+     "ult": 1793808767059,
+     "st": "prevista"
+    }
+   ]
+  },
+  "OLIVIA OLIVIA": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1793808767059,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "04/11 15:00",
+     "navio": "OLIVIA OLIVIA",
+     "m": "E",
+     "de": "",
+     "para": "FEITICEIRA - 2F03",
+     "secao": "BAIA DE GUANABARA"
+    }
+   ],
+   "nome": "OLIVIA OLIVIA",
+   "mov": [
+    {
+     "m": "E",
+     "pob": "04/11 15:00",
+     "ts": 1793815200000,
+     "vis": 1793808767059,
+     "de": "",
+     "para": "FEITICEIRA - 2F03",
+     "ult": 1793808767059,
      "st": "prevista"
     }
    ]
@@ -8790,9 +8932,9 @@
  },
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-04T11:28:00.951Z",
- "ultimoSucesso": "2026-11-04T11:28:00.951Z",
- "total": 33,
+ "atualizado": "2026-11-04T16:12:47.059Z",
+ "ultimoSucesso": "2026-11-04T16:12:47.059Z",
+ "total": 31,
  "secoes": [
   "BAIA DE GUANABARA",
   "BAIA DE SEPETIBA",
