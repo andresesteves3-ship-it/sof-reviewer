@@ -660,3 +660,20 @@ CONFIGURAÇÃO (uma vez):
 - Sino (novo tipo "Requisição do OGMO diferente do pedido de estiva") e Resumo do turno (cartão "OGMO × pedido de estiva").
 - Banco: /solic/pedest/<id>. As regras do Firebase não mudam.
 Subir: index.html, sw.js, versao.json, LEIA-ME.txt e a pasta ferramentas/ocr inteira (5 arquivos: tesseract.min.js, worker.min.js, tesseract-core-simd-lstm.wasm.js, tesseract-core-lstm.wasm.js, por.traineddata.gz).
+
+=== Versão 0.80.1 ===
+- Rotinas administrativas: a lista "Criação da pasta do navio na rede" não mostra mais as balsas. O cartão também não conta as balsas como pasta pendente.
+Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
+
+=== Versão 0.80.2 ===
+- Balsa: o OGMO escreve "BALSA X (AT. NAVIO)" e o Line Up "BALSA X (NAVIO)". O painel agora considera os dois nomes iguais. A marcação automática da requisição, o Resumo do turno, o sino e as Rotinas encontram a requisição da balsa.
+- Passagem de serviço: o fechamento usa as rotinas do próprio navio. A balsa não pede mais o SOF.
+- Passagem de serviço: a data e o turno vêm do plantão atual (não do dia aberto nas Rotinas). Se a pessoa mudar, aparece um aviso.
+- Pasta na rede: navios TBN não contam. Nova opção "Não precisa" por navio na janela.
+- Rotinas administrativas por plantão: botão direito > "Não houve necessidade" (célula N/N).
+- PDF da passagem: os navios das pastas criadas aparecem em linhas, sem corte.
+- Requisições no celular: a composição aparece em tabela (Função e Vagas), sem sobrepor o texto.
+- Line Up: navio sem número do Geport (TBI) é identificado por nome + data do ETA. Quando o ETA muda, o painel religa a frente pelo nome (linha sem frente, ETA mais perto; TBN fica fora). Some o "Não está na planilha" e a linha repetida com INICIAR.
+- Line Up: leitura da planilha durante uma edição (muito menos linhas, ou metade das frentes sem linha) não é usada. O painel mantém a leitura anterior e lê de novo em 1 minuto (no máximo 2 vezes seguidas).
+- Line Up: "Não está na planilha" só aparece depois de 2 leituras seguidas sem o navio.
+Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
