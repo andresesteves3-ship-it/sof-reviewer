@@ -4958,7 +4958,7 @@
      "vis": 1793719788972,
      "de": "",
      "para": "TECONT3",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     },
     {
@@ -4968,7 +4968,7 @@
      "vis": 1793719788972,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     }
    ]
@@ -5835,17 +5835,13 @@
     {
      "t": 1793808767059,
      "e": "alterada"
+    },
+    {
+     "t": 1793824100529,
+     "e": "alterada"
     }
    ],
    "man": [
-    {
-     "pob": "04/11 15:00",
-     "navio": "EVER FAIR EVER FAIR",
-     "m": "E",
-     "de": "",
-     "para": "TECONTPROLONG",
-     "secao": "BAIA DE GUANABARA"
-    },
     {
      "pob": "05/11 15:00",
      "navio": "EVER FAIR EVER FAIR",
@@ -5875,7 +5871,7 @@
      "de": "",
      "para": "TECONTPROLONG",
      "ult": 1793821605040,
-     "st": "prevista"
+     "st": "realizada"
     },
     {
      "m": "E",
@@ -5914,7 +5910,7 @@
      "vis": 1793498478660,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     }
    ]
@@ -5974,7 +5970,7 @@
      "vis": 1793380654230,
      "de": "TOLEO",
      "para": "",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     }
    ]
@@ -6032,7 +6028,7 @@
      "vis": 1793808767059,
      "de": "",
      "para": "TECONT2",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     },
     {
@@ -6052,7 +6048,7 @@
      "vis": 1793380654230,
      "de": "TECONT2",
      "para": "",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     }
    ]
@@ -6092,7 +6088,7 @@
      "vis": 1793380654230,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     },
     {
@@ -6102,7 +6098,7 @@
      "vis": 1793380654230,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     }
    ]
@@ -6142,7 +6138,7 @@
      "vis": 1793380654230,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     },
     {
@@ -6152,7 +6148,7 @@
      "vis": 1793380654230,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     }
    ]
@@ -6192,7 +6188,7 @@
      "vis": 1793380654230,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     },
     {
@@ -6202,7 +6198,7 @@
      "vis": 1793380654230,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     }
    ]
@@ -6242,7 +6238,7 @@
      "vis": 1793380654230,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     },
     {
@@ -6252,7 +6248,7 @@
      "vis": 1793380654230,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     }
    ]
@@ -6908,7 +6904,7 @@
    ]
   },
   "EAGLE COLOMBO EAGLE COLOMBO": {
-   "est": "concluida",
+   "est": "marcada",
    "ev": [
     {
      "t": 1793454228556,
@@ -6917,15 +6913,19 @@
     {
      "t": 1793498478660,
      "e": "concluida"
+    },
+    {
+     "t": 1793824100529,
+     "e": "apareceu"
     }
    ],
    "man": [
     {
-     "pob": "31/10 21:00",
+     "pob": "04/11 22:30",
      "navio": "EAGLE COLOMBO EAGLE COLOMBO",
-     "m": "E",
-     "de": "",
-     "para": "WPT 91",
+     "m": "S",
+     "de": "WPT 91",
+     "para": "",
      "secao": "BAIA DE GUANABARA"
     }
    ],
@@ -6940,6 +6940,16 @@
      "para": "WPT 91",
      "ult": 1793491491661,
      "st": "realizada"
+    },
+    {
+     "m": "S",
+     "pob": "04/11 22:30",
+     "ts": 1793842200000,
+     "vis": 1793824100529,
+     "de": "WPT 91",
+     "para": "",
+     "ult": 1793824100529,
+     "st": "prevista"
     }
    ]
   },
@@ -7034,7 +7044,7 @@
      "vis": 1793814328408,
      "de": "WPT 62",
      "para": "",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     }
    ]
@@ -7810,7 +7820,7 @@
      "vis": 1793620136088,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     }
    ]
@@ -7966,7 +7976,7 @@
      "vis": 1793760591846,
      "de": "PETROBRSC2",
      "para": "",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     }
    ]
@@ -8008,7 +8018,7 @@
    ]
   },
   "APOGEE ENDEAVOUR APOGEE ENDEAVOUR": {
-   "est": "concluida",
+   "est": "marcada",
    "ev": [
     {
      "t": 1793568971494,
@@ -8021,15 +8031,19 @@
     {
      "t": 1793660263360,
      "e": "concluida"
+    },
+    {
+     "t": 1793824100529,
+     "e": "apareceu"
     }
    ],
    "man": [
     {
-     "pob": "02/11 17:00",
+     "pob": "05/11 13:00",
      "navio": "APOGEE ENDEAVOUR APOGEE ENDEAVOUR",
-     "m": "E",
-     "de": "",
-     "para": "TERMTRIGO",
+     "m": "S",
+     "de": "TERMTRIGO",
+     "para": "",
      "secao": "BAIA DE GUANABARA"
     }
    ],
@@ -8054,6 +8068,16 @@
      "para": "TERMTRIGO",
      "ult": 1793657817154,
      "st": "realizada"
+    },
+    {
+     "m": "S",
+     "pob": "05/11 13:00",
+     "ts": 1793894400000,
+     "vis": 1793824100529,
+     "de": "TERMTRIGO",
+     "para": "",
+     "ult": 1793824100529,
+     "st": "prevista"
     }
    ]
   },
@@ -8125,11 +8149,15 @@
     {
      "t": 1793808767059,
      "e": "apareceu"
+    },
+    {
+     "t": 1793824100529,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "04/11 20:00",
+     "pob": "04/11 22:00",
      "navio": "REM SALTIRE REM SALTIRE",
      "m": "S",
      "de": "AF06 OESTE",
@@ -8157,6 +8185,16 @@
      "de": "AF06 OESTE",
      "para": "",
      "ult": 1793821605040,
+     "st": "remarcada"
+    },
+    {
+     "m": "S",
+     "pob": "04/11 22:00",
+     "ts": 1793840400000,
+     "vis": 1793824100529,
+     "de": "AF06 OESTE",
+     "para": "",
+     "ult": 1793824100529,
      "st": "prevista"
     }
    ]
@@ -8196,7 +8234,7 @@
      "vis": 1793632458979,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     },
     {
@@ -8206,7 +8244,7 @@
      "vis": 1793632458979,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     }
    ]
@@ -8320,7 +8358,7 @@
    ]
   },
   "EAGLE PARAIBA EAGLE PARAIBA": {
-   "est": "concluida",
+   "est": "marcada",
    "ev": [
     {
      "t": 1793654827676,
@@ -8333,15 +8371,19 @@
     {
      "t": 1793744705042,
      "e": "concluida"
+    },
+    {
+     "t": 1793824100529,
+     "e": "apareceu"
     }
    ],
    "man": [
     {
-     "pob": "03/11 15:30",
+     "pob": "05/11 07:30",
      "navio": "EAGLE PARAIBA EAGLE PARAIBA",
-     "m": "E",
-     "de": "",
-     "para": "PP-1",
+     "m": "S",
+     "de": "PP-1",
+     "para": "",
      "secao": "BAIA DE GUANABARA"
     }
    ],
@@ -8366,6 +8408,16 @@
      "para": "PP-1",
      "ult": 1793736498023,
      "st": "realizada"
+    },
+    {
+     "m": "S",
+     "pob": "05/11 07:30",
+     "ts": 1793874600000,
+     "vis": 1793824100529,
+     "de": "PP-1",
+     "para": "",
+     "ult": 1793824100529,
+     "st": "prevista"
     }
    ]
   },
@@ -8518,7 +8570,7 @@
      "vis": 1793821605040,
      "de": "WPT 92",
      "para": "",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     }
    ]
@@ -8606,7 +8658,7 @@
      "vis": 1793808767059,
      "de": "",
      "para": "TECONT1",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     },
     {
@@ -8636,7 +8688,7 @@
      "vis": 1793719788972,
      "de": "TECONT1",
      "para": "",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     },
     {
@@ -8736,7 +8788,7 @@
      "vis": 1793719788972,
      "de": "",
      "para": "TECONT2",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     },
     {
@@ -8746,7 +8798,7 @@
      "vis": 1793719788972,
      "de": "TECONT2",
      "para": "",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     }
    ]
@@ -8786,7 +8838,7 @@
      "vis": 1793719788972,
      "de": "",
      "para": "TPASSAGE2",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     },
     {
@@ -8796,7 +8848,7 @@
      "vis": 1793719788972,
      "de": "TPASSAGE2",
      "para": "",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     }
    ]
@@ -8838,7 +8890,7 @@
    ]
   },
   "MAERSK KATARINA MAERSK KATARINA": {
-   "est": "cancelada",
+   "est": "marcada",
    "ev": [
     {
      "t": 1793744705042,
@@ -8847,11 +8899,15 @@
     {
      "t": 1793808767059,
      "e": "cancelada"
+    },
+    {
+     "t": 1793824100529,
+     "e": "voltou"
     }
    ],
    "man": [
     {
-     "pob": "04/11 15:30",
+     "pob": "04/11 20:00",
      "navio": "MAERSK KATARINA MAERSK KATARINA",
      "m": "E",
      "de": "",
@@ -8870,6 +8926,16 @@
      "para": "PP-2",
      "ult": 1793791680951,
      "st": "cancelada"
+    },
+    {
+     "m": "E",
+     "pob": "04/11 20:00",
+     "ts": 1793833200000,
+     "vis": 1793824100529,
+     "de": "",
+     "para": "PP-2",
+     "ult": 1793824100529,
+     "st": "prevista"
     }
    ]
   },
@@ -8928,17 +8994,21 @@
      "vis": 1793808767059,
      "de": "TECONT1",
      "para": "",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     }
    ]
   },
   "OLIVIA OLIVIA": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1793808767059,
      "e": "apareceu"
+    },
+    {
+     "t": 1793824100529,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -8961,7 +9031,7 @@
      "de": "",
      "para": "FEITICEIRA - 2F03",
      "ult": 1793821605040,
-     "st": "prevista"
+     "st": "realizada"
     }
    ]
   },
@@ -9000,7 +9070,7 @@
      "vis": 1793814328408,
      "de": "",
      "para": "TECONT3",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     },
     {
@@ -9010,7 +9080,7 @@
      "vis": 1793814328408,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     }
    ]
@@ -9050,7 +9120,7 @@
      "vis": 1793821605040,
      "de": "",
      "para": "A6PARTE1",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
      "st": "prevista"
     },
     {
@@ -9060,7 +9130,39 @@
      "vis": 1793821605040,
      "de": "A6PARTE1",
      "para": "",
-     "ult": 1793821605040,
+     "ult": 1793824100529,
+     "st": "prevista"
+    }
+   ]
+  },
+  "SAO SEBASTIAO SAO SEBASTIAO": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1793824100529,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "05/11 09:30",
+     "navio": "SAO SEBASTIAO SAO SEBASTIAO",
+     "m": "E",
+     "de": "",
+     "para": "PP-1",
+     "secao": "BAIA DE GUANABARA"
+    }
+   ],
+   "nome": "SAO SEBASTIAO SAO SEBASTIAO",
+   "mov": [
+    {
+     "m": "E",
+     "pob": "05/11 09:30",
+     "ts": 1793881800000,
+     "vis": 1793824100529,
+     "de": "",
+     "para": "PP-1",
+     "ult": 1793824100529,
      "st": "prevista"
     }
    ]
@@ -9068,9 +9170,9 @@
  },
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-04T19:46:45.040Z",
- "ultimoSucesso": "2026-11-04T19:46:45.040Z",
- "total": 34,
+ "atualizado": "2026-11-04T20:28:20.529Z",
+ "ultimoSucesso": "2026-11-04T20:28:20.529Z",
+ "total": 37,
  "secoes": [
   "BAIA DE GUANABARA",
   "BAIA DE SEPETIBA",
