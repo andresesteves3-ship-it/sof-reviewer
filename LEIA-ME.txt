@@ -677,3 +677,9 @@ Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
 - Line Up: leitura da planilha durante uma edição (muito menos linhas, ou metade das frentes sem linha) não é usada. O painel mantém a leitura anterior e lê de novo em 1 minuto (no máximo 2 vezes seguidas).
 - Line Up: "Não está na planilha" só aparece depois de 2 leituras seguidas sem o navio.
 Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
+
+=== Versão 0.80.3 ===
+- Liderança: "Prazos de requisição" conta o navio marcado como sem operação (S/OP) ou cancelado no período como resolvido. Não aparece mais "vencido" nesses casos.
+- Liderança: "Ternos agora" mostra "sem operação" ou "cancelada" quando o período está marcado assim.
+- Conferido: sino, Resumo do turno e Início já consideravam o S/OP.
+Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
