@@ -804,3 +804,18 @@ Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
 - Operação interrompida: quando o(s) período(s) anterior(es) do navio teve(tiveram) a requisição cancelada, a requisição do próximo período aparece como "a decidir — pedir só se a operação voltar", com o prazo, e não como "falta".
 - Vale para o sino (sem aviso do Windows e sem urgência), o Resumo do turno ("1 a decidir"), o Início, a Liderança (prazos) e a passagem de serviço (tela e PDF).
 Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
+
+=== Versão 0.81.4 ===
+Pedidos de estiva repetidos (mesmo navio, dia e período):
+- Só o pedido mais novo vale. O mais antigo fica como "substituído" e não gera aviso de falta.
+- Ao gravar um pedido que já existe, o painel pergunta se deve substituir o anterior. OK apaga o anterior.
+- "Duplicar dia" faz a mesma pergunta.
+- A lista mostra "⚠ N pedido(s) repetido(s)". Clique em "ver e apagar repetidos" para apagar os antigos.
+
+=== Versão 0.82.0 ===
+Pedidos de estiva — alterar e excluir:
+- "Editar dia": abre todos os períodos do navio naquele dia. Altere e clique em "Salvar alterações". Período sem mudança não é gravado.
+- Clique no período (ex.: 07x13 ✓) para ver ou alterar só aquele período.
+- "×" ao lado do período: exclui só aquele período (pede confirmação).
+- "histórico 07x13": mostra quem alterou, quando e o que mudou (ternos, composição, período, especialista).
+- Depois de excluir, o aviso "Desfazer" fica na tela por 10 segundos.
