@@ -857,3 +857,10 @@ Robô do OGMO (scripts/ogmo.js):
 - Requisição cancelada: o robô lê só a linha e não abre a composição.
 - Status do robô: novos campos "canceladasPuladas" e "semAtualizar".
 Suba também: scripts/ogmo.js
+
+=== Versão 0.84.1 ===
+- Robôs do OGMO e do TPA (.github/workflows/ogmo.yml e tpa.yml): o robô roda dentro do pacote pronto do Playwright (imagem oficial mcr.microsoft.com/playwright:v1.49.1-noble). Saem as etapas "playwright install" e "install-deps", que às vezes levavam até 9 minutos.
+- No GitHub, a leitura agora aparece numa etapa só: "Ler (dentro do Playwright pronto)".
+- Se um dia mudar a versão do "playwright" no package.json, mude também a versão da imagem nos dois arquivos.
+- Tema escuro: o texto do botão durante a atualização ficou legível.
+Suba também: .github/workflows/ogmo.yml e .github/workflows/tpa.yml
