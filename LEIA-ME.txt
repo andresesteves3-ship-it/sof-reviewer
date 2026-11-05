@@ -755,3 +755,12 @@ Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
 === Versão 0.80.13 ===
 - Balsa: volta a ter "Enviar Produção do Navio" (ao grupo do navio). Balsa: 32 tarefas por dia. A marca antiga de Produção (antes de 05/11 07:00) vale também para o envio na balsa.
 Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
+
+=== Versão 0.80.14 ===
+- Line Up: duas linhas com a mesma identificação (ex.: dois TBN com o mesmo ETA) aparecem as duas.
+- Line Up: o painel lê a coluna "ID" da aba LINEUP. A frente guarda o ID e se liga à linha por ele primeiro (depois: número do Geport, identificação antiga, nome). Nome, ETA e número do Geport podem mudar.
+- Frente TBN ganha o nome do navio quando a planilha troca TBN pelo nome real.
+- Botão "Conferir com a planilha": cada linha da planilha e o que o painel fez (mostrada, ligada à frente, escondida por quem, concluída, não aparece) + frentes sem linha.
+- Aviso no Line Up quando uma linha não aparece, quando há ID repetido ou linha sem ID.
+- Planilha: script planilha-lineup-id.gs (Extensões > Apps Script) preenche o ID das linhas novas e corrige ID repetido. Os IDs devem ser valores, não fórmula.
+Subir: index.html, sw.js, versao.json, LEIA-ME.txt. (O .gs vai na planilha, não no GitHub.)
