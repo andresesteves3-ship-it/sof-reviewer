@@ -776,3 +776,11 @@ Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
 - Balsa: sem a barra "Únicas" no cabeçalho e sem a caixa "Rotinas únicas". "Observações do navio" fica no alto da coluna da direita, com o campo maior.
 - PDF da passagem: a balsa não mostra o bloco "Rotinas únicas do navio".
 Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
+
+=== Versão 0.81.0 ===
+- Painel ao vivo: uma conexão aberta com o Firebase (/painel). Cada mudança chega na hora em todos os computadores (Rotinas, Line Up, rotinas administrativas, observações, pastas, Equipe, pedidos de troca, comunicados, relatos).
+- Solicitações (inspeção, dobra, Plano B, largo, pedidos de estiva, TPA), Passagens e Usuários: quem grava deixa um sinal em /painel/sinais; os outros computadores recarregam só a área que mudou.
+- Rodapé: "● Ao vivo" (verde) ou "○ Atualização a cada 6 s" (âmbar, com o motivo ao passar o mouse).
+- Riscos tratados: rede caiu (reconecta em 2 s, 5 s, 15 s, 30 s, 60 s; depois a cada 5 min), sessão vence (renova o token 1 min antes e reconecta), banco renovou a sessão (auth_revoked), conexão sem sinal de vida por 75 s (reconecta), acesso negado (volta para a leitura periódica e tenta em 5 min), voltou a internet (reconecta na hora). Sem conexão ao vivo, a leitura periódica de antes continua.
+- Regras do Firebase: não mudam (/painel/sinais usa a regra de /painel/$outro).
+Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
