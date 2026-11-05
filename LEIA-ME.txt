@@ -744,3 +744,10 @@ Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
 - Períodos de antes de 05/11 07:00: a marca antiga de Produção vale também para "Enviar Produção" (sem pendência falsa). Não conta duas vezes na Equipe.
 - Passagem de serviço (tela e PDF), avisos e Resumo usam as duas rotinas.
 Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
+
+=== Versão 0.80.12 ===
+- Corrigido: por alguns minutos (a cada leitura dos pedidos) todas as requisições apareciam como "diferente do pedido" e geravam avisos. Causa: o pedido era usado antes da troca dos ternos "t1" para "1". Agora a troca acontece na leitura.
+- Pedido "composição completa" sem nenhuma função: não compara; mostra "pedido sem composição — confira o pedido".
+- A diferença só vira aviso no sino (e na passagem) se continuar na conferência seguinte (1 min ou mais depois). A coluna Pedido mostra na hora.
+- Composição vazia ou vinda da leitura anterior do OGMO: mostra "aguardando a leitura do OGMO".
+Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
