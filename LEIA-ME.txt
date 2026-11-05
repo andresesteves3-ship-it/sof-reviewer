@@ -720,3 +720,12 @@ Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
 - Lista de pedidos: botão "Duplicar" (abre uma cópia para mudar navio, período ou ternos).
 - Em "Ver" (editar pedido gravado) o período aceita um só.
 Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
+
+=== Versão 0.80.9 ===
+- Requisições > Composição: coluna "Pedido" ao lado das vagas do OGMO. A função diferente fica destacada; a função do pedido que falta no OGMO aparece como "falta na requisição".
+- Requisição diferente do pedido: botão "Tratar": Vou corrigir no OGMO (fica "em correção"; vira ✓ quando o robô ler a correção), Diferença aceita (motivo + observação; para de avisar) ou Atualizar o pedido. "Mudar tratativa" troca ou tira.
+- A tratativa vale para aquela diferença. Se a diferença mudar, o aviso volta.
+- 1 h antes do prazo da requisição, a diferença sem tratar (ou ainda em correção) vira aviso URGENTE no sino e entra em "Atenção da liderança".
+- Diferença sem tratar (ou em correção) entra na passagem de serviço como pendência.
+- Banco novo: /solic/pedtrat/<dia_requisição> (as regras do Firebase não mudam).
+Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
