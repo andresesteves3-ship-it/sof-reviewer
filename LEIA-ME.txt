@@ -835,3 +835,25 @@ Nova aba Produção:
 - Se o site não responder em 20 segundos, aparece um aviso com o link para abrir em nova janela.
 - Administração › Aba Produção: o MASTER pode trocar o endereço do site. "Voltar ao padrão" volta ao endereço original.
 - Telas de 1281 a 1500 px: o menu de cima ficou um pouco menor para caber a aba nova.
+
+=== Versão 0.83.1 ===
+Composição por terno (equipe):
+- Robô do OGMO (scripts/ogmo.js): depois de abrir a requisição, clica em cada equipe e lê a composição dela. O clique só seleciona a linha. O robô não clica na grade da composição e continua bloqueando os botões que alteram.
+- O robô só grava a composição depois que a tela atualiza (até 6 s). Se não atualizar, a equipe fica "não lida". Se a requisição não mudou, o robô usa a leitura anterior daquela equipe.
+- Requisições › Composição: uma coluna por terno, com o número do OGMO e o pedido embaixo. ≠ marca a diferença.
+- Tabela Ternos: colunas Composição e No pedido?. Terno do pedido sem equipe aparece como "Falta no OGMO".
+- A diferença diz o terno (ex.: "T2 · CMA: 1 a mais no OGMO").
+- Na 1ª leitura depois desta versão, o robô baixa de novo o PDF das requisições que tiverem mais de uma equipe (dentro do limite de PDFs por leitura).
+Suba também: scripts/ogmo.js
+
+=== Versão 0.84.0 ===
+Nova aba OGMO:
+- O site do OGMO (Requisição de Trabalhadores) abre dentro do painel, na tela de login.
+- Cada assistente entra com o próprio login. O painel não vê nem guarda a senha.
+- A aba continua aberta quando você troca de aba. Se aparecer "sessão expirada", clique em "Recarregar (volta ao login)".
+- Administração › Sites dentro do painel: o MASTER troca o endereço das abas Produção e OGMO. Use o endereço da tela de login, sem o "/EXEC" no fim.
+Robô do OGMO (scripts/ogmo.js):
+- No clique da requisição, ele espera a tela atualizar (até 6 s) em vez de 1,8 s fixos.
+- Requisição cancelada: o robô lê só a linha e não abre a composição.
+- Status do robô: novos campos "canceladasPuladas" e "semAtualizar".
+Suba também: scripts/ogmo.js

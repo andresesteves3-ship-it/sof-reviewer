@@ -40,7 +40,7 @@ function carregarAnterior() {
   try { const o = JSON.parse(fs.readFileSync(ARQ_ENC, 'utf8')); const d = decifrar(o); ANT_EM = d.geradoEm || 0;
     (d.dias || []).forEach(dia => (dia.reqs || []).forEach(r => { if (r && r.req && ((r.comp || []).length || (r.ternos || []).length) && !r.erro) ANT[r.req] = r; })); } catch (e) {}
 }
-let RECUP = 0, REUSO = 0;
+let RECUP = 0, REUSO = 0, EQUIPES = 0, CANC_PULADAS = 0, SEM_ATUALIZAR = 0;
 function gravarStatus(st) { fs.mkdirSync(DIR, { recursive: true }); fs.writeFileSync(ARQ_ST, JSON.stringify(st, null, 1) + '\n'); }
 const mascarar = t => { let r = String(t || ''); [EMPRESA, USER, PASS].filter(v => v && v.length > 2).forEach(v => { r = r.split(v).join('***'); }); return r; };
 const espera = ms => new Promise(r => setTimeout(r, ms));
@@ -88,6 +88,18 @@ const NA_PAGINA = `
       const dd = L.slice(h + 1).filter(tr => tr.children.length >= 5 && /\\d{5,}/.test(norm(tr.children[1] ? tr.children[1].innerText : '')));
       document.querySelectorAll('[data-rb]').forEach(e => e.removeAttribute('data-rb'));
       const alvo = (num && dd.find(tr => norm(tr.children[1].innerText) === num)) || dd[i]; if (!alvo) return false; alvo.children[1].setAttribute('data-rb', 'x'); return true; },
+    // v0.83.1: marca a linha i (0 = 1ª) da grade de Equipes, na coluna "Equipe". Só seleciona a linha; não altera nada.
+    marcarEquipe: (i, num) => { const t = acha(['Equipe', 'Faina 1']); if (!t) return false; const L = [].slice.call(t.querySelectorAll('tr'));
+      const h = L.findIndex(tr => [].slice.call(tr.children).some(c => norm(c.innerText).toLowerCase() === 'equipe'));
+      const dd = L.slice(h + 1).filter(tr => tr.children.length >= 2 && /^\\d+$/.test(norm(tr.children[1] ? tr.children[1].innerText : '')));
+      document.querySelectorAll('[data-rbeq]').forEach(e => e.removeAttribute('data-rbeq'));
+      const alvo = (num && dd.find(tr => norm(tr.children[1].innerText) === String(num))) || dd[i]; if (!alvo) return false; alvo.children[1].setAttribute('data-rbeq', 'x'); return true; },
+    // v0.83.1: marca a grade da composição antes do clique; depois do clique, a grade nova não tem a marca (prova que a tela atualizou)
+    marcaComp: () => { const t = acha(['Categoria', 'Função', 'Vagas']); if (!t) return false; t.setAttribute('data-rbv', '1'); [].slice.call(t.querySelectorAll('tr')).forEach(tr => tr.setAttribute('data-rbv', '1')); return true; },
+    // v0.84.0: marca também a grade de Equipes (no clique da requisição, uma das duas grades tem de atualizar)
+    marcaEq: () => { const t = acha(['Equipe', 'Faina 1']); if (!t) return false; t.setAttribute('data-rbv', '1'); [].slice.call(t.querySelectorAll('tr')).forEach(tr => tr.setAttribute('data-rbv', '1')); return true; },
+    eqMudou: () => { const t = acha(['Equipe', 'Faina 1']); if (!t) return false; if (!t.hasAttribute('data-rbv')) return true; const L = [].slice.call(t.querySelectorAll('tr')); const h = L.findIndex(tr => [].slice.call(tr.children).some(c => norm(c.innerText).toLowerCase() === 'equipe')); const D = L.slice(h + 1); return D.length > 0 && D.every(tr => !tr.hasAttribute('data-rbv')); },
+    compMudou: () => { const t = acha(['Categoria', 'Função', 'Vagas']); if (!t) return false; if (!t.hasAttribute('data-rbv')) return true; const L = [].slice.call(t.querySelectorAll('tr')); const h = L.findIndex(tr => [].slice.call(tr.children).some(c => norm(c.innerText).toLowerCase() === 'função')); const D = L.slice(h + 1); return D.length > 0 && D.every(tr => !tr.hasAttribute('data-rbv')); },
     selects: () => [].slice.call(document.querySelectorAll('select')).map((s, i) => ({ i, ops: [].slice.call(s.options).map(o => norm(o.text)) })),
     campoData: () => { const l = [].slice.call(document.querySelectorAll('input')); const i = l.findIndex(x => /^\\d{2}\\/\\d{2}\\/\\d{4}$/.test(x.value || '')); return i < 0 ? null : { i, v: l[i].value, ro: !!l[i].readOnly }; }
   };
@@ -262,18 +274,25 @@ async function lerDia(page, fr0, lbl) {
   for (let i = 0; i < linhas.length; i++) {
     const r = linhas[i];
     const req = { cancelada: r[0], req: r[1], navio: r[2], periodo: r[3], local: r[4], escalada: r[5] || '', viagem: r[6] || '', comp: [], ternos: [] };
+    // v0.84.0: requisição cancelada: o robô só lê a linha (o painel não confere requisição cancelada)
+    if (/^s/i.test(req.cancelada || '')) { req.semComp = 'cancelada'; CANC_PULADAS++; reqs.push(req); continue; }
     for (let tent = 0; tent < 3; tent++) {
       try {
         fr = await frameDaTela(page);
         if (!(await fr.evaluate(([n, num]) => window.__rb.marcar(n, num), [i, req.req]))) throw new Error('requisição não encontrada na grade');
+        await fr.evaluate(() => { window.__rb.marcaComp(); window.__rb.marcaEq(); });
         await fr.locator('[data-rb="x"]').first().click();
-        await espera(1800);
-        fr = await frameDaTela(page);
+        // v0.84.0: espera a tela atualizar a composição ou as equipes (no máximo 6 s), em vez de 1,8 s fixos
+        { let mudou = false; const fim = Date.now() + 6000; await espera(250);
+          while (Date.now() < fim) { try { fr = await frameDaTela(page); if (await fr.evaluate(() => window.__rb.compMudou() || window.__rb.eqMudou())) { mudou = true; break; } } catch (x) {} await espera(250); }
+          if (mudou) await espera(300); else SEM_ATUALIZAR++;   // sem sinal de atualização (ex.: a linha já estava selecionada): lê assim mesmo, como antes
+          fr = await frameDaTela(page); }
         const C = await fr.evaluate(() => window.__rb.composicao());
         const T = await fr.evaluate(() => window.__rb.ternos());
         req.comp = (C ? C.linhas : []).map(c => ({ cancelado: c[0], categoria: c[1], funcao: c[2], vagas: c[3] }));
         req.ternos = (T ? T.linhas : []).map(c => ({ cancelado: c[0], equipe: c[1], fainas: c.slice(2).filter(Boolean) }));
         delete req.erro;
+        fr = await lerEquipes(page, fr, req, lbl);
         // o PDF oficial só é tentado na 1ª vez (é o passo que mais derruba a tela)
         if (PDFS && tent === 0 && !/sim/i.test(req.cancelada || '')) {
           try { await pdfDaRequisicao(page, fr, req); } catch (e) { req.pdfErro = String(e.message).slice(0, 60); }
@@ -288,12 +307,45 @@ async function lerDia(page, fr0, lbl) {
     // não deu mesmo: usa a composição da leitura anterior, se a requisição for a mesma
     const a = ANT[req.req];
     if (req.erro && a && a.navio === req.navio && a.periodo === req.periodo) {
-      req.comp = a.comp || []; req.ternos = a.ternos || []; req.aviso = 'Composição da leitura anterior (' + new Date(ANT_EM).toISOString() + '); o OGMO falhou agora: ' + req.erro;
+      req.comp = a.comp || []; req.ternos = a.ternos || []; if (a.porEquipe) req.porEquipe = 1; req.aviso = 'Composição da leitura anterior (' + new Date(ANT_EM).toISOString() + '); o OGMO falhou agora: ' + req.erro;
       delete req.erro; REUSO++;
     }
     reqs.push(req);
   }
   return reqs;
+}
+
+// v0.83.1: composição de cada equipe (terno). A equipe 1 já vem selecionada quando a requisição abre: usa a composição lida.
+// Para as outras, clica na linha da equipe (só seleciona) e lê a composição. Não clica na grade da composição (lá o clique abre a edição).
+// Falhou uma equipe: usa a leitura anterior daquela equipe, se a requisição for a mesma; senão marca compErro (o painel não acusa diferença).
+async function lerEquipes(page, fr, req, lbl) {
+  req.porEquipe = 1;
+  const vivas = req.ternos.filter(t => !/^s/i.test(t.cancelado || ''));
+  req.ternos.forEach(t => { if (/^s/i.test(t.cancelado || '')) t.comp = []; });
+  if (!vivas.length) return fr;
+  vivas[0].comp = req.comp.slice();
+  const a = ANT[req.req], antEq = n => { if (!a || a.navio !== req.navio || a.periodo !== req.periodo || !a.porEquipe) return null; const x = (a.ternos || []).find(t => String(t.equipe) === String(n)); return x && Array.isArray(x.comp) && !x.compErro ? x.comp : null; };
+  for (let k = 1; k < vivas.length; k++) {
+    const t = vivas[k];
+    try {
+      if (!(await fr.evaluate(([i, n]) => window.__rb.marcarEquipe(i, n), [req.ternos.indexOf(t), t.equipe]))) throw new Error('equipe ' + t.equipe + ' não encontrada na grade');
+      await fr.evaluate(() => window.__rb.marcaComp());
+      await fr.locator('[data-rbeq="x"]').first().click();
+      // espera a tela atualizar a composição (no máximo 6 s); sem atualizar = não lida (nunca grava a composição da equipe anterior)
+      let mudou = false; const fim = Date.now() + 6000; await espera(250);
+      while (Date.now() < fim) { try { fr = await frameDaTela(page); if (await fr.evaluate(() => window.__rb.compMudou())) { mudou = true; break; } } catch (x) {} await espera(250); }
+      if (!mudou) throw new Error('a composição da equipe ' + t.equipe + ' não atualizou');
+      await espera(300); fr = await frameDaTela(page);
+      const C = await fr.evaluate(() => window.__rb.composicao());
+      t.comp = (C ? C.linhas : []).map(c => ({ cancelado: c[0], categoria: c[1], funcao: c[2], vagas: c[3] }));
+      EQUIPES++;
+    } catch (e) {
+      const ant = antEq(t.equipe);
+      if (ant) { t.comp = ant; t.compAnt = 1; REUSO++; } else t.compErro = mascarar(String(e.message)).slice(0, 60);
+      try { fr = await frameDaTela(page); } catch (x) { fr = await recuperar(page, lbl); }
+    }
+  }
+  return fr;
 }
 
 async function trocarData(page, ddmmyyyy) {
@@ -368,7 +420,7 @@ async function main() {
     if (!dias.some(d => !d.erro)) throw new Error('Nenhum dia foi lido: ' + dias.map(d => d.data + ': ' + d.erro).join(' | '));
     fs.mkdirSync(DIR, { recursive: true });
     fs.writeFileSync(ARQ_ENC, JSON.stringify({ ...cifrar({ geradoEm: Date.now(), dias }), atualizado: st.atualizado }) + '\n');
-    st = { ok: true, erro: '', atualizado: st.atualizado, ultimoSucesso: st.atualizado, total, dias: dias.map(d => ({ data: d.data, n: d.reqs.length, erro: d.erro || '' })), diag: { ...diag, recuperacoes: RECUP, reaproveitadas: REUSO } };
+    st = { ok: true, erro: '', atualizado: st.atualizado, ultimoSucesso: st.atualizado, total, dias: dias.map(d => ({ data: d.data, n: d.reqs.length, erro: d.erro || '' })), diag: { ...diag, recuperacoes: RECUP, reaproveitadas: REUSO, equipesLidas: EQUIPES, canceladasPuladas: CANC_PULADAS, semAtualizar: SEM_ATUALIZAR } };
     console.log('OK:', total, 'requisições lidas; dias:', JSON.stringify(st.dias), '(dados criptografados).');
   } catch (e) {
     let extra = '';
@@ -385,6 +437,6 @@ async function main() {
 // o robô TPA (scripts/tpa.js) reaproveita o login e a navegação deste robô
 module.exports = {
   entrar, abrirRegistro, escolherFiltros, frameDaTela, trocarData, recuperar, protegerContexto, baixar, cifrar, decifrar, mascarar, espera, resumoFrames, dm,
-  PDFBUF, usarContexto: c => { CTX = c; }, permitir: n => { PERMITIDO = String(n || '').toUpperCase(); }, bloqueado: () => BLOQUEADO
+  lerEquipes, lerDia, PDFBUF, usarContexto: c => { CTX = c; }, permitir: n => { PERMITIDO = String(n || '').toUpperCase(); }, bloqueado: () => BLOQUEADO
 };
 if (require.main === module) main();
