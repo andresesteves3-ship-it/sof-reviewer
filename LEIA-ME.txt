@@ -819,3 +819,10 @@ Pedidos de estiva — alterar e excluir:
 - "×" ao lado do período: exclui só aquele período (pede confirmação).
 - "histórico 07x13": mostra quem alterou, quando e o que mudou (ternos, composição, período, especialista).
 - Depois de excluir, o aviso "Desfazer" fica na tela por 10 segundos.
+
+=== Versão 0.82.1 ===
+Requisições × pedido de estiva — ternos:
+- O painel usa a grade de Equipes do OGMO para saber quais ternos a requisição cobre. Exemplo: a 25053384-1 com as equipes 1 a 4 cobre os ternos 1 a 4 do pedido.
+- Equipe cancelada no OGMO não conta. O painel avisa que aquele terno está sem requisição.
+- Se a grade de Equipes vier vazia, o painel usa o final do número da requisição (-1 = terno 1, -2 = terno 2).
+- A coluna Pedido mostra "Cobre: ternos 1 a 4".
