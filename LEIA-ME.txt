@@ -793,3 +793,9 @@ Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
 - Pedidos de estiva: "alterado por" e histórico por período (confirmação, alterações e tratativas de diferença).
 - Registro antigo sem nome aparece como "sem registro".
 Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
+
+=== Versão 0.81.2 ===
+- Rotinas: marcar "Atualizar Produção do Navio" não marca mais "Enviar Produção do Navio". Marca nova de Produção leva o sinal "r2".
+- A regra de transição só vale para a marca única antiga, feita antes de 04/11 22:00 e de dias anteriores a 04/11. Ela aparece no envio em cinza tracejado, "ANTIGA". Desmarcar fica gravado (não volta).
+- 04/11 e 05/11: "Enviar Produção" volta a ficar pendente onde não foi marcado. Confirmem o envio.
+Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
