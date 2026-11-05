@@ -1,65 +1,8 @@
 {
- "ok": true,
- "erro": "",
- "atualizado": "2026-11-05T20:23:40.675Z",
+ "ok": false,
+ "erro": "Não achei o menu \"Requisições\" depois do login. Frames=[{\"sel\":0,\"tab\":0,\"inp\":0,\"txt\":\"\"}]",
+ "atualizado": "2026-11-05T23:26:22.108Z",
  "ultimoSucesso": "2026-11-05T20:23:40.675Z",
- "dias": [
-  {
-   "data": "05/11/2026",
-   "reqs": 12,
-   "escaladas": 7
-  },
-  {
-   "data": "06/11/2026",
-   "erro": "Perdi a tela de requisições."
-  }
- ],
- "da9": [
-  {
-   "req": "25053373-1",
-   "data": "05/11/2026",
-   "n": 6,
-   "erro": "",
-   "aviso": ""
-  },
-  {
-   "req": "25053374-1",
-   "data": "05/11/2026",
-   "n": 1,
-   "erro": "",
-   "aviso": ""
-  },
-  {
-   "req": "25053379-1",
-   "data": "05/11/2026",
-   "n": 6,
-   "erro": "",
-   "aviso": ""
-  }
- ],
- "novos": 8,
- "total": 44,
- "diag": {
-  "da9": [
-   {
-    "tag": "A",
-    "id": "",
-    "name": "",
-    "val": "",
-    "tit": "Gera DA9 da Requisição Selecionada (Exce",
-    "vis": false,
-    "on": "return SubmitClickConfirm('IWIMAGE5','', true, '');"
-   },
-   {
-    "tag": "IMG",
-    "id": "IWIMAGE5",
-    "name": "IWIMAGE5",
-    "val": "",
-    "tit": "Gera DA9 da Requisição Selecionada (Exce",
-    "vis": true,
-    "on": ""
-   }
-  ]
- },
- "falhasSeguidas": 0
+ "diag": {},
+ "falhasSeguidas": 1
 }
