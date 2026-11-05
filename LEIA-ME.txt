@@ -771,3 +771,8 @@ Subir: index.html, sw.js, versao.json, LEIA-ME.txt. (O .gs vai na planilha, não
 - Borda vermelha com "!" quando o banco não grava. Clique para tentar de novo.
 - Corrigido: erro HTTP do banco ao gravar não era tratado.
 Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
+
+=== Versão 0.80.16 ===
+- Balsa: sem a barra "Únicas" no cabeçalho e sem a caixa "Rotinas únicas". "Observações do navio" fica no alto da coluna da direita, com o campo maior.
+- PDF da passagem: a balsa não mostra o bloco "Rotinas únicas do navio".
+Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
