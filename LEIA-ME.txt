@@ -764,3 +764,10 @@ Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
 - Aviso no Line Up quando uma linha não aparece, quando há ID repetido ou linha sem ID.
 - Planilha: script planilha-lineup-id.gs (Extensões > Apps Script) preenche o ID das linhas novas e corrige ID repetido. Os IDs devem ser valores, não fórmula.
 Subir: index.html, sw.js, versao.json, LEIA-ME.txt. (O .gs vai na planilha, não no GitHub.)
+
+=== Versão 0.80.15 ===
+- Rotinas: corrigido o caso em que a marcação voltava sozinha 1 a 2 segundos depois do clique (leitura do banco chegando no meio da gravação). O painel reaplica as gravações pendentes por cima da leitura.
+- Ponto amarelo na marcação enquanto o banco não confirma.
+- Borda vermelha com "!" quando o banco não grava. Clique para tentar de novo.
+- Corrigido: erro HTTP do banco ao gravar não era tratado.
+Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
