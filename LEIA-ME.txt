@@ -751,3 +751,7 @@ Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
 - A diferença só vira aviso no sino (e na passagem) se continuar na conferência seguinte (1 min ou mais depois). A coluna Pedido mostra na hora.
 - Composição vazia ou vinda da leitura anterior do OGMO: mostra "aguardando a leitura do OGMO".
 Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
+
+=== Versão 0.80.13 ===
+- Balsa: volta a ter "Enviar Produção do Navio" (ao grupo do navio). Balsa: 32 tarefas por dia. A marca antiga de Produção (antes de 05/11 07:00) vale também para o envio na balsa.
+Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
