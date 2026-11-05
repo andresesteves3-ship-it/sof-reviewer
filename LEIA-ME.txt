@@ -712,3 +712,11 @@ Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
 - Pedidos de estiva: composição e lista "+ Função" divididas por categoria (Estiva, Conferente, Consertador, Bloco, Capatazia).
 - Pedidos de estiva: o navio ou a balsa é escolhido da lista de frentes abertas (o nome fica igual ao das Rotinas e do OGMO). O pedido lido já vem com a frente escolhida quando o nome combina. "Outro (digitar)" para os casos fora da lista.
 Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
+
+=== Versão 0.80.8 ===
+- Pedidos de estiva: ternos (1 a 4) e períodos em botões. Terno novo copia a composição do primeiro terno.
+- Vários períodos e "Até o dia" (opcional): ao confirmar, o painel cria um pedido para cada dia e período (o botão mostra quantos).
+- Botão "Copiar o Terno 1 para os outros".
+- Lista de pedidos: botão "Duplicar" (abre uma cópia para mudar navio, período ou ternos).
+- Em "Ver" (editar pedido gravado) o período aceita um só.
+Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
