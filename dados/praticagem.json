@@ -4440,7 +4440,7 @@
      "vis": 1793867396311,
      "de": "BRASKEM",
      "para": "",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     }
    ]
@@ -4822,7 +4822,7 @@
      "vis": 1793836361255,
      "de": "",
      "para": "TECONT1",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     },
     {
@@ -4832,7 +4832,7 @@
      "vis": 1793836361255,
      "de": "TECONT1",
      "para": "",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     }
    ]
@@ -5018,7 +5018,7 @@
      "vis": 1793719788972,
      "de": "",
      "para": "TECONT3",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     },
     {
@@ -5028,7 +5028,7 @@
      "vis": 1793719788972,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     }
    ]
@@ -5210,7 +5210,7 @@
      "vis": 1793844539951,
      "de": "",
      "para": "A4",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     },
     {
@@ -5220,7 +5220,7 @@
      "vis": 1793844539951,
      "de": "A4",
      "para": "",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     }
    ]
@@ -6002,7 +6002,7 @@
      "vis": 1793498478660,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     }
    ]
@@ -6062,7 +6062,7 @@
      "vis": 1793380654230,
      "de": "TOLEO",
      "para": "",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     }
    ]
@@ -6085,11 +6085,15 @@
     {
      "t": 1793831527790,
      "e": "alterada"
+    },
+    {
+     "t": 1793882185372,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "05/11 13:00",
+     "pob": "05/11 14:00",
      "navio": "YM MOBILITY YM MOBILITY",
      "m": "S",
      "de": "TECONT2",
@@ -6137,6 +6141,16 @@
      "de": "TECONT2",
      "para": "",
      "ult": 1793868143875,
+     "st": "remarcada"
+    },
+    {
+     "m": "S",
+     "pob": "05/11 14:00",
+     "ts": 1793898000000,
+     "vis": 1793882185372,
+     "de": "TECONT2",
+     "para": "",
+     "ult": 1793882185372,
      "st": "prevista"
     }
    ]
@@ -6176,7 +6190,7 @@
      "vis": 1793380654230,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     },
     {
@@ -6186,7 +6200,7 @@
      "vis": 1793380654230,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     }
    ]
@@ -6226,7 +6240,7 @@
      "vis": 1793380654230,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     },
     {
@@ -6236,7 +6250,7 @@
      "vis": 1793380654230,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     }
    ]
@@ -6276,7 +6290,7 @@
      "vis": 1793380654230,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     },
     {
@@ -6286,7 +6300,7 @@
      "vis": 1793380654230,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     }
    ]
@@ -6326,7 +6340,7 @@
      "vis": 1793380654230,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     },
     {
@@ -6336,13 +6350,13 @@
      "vis": 1793380654230,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     }
    ]
   },
   "SEALOADER 1 SEALOADER 1": {
-   "est": "concluida",
+   "est": "marcada",
    "ev": [
     {
      "t": 1793388027400,
@@ -6355,15 +6369,19 @@
     {
      "t": 1793541556928,
      "e": "concluida"
+    },
+    {
+     "t": 1793882185372,
+     "e": "apareceu"
     }
    ],
    "man": [
     {
-     "pob": "01/11 09:00",
+     "pob": "05/11 20:30",
      "navio": "SEALOADER 1 SEALOADER 1",
-     "m": "S",
-     "de": "LARGO",
-     "para": "",
+     "m": "E",
+     "de": "",
+     "para": "LARGO",
      "secao": "BAIA DE GUANABARA"
     }
    ],
@@ -6388,6 +6406,16 @@
      "para": "",
      "ult": 1793530562309,
      "st": "realizada"
+    },
+    {
+     "m": "E",
+     "pob": "05/11 20:30",
+     "ts": 1793921400000,
+     "vis": 1793882185372,
+     "de": "",
+     "para": "LARGO",
+     "ult": 1793882185372,
+     "st": "prevista"
     }
    ]
   },
@@ -8185,11 +8213,15 @@
     {
      "t": 1793824100529,
      "e": "apareceu"
+    },
+    {
+     "t": 1793882185372,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "05/11 13:00",
+     "pob": "05/11 16:00",
      "navio": "APOGEE ENDEAVOUR APOGEE ENDEAVOUR",
      "m": "S",
      "de": "TERMTRIGO",
@@ -8227,6 +8259,16 @@
      "de": "TERMTRIGO",
      "para": "",
      "ult": 1793868143875,
+     "st": "remarcada"
+    },
+    {
+     "m": "S",
+     "pob": "05/11 16:00",
+     "ts": 1793905200000,
+     "vis": 1793882185372,
+     "de": "TERMTRIGO",
+     "para": "",
+     "ult": 1793882185372,
      "st": "prevista"
     }
    ]
@@ -8402,7 +8444,7 @@
      "vis": 1793831527790,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     },
     {
@@ -8412,7 +8454,7 @@
      "vis": 1793632458979,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     }
    ]
@@ -8598,13 +8640,13 @@
      "vis": 1793840351607,
      "de": "PP-1",
      "para": "",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     }
    ]
   },
   "SAN ANDRES IV SAN ANDRES IV": {
-   "est": "concluida",
+   "est": "marcada",
    "ev": [
     {
      "t": 1793654827676,
@@ -8621,15 +8663,19 @@
     {
      "t": 1793818718009,
      "e": "concluida"
+    },
+    {
+     "t": 1793882185372,
+     "e": "apareceu"
     }
    ],
    "man": [
     {
-     "pob": "04/11 12:30",
+     "pob": "05/11 13:00",
      "navio": "SAN ANDRES IV SAN ANDRES IV",
-     "m": "M",
-     "de": "WPT 82",
-     "para": "PS-2",
+     "m": "S",
+     "de": "PS-2",
+     "para": "",
      "secao": "BAIA DE GUANABARA"
     }
    ],
@@ -8654,6 +8700,16 @@
      "para": "PS-2",
      "ult": 1793814328408,
      "st": "realizada"
+    },
+    {
+     "m": "S",
+     "pob": "05/11 13:00",
+     "ts": 1793894400000,
+     "vis": 1793882185372,
+     "de": "PS-2",
+     "para": "",
+     "ult": 1793882185372,
+     "st": "prevista"
     }
    ]
   },
@@ -8870,7 +8926,7 @@
      "vis": 1793719788972,
      "de": "TECONT1",
      "para": "",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     },
     {
@@ -8886,7 +8942,7 @@
    ]
   },
   "SERGIO BUARQUE DE HOLANDA SERGIO BUARQUE DE HOLANDA": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1793719788972,
@@ -8903,6 +8959,10 @@
     {
      "t": 1793840351607,
      "e": "apareceu"
+    },
+    {
+     "t": 1793882185372,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -8945,7 +9005,7 @@
      "de": "WPT 61",
      "para": "",
      "ult": 1793868143875,
-     "st": "prevista"
+     "st": "realizada"
     }
    ]
   },
@@ -8984,7 +9044,7 @@
      "vis": 1793719788972,
      "de": "",
      "para": "TECONT2",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     },
     {
@@ -8994,7 +9054,7 @@
      "vis": 1793719788972,
      "de": "TECONT2",
      "para": "",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     }
    ]
@@ -9034,7 +9094,7 @@
      "vis": 1793719788972,
      "de": "",
      "para": "TPASSAGE2",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     },
     {
@@ -9044,7 +9104,7 @@
      "vis": 1793719788972,
      "de": "TPASSAGE2",
      "para": "",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     }
    ]
@@ -9296,7 +9356,7 @@
      "vis": 1793831527790,
      "de": "",
      "para": "TECONT3",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     },
     {
@@ -9316,7 +9376,7 @@
      "vis": 1793814328408,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     }
    ]
@@ -9356,7 +9416,7 @@
      "vis": 1793821605040,
      "de": "",
      "para": "A6PARTE1",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     },
     {
@@ -9366,7 +9426,7 @@
      "vis": 1793821605040,
      "de": "A6PARTE1",
      "para": "",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     }
    ]
@@ -9412,7 +9472,7 @@
      "vis": 1793840351607,
      "de": "",
      "para": "PP-1",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     }
    ]
@@ -9423,11 +9483,15 @@
     {
      "t": 1793825543563,
      "e": "apareceu"
+    },
+    {
+     "t": 1793882185372,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "05/11 18:00",
+     "pob": "05/11 23:30",
      "navio": "SEA1 DORADO SEA1 DORADO",
      "m": "E",
      "de": "",
@@ -9445,6 +9509,16 @@
      "de": "",
      "para": "BACS",
      "ult": 1793868143875,
+     "st": "remarcada"
+    },
+    {
+     "m": "E",
+     "pob": "05/11 23:30",
+     "ts": 1793932200000,
+     "vis": 1793882185372,
+     "de": "",
+     "para": "BACS",
+     "ult": 1793882185372,
      "st": "prevista"
     }
    ]
@@ -9476,7 +9550,7 @@
      "vis": 1793836361255,
      "de": "",
      "para": "BACS",
-     "ult": 1793868143875,
+     "ult": 1793882185372,
      "st": "prevista"
     }
    ]
@@ -9516,13 +9590,77 @@
      "st": "realizada"
     }
    ]
+  },
+  "WINNIPEG WINNIPEG": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1793882185372,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "05/11 16:00",
+     "navio": "WINNIPEG WINNIPEG",
+     "m": "E",
+     "de": "",
+     "para": "I COMPRIDA",
+     "secao": "BAIA DE GUANABARA"
+    }
+   ],
+   "nome": "WINNIPEG WINNIPEG",
+   "mov": [
+    {
+     "m": "E",
+     "pob": "05/11 16:00",
+     "ts": 1793905200000,
+     "vis": 1793882185372,
+     "de": "",
+     "para": "I COMPRIDA",
+     "ult": 1793882185372,
+     "st": "prevista"
+    }
+   ]
+  },
+  "OBI ISLAND OBI ISLAND": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1793882185372,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "05/11 19:00",
+     "navio": "OBI ISLAND OBI ISLAND",
+     "m": "E",
+     "de": "",
+     "para": "PÁTIO 8/9",
+     "secao": "BAIA DE GUANABARA"
+    }
+   ],
+   "nome": "OBI ISLAND OBI ISLAND",
+   "mov": [
+    {
+     "m": "E",
+     "pob": "05/11 19:00",
+     "ts": 1793916000000,
+     "vis": 1793882185372,
+     "de": "",
+     "para": "PÁTIO 8/9",
+     "ult": 1793882185372,
+     "st": "prevista"
+    }
+   ]
   }
  },
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-05T08:42:23.875Z",
- "ultimoSucesso": "2026-11-05T08:42:23.875Z",
- "total": 35,
+ "atualizado": "2026-11-05T12:36:25.372Z",
+ "ultimoSucesso": "2026-11-05T12:36:25.372Z",
+ "total": 38,
  "secoes": [
   "BAIA DE GUANABARA",
   "BAIA DE SEPETIBA",
