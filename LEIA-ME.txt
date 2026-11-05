@@ -826,3 +826,12 @@ Requisições × pedido de estiva — ternos:
 - Equipe cancelada no OGMO não conta. O painel avisa que aquele terno está sem requisição.
 - Se a grade de Equipes vier vazia, o painel usa o final do número da requisição (-1 = terno 1, -2 = terno 2).
 - A coluna Pedido mostra "Cobre: ternos 1 a 4".
+
+=== Versão 0.83.0 ===
+Nova aba Produção:
+- O Painel Operacional (TPS) abre dentro do painel. Navegue no site sem sair do painel.
+- O site carrega na primeira vez que você abre a aba. Quando você troca de aba e volta, ele continua onde estava.
+- "Recarregar" abre o site de novo. "Abrir em nova janela" abre o site em outra aba do navegador.
+- Se o site não responder em 20 segundos, aparece um aviso com o link para abrir em nova janela.
+- Administração › Aba Produção: o MASTER pode trocar o endereço do site. "Voltar ao padrão" volta ao endereço original.
+- Telas de 1281 a 1500 px: o menu de cima ficou um pouco menor para caber a aba nova.
