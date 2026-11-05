@@ -4368,7 +4368,7 @@
    ]
   },
   "COSTA DO FUTURO COSTA DO FUTURO": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1793380654230,
@@ -4389,6 +4389,10 @@
     {
      "t": 1793867396311,
      "e": "alterada"
+    },
+    {
+     "t": 1793889223018,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -4441,7 +4445,7 @@
      "de": "BRASKEM",
      "para": "",
      "ult": 1793887201960,
-     "st": "prevista"
+     "st": "realizada"
     }
    ]
   },
@@ -4822,7 +4826,7 @@
      "vis": 1793836361255,
      "de": "",
      "para": "TECONT1",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     },
     {
@@ -4832,7 +4836,7 @@
      "vis": 1793836361255,
      "de": "TECONT1",
      "para": "",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     }
    ]
@@ -5018,7 +5022,7 @@
      "vis": 1793719788972,
      "de": "",
      "para": "TECONT3",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     },
     {
@@ -5028,7 +5032,7 @@
      "vis": 1793719788972,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     }
    ]
@@ -5210,7 +5214,7 @@
      "vis": 1793844539951,
      "de": "",
      "para": "A4",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     },
     {
@@ -5220,7 +5224,7 @@
      "vis": 1793844539951,
      "de": "A4",
      "para": "",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     }
    ]
@@ -6006,7 +6010,7 @@
      "vis": 1793884497751,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     },
     {
@@ -6076,7 +6080,7 @@
      "vis": 1793380654230,
      "de": "TOLEO",
      "para": "",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     }
    ]
@@ -6164,7 +6168,7 @@
      "vis": 1793882185372,
      "de": "TECONT2",
      "para": "",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     }
    ]
@@ -6204,7 +6208,7 @@
      "vis": 1793380654230,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     },
     {
@@ -6214,7 +6218,7 @@
      "vis": 1793380654230,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     }
    ]
@@ -6254,7 +6258,7 @@
      "vis": 1793380654230,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     },
     {
@@ -6264,7 +6268,7 @@
      "vis": 1793380654230,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     }
    ]
@@ -6304,7 +6308,7 @@
      "vis": 1793380654230,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     },
     {
@@ -6314,7 +6318,7 @@
      "vis": 1793380654230,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     }
    ]
@@ -6354,7 +6358,7 @@
      "vis": 1793380654230,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     },
     {
@@ -6364,7 +6368,7 @@
      "vis": 1793380654230,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     }
    ]
@@ -6428,7 +6432,7 @@
      "vis": 1793882185372,
      "de": "",
      "para": "LARGO",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     }
    ]
@@ -8282,7 +8286,7 @@
      "vis": 1793882185372,
      "de": "TERMTRIGO",
      "para": "",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     }
    ]
@@ -8458,7 +8462,7 @@
      "vis": 1793831527790,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     },
     {
@@ -8468,7 +8472,7 @@
      "vis": 1793632458979,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     }
    ]
@@ -8726,7 +8730,7 @@
      "vis": 1793882185372,
      "de": "PS-2",
      "para": "",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     }
    ]
@@ -8944,7 +8948,7 @@
      "vis": 1793719788972,
      "de": "TECONT1",
      "para": "",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     },
     {
@@ -9062,7 +9066,7 @@
      "vis": 1793719788972,
      "de": "",
      "para": "TECONT2",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     },
     {
@@ -9072,7 +9076,7 @@
      "vis": 1793719788972,
      "de": "TECONT2",
      "para": "",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     }
    ]
@@ -9112,7 +9116,7 @@
      "vis": 1793719788972,
      "de": "",
      "para": "TPASSAGE2",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     },
     {
@@ -9122,7 +9126,7 @@
      "vis": 1793719788972,
      "de": "TPASSAGE2",
      "para": "",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     }
    ]
@@ -9374,7 +9378,7 @@
      "vis": 1793831527790,
      "de": "",
      "para": "TECONT2",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     },
     {
@@ -9394,7 +9398,7 @@
      "vis": 1793814328408,
      "de": "TECONT2",
      "para": "",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     }
    ]
@@ -9434,7 +9438,7 @@
      "vis": 1793821605040,
      "de": "",
      "para": "A6PARTE1",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     },
     {
@@ -9444,7 +9448,7 @@
      "vis": 1793821605040,
      "de": "A6PARTE1",
      "para": "",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     }
    ]
@@ -9490,7 +9494,7 @@
      "vis": 1793840351607,
      "de": "",
      "para": "PP-1",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     }
    ]
@@ -9536,7 +9540,7 @@
      "vis": 1793882185372,
      "de": "",
      "para": "BACS",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     }
    ]
@@ -9568,7 +9572,7 @@
      "vis": 1793836361255,
      "de": "",
      "para": "BACS",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     }
    ]
@@ -9636,7 +9640,7 @@
      "vis": 1793882185372,
      "de": "",
      "para": "I COMPRIDA",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     }
    ]
@@ -9668,7 +9672,7 @@
      "vis": 1793882185372,
      "de": "",
      "para": "PÁTIO 8/9",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     }
    ]
@@ -9708,7 +9712,7 @@
      "vis": 1793886545525,
      "de": "",
      "para": "TECONT3",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     },
     {
@@ -9718,7 +9722,7 @@
      "vis": 1793886545525,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
      "st": "prevista"
     }
    ]
@@ -9750,7 +9754,143 @@
      "vis": 1793887201960,
      "de": "",
      "para": "TERMTRIGO",
-     "ult": 1793887201960,
+     "ult": 1793889223018,
+     "st": "prevista"
+    }
+   ]
+  },
+  "MSC DIVINA MSC DIVINA": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1793889223018,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "15/11 07:00",
+     "navio": "MSC DIVINA MSC DIVINA",
+     "m": "E",
+     "de": "",
+     "para": "A4",
+     "secao": "BAIA DE GUANABARA"
+    },
+    {
+     "pob": "15/11 18:00",
+     "navio": "MSC DIVINA MSC DIVINA",
+     "m": "S",
+     "de": "A4",
+     "para": "",
+     "secao": "BAIA DE GUANABARA"
+    },
+    {
+     "pob": "21/11 08:00",
+     "navio": "MSC DIVINA MSC DIVINA",
+     "m": "E",
+     "de": "",
+     "para": "A4",
+     "secao": "BAIA DE GUANABARA"
+    },
+    {
+     "pob": "21/11 22:00",
+     "navio": "MSC DIVINA MSC DIVINA",
+     "m": "S",
+     "de": "A4",
+     "para": "",
+     "secao": "BAIA DE GUANABARA"
+    }
+   ],
+   "nome": "MSC DIVINA MSC DIVINA",
+   "mov": [
+    {
+     "m": "E",
+     "pob": "15/11 07:00",
+     "ts": 1794736800000,
+     "vis": 1793889223018,
+     "de": "",
+     "para": "A4",
+     "ult": 1793889223018,
+     "st": "prevista"
+    },
+    {
+     "m": "S",
+     "pob": "15/11 18:00",
+     "ts": 1794776400000,
+     "vis": 1793889223018,
+     "de": "A4",
+     "para": "",
+     "ult": 1793889223018,
+     "st": "prevista"
+    },
+    {
+     "m": "E",
+     "pob": "21/11 08:00",
+     "ts": 1795258800000,
+     "vis": 1793889223018,
+     "de": "",
+     "para": "A4",
+     "ult": 1793889223018,
+     "st": "prevista"
+    },
+    {
+     "m": "S",
+     "pob": "21/11 22:00",
+     "ts": 1795309200000,
+     "vis": 1793889223018,
+     "de": "A4",
+     "para": "",
+     "ult": 1793889223018,
+     "st": "prevista"
+    }
+   ]
+  },
+  "MSC SPLENDIDA MSC SPLENDIDA": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1793889223018,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "29/11 08:00",
+     "navio": "MSC SPLENDIDA MSC SPLENDIDA",
+     "m": "E",
+     "de": "",
+     "para": "A4",
+     "secao": "BAIA DE GUANABARA"
+    },
+    {
+     "pob": "29/11 19:00",
+     "navio": "MSC SPLENDIDA MSC SPLENDIDA",
+     "m": "S",
+     "de": "A4",
+     "para": "",
+     "secao": "BAIA DE GUANABARA"
+    }
+   ],
+   "nome": "MSC SPLENDIDA MSC SPLENDIDA",
+   "mov": [
+    {
+     "m": "E",
+     "pob": "29/11 08:00",
+     "ts": 1795950000000,
+     "vis": 1793889223018,
+     "de": "",
+     "para": "A4",
+     "ult": 1793889223018,
+     "st": "prevista"
+    },
+    {
+     "m": "S",
+     "pob": "29/11 19:00",
+     "ts": 1795989600000,
+     "vis": 1793889223018,
+     "de": "A4",
+     "para": "",
+     "ult": 1793889223018,
      "st": "prevista"
     }
    ]
@@ -9758,9 +9898,9 @@
  },
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-05T14:00:01.960Z",
- "ultimoSucesso": "2026-11-05T14:00:01.960Z",
- "total": 40,
+ "atualizado": "2026-11-05T14:33:43.018Z",
+ "ultimoSucesso": "2026-11-05T14:33:43.018Z",
+ "total": 45,
  "secoes": [
   "BAIA DE GUANABARA",
   "BAIA DE SEPETIBA",
