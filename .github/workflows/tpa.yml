@@ -15,25 +15,20 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm install --no-audit --no-fund
-      - uses: actions/cache@v4
-        id: pw
-        with:
-          path: ~/.cache/ms-playwright
-          key: pw-${{ runner.os }}-1.49.1
-      - if: steps.pw.outputs.cache-hit != 'true'
-        run: npx playwright install --with-deps chromium
-      - if: steps.pw.outputs.cache-hit == 'true'
-        run: npx playwright install-deps chromium
-      - run: node scripts/tpa.js
+      # v0.84.1: o robô roda dentro do pacote pronto do Playwright (navegador e peças do sistema já instalados).
+      # A versão da imagem tem de ser a mesma do "playwright" no package.json (1.49.1).
+      - name: Ler (dentro do Playwright pronto)
         env:
           OGMO_EMPRESA: ${{ secrets.OGMO_EMPRESA }}
           OGMO_USER: ${{ secrets.OGMO_USER }}
           OGMO_PASS: ${{ secrets.OGMO_PASS }}
           LINEUP_KEY: ${{ secrets.LINEUP_KEY }}
+        run: |
+          docker run --rm --ipc=host --user "$(id -u):$(id -g)" -e HOME=/tmp \
+            -e OGMO_EMPRESA -e OGMO_USER -e OGMO_PASS -e LINEUP_KEY \
+            -v "$GITHUB_WORKSPACE":/w -w /w \
+            mcr.microsoft.com/playwright:v1.49.1-noble \
+            bash -c "npm install --no-audit --no-fund && node scripts/tpa.js"
       - name: Salvar dados
         run: |
           git config user.name "robo-tpa"
