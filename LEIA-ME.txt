@@ -729,3 +729,11 @@ Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
 - Diferença sem tratar (ou em correção) entra na passagem de serviço como pendência.
 - Banco novo: /solic/pedtrat/<dia_requisição> (as regras do Firebase não mudam).
 Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
+
+=== Versão 0.80.10 ===
+- Line Up: a frente grava no banco a ligação com a linha da planilha (número do Geport e id da linha). Mudança de nome, de ETA ou número novo do Geport não deixam mais a frente sem linha.
+- Line Up: nomes comparados sem "BALSA", sem "AT.", sem acento e sem pontuação ("BALSA RIO PORT II (FEI YUN JIANG)" = "RIO PORT II (FEI YUN JIANG)").
+- Line Up: INICIAR avisa quando já existe frente sem linha com nome parecido. OK = ligar à frente existente; Cancelar = criar outra.
+- Line Up: botão direito na frente: "Ligar a uma linha da planilha" (frente sem linha) e "Juntar com outra frente" (copia as marcações para a frente escolhida e encerra a duplicada).
+- Pedidos de estiva: lista agrupada por navio e dia, períodos em botões coloridos (✓ igual, ≠ diferente, ○ sem requisição, … OGMO não leu). Busca, filtros (Desde ontem/Hoje/Amanhã/Tudo, situação, especialista) e contador. "Duplicar dia" e "Excluir dia". Em "Ver": Excluir e Duplicar o pedido.
+Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
