@@ -799,3 +799,8 @@ Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
 - A regra de transição só vale para a marca única antiga, feita antes de 04/11 22:00 e de dias anteriores a 04/11. Ela aparece no envio em cinza tracejado, "ANTIGA". Desmarcar fica gravado (não volta).
 - 04/11 e 05/11: "Enviar Produção" volta a ficar pendente onde não foi marcado. Confirmem o envio.
 Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
+
+=== Versão 0.81.3 ===
+- Operação interrompida: quando o(s) período(s) anterior(es) do navio teve(tiveram) a requisição cancelada, a requisição do próximo período aparece como "a decidir — pedir só se a operação voltar", com o prazo, e não como "falta".
+- Vale para o sino (sem aviso do Windows e sem urgência), o Resumo do turno ("1 a decidir"), o Início, a Liderança (prazos) e a passagem de serviço (tela e PDF).
+Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
