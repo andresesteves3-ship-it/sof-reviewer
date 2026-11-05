@@ -737,3 +737,10 @@ Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
 - Line Up: botão direito na frente: "Ligar a uma linha da planilha" (frente sem linha) e "Juntar com outra frente" (copia as marcações para a frente escolhida e encerra a duplicada).
 - Pedidos de estiva: lista agrupada por navio e dia, períodos em botões coloridos (✓ igual, ≠ diferente, ○ sem requisição, … OGMO não leu). Busca, filtros (Desde ontem/Hoje/Amanhã/Tudo, situação, especialista) e contador. "Duplicar dia" e "Excluir dia". Em "Ver": Excluir e Duplicar o pedido.
 Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
+
+=== Versão 0.80.11 ===
+- Rotinas: "Atualizar e Enviar Produção do Navio" virou "Atualizar Produção do Navio" e "Enviar Produção do Navio" (ao grupo do navio). As duas são de fechamento.
+- Balsa: só "Atualizar Produção" (28 tarefas por dia). Navio: 40 tarefas por dia.
+- Períodos de antes de 05/11 07:00: a marca antiga de Produção vale também para "Enviar Produção" (sem pendência falsa). Não conta duas vezes na Equipe.
+- Passagem de serviço (tela e PDF), avisos e Resumo usam as duas rotinas.
+Subir: index.html, sw.js, versao.json, LEIA-ME.txt.
