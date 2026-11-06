@@ -910,3 +910,9 @@ Liderança:
 
 === Versão 0.88.1 ===
 - Liderança › ⚙ Personalizar: a janela ficou mais larga (até 940 px), sem rolagem para o lado. As listas de blocos e de indicadores rolam cada uma por si, com o título fixo. No celular, as listas ficam uma embaixo da outra.
+
+=== Versão 0.88.2 ===
+Contraste (varredura com o critério WCAG em 21 telas, nos dois temas):
+- Tema escuro: INICIAR (Line Up), aba selecionada do Catálogo, aviso de nova versão, linhas amarelas da Composição, caixa "Fora da programação", títulos em vermelho, rótulos do modo "Editar a tela" e textos brancos com transparência ficaram legíveis.
+- Tema claro: o cinza dos textos de apoio passou de #8A8C91 para #66686D.
+- Ficam apagados de propósito só os botões desativados.
