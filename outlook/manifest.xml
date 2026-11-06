@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Painel dos Assistentes (Triunfo Logística) — botão "Enviar ao Painel" no Outlook. v0.89.0
+     Permissão mínima: ReadItem (lê só o e-mail aberto). Instalação: Outlook › Suplementos › Meus suplementos › Adicionar um suplemento personalizado › De uma URL (ou de um arquivo). -->
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0" xsi:type="MailApp">
+  <Id>1527f76f-344f-4764-beca-29e9dce95d6d</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>Triunfo Logística</ProviderName>
+  <DefaultLocale>pt-BR</DefaultLocale>
+  <DisplayName DefaultValue="Painel dos Assistentes"/>
+  <Description DefaultValue="Envia o e-mail aberto ao Painel dos Assistentes da Triunfo (navio, tipo, texto e imagens)."/>
+  <IconUrl DefaultValue="https://andresesteves3-ship-it.github.io/sof-reviewer/outlook/icone-64.png"/>
+  <HighResolutionIconUrl DefaultValue="https://andresesteves3-ship-it.github.io/sof-reviewer/outlook/icone-128.png"/>
+  <SupportUrl DefaultValue="https://andresesteves3-ship-it.github.io/sof-reviewer/"/>
+  <AppDomains>
+    <AppDomain>https://andresesteves3-ship-it.github.io</AppDomain>
+  </AppDomains>
+  <Hosts>
+    <Host Name="Mailbox"/>
+  </Hosts>
+  <Requirements>
+    <Sets>
+      <Set Name="Mailbox" MinVersion="1.1"/>
+    </Sets>
+  </Requirements>
+  <FormSettings>
+    <Form xsi:type="ItemRead">
+      <DesktopSettings>
+        <SourceLocation DefaultValue="https://andresesteves3-ship-it.github.io/sof-reviewer/outlook/painel.html"/>
+        <RequestedHeight>450</RequestedHeight>
+      </DesktopSettings>
+    </Form>
+  </FormSettings>
+  <Permissions>ReadItem</Permissions>
+  <Rule xsi:type="RuleCollection" Mode="Or">
+    <Rule xsi:type="ItemIs" ItemType="Message" FormType="Read"/>
+  </Rule>
+  <DisableEntityHighlighting>false</DisableEntityHighlighting>
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Requirements>
+      <bt:Sets DefaultMinVersion="1.3">
+        <bt:Set Name="Mailbox"/>
+      </bt:Sets>
+    </Requirements>
+    <Hosts>
+      <Host xsi:type="MailHost">
+        <DesktopFormFactor>
+          <ExtensionPoint xsi:type="MessageReadCommandSurface">
+            <OfficeTab id="TabDefault">
+              <Group id="grpPainelTriunfo">
+                <Label resid="lblGrupo"/>
+                <Control xsi:type="Button" id="btnEnviarPainel">
+                  <Label resid="lblBotao"/>
+                  <Supertip>
+                    <Title resid="lblBotao"/>
+                    <Description resid="dscBotao"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="ic16"/>
+                    <bt:Image size="32" resid="ic32"/>
+                    <bt:Image size="80" resid="ic80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="urlPainel"/>
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+    <Resources>
+      <bt:Images>
+        <bt:Image id="ic16" DefaultValue="https://andresesteves3-ship-it.github.io/sof-reviewer/outlook/icone-16.png"/>
+        <bt:Image id="ic32" DefaultValue="https://andresesteves3-ship-it.github.io/sof-reviewer/outlook/icone-32.png"/>
+        <bt:Image id="ic80" DefaultValue="https://andresesteves3-ship-it.github.io/sof-reviewer/outlook/icone-80.png"/>
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="urlPainel" DefaultValue="https://andresesteves3-ship-it.github.io/sof-reviewer/outlook/painel.html"/>
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="lblGrupo" DefaultValue="Triunfo"/>
+        <bt:String id="lblBotao" DefaultValue="Enviar ao Painel"/>
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="dscBotao" DefaultValue="Abre o painel lateral para enviar este e-mail ao Painel dos Assistentes (navio, tipo, texto e imagens)."/>
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>
