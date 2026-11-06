@@ -900,3 +900,10 @@ Liderança:
 - 19 indicadores para escolher: os 6 de sempre (já marcados) e 13 novos (navios chegando, ternos agora, TPAs escalados, pedido × OGMO, fora do catálogo, rotinas atrasadas, passagem sem ciente, pedidos para aprovar, relatos em aberto, equipe no turno, manobras em 24 h, ao largo e Plano B, robôs com problema). Clique no cartão para abrir a tela de origem.
 - A escolha fica salva no seu perfil (banco: /painel/lidpref) e vale em qualquer computador. "Voltar ao padrão" desfaz.
 - 📺 Modo TV: tela cheia sem menu, avisos, sino e chat; letra maior; relógio; a tela não apaga; o mouse some depois de 3 s parado. Sai com Esc ou "Sair do modo TV".
+
+=== Versão 0.88.0 ===
+Liderança:
+- 13 blocos novos: navios chegando (48 h), requisições do período atual, progresso das operações, solicitações do dia, pedido × OGMO do dia, fora do catálogo, rotinas atrasadas por navio, equipe no turno e próximos turnos, pedidos da equipe, comunicados, chat, linha do tempo do turno e robôs. Eles vêm desligados.
+- ✎ Editar a tela (computador): arraste os blocos e os cartões com o mouse; puxe a borda direita do bloco para mudar a largura (1/4, 1/3, 1/2 ou inteira); ✕ tira o bloco; "+ Adicionar bloco" coloca um bloco na tela. Clique em Salvar.
+- O "⚙ Personalizar" continua para quem prefere caixinhas e setas. No celular, os blocos ficam um embaixo do outro, na ordem escolhida.
+- A tela montada vale no modo TV.
