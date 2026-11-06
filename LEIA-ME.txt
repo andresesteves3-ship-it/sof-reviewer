@@ -943,3 +943,7 @@ Rotinas — não atendida:
 - Botão direito na PEND: "Não precisa mais" (dispensa com motivo; a célula mostra DISP).
 - "→ Passar" em cada grupo do "O que falta agora": passa várias rotinas com um motivo.
 SUBIR: index.html, sw.js e versao.json. As regras do Firebase não mudaram.
+
+=== Versão 0.91.1 ===
+- Imagem do Line Up para o WhatsApp: mostra o número da atracação ("Atracação 55585" em Em operação e "Atr. 55590" nas outras listas).
+SUBIR: index.html, sw.js e versao.json.
