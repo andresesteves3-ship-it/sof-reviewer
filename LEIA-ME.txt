@@ -932,3 +932,13 @@ COMO INSTALAR (uma vez):
   3. Cada assistente: abra aka.ms/olksideload (Outlook na web) › Meus suplementos › Adicionar um suplemento personalizado › Adicionar de uma URL. Cole o endereço do passo 2. Aceite o aviso.
   4. No primeiro uso, entre com o mesmo e-mail e senha do painel. O suplemento guarda o login no Outlook daquele computador.
   O suplemento só lê o e-mail aberto quando você clica. Ele não lê a caixa de entrada sozinho e não envia e-mails.
+
+=== Versão 0.89.1 ===
+E-mails mais legíveis:
+- O botão do Outlook lê o e-mail em HTML e mantém as quebras de linha. Tabelas viram linhas com "|".
+- A aba E-mails separa a conversa por mensagem (remetente e data em cada bloco). A assinatura fica menor e cinza.
+- Avisos legais (português, inglês e antivírus) ficam ocultos em "Aviso legal oculto". Clique para abrir.
+- "Ver o texto original" mostra o texto como chegou.
+- "Abrir como pedido de estiva" leva o texto sem os avisos legais.
+- E-mails enviados antes desta versão melhoram, mas a assinatura pode continuar colada. Para ficar perfeito, envie o e-mail de novo pelo Outlook: o painel substitui o mesmo registro.
+SUBIR: index.html, sw.js, versao.json e outlook/painel.html. O manifesto e as regras não mudaram; não precisa reinstalar o suplemento.

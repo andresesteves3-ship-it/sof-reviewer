@@ -88,7 +88,23 @@ $('login').addEventListener('submit',function(e){e.preventDefault();var u=$('lgU
 $('sair').addEventListener('click',function(){ls.d('olkFbRef');ls.d('olkU');FB.tok=null;FB.ref=null;U=null;telaLogin()});
 function perfil(){return get('painel/perfis/'+U.k+'/nome').then(function(n){if(n)U.nome=n;if(!U.nome)U.nome=U.u.split(/[._-]/).map(function(w){return w.charAt(0).toUpperCase()+w.slice(1)}).join(' ')},function(){if(!U.nome)U.nome=U.u})}
 /* ---- e-mail aberto ---- */
-function textoDoCorpo(){return new Promise(function(ok){try{IT.body.getAsync(Office.CoercionType.Text,function(r){ok(r.status==='succeeded'?String(r.value||''):'')})}catch(e){ok('')}})}
+/* corpo: lê em HTML e converte (o texto simples do Outlook perde as quebras de linha); se falhar, usa o texto simples */
+function corpoTxt(){return new Promise(function(ok){try{IT.body.getAsync(Office.CoercionType.Text,function(r){ok(r.status==='succeeded'?String(r.value||''):'')})}catch(e){ok('')}})}
+function corpoHtml(){return new Promise(function(ok){try{IT.body.getAsync(Office.CoercionType.Html,function(r){ok(r.status==='succeeded'?String(r.value||''):'')})}catch(e){ok('')}})}
+function htmlTexto(h){var d=new DOMParser().parseFromString(h,'text/html');[].forEach.call(d.querySelectorAll('style,script,head,title,meta,link,xml,template'),function(n){n.remove()});
+  var S='',BL=/^(P|DIV|H[1-6]|UL|OL|LI|TABLE|TBODY|THEAD|TR|BLOCKQUOTE|PRE|SECTION|ARTICLE|HEADER|FOOTER|ADDRESS|CENTER|DL|DT|DD|FORM|FIGURE)$/;
+  function nl(c){S=S.replace(/[ \t]+$/,'');if(c){S+=' ';return}if(S&&S.slice(-1)!=='\n')S+='\n'}
+  /* célula de tabela com 2 ou mais colunas: conteúdo em uma linha, separado por | */
+  function celula(n){if(!/^(TD|TH)$/.test(n.tagName))return false;var tr=n.parentNode;if(!tr||tr.cells&&tr.cells.length<2)return false;return !n.querySelector('table')}
+  function w(n,pre,cel){if(n.nodeType===3){var s=n.nodeValue;if(!pre){s=s.replace(/[\s ]+/g,' ');if(!S||/\n$/.test(S)||/ $/.test(S))s=s.replace(/^ /,'')}S+=s;return}
+    if(n.nodeType!==1)return;var t=n.tagName;if(t==='BR'){if(cel)nl(1);else{S=S.replace(/[ \t]+$/,'')+'\n'}return}
+    if(t==='HR'){nl();S+='———';nl();return}if(t==='IMG')return;
+    var b=BL.test(t),c=cel||celula(n);if(b)nl(cel);if(t==='LI')S+='• ';
+    [].forEach.call(n.childNodes,function(k){w(k,pre||t==='PRE',c)});
+    if(/^(TD|TH)$/.test(t)&&c&&!cel){S=S.replace(/[ \t]+$/,'')+' | '}else if(b)nl(cel)}
+  w(d.body||d.documentElement,false,false);
+  return S.split('\n').map(function(l){return l.replace(/[ \t]+/g,' ').replace(/(\s*\|\s*)+$/,'').replace(/^\s*\|\s*/,'').trim()}).join('\n').replace(/\n{3,}/g,'\n\n').trim()}
+function textoDoCorpo(){return corpoHtml().then(function(h){var t='';try{t=!h?'':/<[a-z!][\s\S]*>/i.test(h)?htmlTexto(h):h}catch(e){t=''}return t||corpoTxt()})}
 function hash(s){var b=new TextEncoder().encode(s);return crypto.subtle.digest('SHA-256',b).then(function(h){return [].map.call(new Uint8Array(h),function(x){return ('0'+x.toString(16)).slice(-2)}).join('').slice(0,16)})}
 function tipoSug(t){var s=norm(t);if(/PEDIDO|REQUISICAO TPA|TERNO|COMPOSICAO|NOME DO NAVIO/.test(s)&&/ESTIVA|TERNO|TPA|PEDIDO/.test(s))return 'pedido';
   if(/OGMO/.test(s))return 'ogmo';if(/PRATIC|MANOBRA|ATRACACAO|DESATRACA|PILOT/.test(s))return 'praticagem';if(/AGENTE|AGENCY|AGENCIA|NOR\b|NOTICE OF READINESS|ETA\b|ETB\b|ETS\b|VESSEL|M V\b|MV\b/.test(s))return 'agente';return 'outro'}
@@ -106,7 +122,7 @@ function carregaEmail(){if(!IT){$('form').hidden=true;$('semOffice').hidden=fals
     $('fNav').innerHTML='<option value="">— sem navio —</option>'+FR.map(function(f){return '<option value="'+esc(f.id)+'">'+esc(f.navio)+'</option>'}).join('')+'<option value="_outro">Outro (digitar)…</option>';
     $('fNav').value=nv?nv.id:'';$('sNav').textContent=nv?'(achei no e-mail)':'';$('fNavOutro').hidden=true;btPed();
     return hash(M.mid||M.assunto+M.recebido)}).then(function(h){M.h=h;return get('emails','&orderBy=%22mid%22&equalTo=%22'+h+'%22').catch(function(){return null})})
-  .then(function(j){var k=j&&Object.keys(j)[0];if(k){var x=j[k];$('eDup').hidden=false;$('eDup').textContent='Este e-mail já foi enviado ao painel por '+(x.por||'?')+' em '+dataTx(x.em)+'. Se enviar de novo, o painel atualiza o mesmo registro.';M.idExist=k}})}
+  .then(function(j){var k=j&&Object.keys(j)[0];if(k){var x=j[k];$('eDup').hidden=false;$('eDup').textContent='Este e-mail já foi enviado ao painel por '+(x.por||'?')+' em '+dataTx(x.em)+'. Se enviar de novo, o painel substitui o texto e as imagens do mesmo registro.';M.idExist=k}})}
 function pintaAnx(){$('cAnx').hidden=!ANX.length;var podeLer=!!(IT&&IT.getAttachmentContentAsync);
   $('eAnx').innerHTML=ANX.map(function(a,i){return '<label class="anx"><input type="checkbox" data-a="'+i+'"'+(a.img&&podeLer?(a.on?' checked':''):' disabled')+'><span>'+(a.img?'🖼 ':'📎 ')+esc(a.n)+' · '+Math.round(a.s/1024)+' KB'+(a.img&&podeLer?'':' <i class="ajuda">(só o nome)</i>')+'</span></label>'}).join('');
   $('eAnxNota').textContent=podeLer?'Imagens marcadas vão junto (reduzidas). PDF, Excel e outros entram só com o nome.':'Este Outlook não entrega o conteúdo dos anexos ao botão. Vão só os nomes.'}
