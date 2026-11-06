@@ -35,12 +35,13 @@ function decifrar(o) {
   return JSON.parse(Buffer.concat([d.update(ct.slice(0, ct.length - 16)), d.final()]).toString('utf8'));
 }
 // leitura anterior (para não perder a composição quando o OGMO falha numa requisição)
-let ANT = {}, ANT_EM = 0;
+let ANT = {}, ANT_EM = 0, ANT_DIAS = [];
 function carregarAnterior() {
-  try { const o = JSON.parse(fs.readFileSync(ARQ_ENC, 'utf8')); const d = decifrar(o); ANT_EM = d.geradoEm || 0;
+  try { const o = JSON.parse(fs.readFileSync(ARQ_ENC, 'utf8')); const d = decifrar(o); ANT_EM = d.geradoEm || 0; ANT_DIAS = d.dias || [];
     (d.dias || []).forEach(dia => (dia.reqs || []).forEach(r => { if (r && r.req && ((r.comp || []).length || (r.ternos || []).length) && !r.erro) ANT[r.req] = r; })); } catch (e) {}
 }
-let RECUP = 0, REUSO = 0, EQUIPES = 0, CANC_PULADAS = 0, SEM_ATUALIZAR = 0;
+let RECUP = 0, REUSO = 0, EQUIPES = 0, CANC_PULADAS = 0, SEM_ATUALIZAR = 0, ONTEM_REPETIDO = 0;
+const T0 = Date.now(), TEMPOS = {};
 function gravarStatus(st) { fs.mkdirSync(DIR, { recursive: true }); fs.writeFileSync(ARQ_ST, JSON.stringify(st, null, 1) + '\n'); }
 const mascarar = t => { let r = String(t || ''); [EMPRESA, USER, PASS].filter(v => v && v.length > 2).forEach(v => { r = r.split(v).join('***'); }); return r; };
 const espera = ms => new Promise(r => setTimeout(r, ms));
@@ -294,6 +295,7 @@ async function lerDia(page, fr0, lbl) {
         delete req.erro;
         fr = await lerEquipes(page, fr, req, lbl);
         // o PDF oficial só é tentado na 1ª vez (é o passo que mais derruba a tela)
+        if (!PDFS && fs.existsSync(path.join(DIR_PDF, req.req + '.enc.json'))) req.pdf = 'ok';   // v0.85.0: os PDFs vêm na 2ª etapa
         if (PDFS && tent === 0 && !/sim/i.test(req.cancelada || '')) {
           try { await pdfDaRequisicao(page, fr, req); } catch (e) { req.pdfErro = String(e.message).slice(0, 60); }
           try { fr = await frameDaTela(page); } catch (e) { fr = await recuperar(page, lbl); }
@@ -389,8 +391,13 @@ async function main() {
     const c0 = await fr.evaluate(() => window.__rb.campoData());
     const hoje = c0 ? c0.v : dm(new Date());
     const [d0, m0, y0] = hoje.split('/').map(Number);
+    TEMPOS.login = Date.now() - T0; TEMPOS.dias = {};
+    // v0.85.0: "ontem" quase não muda: lê até as 08h (Brasília) e depois a cada 3 h; nas outras leituras repete a leitura anterior
+    const hBR = new Date(Date.now() - 3 * 3600e3).getUTCHours();
+    const lerOntem = process.env.OGMO_ONTEM === '1' || hBR < 8 || hBR % 3 === 0;
     for (const off of DIAS) {
-      const dt = new Date(y0, m0 - 1, d0 + off), lbl = dm(dt);
+      const dt = new Date(y0, m0 - 1, d0 + off), lbl = dm(dt), tD = Date.now();
+      if (off < 0 && !lerOntem) { const a = ANT_DIAS.find(x => x.data === lbl && !x.erro); if (a) { dias.push(Object.assign({}, a, { anterior: 1 })); TEMPOS.dias[lbl] = 0; ONTEM_REPETIDO = 1; continue; } }
       for (let tent = 0; tent < 2; tent++) {
       try {
         { fr = await frameDaTela(page); const atual = await fr.evaluate(() => window.__rb.campoData());
@@ -400,13 +407,14 @@ async function main() {
         const cd = await fr.evaluate(() => window.__rb.campoData());
         if (!cd || cd.v !== lbl) throw new Error('a tela ficou em ' + (cd ? cd.v : '?') + ' em vez de ' + lbl);
         const reqs = await lerDia(page, fr, lbl);
-        dias.push({ data: lbl, reqs });
+        dias.push({ data: lbl, reqs, lidoEm: Date.now() });
         break;
       } catch (e) {
         if (tent === 1) { dias.push({ data: lbl, reqs: [], erro: mascarar(String(e.message)).slice(0, 120) }); break; }
         try { await recuperar(page, lbl); } catch (x) {}
       }
       }
+      if (TEMPOS.dias[lbl] == null) TEMPOS.dias[lbl] = Date.now() - tD;
     }
     const chaveD = s => s.split('/').reverse().join('');
     dias.sort((a, b) => chaveD(a.data) < chaveD(b.data) ? -1 : 1);
@@ -420,7 +428,7 @@ async function main() {
     if (!dias.some(d => !d.erro)) throw new Error('Nenhum dia foi lido: ' + dias.map(d => d.data + ': ' + d.erro).join(' | '));
     fs.mkdirSync(DIR, { recursive: true });
     fs.writeFileSync(ARQ_ENC, JSON.stringify({ ...cifrar({ geradoEm: Date.now(), dias }), atualizado: st.atualizado }) + '\n');
-    st = { ok: true, erro: '', atualizado: st.atualizado, ultimoSucesso: st.atualizado, total, dias: dias.map(d => ({ data: d.data, n: d.reqs.length, erro: d.erro || '' })), diag: { ...diag, recuperacoes: RECUP, reaproveitadas: REUSO, equipesLidas: EQUIPES, canceladasPuladas: CANC_PULADAS, semAtualizar: SEM_ATUALIZAR } };
+    st = { ok: true, erro: '', atualizado: st.atualizado, ultimoSucesso: st.atualizado, total, dias: dias.map(d => ({ data: d.data, n: d.reqs.length, erro: d.erro || '' })), diag: { ...diag, recuperacoes: RECUP, reaproveitadas: REUSO, equipesLidas: EQUIPES, canceladasPuladas: CANC_PULADAS, semAtualizar: SEM_ATUALIZAR, ontemRepetido: ONTEM_REPETIDO }, tempos: Object.assign({}, TEMPOS, { total: Date.now() - T0 }), pdfsSeparados: !PDFS };
     console.log('OK:', total, 'requisições lidas; dias:', JSON.stringify(st.dias), '(dados criptografados).');
   } catch (e) {
     let extra = '';
@@ -434,9 +442,69 @@ async function main() {
   gravarStatus(st);
 }
 
+// ---- v0.85.0: 2ª etapa (OGMO_SO_PDF=1): os dados já foram publicados; agora baixa os PDFs oficiais que mudaram ----
+async function mainPdf() {
+  const t0 = Date.now(); let st = {};
+  try { st = JSON.parse(fs.readFileSync(ARQ_ST, 'utf8')); } catch (e) {}
+  let env, d;
+  try { env = JSON.parse(fs.readFileSync(ARQ_ENC, 'utf8')); d = decifrar(env); } catch (e) { console.log('Sem dados do OGMO para os PDFs.'); return; }
+  const sigDe = r => sha(JSON.stringify([r.cancelada, r.escalada, r.local, r.periodo, r.comp, r.ternos]));
+  const tem = r => fs.existsSync(path.join(DIR_PDF, r + '.enc.json'));
+  const todos = [];
+  (d.dias || []).forEach(dia => (dia.reqs || []).forEach(r => { if (r && r.req && !/^s/i.test(r.cancelada || '') && !r.erro) todos.push({ dia: dia.data, r }); }));
+  const marcaAntes = todos.map(x => (x.r.pdf || '') + '|' + (x.r.pdfErro || '')).join(',');
+  idxNovo = {}; const fila = [];
+  todos.forEach(x => { const s = sigDe(x.r), a = idxAnt[x.r.req]; if (a && a.sig === s && tem(x.r.req)) idxNovo[x.r.req] = a; else { if (a && tem(x.r.req)) idxNovo[x.r.req] = a; x.s = s; fila.push(x); } });
+  const vez = fila.slice(0, MAX_PDFS); let feitos = 0, erros = 0, browser;
+  if (vez.length) {
+    try {
+      if (!EMPRESA || !USER || !PASS || !KEY) throw new Error('Faltam os Secrets do OGMO.');
+      browser = await chromium.launch();
+      CTX = await browser.newContext({ viewport: { width: 1500, height: 950 }, locale: 'pt-BR', acceptDownloads: true });
+      await protegerContexto(CTX);
+      CTX.on('response', async rs => { try { if (/pdf/i.test(rs.headers()['content-type'] || '')) { const b = await rs.body(); if (b && b.length > 500) PDFBUF.push(b); } } catch (e) {} });
+      const page = await CTX.newPage(); page.setDefaultTimeout(30000); page.on('dialog', dd => dd.dismiss().catch(() => {}));
+      await entrar(page); let fr = await abrirRegistro(page); await escolherFiltros(fr);
+      const porDia = {}; vez.forEach(x => { (porDia[x.dia] = porDia[x.dia] || []).push(x); });
+      for (const lbl of Object.keys(porDia)) {
+        try {
+          fr = await frameDaTela(page); let c = await fr.evaluate(() => window.__rb.campoData());
+          if (!c || c.v !== lbl) { await trocarData(page, lbl); fr = await frameDaTela(page); await escolherFiltros(fr); fr = await frameDaTela(page); c = await fr.evaluate(() => window.__rb.campoData()); }
+          if (!c || c.v !== lbl) throw new Error('não abriu o dia ' + lbl);
+        } catch (e) { erros += porDia[lbl].length; porDia[lbl].forEach(x => { x.r.pdfErro = String(e.message).slice(0, 60); }); continue; }
+        for (const x of porDia[lbl]) {
+          try {
+            fr = await frameDaTela(page);
+            if (!(await fr.evaluate(n => window.__rb.marcar(-1, n), x.r.req))) throw new Error('requisição não está mais na grade');
+            await fr.evaluate(() => { window.__rb.marcaComp(); window.__rb.marcaEq(); });
+            await fr.locator('[data-rb="x"]').first().click();
+            { const fim = Date.now() + 6000; await espera(250); while (Date.now() < fim) { try { fr = await frameDaTela(page); if (await fr.evaluate(() => window.__rb.compMudou() || window.__rb.eqMudou())) { await espera(300); break; } } catch (q) {} await espera(250); } fr = await frameDaTela(page); }
+            await guardarPdf(DIR_PDF, x.r.req, 'Requisicao-' + x.r.req + '.pdf', await baixar(page, fr, 'req'));
+            idxNovo[x.r.req] = { sig: x.s, em: Date.now() }; x.r.pdf = 'ok'; delete x.r.pdfErro; feitos++;
+          } catch (e) { erros++; x.r.pdfErro = mascarar(String(e.message)).slice(0, 60); try { await frameDaTela(page); } catch (q) {} }
+        }
+      }
+    } catch (e) { erros = vez.length - feitos; console.error('PDFs: ' + mascarar(String(e.message)).slice(0, 200)); }
+    finally { if (browser) await browser.close(); }
+  }
+  // limpeza dos PDFs de requisições que não existem mais (só se todos os dias foram lidos)
+  if (!(d.dias || []).some(x => x.erro)) { try { for (const n of fs.readdirSync(DIR_PDF)) { const k = n.replace(/\.enc\.json$/, ''); if (!todos.some(x => x.r.req === k)) fs.unlinkSync(path.join(DIR_PDF, n)); } } catch (e) {} }
+  else Object.keys(idxAnt).forEach(k => { if (!idxNovo[k] && tem(k)) idxNovo[k] = idxAnt[k]; });
+  fs.mkdirSync(DIR, { recursive: true }); fs.writeFileSync(ARQ_IDX, JSON.stringify(idxNovo) + '\n');
+  // marca nos dados quais requisições têm o PDF oficial
+  const marca = () => todos.map(x => (x.r.pdf || '') + '|' + (x.r.pdfErro || '')).join(',');
+  const antes = marcaAntes;
+  todos.forEach(x => { if (tem(x.r.req)) x.r.pdf = 'ok'; });
+  if (marca() !== antes) fs.writeFileSync(ARQ_ENC, JSON.stringify({ ...cifrar(d), atualizado: env.atualizado }) + '\n');   // só regrava se mudou
+  st.pdfs = { em: new Date().toISOString(), ms: Date.now() - t0, feitos, erros, faltam: Math.max(0, fila.length - vez.length) };
+  st.pdfsEm = st.pdfs.em;
+  gravarStatus(st);
+  console.log('PDFs: ' + feitos + ' baixado(s), ' + erros + ' erro(s), ' + st.pdfs.faltam + ' para a próxima leitura.');
+}
+
 // o robô TPA (scripts/tpa.js) reaproveita o login e a navegação deste robô
 module.exports = {
   entrar, abrirRegistro, escolherFiltros, frameDaTela, trocarData, recuperar, protegerContexto, baixar, cifrar, decifrar, mascarar, espera, resumoFrames, dm,
   lerEquipes, lerDia, PDFBUF, usarContexto: c => { CTX = c; }, permitir: n => { PERMITIDO = String(n || '').toUpperCase(); }, bloqueado: () => BLOQUEADO
 };
-if (require.main === module) main();
+if (require.main === module) { if (process.env.OGMO_SO_PDF === '1') mainPdf(); else main(); }

@@ -864,3 +864,13 @@ Suba também: scripts/ogmo.js
 - Se um dia mudar a versão do "playwright" no package.json, mude também a versão da imagem nos dois arquivos.
 - Tema escuro: o texto do botão durante a atualização ficou legível.
 Suba também: .github/workflows/ogmo.yml e .github/workflows/tpa.yml
+
+=== Versão 0.85.0 ===
+Velocidade:
+- Robô do OGMO em 2 etapas (.github/workflows/ogmo.yml): a etapa "ler" lê e publica as requisições sem os PDFs. A etapa "pdfs" vem depois e baixa só os PDFs oficiais que mudaram (até 15 por vez). As requisições aparecem no painel mais cedo. O botão "Atualizar OGMO agora" termina quando a 1ª etapa publica.
+- "Ontem" é relido até as 08h (Brasília) e depois a cada 3 h. Nas outras leituras o robô repete a leitura anterior de ontem. Em Requisições › Ontem, o painel mostra a hora dessa leitura.
+- O painel confere a cada 1 minuto, em qualquer aba, o status do robô do OGMO (arquivo pequeno). Se há leitura nova, baixa as requisições na hora.
+Medidor:
+- Administração › Desempenho (este computador): abertura do painel, carga inicial do "ao vivo" por área do banco, downloads da sessão (vezes, tamanho, tempo), tempo de desenho de cada tela e tempos do robô do OGMO (login, cada dia, equipes, PDFs). Nada vai para o banco.
+- "Copiar para enviar" copia os números em texto.
+Suba também: scripts/ogmo.js e .github/workflows/ogmo.yml
