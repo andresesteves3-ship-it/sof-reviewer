@@ -3,5 +3,13 @@
  "erro": "Não achei o menu \"Requisições\" depois do login. Frames=[{\"sel\":0,\"tab\":0,\"inp\":0,\"txt\":\"\"}]",
  "atualizado": "2026-11-06T23:02:02.128Z",
  "ultimoSucesso": "2026-11-06T22:00:04.328Z",
- "falhasSeguidas": 1
+ "falhasSeguidas": 1,
+ "pdfs": {
+  "em": "2026-11-06T23:03:24.873Z",
+  "ms": 22729,
+  "feitos": 2,
+  "erros": 0,
+  "faltam": 0
+ },
+ "pdfsEm": "2026-11-06T23:03:24.873Z"
 }
