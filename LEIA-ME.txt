@@ -874,3 +874,9 @@ Medidor:
 - Administração › Desempenho (este computador): abertura do painel, carga inicial do "ao vivo" por área do banco, downloads da sessão (vezes, tamanho, tempo), tempo de desenho de cada tela e tempos do robô do OGMO (login, cada dia, equipes, PDFs). Nada vai para o banco.
 - "Copiar para enviar" copia os números em texto.
 Suba também: scripts/ogmo.js e .github/workflows/ogmo.yml
+
+=== Versão 0.85.1 ===
+- Requisições › Catálogo: o painel confere a faina de cada equipe (terno) não cancelada com a faina do modelo do catálogo (pelo código, ex.: 3.8.4).
+- Faina 1 com código diferente ou outra faina preenchida (ex.: "00.00 - A CONFIRMAR") aparece como "⚠ Faina diferente do catálogo", com as equipes e o motivo.
+- Tabela Ternos: a faina diferente fica em vermelho com ⚠.
+- Modelo sem faina no catálogo: o painel não confere a faina desse modelo.
