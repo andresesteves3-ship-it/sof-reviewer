@@ -907,3 +907,6 @@ Liderança:
 - ✎ Editar a tela (computador): arraste os blocos e os cartões com o mouse; puxe a borda direita do bloco para mudar a largura (1/4, 1/3, 1/2 ou inteira); ✕ tira o bloco; "+ Adicionar bloco" coloca um bloco na tela. Clique em Salvar.
 - O "⚙ Personalizar" continua para quem prefere caixinhas e setas. No celular, os blocos ficam um embaixo do outro, na ordem escolhida.
 - A tela montada vale no modo TV.
+
+=== Versão 0.88.1 ===
+- Liderança › ⚙ Personalizar: a janela ficou mais larga (até 940 px), sem rolagem para o lado. As listas de blocos e de indicadores rolam cada uma por si, com o título fixo. No celular, as listas ficam uma embaixo da outra.
