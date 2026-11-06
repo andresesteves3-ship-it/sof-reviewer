@@ -4769,6 +4769,10 @@
     {
      "t": 1793961686811,
      "e": "alterada"
+    },
+    {
+     "t": 1793985992354,
+     "e": "alterada"
     }
    ],
    "man": [
@@ -4777,22 +4781,22 @@
      "navio": "LOG-IN PANTANAL LOG-IN PANTANAL",
      "m": "E",
      "de": "",
-     "para": "TECONT1",
+     "para": "TECONT2",
      "secao": "BAIA DE GUANABARA"
     },
     {
-     "pob": "07/11 02:00",
+     "pob": "07/11 02:30",
      "navio": "LOG-IN PANTANAL LOG-IN PANTANAL",
      "m": "M",
-     "de": "TECONT1",
-     "para": "TECONT4",
+     "de": "TECONT2",
+     "para": "TECONT1",
      "secao": "BAIA DE GUANABARA"
     },
     {
      "pob": "07/11 10:00",
      "navio": "LOG-IN PANTANAL LOG-IN PANTANAL",
      "m": "S",
-     "de": "TECONT4",
+     "de": "TECONT1",
      "para": "",
      "secao": "BAIA DE GUANABARA"
     }
@@ -4865,8 +4869,8 @@
      "ts": 1794009600000,
      "vis": 1793961686811,
      "de": "",
-     "para": "TECONT1",
-     "ult": 1793980164174,
+     "para": "TECONT2",
+     "ult": 1793985992354,
      "st": "prevista"
     },
     {
@@ -4887,6 +4891,16 @@
      "de": "TECONT1",
      "para": "TECONT4",
      "ult": 1793980164174,
+     "st": "remarcada"
+    },
+    {
+     "m": "M",
+     "pob": "07/11 02:30",
+     "ts": 1794029400000,
+     "vis": 1793985992354,
+     "de": "TECONT2",
+     "para": "TECONT1",
+     "ult": 1793985992354,
      "st": "prevista"
     },
     {
@@ -4904,9 +4918,9 @@
      "pob": "07/11 10:00",
      "ts": 1794056400000,
      "vis": 1793961686811,
-     "de": "TECONT4",
+     "de": "TECONT1",
      "para": "",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     }
    ]
@@ -5110,7 +5124,7 @@
      "vis": 1793976599766,
      "de": "",
      "para": "TECONT4",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     },
     {
@@ -5130,7 +5144,7 @@
      "vis": 1793719788972,
      "de": "TECONT4",
      "para": "",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     }
    ]
@@ -6297,11 +6311,15 @@
     {
      "t": 1793903749508,
      "e": "alterada"
+    },
+    {
+     "t": 1793985992354,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "12/11 15:00",
+     "pob": "11/11 10:00",
      "navio": "EVER FAITH EVER FAITH",
      "m": "E",
      "de": "",
@@ -6309,7 +6327,7 @@
      "secao": "BAIA DE GUANABARA"
     },
     {
-     "pob": "13/11 11:00",
+     "pob": "12/11 13:00",
      "navio": "EVER FAITH EVER FAITH",
      "m": "S",
      "de": "TECONTPROLONG",
@@ -6341,13 +6359,33 @@
     },
     {
      "m": "E",
+     "pob": "11/11 10:00",
+     "ts": 1794402000000,
+     "vis": 1793985992354,
+     "de": "",
+     "para": "TECONTPROLONG",
+     "ult": 1793985992354,
+     "st": "prevista"
+    },
+    {
+     "m": "S",
+     "pob": "12/11 13:00",
+     "ts": 1794499200000,
+     "vis": 1793985992354,
+     "de": "TECONTPROLONG",
+     "para": "",
+     "ult": 1793985992354,
+     "st": "prevista"
+    },
+    {
+     "m": "E",
      "pob": "12/11 15:00",
      "ts": 1794506400000,
      "vis": 1793903749508,
      "de": "",
      "para": "TECONTPROLONG",
      "ult": 1793980164174,
-     "st": "prevista"
+     "st": "remarcada"
     },
     {
      "m": "S",
@@ -6357,7 +6395,7 @@
      "de": "TECONTPROLONG",
      "para": "",
      "ult": 1793980164174,
-     "st": "prevista"
+     "st": "remarcada"
     }
    ]
   },
@@ -6396,7 +6434,7 @@
      "vis": 1793380654230,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     },
     {
@@ -6406,7 +6444,7 @@
      "vis": 1793380654230,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     }
    ]
@@ -6417,11 +6455,15 @@
     {
      "t": 1793380654230,
      "e": "apareceu"
+    },
+    {
+     "t": 1793985992354,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "11/11 10:00",
+     "pob": "12/11 15:00",
      "navio": "KOTA ELOK KOTA ELOK",
      "m": "E",
      "de": "",
@@ -6429,7 +6471,7 @@
      "secao": "BAIA DE GUANABARA"
     },
     {
-     "pob": "12/11 12:00",
+     "pob": "13/11 11:00",
      "navio": "KOTA ELOK KOTA ELOK",
      "m": "S",
      "de": "TECONTPROLONG",
@@ -6447,7 +6489,7 @@
      "de": "",
      "para": "TECONTPROLONG",
      "ult": 1793980164174,
-     "st": "prevista"
+     "st": "remarcada"
     },
     {
      "m": "S",
@@ -6457,6 +6499,26 @@
      "de": "TECONTPROLONG",
      "para": "",
      "ult": 1793980164174,
+     "st": "remarcada"
+    },
+    {
+     "m": "E",
+     "pob": "12/11 15:00",
+     "ts": 1794506400000,
+     "vis": 1793985992354,
+     "de": "",
+     "para": "TECONTPROLONG",
+     "ult": 1793985992354,
+     "st": "prevista"
+    },
+    {
+     "m": "S",
+     "pob": "13/11 11:00",
+     "ts": 1794578400000,
+     "vis": 1793985992354,
+     "de": "TECONTPROLONG",
+     "para": "",
+     "ult": 1793985992354,
      "st": "prevista"
     }
    ]
@@ -6496,7 +6558,7 @@
      "vis": 1793380654230,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     },
     {
@@ -6506,7 +6568,7 @@
      "vis": 1793380654230,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     }
    ]
@@ -7026,7 +7088,7 @@
    ]
   },
   "NORTH OCEAN 102 NORTH OCEAN 102": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1793398419175,
@@ -7047,6 +7109,10 @@
     {
      "t": 1793917380247,
      "e": "apareceu"
+    },
+    {
+     "t": 1793985992354,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -7089,7 +7155,7 @@
      "de": "LARGO",
      "para": "",
      "ult": 1793980164174,
-     "st": "prevista"
+     "st": "realizada"
     }
    ]
   },
@@ -8642,7 +8708,7 @@
      "vis": 1793632458979,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     }
    ]
@@ -9186,7 +9252,7 @@
      "vis": 1793900705431,
      "de": "TECONT1",
      "para": "",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     },
     {
@@ -9304,7 +9370,7 @@
      "vis": 1793719788972,
      "de": "",
      "para": "TECONT3",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     },
     {
@@ -9314,7 +9380,7 @@
      "vis": 1793719788972,
      "de": "TECONT3",
      "para": "",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     }
    ]
@@ -9354,7 +9420,7 @@
      "vis": 1793719788972,
      "de": "",
      "para": "TPASSAGE2",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     },
     {
@@ -9364,7 +9430,7 @@
      "vis": 1793719788972,
      "de": "TPASSAGE2",
      "para": "",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     }
    ]
@@ -9614,7 +9680,7 @@
    ]
   },
   "HYUNDAI TOKYO HYUNDAI TOKYO": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1793814328408,
@@ -9635,6 +9701,10 @@
     {
      "t": 1793971510094,
      "e": "alterada"
+    },
+    {
+     "t": 1793985992354,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -9687,7 +9757,7 @@
      "de": "TECONT3",
      "para": "",
      "ult": 1793980164174,
-     "st": "prevista"
+     "st": "realizada"
     },
     {
      "m": "S",
@@ -9742,7 +9812,7 @@
      "vis": 1793821605040,
      "de": "A6PARTE1",
      "para": "",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     }
    ]
@@ -9874,7 +9944,7 @@
      "vis": 1793836361255,
      "de": "",
      "para": "BACS",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     }
    ]
@@ -10139,11 +10209,15 @@
     {
      "t": 1793971510094,
      "e": "alterada"
+    },
+    {
+     "t": 1793985992354,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "06/11 16:30",
+     "pob": "06/11 18:00",
      "navio": "CORAL DO ATLANTICO CORAL DO ATLANTICO",
      "m": "E",
      "de": "",
@@ -10191,6 +10265,16 @@
      "de": "",
      "para": "TERMTRIGO",
      "ult": 1793980164174,
+     "st": "remarcada"
+    },
+    {
+     "m": "E",
+     "pob": "06/11 18:00",
+     "ts": 1793998800000,
+     "vis": 1793985992354,
+     "de": "",
+     "para": "TERMTRIGO",
+     "ult": 1793985992354,
      "st": "prevista"
     }
    ]
@@ -10246,7 +10330,7 @@
      "vis": 1793889223018,
      "de": "",
      "para": "A4",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     },
     {
@@ -10256,7 +10340,7 @@
      "vis": 1793889223018,
      "de": "A4",
      "para": "",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     },
     {
@@ -10266,7 +10350,7 @@
      "vis": 1793889223018,
      "de": "",
      "para": "A4",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     },
     {
@@ -10276,7 +10360,7 @@
      "vis": 1793889223018,
      "de": "A4",
      "para": "",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     }
    ]
@@ -10316,7 +10400,7 @@
      "vis": 1793889223018,
      "de": "",
      "para": "A4",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     },
     {
@@ -10326,7 +10410,7 @@
      "vis": 1793889223018,
      "de": "A4",
      "para": "",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     }
    ]
@@ -10366,7 +10450,7 @@
      "vis": 1793892422778,
      "de": "",
      "para": "TECONT1",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     },
     {
@@ -10376,7 +10460,7 @@
      "vis": 1793892422778,
      "de": "TECONT1",
      "para": "",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     }
    ]
@@ -10416,7 +10500,7 @@
      "vis": 1793894316448,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     },
     {
@@ -10426,7 +10510,7 @@
      "vis": 1793894316448,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     }
    ]
@@ -10470,7 +10554,7 @@
      "vis": 1793971510094,
      "de": "",
      "para": "TECONT2",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     },
     {
@@ -10490,7 +10574,7 @@
      "vis": 1793971510094,
      "de": "TECONT2",
      "para": "",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     },
     {
@@ -10544,7 +10628,7 @@
      "vis": 1793904805088,
      "de": "",
      "para": "TECONT1",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     },
     {
@@ -10554,7 +10638,7 @@
      "vis": 1793906786907,
      "de": "TECONT1",
      "para": "",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     }
    ]
@@ -10622,7 +10706,7 @@
      "vis": 1793911785449,
      "de": "",
      "para": "PS-2",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     }
    ]
@@ -10690,7 +10774,7 @@
      "vis": 1793971510094,
      "de": "",
      "para": "A7PARTE2",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
      "st": "prevista"
     }
    ]
@@ -10722,7 +10806,39 @@
      "vis": 1793971510094,
      "de": "",
      "para": "AFGRAGOATÁ",
-     "ult": 1793980164174,
+     "ult": 1793985992354,
+     "st": "prevista"
+    }
+   ]
+  },
+  "SKANDI HERA SKANDI HERA": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1793985992354,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "07/11 06:00",
+     "navio": "SKANDI HERA SKANDI HERA",
+     "m": "E",
+     "de": "",
+     "para": "A6PARTE1",
+     "secao": "BAIA DE GUANABARA"
+    }
+   ],
+   "nome": "SKANDI HERA SKANDI HERA",
+   "mov": [
+    {
+     "m": "E",
+     "pob": "07/11 06:00",
+     "ts": 1794042000000,
+     "vis": 1793985992354,
+     "de": "",
+     "para": "A6PARTE1",
+     "ult": 1793985992354,
      "st": "prevista"
     }
    ]
@@ -10730,9 +10846,9 @@
  },
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-06T15:49:24.174Z",
- "ultimoSucesso": "2026-11-06T15:49:24.174Z",
- "total": 41,
+ "atualizado": "2026-11-06T17:26:32.354Z",
+ "ultimoSucesso": "2026-11-06T17:26:32.354Z",
+ "total": 40,
  "secoes": [
   "BAIA DE GUANABARA",
   "BAIA DE SEPETIBA",
