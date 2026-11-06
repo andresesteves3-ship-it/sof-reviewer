@@ -930,3 +930,16 @@ Rotinas:
 Administração › Rumo à versão 1.0: erro novo nos últimos 14 dias, robôs, uso dos assistentes em cada dia de trabalho e "regras publicadas" (marcado pela liderança). O painel passa a registrar os erros da tela no banco (painel/jserros).
 "Como usar esta tela": link embaixo do título de cada aba, com 3 ou 4 passos.
 SUBIR: index.html, sw.js e versao.json. As regras do Firebase não mudaram.
+
+=== Versão 0.91.0 ===
+Line Up:
+- Botão "📷 Imagem para o WhatsApp": gera um JPEG em pé (1080 px) com a logo, "Em operação" (local, carga, peso, tipo e progresso) e "Próximos 7 dias" (ETA, navio, carga, tipo e prático).
+- Escolha os blocos (Em operação, Próximos 7 dias, Mais adiante, A definir), os navios, o peso e o local. Cliente e agente não aparecem.
+- Copiar imagem (cole no WhatsApp Web com Ctrl+V), Baixar JPEG ou Compartilhar (no celular).
+Rotinas — não atendida:
+- "Não atendida · passa para o próximo período…" é a primeira opção do botão direito e pede o motivo (botões prontos ou texto).
+- A pendência (! PEND desde 07x13) segue de período em período até alguém fazer ou dispensar. Ela fica no topo do "O que falta agora" e aparece no sino e na passagem, com o motivo.
+- Quando alguém faz, a célula de origem fica verde: ✓ 13x19 e as iniciais.
+- Botão direito na PEND: "Não precisa mais" (dispensa com motivo; a célula mostra DISP).
+- "→ Passar" em cada grupo do "O que falta agora": passa várias rotinas com um motivo.
+SUBIR: index.html, sw.js e versao.json. As regras do Firebase não mudaram.
