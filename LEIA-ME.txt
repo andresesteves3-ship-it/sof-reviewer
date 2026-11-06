@@ -880,3 +880,16 @@ Suba também: scripts/ogmo.js e .github/workflows/ogmo.yml
 - Faina 1 com código diferente ou outra faina preenchida (ex.: "00.00 - A CONFIRMAR") aparece como "⚠ Faina diferente do catálogo", com as equipes e o motivo.
 - Tabela Ternos: a faina diferente fica em vermelho com ⚠.
 - Modelo sem faina no catálogo: o painel não confere a faina desse modelo.
+
+=== Versão 0.86.0 ===
+Chat da equipe:
+- Botão vermelho no canto inferior direito, em todas as abas, com o número de mensagens novas. No celular, a janela abre em tela cheia.
+- As mensagens chegam na hora (pelo "ao vivo"). Sem "ao vivo", o painel confere a cada 15 s.
+- 📌 Fixar: a mensagem fica no topo da janela até alguém desafixar.
+- @nome: a pessoa recebe aviso no sino e, se permitiu, aviso do Windows (Meu perfil › Avisos › "Chat: mensagem com @ para você").
+- #NAVIO: vira link para o navio nas Rotinas (ou no Line Up).
+- Editar e apagar a própria mensagem: nos primeiros 10 minutos. A liderança (Analista/Gerente) apaga qualquer mensagem.
+- Busca nos últimos 90 dias. Mensagens com mais de 90 dias são apagadas quando alguém da liderança abre o chat.
+- "Levar para a passagem": a mensagem entra na observação geral do dia nas Rotinas e aparece nos recados da passagem de serviço.
+- Só texto (até 2.000 caracteres).
+IMPORTANTE: suba também o firebase-regras.json. O robô de regras publica a regra nova do chat no Firebase. Sem ela, o chat não grava.
