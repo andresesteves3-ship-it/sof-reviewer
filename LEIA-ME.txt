@@ -893,3 +893,10 @@ Chat da equipe:
 - "Levar para a passagem": a mensagem entra na observação geral do dia nas Rotinas e aparece nos recados da passagem de serviço.
 - Só texto (até 2.000 caracteres).
 IMPORTANTE: suba também o firebase-regras.json. O robô de regras publica a regra nova do chat no Firebase. Sem ela, o chat não grava.
+
+=== Versão 0.87.0 ===
+Liderança:
+- ⚙ Personalizar: marque quais blocos aparecem e use ↑↓ para mudar a ordem.
+- 19 indicadores para escolher: os 6 de sempre (já marcados) e 13 novos (navios chegando, ternos agora, TPAs escalados, pedido × OGMO, fora do catálogo, rotinas atrasadas, passagem sem ciente, pedidos para aprovar, relatos em aberto, equipe no turno, manobras em 24 h, ao largo e Plano B, robôs com problema). Clique no cartão para abrir a tela de origem.
+- A escolha fica salva no seu perfil (banco: /painel/lidpref) e vale em qualquer computador. "Voltar ao padrão" desfaz.
+- 📺 Modo TV: tela cheia sem menu, avisos, sino e chat; letra maior; relógio; a tela não apaga; o mouse some depois de 3 s parado. Sai com Esc ou "Sair do modo TV".
