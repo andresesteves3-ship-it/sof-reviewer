@@ -916,3 +916,17 @@ Contraste (varredura com o critério WCAG em 21 telas, nos dois temas):
 - Tema escuro: INICIAR (Line Up), aba selecionada do Catálogo, aviso de nova versão, linhas amarelas da Composição, caixa "Fora da programação", títulos em vermelho, rótulos do modo "Editar a tela" e textos brancos com transparência ficaram legíveis.
 - Tema claro: o cinza dos textos de apoio passou de #8A8C91 para #66686D.
 - Ficam apagados de propósito só os botões desativados.
+
+=== Versão 0.90.0 ===
+Rotinas:
+- "O que falta agora" no topo: o que está pendente em todos os navios (requisição do terno, fechamento do período, rotinas do período e atrasadas), ordenado por prazo. Clique no círculo para marcar.
+- Prazo da requisição do terno na própria célula ("1 h 20 min" ou "venceu"). Os avisos do sino continuam iguais.
+- Desfazer: depois de marcar ou desmarcar, clique em Desfazer no aviso embaixo da tela (10 s). O "Desmarcar?" não pergunta mais.
+- Marcar em lote: clique no período (13X19) ou no nome do grupo. Shift + clique marca o intervalo entre duas células.
+- Botão direito na marcação: Observação (bolinha azul; entra nos recados da passagem de serviço), Histórico, mensagem para o WhatsApp (envios) e atalho para a ferramenta da rotina.
+- Botão direito no nome do navio: Navio parado (sem operação nos períodos escolhidos, com motivo), Copiar o resumo do dia, Abrir no Line Up.
+- Botão direito no nome da rotina: marcar o período em todos os navios.
+- Correção: a célula PEND (pendente do período anterior) não marcava ao clicar.
+Administração › Rumo à versão 1.0: erro novo nos últimos 14 dias, robôs, uso dos assistentes em cada dia de trabalho e "regras publicadas" (marcado pela liderança). O painel passa a registrar os erros da tela no banco (painel/jserros).
+"Como usar esta tela": link embaixo do título de cada aba, com 3 ou 4 passos.
+SUBIR: index.html, sw.js e versao.json. As regras do Firebase não mudaram.
