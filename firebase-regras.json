@@ -50,21 +50,6 @@
       ".read": "auth != null && (root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).exists() || auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br')",
       ".write": "auth != null && (root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).exists() || auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br')"
     },
-    "emails": {
-      ".read": "auth != null && (root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).exists() || auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br')",
-      ".indexOn": [
-        "mid"
-      ],
-      "$id": {
-        ".write": "(auth != null && (root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).exists() || auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br')) && (newData.exists() || (auth.token.email.toLowerCase().replace('.', '_').beginsWith(data.child('k').val() + '@')) || (auth != null && (root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).child('funcao').val() == 'Analista' || root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).child('funcao').val() == 'Gerente' || auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br')))"
-      }
-    },
-    "emailsimg": {
-      ".read": "auth != null && (root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).exists() || auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br')",
-      "$id": {
-        ".write": "auth != null && (root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).exists() || auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br')"
-      }
-    },
     "chat": {
       ".read": "auth != null && (root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).exists() || auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br')",
       "msg": {
