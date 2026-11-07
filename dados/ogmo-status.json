@@ -1,15 +1,44 @@
 {
- "ok": false,
- "erro": "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.ogmorj.com.br/weboperador/WEBOPERADOR12081830.dll\", waiting until \"domcontentloaded\"\n Frames=[{\"erro\":\"frame.evaluate: Execution context was destroyed, most likely\"}]",
- "atualizado": "2026-11-07T16:58:41.490Z",
- "ultimoSucesso": "2026-11-07T15:00:12.008Z",
- "falhasSeguidas": 2,
- "pdfs": {
-  "em": "2026-11-07T17:01:30.258Z",
-  "ms": 54,
-  "feitos": 0,
-  "erros": 0,
-  "faltam": 0
+ "ok": true,
+ "erro": "",
+ "atualizado": "2026-11-07T17:22:04.706Z",
+ "ultimoSucesso": "2026-11-07T17:22:04.706Z",
+ "total": 22,
+ "dias": [
+  {
+   "data": "06/11/2026",
+   "n": 14,
+   "erro": ""
+  },
+  {
+   "data": "07/11/2026",
+   "n": 8,
+   "erro": ""
+  },
+  {
+   "data": "08/11/2026",
+   "n": 0,
+   "erro": ""
+  }
+ ],
+ "diag": {
+  "frames": 1,
+  "recuperacoes": 0,
+  "reaproveitadas": 0,
+  "equipesLidas": 3,
+  "canceladasPuladas": 0,
+  "semAtualizar": 0,
+  "ontemRepetido": 1
  },
- "pdfsEm": "2026-11-07T17:01:30.258Z"
+ "tempos": {
+  "login": 9336,
+  "dias": {
+   "07/11/2026": 16374,
+   "08/11/2026": 14160,
+   "06/11/2026": 0
+  },
+  "total": 39920
+ },
+ "pdfsSeparados": true,
+ "falhasSeguidas": 0
 }
