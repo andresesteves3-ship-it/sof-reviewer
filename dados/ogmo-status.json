@@ -1,15 +1,7 @@
 {
  "ok": false,
  "erro": "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.ogmorj.com.br/weboperador/WEBOPERADOR12081830.dll\", waiting until \"domcontentloaded\"\n Frames=[{\"erro\":\"frame.evaluate: Execution context was destroyed, most likely\"}]",
- "atualizado": "2026-11-07T15:58:06.738Z",
+ "atualizado": "2026-11-07T16:58:41.490Z",
  "ultimoSucesso": "2026-11-07T15:00:12.008Z",
- "falhasSeguidas": 1,
- "pdfs": {
-  "em": "2026-11-07T16:00:53.887Z",
-  "ms": 62,
-  "feitos": 0,
-  "erros": 0,
-  "faltam": 0
- },
- "pdfsEm": "2026-11-07T16:00:53.887Z"
+ "falhasSeguidas": 2
 }
