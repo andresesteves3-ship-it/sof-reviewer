@@ -1,1 +1,1 @@
-{"v": "0.92.1", "resumo": "Correção: frente sem nome que travava as Rotinas."}
+{"v": "0.94.0", "resumo": "Line Up lê a coluna TIPO; a conferência com o catálogo usa o tipo da carga."}

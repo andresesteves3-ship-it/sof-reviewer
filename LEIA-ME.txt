@@ -961,3 +961,18 @@ SUBIR: index.html, sw.js e versao.json.
   Causa: um computador gravou o número da atracação numa frente que outro computador já tinha apagado (Desfazer INICIAR ou juntar frentes). O banco criou uma frente só com esse número.
   Agora: o painel confere se a frente existe antes de gravar o número da atracação, o ETA e a ligação com a planilha. Frente sem nome é apagada sozinha (fica no registro: "Removeu frente incompleta").
 SUBIR: index.html, sw.js e versao.json. Depois de subir, basta abrir o painel em um computador: a frente quebrada some.
+
+=== Versão 0.93.0 ===
+- Correção: a Solicitação de inspeção mostrava a entrada remarcada (data antiga). Line Up, Inspeção, POB do formulário e imagem do WhatsApp usam agora a mesma regra: ignora manobras canceladas e remarcadas e pega a prevista mais próxima (ou a última feita).
+- Line Up › Manobra/Prático: duas linhas fixas, Entrada e Saída ("ainda não marcada" quando não há), com "feita" ou "remarcada (era …)". "Mudança" (de berço) aparece só quando está prevista.
+- Situação nova "Atracado": entrada feita e saída ainda não.
+- O histórico da Praticagem saiu da coluna. Clique em "histórico" para ver as manobras e as mudanças vistas pelo robô.
+SUBIR: index.html, sw.js e versao.json.
+
+=== Versão 0.94.0 ===
+- Line Up: o painel lê a coluna TIPO da aba LINEUP (Amarrado, Solto, Cheio, Vazio, Granel, Caixas, Misto) e mostra como etiqueta na coluna Carga.
+- Requisições › Catálogo: antes de comparar, o painel separa os modelos que têm a palavra do tipo no nome (Vazio → VAZIO, Cheio → CHEIO, Amarrado → AMARRADOS, Solto → SOLTOS, Misto → MISTO, Caixas → CAIXARIAS). Granel ou TIPO em branco: compara com todos, como antes. Sem modelo do tipo: compara com todos e avisa na legenda.
+- A legenda da conferência e o cabeçalho do navio mostram o tipo (ex.: "Carga Geral · Vazio · bloco BALSA").
+- A frente nas Rotinas guarda o tipo (aparece entre parênteses ao lado da carga). A imagem do WhatsApp mostra o tipo junto da carga.
+- Navio com duas linhas na planilha: vale o TIPO da linha em andamento; se ela estiver em branco, vale o da linha anterior.
+SUBIR: index.html, sw.js e versao.json.
