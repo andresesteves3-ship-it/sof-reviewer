@@ -1,52 +1,7 @@
 {
- "ok": true,
- "erro": "",
- "atualizado": "2026-11-07T15:00:12.008Z",
+ "ok": false,
+ "erro": "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.ogmorj.com.br/weboperador/WEBOPERADOR12081830.dll\", waiting until \"domcontentloaded\"\n Frames=[{\"erro\":\"frame.evaluate: Execution context was destroyed, most likely\"}]",
+ "atualizado": "2026-11-07T15:58:06.738Z",
  "ultimoSucesso": "2026-11-07T15:00:12.008Z",
- "total": 22,
- "dias": [
-  {
-   "data": "06/11/2026",
-   "n": 14,
-   "erro": ""
-  },
-  {
-   "data": "07/11/2026",
-   "n": 8,
-   "erro": ""
-  },
-  {
-   "data": "08/11/2026",
-   "n": 0,
-   "erro": ""
-  }
- ],
- "diag": {
-  "frames": 1,
-  "recuperacoes": 1,
-  "reaproveitadas": 1,
-  "equipesLidas": 9,
-  "canceladasPuladas": 1,
-  "semAtualizar": 0,
-  "ontemRepetido": 0
- },
- "tempos": {
-  "login": 8563,
-  "dias": {
-   "07/11/2026": 15482,
-   "08/11/2026": 14159,
-   "06/11/2026": 105449
-  },
-  "total": 143704
- },
- "pdfsSeparados": true,
- "falhasSeguidas": 0,
- "pdfs": {
-  "em": "2026-11-07T15:03:36.168Z",
-  "ms": 19962,
-  "feitos": 1,
-  "erros": 0,
-  "faltam": 0
- },
- "pdfsEm": "2026-11-07T15:03:36.168Z"
+ "falhasSeguidas": 1
 }
