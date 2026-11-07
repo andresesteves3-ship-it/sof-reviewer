@@ -947,3 +947,17 @@ SUBIR: index.html, sw.js e versao.json. As regras do Firebase não mudaram.
 === Versão 0.91.1 ===
 - Imagem do Line Up para o WhatsApp: mostra o número da atracação ("Atracação 55585" em Em operação e "Atr. 55590" nas outras listas).
 SUBIR: index.html, sw.js e versao.json.
+
+=== Versão 0.92.0 ===
+Rotinas:
+- Saiu o bloco "O que falta agora" (repetia a grade e o sino).
+- Cabeçalho de cada navio: etiquetas com pendências, atrasadas e o prazo da requisição do terno (vencido ou faltando menos de 2 h). Só aparecem quando há algo.
+- Título do período (ex.: 13X19) › "Não atendida: passar as que faltam…": passa todas as rotinas sem marcação do período, com um motivo.
+- O "!" da célula PEND ficou mais escuro (leitura no tema claro).
+SUBIR: index.html, sw.js e versao.json.
+
+=== Versão 0.92.1 ===
+- Correção: frente sem nome (só com o número da atracação) nas Rotinas e no Line Up, que não aceitava cliques nem "Desfazer".
+  Causa: um computador gravou o número da atracação numa frente que outro computador já tinha apagado (Desfazer INICIAR ou juntar frentes). O banco criou uma frente só com esse número.
+  Agora: o painel confere se a frente existe antes de gravar o número da atracação, o ETA e a ligação com a planilha. Frente sem nome é apagada sozinha (fica no registro: "Removeu frente incompleta").
+SUBIR: index.html, sw.js e versao.json. Depois de subir, basta abrir o painel em um computador: a frente quebrada some.
