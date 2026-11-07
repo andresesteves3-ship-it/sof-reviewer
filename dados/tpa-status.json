@@ -1,13 +1,13 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-07T20:11:12.371Z",
- "ultimoSucesso": "2026-11-07T20:11:12.371Z",
+ "atualizado": "2026-11-07T23:11:46.131Z",
+ "ultimoSucesso": "2026-11-07T23:11:46.131Z",
  "dias": [
   {
    "data": "07/11/2026",
    "reqs": 10,
-   "escaladas": 9
+   "escaladas": 10
   },
   {
    "data": "08/11/2026",
@@ -17,15 +17,15 @@
  ],
  "da9": [
   {
-   "req": "25053403-1",
+   "req": "25053404-1",
    "data": "07/11/2026",
    "n": 3,
    "erro": "",
    "aviso": ""
   }
  ],
- "novos": 3,
- "total": 177,
+ "novos": 2,
+ "total": 179,
  "diag": {
   "da9": [
    {
