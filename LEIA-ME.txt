@@ -976,3 +976,55 @@ SUBIR: index.html, sw.js e versao.json.
 - A frente nas Rotinas guarda o tipo (aparece entre parênteses ao lado da carga). A imagem do WhatsApp mostra o tipo junto da carga.
 - Navio com duas linhas na planilha: vale o TIPO da linha em andamento; se ela estiver em branco, vale o da linha anterior.
 SUBIR: index.html, sw.js e versao.json.
+
+=== Versão 0.94.1 ===
+- Correção: a etiqueta do TIPO não aparecia no Line Up. O painel lia a coluna TIPO, mas a limpeza da leitura (antes de guardar) descartava o campo. Agora o TIPO é guardado.
+- Depois de subir: abra o Line Up e clique em "Atualizar Line Up agora" (ou espere a próxima leitura da planilha).
+SUBIR: index.html, sw.js e versao.json.
+
+=== Versão 0.95.0 ===
+Solicitações (Inspeção, Dobra, Reforço de dobra, Plano B, Operação ao largo):
+- Ao clicar em Copiar (texto, e-mail ou imagem), Abrir no Outlook ou Compartilhar no WhatsApp, o painel registra sozinho em 8 s. O aviso embaixo da tela tem "Registrar já" e "Não registrar". As perguntas de confirmação do registro não aparecem nesse caso.
+- Se o registro precisar de um dado que falta (ex.: navio ou data na operação ao largo), o aviso mostra o motivo e fica a pendência.
+- Gerado e não registrado ("Não registrar", ou saiu sem registrar): faixa amarela na aba Solicitações (e no Line Up, para inspeção) com Abrir e Descartar; aviso no sino depois de 10 min; linha nos recados da passagem de serviço. A pendência fica neste computador por 24 h.
+- Ao fechar o formulário, trocar de tela ou fechar o painel com o texto gerado e sem registro, o painel pergunta se quer registrar.
+- Dobra avulsa (lançamento de dobra antiga) não registra sozinha.
+SUBIR: index.html, sw.js e versao.json.
+
+=== Versão 0.96.0 ===
+Rotinas:
+- "Encerrar frente" pergunta em que dia operacional a operação terminou: Hoje, Ontem, Último dia com marcação ou Outra data. O painel sugere o último dia com marcação. A frente aparece só até esse dia.
+- Botão direito no nome de uma frente encerrada: "Corrigir a data do encerramento…" e "Reabrir frente". O cabeçalho mostra "ENCERRADA em dd/mm".
+- Para as balsas que aparecem no dia 07/11 sem marcações: botão direito no nome › Corrigir a data do encerramento › escolha 06/11 › Salvar.
+SUBIR: index.html, sw.js e versao.json.
+
+=== Versão 0.96.1 ===
+- Registro automático das Solicitações: o painel espera até 10 s pela gravação no banco antes de avisar "Não consegui registrar" (com internet lenta, o aviso aparecia mesmo com o registro feito).
+SUBIR: index.html, sw.js e versao.json.
+
+=== Versão 0.97.0 ===
+Rotinas — marcações mais simples:
+- Quatro estados, com legenda acima da grade: ✓ feito, – sem operação, ! pendente (amarelo), ✕ cancelada (requisição). Borda vermelha = prazo vencido.
+- Pendente fica na própria célula, com o motivo. Quem fizer depois clica na mesma célula: vira ✓, e a dica mostra que estava pendente (motivo, quem e quando).
+- Saíram: "passa para o próximo período" (PRÓX), a pendência que aparecia nos períodos seguintes (PEND desde…) e o DISP / "Não precisa mais" (use Sem operação com motivo).
+- Botão direito: Feito · Pendente… · Sem operação… · (Cancelada) · Observação · Histórico · Desmarcar. Saíram a mensagem para o WhatsApp e o atalho para a ferramenta.
+- Motivos viram etiquetas da equipe (Pendente, Sem operação, Navio parado): o texto novo fica salvo e aparece como botão; os mais usados primeiro. A liderança apaga com ×. (Banco: painel/tags/motivos.)
+- Título do período: "Marcar as que faltam como pendentes…" e "Marcar todas como sem operação…" (com motivo).
+- Cabeçalho do navio: "N pendentes" (amarelo) conta as células pendentes dos últimos 3 dias. O sino lista cada uma.
+- Marcações antigas: PRÓX aparece como Pendente na própria célula; DISP aparece como Sem operação.
+SUBIR: index.html, sw.js e versao.json.
+
+=== Versão 0.98.0 ===
+- Solicitar inspeção (Finalizar) e "Sem inspeção · Heavy Lift" não abrem mais a frente nas Rotinas. A marcação fica no navio do Line Up (banco: painel/marcas/pre_<id>/u_insp) e aparece igual no Line Up e em Solicitações.
+- INICIAR: a frente já nasce com "Solicitar Inspeção de Guindaste" marcada, com quem solicitou e a hora (ou sem operação, no Heavy Lift).
+- Desfazer INICIAR: a marcação da inspeção volta para o navio no Line Up.
+- Frentes abertas só pela inspeção (sem outra marcação): o cabeçalho mostra "Aberta só pela inspeção · Desfazer INICIAR". O clique tira a frente das Rotinas e mantém a inspeção marcada.
+SUBIR: index.html, sw.js e versao.json.
+
+=== Versão 0.99.0 ===
+Especialistas:
+- O painel escolhe o especialista de cada navio pela carga: Ferro Gusa, Potássio e Alcatrão = Adriano Melo; as demais = Mário Zam (padrão). Balsas não têm especialista.
+- Navios do Mário Zam: "Enviar Produção do Navio (ao grupo do navio)" e "Enviar Planilha de Pagamentos (ao Comercial)" saem das Rotinas (grade, progresso, pendências, sino e passagem de serviço).
+- Na frente, a etiqueta "Especialista: …" mostra quem é. Clique nela (ou botão direito no nome do navio › Trocar especialista) para trocar ou voltar ao automático. As rotinas voltam na hora; marcações já feitas não se perdem. A troca fica no registro.
+- Administração › Especialistas (só a liderança altera): nome, cargas que atende, rotinas que ele mesmo faz, padrão e ativo. "+ Especialista" inclui um novo. Banco: painel/especialistas.
+SUBIR: index.html, sw.js e versao.json.
