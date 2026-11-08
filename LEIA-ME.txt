@@ -1083,3 +1083,11 @@ SUBIR: index.html, sw.js e versao.json.
 
 0.102.3 (08/11/2026)
 - Pedidos de estiva: o contorno dos períodos (ex.: 07x13 ✓ ×) fecha certo. Antes o × ficava mais baixo e a borda não se juntava.
+
+0.103.0 (08/11/2026)
+- Pedidos de estiva: cada período mostra a quantidade de ternos (ex.: 07x13 ✓ 3T). Passe o mouse para ver a composição. A coluna Ternos saiu.
+- Pedidos de estiva: o especialista vem do cadastro (Administração › Especialistas). O filtro tem a opção Avulsos.
+- Pedidos de estiva: o botão 🕘 mostra o histórico do dia inteiro. "Confirmado por" mostra o nome, a hora e o selo "alterado".
+- Pedidos de estiva: a lista fica agrupada por dia. Duplicar e Excluir estão no menu ⋯.
+- Pedidos de estiva: clique num período vazio (ex.: 19x01 +) para incluir o pedido desse período.
+- Subir: index.html, sw.js, versao.json.
