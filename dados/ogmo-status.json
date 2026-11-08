@@ -1,15 +1,44 @@
 {
- "ok": false,
- "erro": "A tela \"Requisição de Trabalhadores\" não carregou. Frames=[{\"sel\":0,\"tab\":0,\"inp\":0,\"txt\":\"\"}]",
- "atualizado": "2026-11-08T13:17:55.317Z",
- "ultimoSucesso": "2026-11-08T11:58:42.023Z",
- "falhasSeguidas": 1,
- "pdfs": {
-  "em": "2026-11-08T13:19:02.469Z",
-  "ms": 51,
-  "feitos": 0,
-  "erros": 0,
-  "faltam": 0
+ "ok": true,
+ "erro": "",
+ "atualizado": "2026-11-08T14:06:30.647Z",
+ "ultimoSucesso": "2026-11-08T14:06:30.647Z",
+ "total": 10,
+ "dias": [
+  {
+   "data": "07/11/2026",
+   "n": 10,
+   "erro": ""
+  },
+  {
+   "data": "08/11/2026",
+   "n": 0,
+   "erro": ""
+  },
+  {
+   "data": "09/11/2026",
+   "n": 0,
+   "erro": ""
+  }
+ ],
+ "diag": {
+  "frames": 1,
+  "recuperacoes": 0,
+  "reaproveitadas": 0,
+  "equipesLidas": 0,
+  "canceladasPuladas": 0,
+  "semAtualizar": 0,
+  "ontemRepetido": 1
  },
- "pdfsEm": "2026-11-08T13:19:02.469Z"
+ "tempos": {
+  "login": 9251,
+  "dias": {
+   "08/11/2026": 7233,
+   "09/11/2026": 14117,
+   "07/11/2026": 0
+  },
+  "total": 30634
+ },
+ "pdfsSeparados": true,
+ "falhasSeguidas": 0
 }
