@@ -1,15 +1,44 @@
 {
- "ok": false,
- "erro": "Não achei o menu \"Requisições\" depois do login. Frames=[{\"sel\":0,\"tab\":0,\"inp\":0,\"txt\":\"\"}]",
- "atualizado": "2026-11-08T06:09:13.861Z",
- "ultimoSucesso": "2026-11-08T05:14:09.559Z",
- "falhasSeguidas": 1,
- "pdfs": {
-  "em": "2026-11-08T06:10:14.674Z",
-  "ms": 52,
-  "feitos": 0,
-  "erros": 0,
-  "faltam": 0
+ "ok": true,
+ "erro": "",
+ "atualizado": "2026-11-08T07:29:18.097Z",
+ "ultimoSucesso": "2026-11-08T07:29:18.097Z",
+ "total": 10,
+ "dias": [
+  {
+   "data": "07/11/2026",
+   "n": 10,
+   "erro": ""
+  },
+  {
+   "data": "08/11/2026",
+   "n": 0,
+   "erro": ""
+  },
+  {
+   "data": "09/11/2026",
+   "n": 0,
+   "erro": ""
+  }
+ ],
+ "diag": {
+  "frames": 1,
+  "recuperacoes": 1,
+  "reaproveitadas": 0,
+  "equipesLidas": 3,
+  "canceladasPuladas": 0,
+  "semAtualizar": 1,
+  "ontemRepetido": 0
  },
- "pdfsEm": "2026-11-08T06:10:14.674Z"
+ "tempos": {
+  "login": 9267,
+  "dias": {
+   "08/11/2026": 7254,
+   "09/11/2026": 14171,
+   "07/11/2026": 99028
+  },
+  "total": 129772
+ },
+ "pdfsSeparados": true,
+ "falhasSeguidas": 0
 }
