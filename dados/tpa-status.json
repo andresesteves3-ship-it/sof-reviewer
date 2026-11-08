@@ -1,8 +1,8 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-08T20:14:11.069Z",
- "ultimoSucesso": "2026-11-08T20:14:11.069Z",
+ "atualizado": "2026-11-08T23:12:10.416Z",
+ "ultimoSucesso": "2026-11-08T23:12:10.416Z",
  "dias": [
   {
    "data": "08/11/2026",
@@ -11,7 +11,7 @@
   },
   {
    "data": "09/11/2026",
-   "reqs": 8,
+   "reqs": 12,
    "escaladas": 0
   }
  ],
