@@ -1080,3 +1080,6 @@ SUBIR: index.html, sw.js e versao.json.
 0.102.2 (08/11/2026)
 - Robôs do OGMO e TPA: quando o OGMO mostra "500 - Erro de servidor interno", o robô percebe na hora, abre uma sessão nova e tenta de novo (antes esperava 25 s sem saber).
 - ARQUIVO DO ROBÔ MUDOU: envie também scripts/ogmo.js.
+
+0.102.3 (08/11/2026)
+- Pedidos de estiva: o contorno dos períodos (ex.: 07x13 ✓ ×) fecha certo. Antes o × ficava mais baixo e a borda não se juntava.
