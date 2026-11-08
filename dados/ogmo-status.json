@@ -1,8 +1,8 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-07T23:54:42.422Z",
- "ultimoSucesso": "2026-11-07T23:54:42.422Z",
+ "atualizado": "2026-11-08T01:34:20.084Z",
+ "ultimoSucesso": "2026-11-08T01:34:20.084Z",
  "total": 24,
  "dias": [
   {
@@ -31,22 +31,14 @@
   "ontemRepetido": 1
  },
  "tempos": {
-  "login": 9370,
+  "login": 9310,
   "dias": {
-   "07/11/2026": 20814,
-   "08/11/2026": 14182,
+   "07/11/2026": 19684,
+   "08/11/2026": 14137,
    "06/11/2026": 0
   },
-  "total": 44416
+  "total": 43171
  },
  "pdfsSeparados": true,
- "falhasSeguidas": 0,
- "pdfs": {
-  "em": "2026-11-07T23:56:09.782Z",
-  "ms": 51,
-  "feitos": 0,
-  "erros": 0,
-  "faltam": 0
- },
- "pdfsEm": "2026-11-07T23:56:09.782Z"
+ "falhasSeguidas": 0
 }
