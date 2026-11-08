@@ -1076,3 +1076,7 @@ SUBIR: index.html, sw.js e versao.json.
 - Robô da Praticagem: uma rodada por hora (minuto 7) com 4 leituras, 15 minutos entre elas. Antes o GitHub atrasava as rodadas e o intervalo real ficava entre 30 e 80 minutos.
 - O "Rodar agora" faz 1 leitura e não espera a rodada agendada terminar.
 - ARQUIVO DO ROBÔ MUDOU: envie também .github/workflows/praticagem.yml.
+
+0.102.2 (08/11/2026)
+- Robôs do OGMO e TPA: quando o OGMO mostra "500 - Erro de servidor interno", o robô percebe na hora, abre uma sessão nova e tenta de novo (antes esperava 25 s sem saber).
+- ARQUIVO DO ROBÔ MUDOU: envie também scripts/ogmo.js.

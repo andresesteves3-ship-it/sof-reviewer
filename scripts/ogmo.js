@@ -50,11 +50,13 @@ const espera = ms => new Promise(r => setTimeout(r, ms));
 // v0.102.0: com "etapa", desiste cedo se a página ficar em branco por 15 s (o site do OGMO às vezes devolve página vazia)
 async function frameCom(page, fn, ms, etapa) {
   const fim = Date.now() + (ms || 15000);
-  let branco0 = 0, ultCheck = 0;
+  let branco0 = 0, ultCheck = 0, ult500 = 0;
   while (Date.now() < fim) {
     for (const fr of page.frames()) {
       try { const r = await fn(fr); if (r) return { fr, r }; } catch (e) {}
     }
+    // v0.102.2: a página de erro do OGMO ("500 - Erro de servidor interno") não se resolve sozinha: desiste na hora
+    if (Date.now() - ult500 > 2000) { ult500 = Date.now(); if (await paginaErro500(page)) throw new Error('O site do OGMO deu "500 - Erro de servidor interno"' + (etapa ? ' (' + etapa + ')' : '') + '.'); }
     if (etapa && Date.now() - ultCheck > 2000) {
       ultCheck = Date.now();
       if (await paginaEmBranco(page)) { if (!branco0) branco0 = Date.now(); else if (Date.now() - branco0 >= 15000) throw new Error('O site do OGMO devolveu uma página em branco (' + etapa + ').'); }
@@ -63,6 +65,12 @@ async function frameCom(page, fn, ms, etapa) {
     await espera(400);
   }
   return null;
+}
+async function paginaErro500(page) {
+  for (const fr of page.frames()) {
+    try { if (await fr.evaluate(() => /500\s*-\s*Erro de servidor interno|Internal Server Error/i.test(((document.body && document.body.innerText) || '').slice(0, 600)))) return true; } catch (e) {}
+  }
+  return false;
 }
 async function paginaEmBranco(page) {
   for (const fr of page.frames()) {
@@ -81,7 +89,7 @@ function vigiarPagina(page) {
 }
 function diagSite() { if (!ULT_DOC) return ''; return ' Site: ' + (ULT_DOC.falha ? 'sem resposta (' + ULT_DOC.falha + ')' : 'HTTP ' + ULT_DOC.http) + '.'; }
 // erro causado pelo site do OGMO (fora do ar, lento ou página vazia), e não pelo robô
-const ERRO_SITE = /página em branco|Timeout|não carregou|Não achei o menu|não apareceu|net::ERR|HTTP 5\d\d|sem resposta/i;
+const ERRO_SITE = /página em branco|servidor interno|Timeout|não carregou|Não achei o menu|não apareceu|net::ERR|HTTP 5\d\d|sem resposta/i;
 function falhaDoSite(msg) { return ERRO_SITE.test(String(msg || '')); }
 // v0.102.0: entrada (login + menu + filtros) com até 3 tentativas; entre elas limpa a sessão e espera 30 s e depois 60 s
 let TENT_INI = 0; const ERROS_INI = [];
@@ -216,7 +224,7 @@ async function frameDaTela(page) {
 async function recuperar(page, lbl) {
   let fr;
   try { fr = await abrirRegistro(page); }
-  catch (e) { await entrar(page); fr = await abrirRegistro(page); }
+  catch (e) { try { await page.context().clearCookies(); } catch (x) {} await entrar(page); fr = await abrirRegistro(page); }   // v0.102.2: sessão nova (o erro 500 costuma vir de sessão vencida)
   await escolherFiltros(fr);
   fr = await frameDaTela(page);
   let c = await fr.evaluate(() => window.__rb.campoData());
