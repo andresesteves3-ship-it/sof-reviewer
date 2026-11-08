@@ -1032,3 +1032,29 @@ SUBIR: index.html, sw.js e versao.json.
 === Versão 0.99.1 ===
 - Line Up: o TIPO da carga aparece na linha de detalhes, antes do peso ("Vazio · 240,00 t · Baker Hughes · Agente Ocean World"), em vez da etiqueta separada.
 SUBIR: index.html, sw.js e versao.json.
+
+=== Versão 0.100.0 ===
+Solicitações › Plano B:
+- "Copiar imagem e registrar" registra o envio na hora, sem contagem e sem pergunta. "Copiar texto do e-mail" e "Abrir no Outlook" também registram. O aviso tem "Desfazer" (10 s): volta para a versão anterior e para as marcações anteriores das Rotinas.
+- Tabela igual à última versão registrada: copiar de novo não cria versão nova (aviso "já registrado").
+- Faixa no topo: verde = enviado (hora, quem, versão, histórico); amarelo = tabela alterada depois do envio; cinza = ainda não enviado. A data da operação fica na faixa.
+- Imagem: Pequena (640 px), Média (800 px, padrão) ou Grande (1280 px). O painel lembra a escolha neste computador. A prévia fica ao lado da tabela e muda enquanto você digita.
+- O botão "Registrar envio" saiu (o registro é feito pelos botões de copiar e de abrir no Outlook).
+Obs.: a versão 1.0 continua reservada para quando os 4 critérios da Administração forem atendidos; por isso esta é a 0.100.0.
+SUBIR: index.html, sw.js e versao.json.
+
+=== Versão 0.100.1 ===
+- Line Up: a etiqueta "Concluído na planilha (100%)" virou "Concluído (100%)".
+SUBIR: index.html, sw.js e versao.json.
+
+0.100.2 (08/11/2026)
+- Line Up: o botão "Atualizar Line Up agora" mostra "Lendo a planilha…" e sempre mostra o resultado. Antes, um erro na leitura não mostrava nada.
+- Line Up: quando a aba LINEUP fica sem a linha de títulos (NAVIO, ETA, …), o painel lê pela posição das colunas e mostra um aviso.
+
+0.101.0 (08/11/2026)
+- Imagem do Line Up: escolha a ordem dos blocos (↑↓) e os dias do bloco Próximos (3, 7 ou 15).
+- Imagem do Line Up: bloco novo "Saíram nas últimas 24 h" (saídas concluídas na Praticagem).
+- Imagem do Line Up: 12 campos para mostrar ou esconder, entre eles Cliente, Agente, Progresso e Saída prevista (ETS).
+- Imagem do Line Up: formatos Normal, Compacta e Vertical (status), e observação no rodapé.
+- Imagem do Line Up: a liderança salva o padrão da equipe. O texto longo quebra a linha e não é mais cortado.
+- Line Up: o clique em "Atualizar Line Up agora" sempre faz uma leitura nova, mesmo com uma leitura automática em andamento.
