@@ -1058,3 +1058,10 @@ SUBIR: index.html, sw.js e versao.json.
 - Imagem do Line Up: formatos Normal, Compacta e Vertical (status), e observação no rodapé.
 - Imagem do Line Up: a liderança salva o padrão da equipe. O texto longo quebra a linha e não é mais cortado.
 - Line Up: o clique em "Atualizar Line Up agora" sempre faz uma leitura nova, mesmo com uma leitura automática em andamento.
+
+0.101.1 (08/11/2026)
+- Tema escuro: os botões vermelhos "Gerar texto" e "Finalizar solicitação" (Inspeção) voltam a ter o texto branco. Antes o texto ficava rosa e o botão parecia desativado.
+
+0.101.2 (08/11/2026)
+- Inspeção: o botão "Compartilhar no WhatsApp" ficou com um verde mais escuro, para ler melhor o texto.
+- Tema claro: o verde de "Você está no seu turno", "Prático marcado" e "Em Rotinas" e o vermelho de MASTER, da data da Liderança e do aviso da planilha ficaram mais escuros, para ler melhor.
