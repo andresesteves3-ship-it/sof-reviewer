@@ -1028,3 +1028,7 @@ Especialistas:
 - Na frente, a etiqueta "Especialista: …" mostra quem é. Clique nela (ou botão direito no nome do navio › Trocar especialista) para trocar ou voltar ao automático. As rotinas voltam na hora; marcações já feitas não se perdem. A troca fica no registro.
 - Administração › Especialistas (só a liderança altera): nome, cargas que atende, rotinas que ele mesmo faz, padrão e ativo. "+ Especialista" inclui um novo. Banco: painel/especialistas.
 SUBIR: index.html, sw.js e versao.json.
+
+=== Versão 0.99.1 ===
+- Line Up: o TIPO da carga aparece na linha de detalhes, antes do peso ("Vazio · 240,00 t · Baker Hughes · Agente Ocean World"), em vez da etiqueta separada.
+SUBIR: index.html, sw.js e versao.json.
