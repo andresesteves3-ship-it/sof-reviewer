@@ -1071,3 +1071,8 @@ SUBIR: index.html, sw.js e versao.json.
 - Robôs do OGMO e TPA: a falha guarda o código de resposta do site (ex.: HTTP 503), sem dados das requisições.
 - Requisições, TPA e Status dos robôs: o aviso de falha diz se o site do OGMO não respondeu, a hora da nova tentativa e desde quando valem os dados.
 - ARQUIVOS DOS ROBÔS MUDARAM: envie também scripts/ogmo.js, scripts/tpa.js, .github/workflows/ogmo.yml e .github/workflows/tpa.yml.
+
+0.102.1 (08/11/2026)
+- Robô da Praticagem: uma rodada por hora (minuto 7) com 4 leituras, 15 minutos entre elas. Antes o GitHub atrasava as rodadas e o intervalo real ficava entre 30 e 80 minutos.
+- O "Rodar agora" faz 1 leitura e não espera a rodada agendada terminar.
+- ARQUIVO DO ROBÔ MUDOU: envie também .github/workflows/praticagem.yml.
