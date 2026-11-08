@@ -3,5 +3,13 @@
  "erro": "A tela \"Requisição de Trabalhadores\" não carregou. Frames=[{\"sel\":0,\"tab\":0,\"inp\":0,\"txt\":\"\"}]",
  "atualizado": "2026-11-08T13:17:55.317Z",
  "ultimoSucesso": "2026-11-08T11:58:42.023Z",
- "falhasSeguidas": 1
+ "falhasSeguidas": 1,
+ "pdfs": {
+  "em": "2026-11-08T13:19:02.469Z",
+  "ms": 51,
+  "feitos": 0,
+  "erros": 0,
+  "faltam": 0
+ },
+ "pdfsEm": "2026-11-08T13:19:02.469Z"
 }
