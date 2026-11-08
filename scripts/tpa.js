@@ -121,9 +121,8 @@ async function main() {
     page = await ctx.newPage();
     page.setDefaultTimeout(30000);
     page.on('dialog', d => d.dismiss().catch(() => {}));   // nunca confirma nada
-    await og.entrar(page);
-    let fr = await og.abrirRegistro(page);
-    await og.escolherFiltros(fr);
+    og.vigiarPagina(page);
+    let fr = await og.abrirInicio(page);   // v0.102.0: até 3 tentativas na entrada
     fr = await og.frameDaTela(page);
     const c0 = await fr.evaluate(() => window.__rb.campoData());
     const hoje = c0 ? c0.v : og.dm(new Date());
@@ -188,8 +187,9 @@ async function main() {
     let extra = '';
     try { if (page) extra = ' Frames=' + JSON.stringify(await og.resumoFrames(page)).slice(0, 500); } catch (x) {}
     const b = og.bloqueado();
-    st.erro = mascarar(String(e.message || e) + (b ? ' [bloqueado: ' + b + ']' : '') + extra).slice(0, 900);
+    st.erro = mascarar(String(e.message || e) + (b ? ' [bloqueado: ' + b + ']' : '') + og.diagSite() + extra).slice(0, 900);
     st.diag = diag;
+    og.marcarFalha(st);
     console.error('FALHOU:', st.erro);
   } finally {
     if (browser) await browser.close();

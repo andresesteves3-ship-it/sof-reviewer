@@ -47,15 +47,56 @@ const mascarar = t => { let r = String(t || ''); [EMPRESA, USER, PASS].filter(v 
 const espera = ms => new Promise(r => setTimeout(r, ms));
 
 // ---- utilidades que procuram em todos os frames da página (o OGMO pode usar frames) ----
-async function frameCom(page, fn, ms) {
+// v0.102.0: com "etapa", desiste cedo se a página ficar em branco por 15 s (o site do OGMO às vezes devolve página vazia)
+async function frameCom(page, fn, ms, etapa) {
   const fim = Date.now() + (ms || 15000);
+  let branco0 = 0, ultCheck = 0;
   while (Date.now() < fim) {
     for (const fr of page.frames()) {
       try { const r = await fn(fr); if (r) return { fr, r }; } catch (e) {}
     }
+    if (etapa && Date.now() - ultCheck > 2000) {
+      ultCheck = Date.now();
+      if (await paginaEmBranco(page)) { if (!branco0) branco0 = Date.now(); else if (Date.now() - branco0 >= 15000) throw new Error('O site do OGMO devolveu uma página em branco (' + etapa + ').'); }
+      else branco0 = 0;
+    }
     await espera(400);
   }
   return null;
+}
+async function paginaEmBranco(page) {
+  for (const fr of page.frames()) {
+    try {
+      const v = await fr.evaluate(() => document.querySelectorAll('select,table,input,a,button').length + ((document.body && document.body.innerText) || '').trim().length);
+      if (v > 0) return false;
+    } catch (e) { return false; }   // frame navegando: não conta como branco
+  }
+  return true;
+}
+// v0.102.0: última resposta da página (só código HTTP e caminho, sem dados) para o diagnóstico
+let ULT_DOC = null;
+function vigiarPagina(page) {
+  page.on('response', rs => { try { const rq = rs.request(); if (rq.resourceType() === 'document' || rq.isNavigationRequest()) ULT_DOC = { http: rs.status(), em: Date.now() }; } catch (e) {} });
+  page.on('requestfailed', rq => { try { if (rq.resourceType() === 'document') ULT_DOC = { falha: String((rq.failure() || {}).errorText || 'falhou').slice(0, 40), em: Date.now() }; } catch (e) {} });
+}
+function diagSite() { if (!ULT_DOC) return ''; return ' Site: ' + (ULT_DOC.falha ? 'sem resposta (' + ULT_DOC.falha + ')' : 'HTTP ' + ULT_DOC.http) + '.'; }
+// erro causado pelo site do OGMO (fora do ar, lento ou página vazia), e não pelo robô
+const ERRO_SITE = /página em branco|Timeout|não carregou|Não achei o menu|não apareceu|net::ERR|HTTP 5\d\d|sem resposta/i;
+function falhaDoSite(msg) { return ERRO_SITE.test(String(msg || '')); }
+// v0.102.0: entrada (login + menu + filtros) com até 3 tentativas; entre elas limpa a sessão e espera 30 s e depois 60 s
+let TENT_INI = 0; const ERROS_INI = [];
+async function abrirInicio(page) {
+  for (let t = 1; t <= 3; t++) {
+    try { await entrar(page); const fr = await abrirRegistro(page); await escolherFiltros(fr); TENT_INI = t; return fr; }
+    catch (e) {
+      ERROS_INI.push(mascarar(String(e.message || e)).slice(0, 80) + diagSite());
+      if (t === 3) throw e;
+      console.log('Entrada no OGMO falhou (tentativa ' + t + ' de 3). Tento de novo em ' + (t * 30) + ' s.');
+      try { await page.context().clearCookies(); } catch (x) {}
+      try { await page.goto('about:blank'); } catch (x) {}
+      ULT_DOC = null; await espera(t * (parseInt(process.env.OGMO_ESPERA_TENT || '', 10) || 30000));
+    }
+  }
 }
 async function resumoFrames(page) {
   const out = [];
@@ -109,7 +150,7 @@ const NA_PAGINA = `
 
 async function entrar(page) {
   await page.goto(BASE, { waitUntil: 'domcontentloaded' });
-  const ach = await frameCom(page, fr => fr.locator('input[type=password]').count(), 25000);
+  const ach = await frameCom(page, fr => fr.locator('input[type=password]').count(), 25000, 'tela de login');
   if (!ach) throw new Error('Tela de login do OGMO não apareceu.');
   const fr = ach.fr;
   // campos de texto visíveis, de cima para baixo: 1º Empresa, 2º Login
@@ -134,7 +175,7 @@ async function entrar(page) {
 }
 
 async function abrirRegistro(page) {
-  const m = await frameCom(page, async fr => { const l = fr.getByText(/^\s*Requisições\s*$/); return (await l.count()) ? l.first() : null; }, 25000);
+  const m = await frameCom(page, async fr => { const l = fr.getByText(/^\s*Requisições\s*$/); return (await l.count()) ? l.first() : null; }, 25000, 'menu depois do login');
   if (!m) throw new Error('Não achei o menu "Requisições" depois do login.');
   await m.r.hover().catch(() => {});
   await espera(500);
@@ -143,7 +184,7 @@ async function abrirRegistro(page) {
   if (!s) throw new Error('Não achei "Registro de Requisições" no menu.');
   await s.r.click();
   // tela pronta = frame com pelo menos 2 selects e a grade de requisições
-  const t = await frameCom(page, async fr => (await fr.locator('select').count()) >= 2 && (await fr.getByText(/Requisição de Trabalhadores/).count()) ? true : null, 25000);
+  const t = await frameCom(page, async fr => (await fr.locator('select').count()) >= 2 && (await fr.getByText(/Requisição de Trabalhadores/).count()) ? true : null, 25000, 'tela Requisição de Trabalhadores');
   if (!t) throw new Error('A tela "Requisição de Trabalhadores" não carregou.');
   return t.fr;
 }
@@ -367,6 +408,15 @@ async function trocarData(page, ddmmyyyy) {
 const dm = d => String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth() + 1).padStart(2, '0') + '/' + d.getFullYear();
 
 
+// v0.102.0: dados da falha para o painel: site fora do ar? tentativas; próxima tentativa (o workflow informa em OGMO_PROX_MIN)
+function marcarFalha(st) {
+  st.site = falhaDoSite(st.erro);
+  st.tentativasEntrada = Math.max(TENT_INI, ERROS_INI.length);
+  if (ERROS_INI.length) st.errosEntrada = ERROS_INI.slice(0, 3);
+  const pm = parseInt(process.env.OGMO_PROX_MIN || '', 10);
+  if (pm > 0) st.proxTentativa = new Date(Date.now() + pm * 60000).toISOString();
+  if (process.env.OGMO_REPETICAO === '1') st.repeticao = true;
+}
 async function main() {
   let st = { ok: false, erro: '', atualizado: new Date().toISOString() };
   let FANT = 0;   // falhas seguidas até a rodada anterior (o painel avisa a partir de 2)
@@ -382,10 +432,9 @@ async function main() {
     page = await CTX.newPage();
     page.setDefaultTimeout(30000);
     page.on('dialog', d => d.dismiss().catch(() => {}));   // nunca confirma nada
-    await entrar(page);
-    let fr = await abrirRegistro(page);
-    await escolherFiltros(fr);
-    const dias = [], diag = { frames: (await resumoFrames(page)).length };
+    vigiarPagina(page);
+    let fr = await abrirInicio(page);
+    const dias = [], diag = { frames: (await resumoFrames(page)).length, tentativasEntrada: TENT_INI };
     // data de hoje exibida pelo sistema
     fr = await frameDaTela(page);
     const c0 = await fr.evaluate(() => window.__rb.campoData());
@@ -433,7 +482,8 @@ async function main() {
   } catch (e) {
     let extra = '';
     try { if (page) extra = ' Frames=' + JSON.stringify(await resumoFrames(page)).slice(0, 600); } catch (x) {}
-    st.erro = mascarar(String(e.message || e) + (BLOQUEADO ? ' [bloqueado: ' + BLOQUEADO + ']' : '') + extra).slice(0, 900);
+    st.erro = mascarar(String(e.message || e) + (BLOQUEADO ? ' [bloqueado: ' + BLOQUEADO + ']' : '') + diagSite() + extra).slice(0, 900);
+    marcarFalha(st);
     console.error('FALHOU:', st.erro);
   } finally {
     if (browser) await browser.close();
@@ -504,7 +554,7 @@ async function mainPdf() {
 
 // o robô TPA (scripts/tpa.js) reaproveita o login e a navegação deste robô
 module.exports = {
-  entrar, abrirRegistro, escolherFiltros, frameDaTela, trocarData, recuperar, protegerContexto, baixar, cifrar, decifrar, mascarar, espera, resumoFrames, dm,
+  entrar, abrirRegistro, abrirInicio, vigiarPagina, diagSite, marcarFalha, falhaDoSite, escolherFiltros, frameDaTela, trocarData, recuperar, protegerContexto, baixar, cifrar, decifrar, mascarar, espera, resumoFrames, dm,
   lerEquipes, lerDia, PDFBUF, usarContexto: c => { CTX = c; }, permitir: n => { PERMITIDO = String(n || '').toUpperCase(); }, bloqueado: () => BLOQUEADO
 };
 if (require.main === module) { if (process.env.OGMO_SO_PDF === '1') mainPdf(); else main(); }

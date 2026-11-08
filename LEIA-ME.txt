@@ -1065,3 +1065,9 @@ SUBIR: index.html, sw.js e versao.json.
 0.101.2 (08/11/2026)
 - Inspeção: o botão "Compartilhar no WhatsApp" ficou com um verde mais escuro, para ler melhor o texto.
 - Tema claro: o verde de "Você está no seu turno", "Prático marcado" e "Em Rotinas" e o vermelho de MASTER, da data da Liderança e do aviso da planilha ficaram mais escuros, para ler melhor.
+
+0.102.0 (08/11/2026)
+- Robôs do OGMO e TPA: se o site do OGMO devolver página em branco ou não responder na entrada, o robô tenta de novo até 3 vezes (espera 30 s e depois 60 s). Se ainda falhar, tenta de novo em cerca de 10 minutos.
+- Robôs do OGMO e TPA: a falha guarda o código de resposta do site (ex.: HTTP 503), sem dados das requisições.
+- Requisições, TPA e Status dos robôs: o aviso de falha diz se o site do OGMO não respondeu, a hora da nova tentativa e desde quando valem os dados.
+- ARQUIVOS DOS ROBÔS MUDARAM: envie também scripts/ogmo.js, scripts/tpa.js, .github/workflows/ogmo.yml e .github/workflows/tpa.yml.
