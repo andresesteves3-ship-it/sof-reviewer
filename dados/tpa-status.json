@@ -1,23 +1,66 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-08T23:12:10.416Z",
- "ultimoSucesso": "2026-11-08T23:12:10.416Z",
+ "atualizado": "2026-11-09T08:48:45.621Z",
+ "ultimoSucesso": "2026-11-09T08:48:45.621Z",
  "dias": [
-  {
-   "data": "08/11/2026",
-   "reqs": 0,
-   "escaladas": 0
-  },
   {
    "data": "09/11/2026",
    "reqs": 12,
+   "escaladas": 3
+  },
+  {
+   "data": "10/11/2026",
+   "reqs": 10,
    "escaladas": 0
   }
  ],
- "da9": [],
- "novos": 0,
- "total": 179,
- "diag": {},
+ "da9": [
+  {
+   "req": "25053405-1",
+   "data": "09/11/2026",
+   "n": 12,
+   "erro": "",
+   "aviso": ""
+  },
+  {
+   "req": "25053406-1",
+   "data": "09/11/2026",
+   "n": 1,
+   "erro": "",
+   "aviso": ""
+  },
+  {
+   "req": "25053417-1",
+   "data": "09/11/2026",
+   "n": 29,
+   "erro": "",
+   "aviso": ""
+  }
+ ],
+ "novos": 11,
+ "total": 190,
+ "diag": {
+  "da9": [
+   {
+    "tag": "A",
+    "id": "",
+    "name": "",
+    "val": "",
+    "tit": "Gera DA9 da Requisição Selecionada (Exce",
+    "vis": false,
+    "on": "return SubmitClickConfirm('IWIMAGE5','', true, '');"
+   },
+   {
+    "tag": "IMG",
+    "id": "IWIMAGE5",
+    "name": "IWIMAGE5",
+    "val": "",
+    "tit": "Gera DA9 da Requisição Selecionada (Exce",
+    "vis": true,
+    "on": ""
+   }
+  ]
+ },
  "falhasSeguidas": 0
 }
