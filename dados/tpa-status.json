@@ -1,37 +1,38 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-09T20:27:25.355Z",
- "ultimoSucesso": "2026-11-09T20:27:25.355Z",
+ "atualizado": "2026-11-09T23:19:35.698Z",
+ "ultimoSucesso": "2026-11-09T23:19:35.698Z",
  "dias": [
   {
    "data": "09/11/2026",
    "reqs": 12,
-   "escaladas": 8
+   "escaladas": 10
   },
   {
    "data": "10/11/2026",
-   "erro": "Perdi a tela de requisições."
+   "reqs": 10,
+   "escaladas": 0
   }
  ],
  "da9": [
   {
-   "req": "25053410-1",
+   "req": "25053412-1",
    "data": "09/11/2026",
    "n": 1,
    "erro": "",
    "aviso": ""
   },
   {
-   "req": "25053419-1",
+   "req": "25053420-1",
    "data": "09/11/2026",
    "n": 33,
    "erro": "",
    "aviso": ""
   }
  ],
- "novos": 9,
- "total": 224,
+ "novos": 7,
+ "total": 231,
  "diag": {
   "da9": [
    {
