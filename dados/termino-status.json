@@ -1,13 +1,14 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-09T11:21:18.465Z",
- "ultimoSucesso": "2026-11-09T11:21:18.465Z",
+ "atualizado": "2026-11-09T17:27:28.932Z",
+ "ultimoSucesso": "2026-11-09T17:27:28.932Z",
  "diag": {
-  "cartoes": 1,
-  "comPrevisao": 1,
+  "cartoes": 2,
+  "comPrevisao": 2,
   "amostra": [
-   "OBI ISLAND | TÉRMINO PREVISTO / 8 nov / no ritmo real 9 nov / dentro do prazo"
+   "JIN XIANG | TÉRMINO PREVISTO / 16 nov / no ritmo real 29 dez / 31,7 dias após o prazo",
+   "OBI ISLAND | TÉRMINO PREVISTO / 10 nov / no ritmo real 11 nov / dentro do prazo"
   ]
  },
  "falhasSeguidas": 0
