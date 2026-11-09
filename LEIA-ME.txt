@@ -1135,3 +1135,11 @@ SUBIR: index.html, sw.js e versao.json.
 - Início › Dia de trabalho: cada dia mostra os feriados e pontos facultativos da cidade do Rio.
 - Início › Dia de trabalho: "⚓ 2" mostra quantos navios chegam no dia (ETA do Line Up). Passe o mouse para ver os nomes.
 - Subir: index.html, sw.js, versao.json.
+
+0.107.0 (09/11/2026)
+- Robô novo "Término previsto": 30 min depois do fim de cada período (07:30, 13:30, 19:30 e 01:30), lê no Painel Operacional (Rômulo) o término estimado de cada navio em operação. Só lê.
+- Line Up: o navio em operação mostra "🏁 Término estimado: 09/11" (vermelho se estiver atrasado).
+- Início › Dia de trabalho: "🏁 1" no dia do término estimado, ao lado do ⚓ das chegadas.
+- Imagem do Line Up: campo novo "Término estimado" nos navios em operação.
+- ARQUIVOS DO ROBÔ NOVO: envie também scripts/termino.js e .github/workflows/termino.yml.
+- Subir: index.html, sw.js, versao.json, scripts/termino.js, .github/workflows/termino.yml.
