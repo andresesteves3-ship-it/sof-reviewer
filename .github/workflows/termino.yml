@@ -1,0 +1,39 @@
+name: Robô Término previsto
+on:
+  schedule:
+    # 30 min depois do fim de cada período (Brasília = UTC-3): 07:30, 13:30, 19:30 e 01:30
+    - cron: '30 4,10,16,22 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: termino
+  cancel-in-progress: false
+jobs:
+  ler:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      # roda dentro do pacote pronto do Playwright (mesma versão do package.json, 1.49.1)
+      - name: Ler o Painel Operacional (só leitura)
+        run: |
+          docker run --rm --ipc=host --user "$(id -u):$(id -g)" -e HOME=/tmp \
+            -v "$GITHUB_WORKSPACE":/w -w /w \
+            mcr.microsoft.com/playwright:v1.49.1-noble \
+            bash -c "npm install --no-audit --no-fund && node scripts/termino.js"
+      - name: Salvar dados
+        run: |
+          git config user.name "robo-termino"
+          git config user.email "robo-termino@users.noreply.github.com"
+          git add dados/termino.json dados/termino-status.json
+          if git diff --cached --quiet; then echo "Nada para salvar"; else
+            git commit -m "Término previsto: atualização automática"
+            ok=0
+            for i in 1 2 3 4 5; do
+              if git pull --rebase --autostash origin "${GITHUB_REF_NAME}" && git push; then ok=1; break; fi
+              git rebase --abort 2>/dev/null || true
+              echo "push recusado, tentando de novo ($i)"; sleep $((i*7))
+            done
+            if [ "$ok" != 1 ]; then echo "::error::Não consegui publicar os dados depois de 5 tentativas"; exit 1; fi
+          fi
