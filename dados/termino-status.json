@@ -1,0 +1,11 @@
+{
+ "ok": true,
+ "erro": "",
+ "atualizado": "2026-11-09T08:09:57.432Z",
+ "ultimoSucesso": "2026-11-09T08:09:57.432Z",
+ "diag": {
+  "cartoes": 1,
+  "comPrevisao": 0
+ },
+ "falhasSeguidas": 0
+}
