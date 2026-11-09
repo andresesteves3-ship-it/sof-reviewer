@@ -1143,3 +1143,8 @@ SUBIR: index.html, sw.js e versao.json.
 - Imagem do Line Up: campo novo "Término estimado" nos navios em operação.
 - ARQUIVOS DO ROBÔ NOVO: envie também scripts/termino.js e .github/workflows/termino.yml.
 - Subir: index.html, sw.js, versao.json, scripts/termino.js, .github/workflows/termino.yml.
+
+0.107.1 (09/11/2026)
+- Robô Término previsto: espera o Painel Operacional terminar o cálculo (até 90 s) antes de ler. Antes ele lia cedo demais e não achava a data. O diagnóstico mostra o trecho "TÉRMINO PREVISTO" lido de cada navio.
+- ARQUIVO DO ROBÔ MUDOU: envie também scripts/termino.js.
+- Subir: index.html, sw.js, versao.json, scripts/termino.js.

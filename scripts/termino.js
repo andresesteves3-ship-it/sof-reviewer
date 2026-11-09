@@ -44,18 +44,22 @@ async function main() {
   let browser;
   try {
     browser = await chromium.launch();
-    const page = await (await browser.newContext({ locale: 'pt-BR', viewport: { width: 1500, height: 1000 } })).newPage();
+    const page = await (await browser.newContext({ locale: 'pt-BR', timezoneId: 'America/Sao_Paulo', viewport: { width: 1500, height: 1000 } })).newPage();
     page.setDefaultTimeout(45000);
     page.on('dialog', d => d.dismiss().catch(() => {}));
     await page.goto(URL_PAINEL, { waitUntil: 'domcontentloaded' });
     // espera os cartões dos navios (ou o aviso de que não há navio em operação)
     await page.waitForFunction(() => document.querySelectorAll('.m-card').length > 0 || /nenhum navio/i.test(document.body.innerText), null, { timeout: 60000 });
-    await page.waitForTimeout(2500);
+    // v0.107.1: a previsão é calculada depois que a página lê a planilha de produção: espera o "no ritmo real" aparecer (até 90 s)
+    await page.waitForFunction(() => { const c = [...document.querySelectorAll('.m-card')]; return c.length && c.every(e => /no ritmo real\s+\d/i.test(e.innerText)); }, null, { timeout: 90000 }).catch(() => {});
+    await page.waitForTimeout(1500);
     const lista = await page.$$eval('.m-card', els => els.map(e => e.innerText));
+    // diagnóstico: o trecho "TÉRMINO PREVISTO" de cada cartão (sem outros dados)
+    const amostra = lista.map(t => { const L = String(t).split('\n'); const i = L.findIndex(x => /T[ÉE]RMINO PREVISTO/i.test(x)); return (L[0] || '') + ' | ' + (i >= 0 ? L.slice(i, i + 4).join(' / ') : 'sem "TÉRMINO PREVISTO"'); });
     const navios = lerCartoes(lista, agora);
     fs.mkdirSync(DIR, { recursive: true });
     fs.writeFileSync(ARQ, JSON.stringify({ atualizado: st.atualizado, navios }, null, 1) + '\n');
-    st = { ok: true, erro: '', atualizado: st.atualizado, ultimoSucesso: st.atualizado, diag: { cartoes: lista.length, comPrevisao: Object.keys(navios).length } };
+    st = { ok: true, erro: '', atualizado: st.atualizado, ultimoSucesso: st.atualizado, diag: { cartoes: lista.length, comPrevisao: Object.keys(navios).length, amostra } };
     console.log('OK:', Object.keys(navios).length, 'navio(s) com término no ritmo real;', lista.length, 'cartão(ões) lidos.');
   } catch (e) {
     st.erro = String(e.message || e).slice(0, 300);
