@@ -1091,3 +1091,27 @@ SUBIR: index.html, sw.js e versao.json.
 - Pedidos de estiva: a lista fica agrupada por dia. Duplicar e Excluir estão no menu ⋯.
 - Pedidos de estiva: clique num período vazio (ex.: 19x01 +) para incluir o pedido desse período.
 - Subir: index.html, sw.js, versao.json.
+
+0.103.1 (08/11/2026)
+- Pedidos do Mário Zam: "Bloco 1+2" vira ENB + BLP (bloquista de peação).
+- Pedidos do Mário Zam: "02 Carpintaria" vira 2 BLC e 1 BLM (bloquista de material), só no terno da carpintaria.
+- Pedidos do Mário Zam: o painel avisa quando entende "CM" como CMA, um conferente só como CFP, ou quando lê menos números que ternos. Confira antes de confirmar.
+- Pedidos do Mário Zam: a frase com "■" (ex.: "Operação será realizada com guindaste de terra") vai para a observação.
+- Subir: index.html, sw.js, versao.json.
+
+0.103.2 (08/11/2026)
+- Passagem de serviço: o quadro de pendências conta cada rotina em aberto e mostra quantos navios (ex.: 5 pendências · 1 navio). O PDF usa a mesma conta.
+- Passagem de serviço: clique num quadro (pendências, já resolvidos, recados) para ir até a lista.
+- Passagem de serviço: botão "Abrir nas Rotinas" em cada pendência. Ele abre o navio no dia certo e destaca as rotinas em aberto.
+- Subir: index.html, sw.js, versao.json.
+
+0.103.3 (08/11/2026)
+- Imagem do Line Up: a linha de cima mostra só "Atualizado às HH:MM".
+- Subir: index.html, sw.js, versao.json.
+
+0.104.0 (08/11/2026)
+- SOF Reviewer: conflito de equipes mostra a linha a conferir e o que fazer. A mesma causa em várias equipes vira uma ocorrência só. O texto completo fica em "ver detalhes".
+- SOF Reviewer: todas as ocorrências mostram "Linha a conferir" e "O que fazer". "Datas fora de ordem" tem frase direta.
+- SOF Reviewer: as ocorrências ignoradas valem para toda a equipe. Se duas pessoas salvam ao mesmo tempo, o painel junta as duas listas.
+- Atenção: as ignoradas de "Equipes" e "Datas fora de ordem" voltam a aparecer uma vez (o texto mudou).
+- Subir: index.html, sw.js, versao.json, ferramentas/sof-app.js.

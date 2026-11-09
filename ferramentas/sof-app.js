@@ -14,10 +14,13 @@ const SEV={'CRÍTICO':'crit','ALTO':'alto','ATENÇÃO':'aten','REVISAR':'rev'};
 function issue(title,fields,action,badge='',g){
   const k=hashStr(title+'\u0001'+fields.map(x=>x[0]+'\u0002'+x[1]).join('\u0001'));
   const listy=fields.length>1&&(fields.every(x=>/^(Linha|Célula)/.test(x[0]))||/^Pendência|^Células vazias/.test(title));
-  let s='<div class="issue sev-'+(SEV[badge]||'info')+'" data-k="'+k+'"'+(g?' data-g="'+esc(g.k)+'" data-gt="'+esc(g.t)+'" data-gc="'+esc(JSON.stringify(g.c))+'" data-gv="'+esc(JSON.stringify(g.v.map(v=>String(v??''))))+'"':'')+'>';
+  let s='<div class="issue sev-'+(SEV[badge]||'info')+'" data-k="'+k+'"'+(g?' data-g="'+esc(g.k)+'" data-gt="'+esc(g.t)+'" data-gc="'+esc(JSON.stringify(g.c))+'" data-gv="'+esc(JSON.stringify(g.v.map(v=>String(v??''))))+'"'+(g.d?' data-gd="'+esc(g.d)+'"':''):'')+'>';
   s+='<div class="ih"><span class="issue-title">'+esc(title)+'</span>'+(badge?'<span class="badge">'+esc(badge)+'</span>':'')+'<!--NEW--><span class="ib"><!--BTN--></span></div>';
-  if(fields.length)s+='<div class="facts'+(listy?' list':'')+'">'+fields.map(x=>'<span class="f"><em>'+esc(x[0])+'</em> '+esc(x[1])+'</span>').join('')+'</div>';
-  if(action)s+='<div class="act">→ '+esc(action)+'</div>';
+  // v0.104.0: "Linha" aparece como "Linha a conferir" (o código da decisão Corrigido/Ignorar continua o mesmo)
+  const rot=n=>n==='Linha'?'Linha a conferir':n==='Linhas'?'Linhas a conferir':n;
+  if(fields.length)s+='<div class="facts'+(listy?' list':'')+'">'+fields.map(x=>'<span class="f"><em>'+esc(rot(x[0]))+'</em> '+esc(x[1])+'</span>').join('')+'</div>';
+  if(action)s+='<div class="act"><b>O que fazer:</b> '+esc(action)+'</div>';
+  if(g&&g.d)s+='<details class="idet"><summary>ver detalhes</summary>'+esc(g.d)+'</details>';
   return s+'</div>';
 }
 const keyOf=h=>(h.match(/data-k="([^"]+)"/)||[])[1]||hashStr(h);
@@ -36,12 +39,12 @@ function tableGroup(items){
     const badge=(first.match(/<span class="badge">([^<]*)<\/span>/)||[])[1]||'';
     const act=(first.match(/<div class="act">([\s\S]*?)<\/div>/)||[])[1]||'';
     const trs=list.map(h=>{
-      const v=JSON.parse(attr(h,'data-gv')), isNew=/badge new/.test(h), btns=(h.match(/<span class="ib">([\s\S]*?)<\/span><\/div>/)||[])[1]||'';
-      return '<tr>'+v.map((c,i)=>'<td>'+esc(c)+(i===0&&isNew?'<span class="badge new">NOVO</span>':'')+'</td>').join('')+'<td class="tb">'+btns+'</td></tr>';
+      const v=JSON.parse(attr(h,'data-gv')), isNew=/badge new/.test(h), btns=(h.match(/<span class="ib">([\s\S]*?)<\/span><\/div>/)||[])[1]||'', gd=attr(h,'data-gd');
+      return '<tr>'+v.map((c,i)=>'<td>'+esc(c)+(i===0&&isNew?'<span class="badge new">NOVO</span>':'')+(gd&&i===v.length-1?'<details class="idet"><summary>ver detalhes</summary>'+esc(gd)+'</details>':'')+'</td>').join('')+'<td class="tb">'+btns+'</td></tr>';
     }).join('');
     return '<div class="issue '+sev+' grouped"><div class="ih"><span class="issue-title">'+esc(attr(first,'data-gt'))+'</span>'+(badge?'<span class="badge">'+badge+'</span>':'')+'<span class="gcount">'+list.length+' ocorrências</span></div>'+
       '<div class="gwrap"><table class="gtable"><thead><tr>'+cols.map(c=>'<th>'+esc(c)+'</th>').join('')+'<th></th></tr></thead><tbody>'+trs+'</tbody></table></div>'+
-      (act?'<div class="act">'+act+'</div>':'')+'</div>';
+      (act&&cols.indexOf('O que fazer')<0?'<div class="act">'+act+'</div>':'')+'</div>';
   });
 }
 function empty(msg){return '<div class="empty">✓ '+esc(msg)+'</div>'}
@@ -420,9 +423,10 @@ function checkDates(errors,alerts){
   for(let i=1;i<ok.length;i++){
     const p=ok[i-1],c=ok[i],g=diffDays(p.d,c.d);
     if(g<=0){
-      const prob=g===0?'data repetida depois de outra':'volta '+Math.abs(g)+' dia(s)';
-      errors.push(issue('Datas fora de ordem cronológica',[['Linhas',ond(c.sheet,p.row+' → '+c.row)],['Sequência',p.text+' → '+c.text],['Problema',prob]],
-        'Confira a data das duas linhas. Atenção: o erro afeta o cálculo de laytime.','CRÍTICO',{k:'d-ord',t:'Datas fora de ordem cronológica',c:['Linhas','Sequência','Problema'],v:[ond(c.sheet,p.row+' → '+c.row),p.text+' → '+c.text,prob]}));
+      // v0.104.0: frase direta: qual linha conferir e por quê
+      const prob=g===0?'A linha '+c.row+' repete a data '+c.text+' depois de um dia já encerrado (linha '+p.row+').':'A linha '+c.row+' tem '+c.text+', mas a data anterior (linha '+p.row+') é '+p.text+': volta '+Math.abs(g)+' dia'+(Math.abs(g)>1?'s':'')+'.';
+      errors.push(issue('Datas fora de ordem cronológica',[['Linha a conferir',ond(c.sheet,c.row)],['O que está errado',prob]],
+        'Confira a data das linhas '+p.row+' e '+c.row+'. O erro afeta o cálculo de laytime.','CRÍTICO',{k:'d-ord',t:'Datas fora de ordem cronológica',c:['Linha a conferir','O que está errado','O que fazer'],v:[ond(c.sheet,c.row),prob,'Confira a data das linhas '+p.row+' e '+c.row+'.']}));
     }else if(g>1){
       alerts.push(issue('Salto de '+g+' dias entre datas consecutivas',[['Linhas',ond(c.sheet,p.row+' → '+c.row)],['Sequência',p.text+' → '+c.text]],
         'Confirme que não há registros nos dias que faltam.','',{k:'d-salto',t:'Saltos entre datas consecutivas',c:['Linhas','Sequência','Dias'],v:[ond(c.sheet,p.row+' → '+c.row),p.text+' → '+c.text,g]}));
@@ -645,25 +649,49 @@ function checkGangs(errors){
     if(!blocks.has(r.periodBlock))blocks.set(r.periodBlock,[]);
     blocks.get(r.periodBlock).push({a,b,row:r.row,sheet:r.sheet,g:(r.gang||'-').toLowerCase(),date:r.operationalDate});
   });
+  // v0.104.0: a ocorrência aponta a LINHA A CONFERIR e o que fazer; a mesma causa em várias equipes vira uma ocorrência só
+  const nmG=g=>names.get(g)||g, lst=a=>a.length<2?String(a[0]||''):a.slice(0,-1).join(', ')+' e '+a[a.length-1];
+  const faixa=rs=>{rs=[...new Set(rs)].sort((p,q)=>p-q);const o=[];let i0=0;for(let i=1;i<=rs.length;i++){if(i===rs.length||rs[i]!==rs[i-1]+1){o.push(i-i0>2?rs[i0]+' a '+rs[i-1]:rs.slice(i0,i).join(', '));i0=i}}return lst(o)};
   blocks.forEach(list=>{
     const base=list[0].a, norm=x=>x<base-720?x+1440:x;
     list.forEach(x=>{x.s=norm(x.a);x.e=x.s+(x.b>x.a?x.b-x.a:x.b+1440-x.a)});
     const start=Math.min(...list.map(x=>x.s)), end=Math.max(...list.map(x=>x.e));
+    const rr=list.map(x=>x.row), sheet=list[0].sheet, date=list[0].date||'—', per=hmm(start)+'–'+hmm(end);
+    const achados=new Map();   // chave -> {tipo, linha, txt, acao, eqs:Set, det:[]}
+    const poe=(k,o,eq,det)=>{if(!achados.has(k))achados.set(k,Object.assign(o,{eqs:new Set(),det:[]}));const a=achados.get(k);a.eqs.add(eq);a.det.push(nmG(eq)+': '+det)};
     names.forEach((label,g)=>{
       if(!list.some(x=>x.g===g))return;
       const segs=list.filter(x=>x.g===g||x.g==='-').sort((p,q)=>p.s-q.s||p.e-q.e);
-      const probs=[]; let pos=start,last=null;
+      const sob=[],lac=[]; let pos=start,last=null;
       segs.forEach(x=>{
-        if(x.s>pos)probs.push('lacuna de '+hmm(pos)+' às '+hmm(x.s)+(last?' (entre as linhas '+last.row+' e '+x.row+')':' (antes da linha '+x.row+')'));
-        else if(x.s<pos&&last)probs.push('sobreposição de '+hmm(x.s)+' às '+hmm(Math.min(pos,x.e))+' (linhas '+last.row+' e '+x.row+')');
+        if(x.s>pos)lac.push({de:pos,ate:x.s,ant:last,dep:x});
+        else if(x.s<pos&&last)sob.push({a:last,b:x,de:x.s,ate:Math.min(pos,x.e)});
         if(x.e>pos||!last){pos=Math.max(pos,x.e);last=x}
       });
-      if(pos<end)probs.push('lacuna de '+hmm(pos)+' às '+hmm(end)+' (após a linha '+last.row+')');
-      if(!probs.length)return;
-      const rr=list.map(x=>x.row);
-      const lns=ond(list[0].sheet,Math.min(...rr)+' a '+Math.max(...rr)), pb=probs.join('; ');
-      errors.push(issue('Equipe '+label+': conflito de horários no período',[['Linhas',lns],['Data',list[0].date||'—'],['Problema',pb]],
-        'Confira a equipe das paralisações. Confira se falta ou sobra registro. Linha com "-" vale para todas as equipes.','ALTO',{k:'gang',t:'Equipes com conflito de horários',c:['Equipe','Linhas','Data','Problema'],v:[label,lns,list[0].date||'—',pb]}));
+      if(pos<end)lac.push({de:pos,ate:end,ant:last,dep:null});
+      // sobreposições: a linha que aparece em todas é a causa
+      if(sob.length){
+        const cont=new Map();sob.forEach(o=>[o.a,o.b].forEach(x=>cont.set(x,(cont.get(x)||0)+1)));
+        let causa=null;cont.forEach((n,x)=>{if(n===sob.length&&(!causa||(x.e-x.s)>(causa.e-causa.s)))causa=x});
+        if(sob.length===1){const o=sob[0];causa=(o.a.g==='-')!==(o.b.g==='-')?(o.a.g==='-'?o.a:o.b):null}
+        if(causa){
+          const outras=sob.map(o=>o.a===causa?o.b:o.a).map(x=>x.row), tod=causa.g==='-';
+          poe('c'+causa.row,{linha:causa.row,causa:causa,tod:tod,outras:new Set(),
+            txt:'',acao:tod?'Confira o horário da linha '+causa.row+'. Se a paralisação foi só de algumas equipes, troque o "-" pela equipe certa.':'Confira o horário ou a equipe da linha '+causa.row+'.'},g,sob.map(o=>hmm(o.de)+'–'+hmm(o.ate)+' (linhas '+o.a.row+' e '+o.b.row+')').join('; '));
+          outras.forEach(r=>achados.get('c'+causa.row).outras.add(r));
+        }else sob.forEach(o=>{const two=[o.a.row,o.b.row].sort((p,q)=>p-q);
+          poe('p'+two.join('_'),{linha:two.join(' e '),txt:'As linhas '+two.join(' e ')+' se sobrepõem de '+hmm(o.de)+' às '+hmm(o.ate)+'.',
+            acao:(o.a.e===o.b.e&&o.a.s===o.b.s)?'Se é o mesmo registro, apague uma das linhas. Se não, corrija a equipe.':'Ajuste o horário de uma das duas linhas.'},g,hmm(o.de)+'–'+hmm(o.ate))});
+      }
+      lac.forEach(o=>poe('l'+o.de+'_'+o.ate,{linha:o.ant&&o.dep?o.ant.row+' e '+o.dep.row:o.ant?String(o.ant.row):String(o.dep.row),
+        txt:'Falta registro de '+hmm(o.de)+' às '+hmm(o.ate)+(o.ant&&o.dep?' (entre as linhas '+o.ant.row+' e '+o.dep.row+')':o.ant?' (depois da linha '+o.ant.row+')':' (antes da linha '+o.dep.row+')')+'.',
+        acao:'Lance o que aconteceu nesse intervalo ou ajuste o horário da linha vizinha.'},g,hmm(o.de)+'–'+hmm(o.ate)));
+    });
+    achados.forEach(a=>{
+      if(a.causa){const o=[...a.outras];a.txt='A linha '+a.linha+' ('+hmm(a.causa.s)+'–'+hmm(a.causa.e)+(a.tod?', todas as equipes':'')+') se sobrepõe '+(o.length>1?'às linhas '+faixa(o):'à linha '+o[0])+'.'}
+      const eqs=[...a.eqs].map(nmG), eqTxt=eqs.length===names.size&&names.size>1?'todas ('+lst(eqs)+')':lst(eqs);
+      errors.push(issue('Equipes: '+a.txt.replace(/\.$/,''),[['Linha a conferir',ond(sheet,a.linha)],['Equipes',eqTxt],['Data',date+' · '+per]],a.acao,'ALTO',
+        {k:'gang',t:'Equipes com conflito de horários',c:['Data · período','Equipes','Linha a conferir','O que está errado','O que fazer'],v:[date+' · '+per,eqTxt,ond(sheet,a.linha),a.txt,a.acao],d:'Linhas '+faixa(rr)+' · '+a.det.join(' | ')}));
     });
   });
 }
@@ -1276,7 +1304,7 @@ const GROUPS=[
   ['Horários',/^Horário impossível|^Horário fora do padrão/],
   ['Datas',/^Data muito distante|^Datas fora de ordem|^Salto de|^Data no futuro|^Período fora de ordem/],
   ['Marcos do navio',/^Marcos do navio/],
-  ['Equipes (Gang)',/^Equipe /],
+  ['Equipes (Gang)',/^Equipes?\b/],
   ['Cabeçalho',/^Cabeçalho/],
   ['Preenchimento',/^Células vazias/],
   ['Registros duplicados',/duplicado/],
@@ -1311,7 +1339,7 @@ function ignoreIssue(k,t){ign.set(k,t);saveIgn()}
 function unignoreIssue(k){ign.delete(k);saveIgn()}
 function showIgnored(list){
   const el=$('ignInfo'); if(!list.length){el.classList.add('hidden');return}
-  el.innerHTML='<b>'+list.length+'</b> ocorrência(s) ignorada(s) neste navio (a decisão fica guardada neste navegador). <details><summary>Ver ignoradas</summary><ul class="ignlist">'+
+  el.innerHTML='<b>'+list.length+'</b> ocorrência(s) ignorada(s) neste navio (a decisão vale para toda a equipe). <details><summary>Ver ignoradas</summary><ul class="ignlist">'+
     list.map(h=>'<li>'+esc(titleOf(h))+' <button class="linkbtn unignBtn" data-key="'+keyOf(h)+'">Voltar a mostrar</button></li>').join('')+
     '</ul><button class="linkbtn" id="ignClear">Voltar a mostrar todas</button></details>';
   el.classList.remove('hidden');
