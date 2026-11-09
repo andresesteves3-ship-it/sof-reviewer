@@ -1,45 +1,37 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-09T14:32:54.568Z",
- "ultimoSucesso": "2026-11-09T14:32:54.568Z",
+ "atualizado": "2026-11-09T20:27:25.355Z",
+ "ultimoSucesso": "2026-11-09T20:27:25.355Z",
  "dias": [
   {
    "data": "09/11/2026",
    "reqs": 12,
-   "escaladas": 6
+   "escaladas": 8
   },
   {
    "data": "10/11/2026",
-   "reqs": 10,
-   "escaladas": 0
+   "erro": "Perdi a tela de requisições."
   }
  ],
  "da9": [
   {
-   "req": "25053407-1",
-   "data": "09/11/2026",
-   "n": 11,
-   "erro": "",
-   "aviso": ""
-  },
-  {
-   "req": "25053408-1",
+   "req": "25053410-1",
    "data": "09/11/2026",
    "n": 1,
    "erro": "",
    "aviso": ""
   },
   {
-   "req": "25053418-1",
+   "req": "25053419-1",
    "data": "09/11/2026",
-   "n": 31,
+   "n": 33,
    "erro": "",
    "aviso": ""
   }
  ],
- "novos": 25,
- "total": 215,
+ "novos": 9,
+ "total": 224,
  "diag": {
   "da9": [
    {
