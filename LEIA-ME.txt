@@ -1115,3 +1115,18 @@ SUBIR: index.html, sw.js e versao.json.
 - SOF Reviewer: as ocorrências ignoradas valem para toda a equipe. Se duas pessoas salvam ao mesmo tempo, o painel junta as duas listas.
 - Atenção: as ignoradas de "Equipes" e "Datas fora de ordem" voltam a aparecer uma vez (o texto mudou).
 - Subir: index.html, sw.js, versao.json, ferramentas/sof-app.js.
+
+0.105.0 (09/11/2026)
+- Rotinas: botão direito › "Feito por outra pessoa…". A rotina fica em nome de quem fez, com "REG." e as iniciais de quem registrou.
+- Rotinas: quem fez recebe um aviso (faixa e sino) com "Fui eu, ok" e "Não fui eu". Ao contestar, a rotina volta para pendente e a liderança é avisada.
+- Rotinas: o histórico mostra quem registrou, em nome de quem, a hora informada e a resposta da pessoa.
+- Subir: index.html, sw.js, versao.json.
+
+0.105.1 (09/11/2026)
+- Rotinas administrativas (Atualizar Line Up, Criação da pasta, Organizar pastas): o botão direito tem as mesmas opções dos navios: Registrar, Feito por outra pessoa, Pendente, Sem necessidade, Observação, Histórico e Desmarcar.
+- Tema escuro: a marcação "! PEND" ficou mais legível.
+- Subir: index.html, sw.js, versao.json.
+
+0.105.2 (09/11/2026)
+- Requisições: a coluna Vagas saiu da lista. As vagas continuam em Composição.
+- Subir: index.html, sw.js, versao.json.
