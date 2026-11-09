@@ -1,11 +1,14 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-09T08:09:57.432Z",
- "ultimoSucesso": "2026-11-09T08:09:57.432Z",
+ "atualizado": "2026-11-09T08:17:19.067Z",
+ "ultimoSucesso": "2026-11-09T08:17:19.067Z",
  "diag": {
   "cartoes": 1,
-  "comPrevisao": 0
+  "comPrevisao": 1,
+  "amostra": [
+   "OBI ISLAND | TÉRMINO PREVISTO / 8 nov / no ritmo real 9 nov / dentro do prazo"
+  ]
  },
  "falhasSeguidas": 0
 }
