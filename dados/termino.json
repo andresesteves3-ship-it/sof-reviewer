@@ -1,15 +1,15 @@
 {
- "atualizado": "2026-11-10T11:15:13.604Z",
+ "atualizado": "2026-11-10T17:17:10.431Z",
  "navios": {
   "JIN XIANG": {
    "dia": "2026-11-12",
    "txt": "12 nov",
-   "sit": "27,5 dias após o prazo"
+   "sit": "27,6 dias após o prazo"
   },
   "OBI ISLAND": {
    "dia": "2026-11-11",
    "txt": "11 nov",
-   "sit": "dentro do prazo"
+   "sit": "0,2 dia após o prazo"
   }
  }
 }
