@@ -1,1 +1,4 @@
-{"v": "0.107.1", "resumo": "Robô Término previsto: espera o cálculo da página antes de ler."}
+{
+ "v": "0.107.2",
+ "resumo": "Textos revisados no Início e no topo das abas."
+}
