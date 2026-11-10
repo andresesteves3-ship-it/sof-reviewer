@@ -11,10 +11,26 @@ function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&l
 // Ocorrência compacta: título + selo + botões numa linha, dados em seguida e a ação curta.
 // g (opcional) = {k: chave do grupo, t: título do grupo, c: colunas, v: valores} -> ocorrências iguais viram uma tabela.
 const SEV={'CRÍTICO':'crit','ALTO':'alto','ATENÇÃO':'aten','REVISAR':'rev'};
+/* v0.108.0: chave estável da ocorrência. Não usa o número da linha (usa o conteúdo da linha) nem valores que mudam a cada análise.
+   A chave antiga (data-ko) continua valendo para as decisões guardadas antes. */
+let ROWFP=new Map();
+function rowFps(){ROWFP=new Map();const ms=rows[0]&&rows[0].sheet;rows.forEach(r=>{const v=(r.values||[]).map(x=>String(x??'').trim()).filter(x=>x&&!/^-?[\d.,\s%]+$/.test(x));ROWFP.set((r.sheet||ms)+'|'+r.row,hashStr(String(r.operationalDate||'')+'\u0001'+v.join('\u0001')))})}
+function linhaEstavel(v){v=String(v??'');let sh=rows[0]&&rows[0].sheet;const m=/\s*\(aba (.+)\)$/.exec(v);if(m){sh=m[1];v=v.slice(0,m.index)}return v.replace(/\d+/g,n=>ROWFP.get(sh+'|'+n)||('L'+n))}
+const VOLATIL=/^(Hoje|Média do SOF|Distância|Detalhe técnico|Linhas somadas|Paralisações \(fora da soma\))$/;
+const semLinhas=t=>String(t??'').replace(/(linhas?\s+)(\d+(?:\s*(?:a|e|,|→)\s*\d+)*)/gi,(m,w,ns)=>w+linhaEstavel(ns));
+function chaveEstavel(title,fields){
+  const ort=/^(Possível erro de ortografia|Redação:)/.test(title);
+  const f=fields.filter(x=>!VOLATIL.test(x[0])&&!(ort&&/^(Linhas?|Trecho)$/.test(x[0]))).map(([l,v])=>{
+    if(/^Linhas?( a conferir)?$/.test(l))return 'L\u0002'+linhaEstavel(v);
+    if(/^Linha\(s\)/.test(l))return '\u0002'+v;
+    if(/^linha\(s\)/i.test(String(v??'')))return l+'\u0002';
+    return l+'\u0002'+semLinhas(v)});
+  return 's'+hashStr(semLinhas(title)+'\u0001'+f.join('\u0001'));
+}
 function issue(title,fields,action,badge='',g){
-  const k=hashStr(title+'\u0001'+fields.map(x=>x[0]+'\u0002'+x[1]).join('\u0001'));
+  const ko=hashStr(title+'\u0001'+fields.map(x=>x[0]+'\u0002'+x[1]).join('\u0001')), k=chaveEstavel(title,fields);
   const listy=fields.length>1&&(fields.every(x=>/^(Linha|Célula)/.test(x[0]))||/^Pendência|^Células vazias/.test(title));
-  let s='<div class="issue sev-'+(SEV[badge]||'info')+'" data-k="'+k+'"'+(g?' data-g="'+esc(g.k)+'" data-gt="'+esc(g.t)+'" data-gc="'+esc(JSON.stringify(g.c))+'" data-gv="'+esc(JSON.stringify(g.v.map(v=>String(v??''))))+'"'+(g.d?' data-gd="'+esc(g.d)+'"':''):'')+'>';
+  let s='<div class="issue sev-'+(SEV[badge]||'info')+'" data-k="'+k+'" data-ko="'+ko+'"'+(g?' data-g="'+esc(g.k)+'" data-gt="'+esc(g.t)+'" data-gc="'+esc(JSON.stringify(g.c))+'" data-gv="'+esc(JSON.stringify(g.v.map(v=>String(v??''))))+'"'+(g.d?' data-gd="'+esc(g.d)+'"':''):'')+'>';
   s+='<div class="ih"><span class="issue-title">'+esc(title)+'</span>'+(badge?'<span class="badge">'+esc(badge)+'</span>':'')+'<!--NEW--><span class="ib"><!--BTN--></span></div>';
   // v0.104.0: "Linha" aparece como "Linha a conferir" (o código da decisão Corrigido/Ignorar continua o mesmo)
   const rot=n=>n==='Linha'?'Linha a conferir':n==='Linhas'?'Linhas a conferir':n;
@@ -24,6 +40,7 @@ function issue(title,fields,action,badge='',g){
   return s+'</div>';
 }
 const keyOf=h=>(h.match(/data-k="([^"]+)"/)||[])[1]||hashStr(h);
+const koOf=h=>(h.match(/data-ko="([^"]+)"/)||[])[1]||'';
 const mainSheet=()=>rows[0]&&rows[0].sheet;
 const ond=(sheet,l)=>String(l)+(sheet&&sheet!==mainSheet()?' (aba '+sheet+')':'');
 // Junta ocorrências do mesmo grupo (2 ou mais) em um cartão com tabela; os botões ficam em cada linha
@@ -993,23 +1010,31 @@ const HIST_KEY='sofHistory'; let loadCounter=0, diffLoad=-1, diffState=null;
 const unesc=t=>String(t||'').replace(/&quot;/g,'"').replace(/&#039;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
 const titleOf=h=>unesc((h.match(/issue-title">([^<]*)/)||[])[1]);
 function loadHist(){try{return JSON.parse(localStorage.getItem(HIST_KEY)||'{}')}catch(e){return {}}}
+// v0.108.0: a análise anterior vem do banco da equipe (quem analisou e quando); sem ela, usa a deste navegador
 function computeDiff(all){
-  const key=(rows[0]&&rows[0].sheet)||fileLabel||'sof';
-  const cur=all.map(h=>({h:keyOf(h),t:titleOf(h)})).filter(x=>!/^Verificação ortográfica/.test(x.t));
-  const H=loadHist(), prev=H[key]; let diff=null;
-  if(prev){
-    const ps=new Set(prev.items.map(x=>x.h)), cs=new Set(cur.map(x=>x.h));
-    diff={at:prev.at,newSet:new Set(cur.filter(x=>!ps.has(x.h)).map(x=>x.h)),resolved:prev.items.filter(x=>!cs.has(x.h)).map(x=>x.t),persist:cur.filter(x=>ps.has(x.h)).length};
+  const key=ignKey();
+  const cur=all.map(h=>({h:keyOf(h),o:koOf(h),t:titleOf(h)})).filter(x=>!/^Verificação ortográfica/.test(x.t));
+  const H=loadHist(); let prev=null;
+  try{prev=window.sofHistEquipe?window.sofHistEquipe(key):null}catch(e){}
+  if(!prev||!Array.isArray(prev.items))prev=H[key]||H[mainSheet()]||null;
+  let diff=null;
+  if(prev&&Array.isArray(prev.items)){
+    const ps=new Set();prev.items.forEach(x=>{ps.add(x.h);if(x.o)ps.add(x.o)});
+    const cs=new Set();cur.forEach(x=>{cs.add(x.h);if(x.o)cs.add(x.o)});
+    const velha=x=>ps.has(x.h)||(!!x.o&&ps.has(x.o));
+    diff={at:prev.at,por:prev.por||'',newSet:new Set(cur.filter(x=>!velha(x)).map(x=>x.h)),resolved:prev.items.filter(x=>!cs.has(x.h)&&!(x.o&&cs.has(x.o))).map(x=>x.t),persist:cur.filter(velha).length};
   }
-  H[key]={at:Date.now(),items:cur};
+  const rec={at:Date.now(),por:quem(),items:cur.slice(0,400)};
+  H[key]=rec;
   const keys=Object.keys(H).sort((a,b)=>H[b].at-H[a].at); keys.slice(30).forEach(k=>delete H[k]);
   try{localStorage.setItem(HIST_KEY,JSON.stringify(H))}catch(e){}
+  try{if(window.sofHistGrava)window.sofHistGrava(key,rec)}catch(e){}
   return diff;
 }
 function showDiff(){
   const el=$('diffInfo'); if(!diffState){el.classList.add('hidden');return}
   const d=diffState, when=new Date(d.at).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
-  el.innerHTML='Desde a análise anterior deste navio ('+when+'): <b>'+d.newSet.size+'</b> nova(s) • <b>'+d.resolved.length+'</b> resolvida(s) • <b>'+d.persist+'</b> continua(m).'+
+  el.innerHTML='Desde a análise anterior deste navio ('+(d.por?esc(d.por)+', ':'')+when+'): <b>'+d.newSet.size+'</b> nova(s) • <b>'+d.resolved.length+'</b> resolvida(s) • <b>'+d.persist+'</b> continua(m).'+
     (d.resolved.length?'<details><summary>Ver resolvidas</summary><ul>'+d.resolved.slice(0,30).map(t=>'<li>'+esc(t)+'</li>').join('')+'</ul></details>':'');
   el.classList.remove('hidden');
 }
@@ -1157,7 +1182,7 @@ function analyze(opts){
 }
 function analyzeCore(opts){
   const tA=performance.now();
-  const errors=[],alerts=[],english=[], all=rows;
+  const errors=[],alerts=[],english=[], all=rows; rowFps();
   ruleFails=[];
 
   // 1 e 2. Horários impossíveis e períodos fora do padrão
@@ -1245,7 +1270,7 @@ function analyzeCore(opts){
   safe('Volumes com casas decimais',()=>checkFractionalVolumes(volRaw));
   const cl=safe('Pendências',()=>buildChecklist(),{ok:[],wait:[],pend:[]});
   lastRaw={anom:failIssues().concat(errors,alerts),eng:english.slice(),vol:volRaw,peso:pesoRaw,plano:planoRaw,pend:cl.pend,cl};
-  loadIgn();
+  loadIgn(); migraIgn(lastRaw.anom.concat(lastRaw.eng,lastRaw.vol,lastRaw.peso,lastRaw.plano,lastRaw.pend));
   if(!(opts&&opts.noScroll)&&diffLoad!==loadCounter){ // compara só na 1ª análise de cada arquivo carregado
     diffState=computeDiff(lastRaw.anom.concat(lastRaw.eng,lastRaw.vol,lastRaw.peso,lastRaw.plano,lastRaw.pend)); diffLoad=loadCounter;
   }
@@ -1256,8 +1281,8 @@ function analyzeCore(opts){
 function showResults(opts,tA){
   const anomalias=applyFixed(lastRaw.anom), eng=applyFixed(lastRaw.eng), volIssues=applyFixed(lastRaw.vol), pesoIssues=applyFixed(lastRaw.peso), pend=applyFixed(lastRaw.pend);
   const raws=lastRaw.anom.concat(lastRaw.eng,lastRaw.vol,lastRaw.peso,lastRaw.plano,lastRaw.pend);
-  const hidden=raws.filter(h=>!ign.has(keyOf(h))&&fixed.has(keyOf(h))).length;
-  showIgnored(raws.filter(h=>ign.has(keyOf(h))));
+  const hidden=raws.filter(h=>!isIgn(h)&&fixed.has(keyOf(h))).length;
+  showIgnored(raws.filter(isIgn));
   showDiff();
   $('fixedN').textContent=hidden; $('fixedInfo').classList.toggle('hidden',hidden===0);
   render('anomalias',anomalias,'nAnomalias','Nenhuma anomalia detectada.',groupAnomalias);
@@ -1330,23 +1355,35 @@ function render(section,items,countId,emptyMsg,grouper){
 }
 // ===== Ocorrências marcadas como "Corrigido" =====
 const fixed=new Set(); let lastRaw=null;
-const ign=new Map(); const IGN_KEY='sofIgnored'; // ocorrências ignoradas: ficam guardadas por navio neste navegador
-const ignKey=()=>(rows[0]&&rows[0].sheet)||fileLabel||'sof';
-function loadIgn(){ign.clear(); try{const H=JSON.parse(localStorage.getItem(IGN_KEY)||'{}'); (H[ignKey()]||[]).forEach(x=>ign.set(x.h,x.t))}catch(e){}}
-function saveIgn(){try{const H=JSON.parse(localStorage.getItem(IGN_KEY)||'{}'); delete H[ignKey()]; H[ignKey()]=[...ign.entries()].map(([h,t])=>({h,t})).slice(-300);
-  const ks=Object.keys(H); while(ks.length>30)delete H[ks.shift()]; localStorage.setItem(IGN_KEY,JSON.stringify(H))}catch(e){}}
-function ignoreIssue(k,t){ign.set(k,t);saveIgn()}
-function unignoreIssue(k){ign.delete(k);saveIgn()}
+const ign=new Map(); const IGN2='sofIgn2'; // v0.108.0: ignoradas por navio e por ocorrência {navio:{chave:{t,por,em}}}; o painel copia cada decisão para o banco da equipe
+function navioChave(x){return String(x||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toUpperCase().replace(/^(M\/V|M\.V\.|MV)\s+/,'').replace(/[.#$\[\]\/%]/g,' ').replace(/\s+/g,' ').trim().slice(0,80)}
+const ignKey=()=>navioChave(hdrInfo&&hdrInfo.vessel)||navioChave(mainSheet())||navioChave(fileLabel)||'SOF';
+const ignKeys=()=>[...new Set([ignKey(),navioChave(mainSheet()),navioChave(fileLabel)].filter(Boolean))];
+function readIgnAll(){try{const H=JSON.parse(localStorage.getItem(IGN2)||'{}');return H&&typeof H==='object'&&!Array.isArray(H)?H:{}}catch(e){return {}}}
+function writeIgnAll(H){try{localStorage.setItem(IGN2,JSON.stringify(H))}catch(e){}}
+const quem=()=>{try{return window.sofQuem?String(window.sofQuem()||''):''}catch(e){return ''}};
+function loadIgn(){ign.clear();const H=readIgnAll();ignKeys().slice().reverse().forEach(nv=>{const o=H[nv]||{};Object.keys(o).forEach(k=>{const x=o[k]||{};ign.set(k,{t:x.t||'',por:x.por||'',em:x.em||0,nv})})})}
+function ignPut(nv,k,v){const H=readIgnAll();if(v){(H[nv]=H[nv]||{})[k]=v}else if(H[nv]){delete H[nv][k];if(!Object.keys(H[nv]).length)delete H[nv]}writeIgnAll(H);try{if(window.sofIgnNuvem)window.sofIgnNuvem(nv,k,v)}catch(e){}}
+const ignOf=h=>ign.get(keyOf(h))||(koOf(h)?ign.get(koOf(h)):undefined);
+const isIgn=h=>!!ignOf(h);
+function ignoreIssue(h){const k=keyOf(h),nv=ignKey(),v={t:titleOf(h),por:quem(),em:Date.now()};ign.set(k,Object.assign({nv},v));ignPut(nv,k,v)}
+function unignoreIssue(h){[keyOf(h),koOf(h)].forEach(k=>{const x=k&&ign.get(k);if(x){ign.delete(k);ignPut(x.nv,k,null)}})}
+// decisão guardada com a chave antiga ou em outro nome do navio: passa para a chave nova, no navio lido no SOF
+function migraIgn(raws){const nv=ignKey();raws.forEach(h=>{const k=keyOf(h),ko=koOf(h),a=ign.get(k),b=ko?ign.get(ko):null;if(!a&&!b)return;if(a&&a.nv===nv&&!b)return;
+  const x=a||b,v={t:x.t||titleOf(h),por:x.por||'',em:x.em||0};
+  if(a&&a.nv!==nv)ignPut(a.nv,k,null);if(b){ign.delete(ko);ignPut(b.nv,ko,null)}
+  if(!(a&&a.nv===nv))ignPut(nv,k,v);ign.set(k,Object.assign({nv},v))})}
+const fmtQuando=ms=>new Date(ms).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}).replace(',','');
 function showIgnored(list){
   const el=$('ignInfo'); if(!list.length){el.classList.add('hidden');return}
   el.innerHTML='<b>'+list.length+'</b> ocorrência(s) ignorada(s) neste navio (a decisão vale para toda a equipe). <details><summary>Ver ignoradas</summary><ul class="ignlist">'+
-    list.map(h=>'<li>'+esc(titleOf(h))+' <button class="linkbtn unignBtn" data-key="'+keyOf(h)+'">Voltar a mostrar</button></li>').join('')+
+    list.map(h=>{const x=ignOf(h)||{};return '<li>'+esc(titleOf(h))+' <span class="ignquem">· '+(x.por?'ignorada por <b>'+esc(x.por)+'</b>'+(x.em?' em '+fmtQuando(x.em):''):'ignorada antes do registro de nomes')+'</span> <button class="linkbtn unignBtn" data-key="'+keyOf(h)+'">Voltar a mostrar</button></li>'}).join('')+
     '</ul><button class="linkbtn" id="ignClear">Voltar a mostrar todas</button></details>';
   el.classList.remove('hidden');
 }
 function hashStr(t){let h=5381;for(let i=0;i<t.length;i++)h=((h<<5)+h+t.charCodeAt(i))|0;return (h>>>0).toString(36)+t.length.toString(36)}
 function applyFixed(list){
-  return list.filter(h=>!fixed.has(keyOf(h))&&!ign.has(keyOf(h))).map(h=>{
+  return list.filter(h=>!fixed.has(keyOf(h))&&!isIgn(h)).map(h=>{
     const k=keyOf(h); let x=h;
     if(diffState&&diffState.newSet.has(k))x=x.replace('<!--NEW-->','<span class="badge new">NOVO</span>');
     return x.replace('<!--BTN-->','<button class="fixBtn" data-key="'+k+'" title="Já foi corrigido no SOF: tirar da lista">✓ Corrigido</button><button class="ignBtn" data-key="'+k+'" title="Não é um problema: não mostrar de novo neste navio">Ignorar</button>');
@@ -1357,9 +1394,9 @@ document.addEventListener('click',e=>{
   const t=e.target.closest?e.target:null; if(!t||!lastRaw)return;
   const fx=t.closest('.fixBtn'), ig=t.closest('.ignBtn'), un=t.closest('.unignBtn'), clr=t.closest('#ignClear');
   if(fx){fixed.add(fx.dataset.key);showResults({noScroll:true})}
-  else if(ig){const h=allRaw().find(x=>keyOf(x)===ig.dataset.key); ignoreIssue(ig.dataset.key,h?titleOf(h):''); showResults({noScroll:true})}
-  else if(un){unignoreIssue(un.dataset.key); showResults({noScroll:true})}
-  else if(clr){ign.clear(); saveIgn(); showResults({noScroll:true})}
+  else if(ig){const h=allRaw().find(x=>keyOf(x)===ig.dataset.key); if(h)ignoreIssue(h); showResults({noScroll:true})}
+  else if(un){const h=allRaw().find(x=>keyOf(x)===un.dataset.key); if(h)unignoreIssue(h); showResults({noScroll:true})}
+  else if(clr){allRaw().filter(isIgn).forEach(unignoreIssue); showResults({noScroll:true})}
 });
 $('fixedUndo').addEventListener('click',()=>{fixed.clear(); if(lastRaw)showResults({noScroll:true})});
 $('file').addEventListener('change',()=>{fixed.clear();lastRaw=null;loadCounter++;diffState=null;$('auditBtn').disabled=true;$('ignInfo').classList.add('hidden')});
@@ -1403,7 +1440,8 @@ drop.addEventListener('drop',e=>{
 });
 ['dragover','drop'].forEach(ev=>window.addEventListener(ev,e=>e.preventDefault())); // não deixa o navegador abrir o arquivo
 
-$('analyzeBtn').addEventListener('click',()=>analyze());
+$('analyzeBtn').addEventListener('click',()=>{let p=null;try{p=window.sofAntes?window.sofAntes():null}catch(e){}
+  if(p&&p.then){status('Lendo as decisões da equipe…');p.then(()=>analyze(),()=>analyze())}else analyze()});
 document.addEventListener('click',e=>{
   const b=e.target.closest&&e.target.closest('.addGloss'); if(!b)return;
   addGloss(b.dataset.word); analyze({noScroll:true});
@@ -1459,10 +1497,9 @@ $('glossList').addEventListener('keydown',e=>{
 // ===== Listas da equipe: salvar e carregar glossário + ignoradas =====
 const LIST_TYPE='sof-reviewer-listas';
 function listMsg(t,type){const m=$('listMsg');m.textContent=t;m.className=type||''}
-function readIgnAll(){try{const H=JSON.parse(localStorage.getItem(IGN_KEY)||'{}');return H&&typeof H==='object'&&!Array.isArray(H)?H:{}}catch(e){return {}}}
 function exportLists(){
-  const ignAll=readIgnAll(), nIgn=Object.values(ignAll).reduce((n,a)=>n+(Array.isArray(a)?a.length:0),0);
-  const data={tipo:LIST_TYPE,versao:1,geradoEm:new Date().toISOString(),glossario:userGloss().slice().sort(),ignoradas:ignAll};
+  const ignAll=readIgnAll(), nIgn=Object.values(ignAll).reduce((n,a)=>n+Object.keys(a||{}).length,0);
+  const data={tipo:LIST_TYPE,versao:2,geradoEm:new Date().toISOString(),glossario:userGloss().slice().sort(),ignoradas:ignAll};
   const d=new Date(), name='sof-reviewer-listas-'+d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'.json';
   const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
   const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();
@@ -1478,17 +1515,16 @@ async function importLists(file){
   // glossário: soma as palavras novas
   const a=userGloss().slice(); let nW=0;
   data.glossario.forEach(w=>{w=cleanWord(w);if(w&&w.length<=60&&!a.includes(w)){a.push(w);nW++}});
-  // ignoradas: soma por navio, sem repetir a mesma ocorrência
-  const H=readIgnAll(); let nI=0; const ships=new Set();
+  // ignoradas: soma por navio, sem repetir a mesma ocorrência (aceita o formato antigo: lista por navio)
+  const H=readIgnAll(); let nI=0; const ships=new Set(), novas=[];
   Object.entries(data.ignoradas).forEach(([ship,list])=>{
-    if(!Array.isArray(list))return;
-    const cur=Array.isArray(H[ship])?H[ship]:[], have=new Set(cur.map(x=>x.h));
-    list.forEach(x=>{if(x&&typeof x.h==='string'&&!have.has(x.h)){cur.push({h:x.h,t:String(x.t||'')});have.add(x.h);nI++;ships.add(ship)}});
-    if(cur.length)H[ship]=cur;
+    const nv=navioChave(ship); if(!nv||!list||typeof list!=='object')return;
+    const its=Array.isArray(list)?list.map(x=>x&&[x.h,{t:String(x.t||''),por:'',em:0}]):Object.entries(list).map(([h,x])=>[h,{t:String((x&&x.t)||''),por:String((x&&x.por)||''),em:+(x&&x.em)||0}]);
+    its.forEach(e=>{if(!e||typeof e[0]!=='string'||!e[0]||(H[nv]&&H[nv][e[0]]))return;(H[nv]=H[nv]||{})[e[0]]=e[1];novas.push([nv,e[0],e[1]]);nI++;ships.add(nv)});
   });
   try{
     if(nW)saveGloss(a);
-    if(nI)localStorage.setItem(IGN_KEY,JSON.stringify(H));
+    novas.forEach(x=>ignPut(x[0],x[1],x[2]));
   }catch(e){listMsg('Não foi possível guardar as listas neste navegador.','error');return}
   if(!nW&&!nI){listMsg('Nada novo: tudo o que está no arquivo já estava neste computador.','ok');return}
   listMsg('Listas carregadas: '+nW+' palavra(s) nova(s) no glossário e '+nI+' ocorrência(s) ignorada(s) nova(s)'+(nI?' em '+ships.size+' navio(s)':'')+'.','ok');
