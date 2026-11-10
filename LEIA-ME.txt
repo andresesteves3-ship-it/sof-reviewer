@@ -1148,3 +1148,31 @@ SUBIR: index.html, sw.js e versao.json.
 - Robô Término previsto: espera o Painel Operacional terminar o cálculo (até 90 s) antes de ler. Antes ele lia cedo demais e não achava a data. O diagnóstico mostra o trecho "TÉRMINO PREVISTO" lido de cada navio.
 - ARQUIVO DO ROBÔ MUDOU: envie também scripts/termino.js.
 - Subir: index.html, sw.js, versao.json, scripts/termino.js.
+
+== 0.107.2 (09/11/2026) ==
+- Textos revisados no Início e no topo das abas Line Up, Rotinas, Requisições, Solicitações e SOF Reviewer.
+- Início: "Robôs funcionando" passou a "Sistemas em funcionamento".
+Subir: index.html, sw.js, versao.json
+
+== 0.107.3 (09/11/2026) ==
+- Pedidos do Mário Zam: o conferente sempre vem como CFC + CFP (ex.: 1+1).
+- Se o conferente vier com um número só, o painel não preenche o conferente e avisa que o pedido está errado.
+Subir: index.html, sw.js, versao.json
+
+== 0.107.4 (09/11/2026) ==
+- Line Up: o término estimado mostra só a data. Saiu o texto "dentro do prazo" / "dias após o prazo".
+Subir: index.html, sw.js, versao.json
+
+== 0.108.0 (09/11/2026) ==
+- SOF Reviewer: a ocorrência ignorada não volta mais quando entra uma linha nova no SOF.
+- SOF Reviewer: cada ocorrência ignorada é salva sozinha no banco da equipe, com quem ignorou e quando.
+- SOF Reviewer: o navio é identificado pelo nome lido no SOF.
+- SOF Reviewer: "Desde a análise anterior" mostra quem analisou e quando, para toda a equipe.
+- As ignoradas antigas passam sozinhas para o formato novo.
+Subir: index.html, sw.js, versao.json, ferramentas/sof-app.js
+
+== 0.109.0 (10/11/2026) ==
+- Nova aba Baía (só Analista e Gerente): mapa do cais com os navios nos cabeços da solicitação de inspeção.
+- Clique no navio para ver o resumo e o parecer.
+- Corrigir posição: na Baía e no histórico de inspeções (Solicitações). A correção vale para toda a equipe.
+Subir: index.html, sw.js, versao.json (e ferramentas/sof-app.js, se ainda não subiu a 0.108.0)
