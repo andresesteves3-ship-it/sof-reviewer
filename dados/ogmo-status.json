@@ -1,8 +1,8 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-10T17:14:34.633Z",
- "ultimoSucesso": "2026-11-10T17:14:34.633Z",
+ "atualizado": "2026-11-10T18:04:11.693Z",
+ "ultimoSucesso": "2026-11-10T18:04:11.693Z",
  "total": 31,
  "dias": [
   {
@@ -24,30 +24,22 @@
  "diag": {
   "frames": 1,
   "tentativasEntrada": 1,
-  "recuperacoes": 0,
-  "reaproveitadas": 0,
-  "equipesLidas": 26,
-  "canceladasPuladas": 1,
-  "semAtualizar": 0,
-  "ontemRepetido": 1
+  "recuperacoes": 3,
+  "reaproveitadas": 4,
+  "equipesLidas": 34,
+  "canceladasPuladas": 3,
+  "semAtualizar": 2,
+  "ontemRepetido": 0
  },
  "tempos": {
-  "login": 8785,
+  "login": 9387,
   "dias": {
-   "10/11/2026": 41820,
-   "11/11/2026": 27976,
-   "09/11/2026": 0
+   "10/11/2026": 239575,
+   "11/11/2026": 29602,
+   "09/11/2026": 201123
   },
-  "total": 78633
+  "total": 479741
  },
  "pdfsSeparados": true,
- "falhasSeguidas": 0,
- "pdfs": {
-  "em": "2026-11-10T17:17:11.837Z",
-  "ms": 37244,
-  "feitos": 6,
-  "erros": 0,
-  "faltam": 0
- },
- "pdfsEm": "2026-11-10T17:17:11.837Z"
+ "falhasSeguidas": 0
 }
