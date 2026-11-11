@@ -1,0 +1,15 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Chaves das notificações</title>
+<style>body{font-family:Arial,sans-serif;max-width:720px;margin:30px auto;padding:0 16px;color:#222}code,textarea{font-family:Consolas,monospace}textarea{width:100%;height:58px;font-size:13px}button{background:#D70F1E;color:#fff;border:0;border-radius:6px;padding:10px 18px;font-size:15px;cursor:pointer}.av{background:#FFF4E0;border:1px solid #E6C27A;padding:10px 12px;border-radius:6px}</style></head><body>
+<h1>Chaves das notificações (VAPID)</h1>
+<p class="av"><b>Faça isto só uma vez.</b> As chaves são criadas neste computador e não saem dele. Copie cada uma para o lugar indicado. <b>Não cole a chave privada no chat, no e-mail nem no GitHub.</b></p>
+<p><button id="g">Gerar as chaves</button></p>
+<div id="o" hidden>
+<p><b>1. Chave pública</b> — cole no Cloudflare (variável <code>VAPID_PUBLIC</code>) e no painel (Administração › Notificações no celular):</p><textarea id="pub" readonly></textarea>
+<p><b>2. Chave privada</b> — cole só no Cloudflare, como <b>segredo</b> (variável <code>VAPID_PRIVATE</code>, botão "Encrypt"):</p><textarea id="pri" readonly></textarea>
+<p>Depois de copiar, feche esta página.</p></div>
+<script>
+const enc=u=>{let s='';u=new Uint8Array(u);for(let i=0;i<u.length;i++)s+=String.fromCharCode(u[i]);return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')};
+document.getElementById('g').onclick=async()=>{const k=await crypto.subtle.generateKey({name:'ECDSA',namedCurve:'P-256'},true,['sign','verify']);
+  const pub=await crypto.subtle.exportKey('raw',k.publicKey),jwk=await crypto.subtle.exportKey('jwk',k.privateKey);
+  document.getElementById('pub').value=enc(pub);document.getElementById('pri').value=jwk.d;document.getElementById('o').hidden=false};
+</script></body></html>

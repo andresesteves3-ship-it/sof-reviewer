@@ -1,4 +1,4 @@
 {
- "v": "0.114.0",
- "resumo": "Chat: listas ao digitar (@ # $ /), menu na mensagem, responder citando, visto por e reações."
+ "v": "0.115.0",
+ "resumo": "Notificações do chat no celular (com o painel fechado), pelo carteiro no Cloudflare."
 }

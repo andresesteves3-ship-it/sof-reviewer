@@ -1210,3 +1210,28 @@ Subir: index.html, sw.js, versao.json
 - Chat: menu ⌄ na mensagem, responder citando, ✓✓ visto por, reações.
 - REGRAS DO BANCO MUDARAM (reações): suba também o firebase-regras.json. O robô de regras publica sozinho.
 Subir: index.html, sw.js, versao.json, firebase-regras.json
+
+== 0.115.0 (11/11/2026) ==
+- Notificações do chat no celular e no computador, com o painel fechado (Web Push).
+- Cada pessoa ativa em Meu perfil › Notificações no celular e escolhe: qualquer mensagem, só menções ou nunca; e se só no turno.
+- A notificação mostra só "Nova mensagem de …" ou "… mencionou você", sem o texto.
+Subir: index.html, sw.js, versao.json, ferramentas/chaves-push.html
+(a pasta carteiro/ NÃO precisa ir para o site; ela vai para o Cloudflare)
+
+PASSO A PASSO DO CARTEIRO (uma vez só)
+1. Confirme com a TI que pode usar o Cloudflare Workers (serviço externo gratuito).
+2. Abra https://andresesteves3-ship-it.github.io/sof-reviewer/ferramentas/chaves-push.html e clique em "Gerar as chaves".
+   Deixe a página aberta. NÃO cole a chave privada no chat, no e-mail nem no GitHub.
+3. Crie uma conta em https://dash.cloudflare.com (pode ser grátis).
+4. Workers & Pages › Create › Create Worker. Nome: painel-carteiro. Clique em Deploy.
+5. Edit code: apague o exemplo, cole todo o conteúdo de carteiro/worker.js e clique em Deploy.
+6. Settings › Variables and Secrets › Add:
+   FB_DB        (Text)   = o endereço do banco (o mesmo do firebase-config.json, campo databaseURL)
+   ORIGEM       (Text)   = https://andresesteves3-ship-it.github.io
+   VAPID_PUBLIC (Text)   = a chave pública do passo 2
+   VAPID_PRIVATE(Secret) = a chave privada do passo 2
+   Salve e faça Deploy de novo. Feche a página das chaves.
+7. Copie o endereço do Worker (ex.: https://painel-carteiro.<sua-conta>.workers.dev).
+8. No painel: Administração › Notificações no celular: cole o endereço e a chave pública. Salvar.
+9. Cada pessoa: Meu perfil › Notificações no celular › Ativar neste aparelho › Enviar um teste.
+   iPhone: antes, Safari › Compartilhar › Adicionar à Tela de Início, e abrir o painel por esse ícone (iOS 16.4 ou mais novo).
