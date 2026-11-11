@@ -1,59 +1,37 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-11T08:34:01.708Z",
- "ultimoSucesso": "2026-11-11T08:34:01.708Z",
+ "atualizado": "2026-11-11T14:32:18.466Z",
+ "ultimoSucesso": "2026-11-11T14:32:18.466Z",
  "dias": [
   {
    "data": "11/11/2026",
-   "reqs": 8,
-   "escaladas": 2
+   "reqs": 10,
+   "escaladas": 4
   },
   {
    "data": "12/11/2026",
-   "reqs": 0,
-   "escaladas": 0
+   "erro": "Perdi a tela de requisições."
   }
  ],
  "da9": [
   {
-   "req": "25053428-1",
+   "req": "25053430-1",
    "data": "11/11/2026",
-   "n": 1,
-   "erro": "",
+   "n": 0,
+   "erro": "Perdi a tela de requisições.",
    "aviso": ""
   },
   {
-   "req": "25053436-1",
+   "req": "25053437-1",
    "data": "11/11/2026",
-   "n": 25,
-   "erro": "",
+   "n": 0,
+   "erro": "Perdi a tela de requisições. (não recuperou)",
    "aviso": ""
   }
  ],
- "novos": 13,
+ "novos": 0,
  "total": 282,
- "diag": {
-  "da9": [
-   {
-    "tag": "A",
-    "id": "",
-    "name": "",
-    "val": "",
-    "tit": "Gera DA9 da Requisição Selecionada (Exce",
-    "vis": false,
-    "on": "return SubmitClickConfirm('IWIMAGE5','', true, '');"
-   },
-   {
-    "tag": "IMG",
-    "id": "IWIMAGE5",
-    "name": "IWIMAGE5",
-    "val": "",
-    "tit": "Gera DA9 da Requisição Selecionada (Exce",
-    "vis": true,
-    "on": ""
-   }
-  ]
- },
+ "diag": {},
  "falhasSeguidas": 0
 }
