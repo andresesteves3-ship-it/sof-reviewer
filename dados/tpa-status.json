@@ -1,65 +1,52 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-11T21:06:30.249Z",
- "ultimoSucesso": "2026-11-11T21:06:30.249Z",
+ "atualizado": "2026-11-11T23:26:16.254Z",
+ "ultimoSucesso": "2026-11-11T23:26:16.254Z",
  "dias": [
   {
    "data": "11/11/2026",
    "reqs": 14,
-   "escaladas": 8
+   "escaladas": 12
   },
   {
    "data": "12/11/2026",
-   "erro": "locator.selectOption: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('select').nth(2)\n"
+   "reqs": 14,
+   "escaladas": 0
   }
  ],
  "da9": [
   {
-   "req": "25053434-1",
+   "req": "25053438-1",
    "data": "11/11/2026",
-   "n": 25,
+   "n": 24,
    "erro": "",
    "aviso": ""
   },
   {
-   "req": "25053435-1",
+   "req": "25053439-1",
    "data": "11/11/2026",
    "n": 1,
    "erro": "",
    "aviso": ""
   },
   {
-   "req": "25053444-1",
+   "req": "25053445-1",
    "data": "11/11/2026",
-   "n": 33,
+   "n": 30,
    "erro": "",
    "aviso": ""
   },
   {
-   "req": "25053447-1",
+   "req": "25053448-1",
    "data": "11/11/2026",
    "n": 2,
    "erro": "",
    "aviso": ""
-  },
-  {
-   "req": "25053430-1",
-   "data": "11/11/2026",
-   "n": 1,
-   "erro": "",
-   "aviso": ""
-  },
-  {
-   "req": "25053437-1",
-   "data": "11/11/2026",
-   "n": 25,
-   "erro": "",
-   "aviso": ""
   }
  ],
- "novos": 45,
- "total": 327,
+ "novos": 23,
+ "total": 350,
  "diag": {
   "da9": [
    {
