@@ -1176,3 +1176,10 @@ Subir: index.html, sw.js, versao.json, ferramentas/sof-app.js
 - Clique no navio para ver o resumo e o parecer.
 - Corrigir posição: na Baía e no histórico de inspeções (Solicitações). A correção vale para toda a equipe.
 Subir: index.html, sw.js, versao.json (e ferramentas/sof-app.js, se ainda não subiu a 0.108.0)
+
+== 0.110.0 (11/11/2026) ==
+- Dobra: entra na lista ao clicar em Gerar e-mail; copiar ou abrir no Outlook passa para Enviada ao comercial.
+- Dobra: lista por dia e por navio, abre em "Em andamento"; detalhe com todas as opções.
+- Dobra: Ajustar, Corrigir código, Cancelar e Excluir, todos com motivo e histórico.
+- Inspeção: "Não precisa de inspeção" pede o motivo (Heavy Lift fixo). Histórico com filtros.
+Subir: index.html, sw.js, versao.json
