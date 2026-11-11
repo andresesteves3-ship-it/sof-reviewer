@@ -1183,3 +1183,10 @@ Subir: index.html, sw.js, versao.json (e ferramentas/sof-app.js, se ainda não s
 - Dobra: Ajustar, Corrigir código, Cancelar e Excluir, todos com motivo e histórico.
 - Inspeção: "Não precisa de inspeção" pede o motivo (Heavy Lift fixo). Histórico com filtros.
 Subir: index.html, sw.js, versao.json
+
+== 0.111.0 (11/11/2026) ==
+- Encerrar frente: confere o que está em aberto (Continua pendente / Feito / Sem operação).
+- Rotinas: bloco "Pendências de navios encerrados", com prazo e motivo.
+- Passagem de serviço, Início, sino e Liderança mostram as pendências de navios encerrados.
+- Dobra: o histórico não mostra mais "(confirmado no botão)".
+Subir: index.html, sw.js, versao.json
