@@ -54,6 +54,12 @@
       ".read": "auth != null && (root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).exists() || auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br')",
       "msg": {
         "$id": {
+          "re": {
+            "$k": {
+              ".write": "(auth != null && (root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).exists() || auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br')) && auth.token.email.toLowerCase().replace('.', '_').beginsWith($k + '@')",
+              ".validate": "!newData.exists() || (newData.isString() && newData.val().length <= 4)"
+            }
+          },
           ".write": "(auth != null && (root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).exists() || auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br')) && (data.exists() ? ((auth.token.email.toLowerCase().replace('.', '_').beginsWith(data.child('k').val() + '@')) || (auth != null && (root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).child('funcao').val() == 'Analista' || root.child('usuarios').child(auth.token.email.toLowerCase().replace('.', ',')).child('funcao').val() == 'Gerente' || auth.token.email == 'fellipe.mourao@triunfologistica.com.br' || auth.token.email == 'andres.santos@triunfologistica.com.br'))) : auth.token.email.toLowerCase().replace('.', '_').beginsWith(newData.child('k').val() + '@'))",
           ".validate": "!newData.exists() || (newData.hasChildren(['k','t','em']) && newData.child('t').isString() && newData.child('t').val().length <= 2000)"
         }

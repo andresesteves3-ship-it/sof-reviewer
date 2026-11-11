@@ -1204,3 +1204,9 @@ Subir: index.html, sw.js, versao.json
 - Início: "Minha aderência" e aviso ao abrir com o turno já começado. Meu perfil: turnos, trechos fechados e Justificar.
 - Liderança: bloco e indicador de Aderência, ⚙ Meta, justificativas para aprovar, avisos no sino. Equipe: coluna Aderência.
 Subir: index.html, sw.js, versao.json
+
+== 0.114.0 (11/11/2026) ==
+- Chat: listas ao digitar @ (pessoas e @todos), # (navios em operação), $ (previstos) e / (abas).
+- Chat: menu ⌄ na mensagem, responder citando, ✓✓ visto por, reações.
+- REGRAS DO BANCO MUDARAM (reações): suba também o firebase-regras.json. O robô de regras publica sozinho.
+Subir: index.html, sw.js, versao.json, firebase-regras.json
