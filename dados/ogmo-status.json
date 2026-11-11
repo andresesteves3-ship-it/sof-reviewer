@@ -1,53 +1,10 @@
 {
- "ok": true,
- "erro": "",
- "atualizado": "2026-11-11T16:15:41.792Z",
+ "ok": false,
+ "erro": "Perdi a tela de requisições. Site: HTTP 200. Frames=[{\"sel\":0,\"tab\":0,\"inp\":0,\"txt\":\"\"}]",
+ "atualizado": "2026-11-11T17:23:29.537Z",
  "ultimoSucesso": "2026-11-11T16:15:41.792Z",
- "total": 27,
- "dias": [
-  {
-   "data": "10/11/2026",
-   "n": 13,
-   "erro": ""
-  },
-  {
-   "data": "11/11/2026",
-   "n": 10,
-   "erro": ""
-  },
-  {
-   "data": "12/11/2026",
-   "n": 4,
-   "erro": ""
-  }
- ],
- "diag": {
-  "frames": 1,
-  "tentativasEntrada": 2,
-  "recuperacoes": 0,
-  "reaproveitadas": 0,
-  "equipesLidas": 15,
-  "canceladasPuladas": 2,
-  "semAtualizar": 0,
-  "ontemRepetido": 1
- },
- "tempos": {
-  "login": 57068,
-  "dias": {
-   "11/11/2026": 28937,
-   "12/11/2026": 16838,
-   "10/11/2026": 0
-  },
-  "total": 102884
- },
- "pdfsSeparados": true,
- "falhasSeguidas": 0,
- "pdfs": {
-  "em": "2026-11-11T16:17:59.798Z",
-  "ms": 63,
-  "feitos": 0,
-  "erros": 0,
-  "faltam": 0
- },
- "pdfsEm": "2026-11-11T16:17:59.798Z"
+ "site": false,
+ "tentativasEntrada": 1,
+ "proxTentativa": "2026-11-11T17:33:54.364Z",
+ "falhasSeguidas": 1
 }
