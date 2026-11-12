@@ -1235,3 +1235,18 @@ PASSO A PASSO DO CARTEIRO (uma vez só)
 8. No painel: Administração › Notificações no celular: cole o endereço e a chave pública. Salvar.
 9. Cada pessoa: Meu perfil › Notificações no celular › Ativar neste aparelho › Enviar um teste.
    iPhone: antes, Safari › Compartilhar › Adicionar à Tela de Início, e abrir o painel por esse ícone (iOS 16.4 ou mais novo).
+
+== 0.115.1 (11/11/2026) ==
+- Notificações: ao ativar, o aparelho refaz a inscrição com a chave atual.
+- Meu perfil › Notificações: lista dos aparelhos cadastrados; o teste mostra quantos recusaram.
+Subir: index.html, sw.js, versao.json
+
+== 0.116.0 (11/11/2026) ==
+- Notificações do chat como no WhatsApp: título = nome de quem escreveu (ou "Nome · mencionou você"); corpo = texto da mensagem.
+  O carteiro NÃO muda: ele leva só o nome e o número da mensagem. O celular busca o texto no banco.
+  Várias mensagens juntam numa só notificação (últimas 5 linhas). Tocar abre o chat na mensagem.
+- Meu perfil › Notificações: opção "Mostrar o texto da mensagem na notificação" (ligada no início).
+- Todos os blocos da Administração e do Meu perfil recolhem.
+- "GitHub" aparece só na Administração. A chave dos robôs mudou do Line Up para a Administração (card "Chave do GitHub (robôs)").
+- Depois de subir: cada pessoa abre o painel no celular uma vez (o aparelho guarda o acesso para buscar o texto).
+Subir: index.html, sw.js, versao.json
