@@ -1,16 +1,15 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-12T05:28:15.111Z",
- "ultimoSucesso": "2026-11-12T05:28:15.111Z",
+ "atualizado": "2026-11-12T18:29:56.104Z",
+ "ultimoSucesso": "2026-11-12T18:29:56.104Z",
  "diag": {
-  "cartoes": 4,
-  "comPrevisao": 2,
+  "cartoes": 3,
+  "comPrevisao": 3,
   "amostra": [
-   "OBI ISLAND | TÉRMINO PREVISTO / 11 nov / no ritmo real 11 nov / 0,3 dia após o prazo",
-   "FEI YUN JIANG | TÉRMINO PREVISTO / 15 nov / no ritmo real — / PRANCHA T/DIA",
-   "JIN XIANG | TÉRMINO PREVISTO / 12 nov / no ritmo real 12 nov / dentro do prazo",
-   "SCOT BREMEN | TÉRMINO PREVISTO / — / PRANCHA / aguardando o primeiro turno"
+   "SCOT BREMEN | TÉRMINO PREVISTO / 14 nov / no ritmo real 16 nov / dentro do prazo",
+   "FEI YUN JIANG | TÉRMINO PREVISTO / 14 nov / no ritmo real 14 nov / dentro do prazo",
+   "JIN XIANG | TÉRMINO PREVISTO / 12 nov / no ritmo real 12 nov / dentro do prazo"
   ]
  },
  "falhasSeguidas": 0

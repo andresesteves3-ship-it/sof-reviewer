@@ -1,10 +1,15 @@
 {
- "atualizado": "2026-11-12T05:28:15.111Z",
+ "atualizado": "2026-11-12T18:29:56.104Z",
  "navios": {
-  "OBI ISLAND": {
-   "dia": "2026-11-11",
-   "txt": "11 nov",
-   "sit": "0,3 dia após o prazo"
+  "SCOT BREMEN": {
+   "dia": "2026-11-16",
+   "txt": "16 nov",
+   "sit": "dentro do prazo"
+  },
+  "FEI YUN JIANG": {
+   "dia": "2026-11-14",
+   "txt": "14 nov",
+   "sit": "dentro do prazo"
   },
   "JIN XIANG": {
    "dia": "2026-11-12",
