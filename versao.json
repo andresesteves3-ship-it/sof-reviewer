@@ -1,4 +1,4 @@
 {
- "v": "0.116.0",
- "resumo": "Notificações do chat com o nome e o texto da mensagem; todos os blocos da Administração e do Meu perfil recolhem."
+ "v": "0.116.1",
+ "resumo": "Notificações: a escolha \"Avisar quando\" vale na hora, sem recarregar a página."
 }

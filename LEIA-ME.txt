@@ -1250,3 +1250,7 @@ Subir: index.html, sw.js, versao.json
 - "GitHub" aparece só na Administração. A chave dos robôs mudou do Line Up para a Administração (card "Chave do GitHub (robôs)").
 - Depois de subir: cada pessoa abre o painel no celular uma vez (o aparelho guarda o acesso para buscar o texto).
 Subir: index.html, sw.js, versao.json
+
+== 0.116.1 (11/11/2026) ==
+- Notificações: quem envia a mensagem lê as escolhas de "Avisar quando" de novo a cada envio. A mudança vale na hora (antes valia só depois de recarregar a página de quem enviava).
+Subir: index.html, sw.js, versao.json
