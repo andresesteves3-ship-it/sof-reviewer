@@ -1,73 +1,11 @@
 {
- "ok": true,
- "erro": "",
- "atualizado": "2026-11-12T08:39:26.342Z",
+ "ok": false,
+ "erro": "Perdi a tela de requisições. Site: HTTP 200. Frames=[{\"sel\":0,\"tab\":0,\"inp\":0,\"txt\":\"\"}]",
+ "atualizado": "2026-11-12T21:04:17.390Z",
  "ultimoSucesso": "2026-11-12T08:39:26.342Z",
- "dias": [
-  {
-   "data": "12/11/2026",
-   "reqs": 14,
-   "escaladas": 4
-  },
-  {
-   "data": "13/11/2026",
-   "reqs": 12,
-   "escaladas": 0
-  }
- ],
- "da9": [
-  {
-   "req": "25053440-1",
-   "data": "12/11/2026",
-   "n": 18,
-   "erro": "",
-   "aviso": ""
-  },
-  {
-   "req": "25053441-1",
-   "data": "12/11/2026",
-   "n": 1,
-   "erro": "",
-   "aviso": ""
-  },
-  {
-   "req": "25053446-1",
-   "data": "12/11/2026",
-   "n": 33,
-   "erro": "",
-   "aviso": ""
-  },
-  {
-   "req": "25053449-1",
-   "data": "12/11/2026",
-   "n": 2,
-   "erro": "",
-   "aviso": ""
-  }
- ],
- "novos": 19,
- "total": 369,
- "diag": {
-  "da9": [
-   {
-    "tag": "A",
-    "id": "",
-    "name": "",
-    "val": "",
-    "tit": "Gera DA9 da Requisição Selecionada (Exce",
-    "vis": false,
-    "on": "return SubmitClickConfirm('IWIMAGE5','', true, '');"
-   },
-   {
-    "tag": "IMG",
-    "id": "IWIMAGE5",
-    "name": "IWIMAGE5",
-    "val": "",
-    "tit": "Gera DA9 da Requisição Selecionada (Exce",
-    "vis": true,
-    "on": ""
-   }
-  ]
- },
- "falhasSeguidas": 0
+ "diag": {},
+ "site": false,
+ "tentativasEntrada": 1,
+ "proxTentativa": "2026-11-12T21:14:41.841Z",
+ "falhasSeguidas": 1
 }
