@@ -1,6 +1,6 @@
-// Painel dos Assistentes — service worker (0.120.0)
+// Painel dos Assistentes — service worker (0.121.0)
 // Rede primeiro (sempre pede a versão mais nova ao servidor); sem internet, usa a cópia guardada.
-const VERSION = '0.120.0';
+const VERSION = '0.121.0';
 const CACHE = 'painel-assistentes-' + VERSION;
 const SHELL = ['./', './index.html', './ferramentas/sof-libs.js', './ferramentas/sof-app.js', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/apple-touch-icon.png'];
@@ -23,7 +23,7 @@ self.addEventListener('fetch', e => {
     }).catch(() => caches.match(req, { ignoreSearch: true }).then(r => r || (req.mode === 'navigate' ? caches.match('./index.html') : Response.error())))
   );
 });
-// v0.120.0: notificações como no WhatsApp. O carteiro manda só o nome e o número da mensagem (no endereço, m=...).
+// v0.121.0: notificações como no WhatsApp. O carteiro manda só o nome e o número da mensagem (no endereço, m=...).
 // O aparelho busca o texto no banco com o acesso que a página guardou no IndexedDB ('painel-push' › kv › 'auth').
 // Se não conseguir em 5 s (ou a pessoa desligou "Mostrar o texto"), mostra "Nova mensagem".
 function idb(modo, valor) {

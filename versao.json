@@ -1,4 +1,4 @@
 {
- "v": "0.120.0",
- "resumo": "Como usar com imagens em todos os assuntos principais; correção da Dobra com navio \"(AL.)\"."
+ "v": "0.121.0",
+ "resumo": "Passagem de serviço mais limpa: rotinas únicas só quando pendentes, laudo de guindaste com navio em operação e pós-operação."
 }
