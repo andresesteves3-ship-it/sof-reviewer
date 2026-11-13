@@ -1,4 +1,4 @@
 {
- "v": "0.117.0",
- "resumo": "Navio sem inspeção esconde o grupo Guindastes; \"integração\" no lugar de \"robô\"; pedidos de estiva no fundeio conferidos na balsa."
+ "v": "0.118.0",
+ "resumo": "Rotinas: selecionar várias células (Ctrl/Shift) e marcar todas de uma vez; navio \"(AL.)\" reconhecido; catálogo \"adicionar N quando solicitado\"."
 }

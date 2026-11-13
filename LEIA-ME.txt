@@ -1264,3 +1264,14 @@ Subir: index.html, sw.js, versao.json
   · pedido de balsa "SAO LUIS" acha a requisição "BALSA SÃO LUIS (AL. navio)" (a palavra BALSA no começo não conta; vale também para balsa atracada).
   · navio no fundeio: as funções que o catálogo põe só na balsa (bloco BALSA menos bloco NAVIO; hoje ETR, EE e CFC no Ferro Gusa) saem da conferência do navio e são conferidas na requisição da balsa. Navio e balsa atracados: sem mudança.
   · o pedido do navio no fundeio mostra a balsa ligada e avisa ao salvar.
+
+== 0.118.0 (13/11/2026) ==
+- Rotinas: Ctrl + clique seleciona células uma a uma (navios diferentes, ADM e únicas); Shift + clique seleciona o intervalo no mesmo navio.
+  Botão direito numa célula selecionada (ou "Escolher opção" na barra): Feito, Feito por outra pessoa, Pendente, Sem operação, Não feito, Desmarcar — vale para todas.
+  Motivo pedido uma vez. O que não pode receber a opção é pulado e o painel avisa. Desfazer por 10 s. Celular: toque longo.
+  Shift + clique não marca mais direto (só seleciona).
+- Início, Passagem e Dobra: navio com "(AL.)" no fim do nome do OGMO (ex.: "JIN XIANG(AL.)") é reconhecido. A escolha atracado/fundeio continua pelo nome original.
+- Catálogo: "ADICIONAR N ... QUANDO SOLICITADO" aceita até mais N. A quantidade a mais fica verde quando o pedido de estiva pede; sem pedido, cinza (informação).
+- Requisições: o catálogo é lido do banco ao abrir a aba (a cada 5 min).
+- Inclui tudo da 0.117.0. Se a 0.117.0 não foi enviada, envie só esta.
+Subir: index.html, sw.js, versao.json
