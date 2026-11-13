@@ -1254,3 +1254,9 @@ Subir: index.html, sw.js, versao.json
 == 0.116.1 (11/11/2026) ==
 - Notificações: quem envia a mensagem lê as escolhas de "Avisar quando" de novo a cada envio. A mudança vale na hora (antes valia só depois de recarregar a página de quem enviava).
 Subir: index.html, sw.js, versao.json
+
+== 0.117.0 (12/11/2026) ==
+- Navio marcado "não precisa de inspeção" (qualquer motivo): o grupo Guindastes (inspeção, laudo ao OGMO, laudo no Geport) sai das Rotinas desse navio e não é cobrado (Únicas, encerramento, Não feito, Passagem). Ao desfazer, volta como estava.
+- Solicitações › Navios: botão "↺ Desfazer" (antes "Desfazer Heavy Lift") e nota da tabela atualizada.
+Subir: index.html, sw.js, versao.json
+- (também na 0.117.0) Linguagem corporativa: na tela, "robô" virou "integração" (Integração OGMO, Status das integrações, Cópia de segurança automática, Publicação automática das regras). Os arquivos das integrações (scripts/*.js e .github/workflows) não mudaram.
