@@ -1282,3 +1282,12 @@ Subir: index.html, sw.js, versao.json
 - Administração › Usuários: aviso quando um assistente ainda tem MASTER. Sem MASTER, a pessoa só deixa de adicionar/remover usuários.
 - Se a 0.118.0 ainda não foi enviada, envie só esta (inclui tudo).
 Subir: index.html, sw.js, versao.json
+
+== 0.120.0 (13/11/2026) ==
+- Como usar com imagens (dados fictícios): Primeiros passos, Line Up, Rotinas, Passagem de serviço, Requisições, Pedidos de estiva, Inspeção de guindaste, Dobra, Plano B e ao largo, Chat (assunto novo), SOF Reviewer, Liderança e Equipe. Os números vermelhos na imagem batem com o texto. Clique na imagem para ampliar.
+- "Como usar esta tela" em cada aba abre o passo a passo daquela tela (em Solicitações, o da aba aberta).
+- Correção: navio com "(AL.)" no nome do OGMO não aparece mais duas vezes na Dobra (era tratado como balsa).
+- Catálogo de modelos: subtítulo atualizado ("qualquer usuário do painel pode editar").
+- Imagens: pasta ferramentas/ajuda/ (40 arquivos .webp, cerca de 1,9 MB), baixadas só quando alguém abre o assunto.
+- Inclui tudo da 0.117.0, 0.118.0 e 0.119.0.
+Subir: index.html, sw.js, versao.json e a pasta ferramentas/ajuda/ inteira
