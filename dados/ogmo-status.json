@@ -1,18 +1,45 @@
 {
- "ok": false,
- "erro": "Perdi a tela de requisições. Site: HTTP 200. Frames=[{\"sel\":0,\"tab\":0,\"inp\":0,\"txt\":\"\"}]",
- "atualizado": "2026-11-13T06:32:35.455Z",
- "ultimoSucesso": "2026-11-13T04:18:37.039Z",
- "site": false,
- "tentativasEntrada": 1,
- "proxTentativa": "2026-11-13T06:42:59.392Z",
- "falhasSeguidas": 1,
- "pdfs": {
-  "em": "2026-11-13T06:33:32.969Z",
-  "ms": 60,
-  "feitos": 0,
-  "erros": 0,
-  "faltam": 0
+ "ok": true,
+ "erro": "",
+ "atualizado": "2026-11-13T06:38:14.449Z",
+ "ultimoSucesso": "2026-11-13T06:38:14.449Z",
+ "total": 35,
+ "dias": [
+  {
+   "data": "12/11/2026",
+   "n": 16,
+   "erro": ""
+  },
+  {
+   "data": "13/11/2026",
+   "n": 16,
+   "erro": ""
+  },
+  {
+   "data": "14/11/2026",
+   "n": 3,
+   "erro": ""
+  }
+ ],
+ "diag": {
+  "frames": 1,
+  "tentativasEntrada": 1,
+  "recuperacoes": 2,
+  "reaproveitadas": 1,
+  "equipesLidas": 32,
+  "canceladasPuladas": 0,
+  "semAtualizar": 1,
+  "ontemRepetido": 0
  },
- "pdfsEm": "2026-11-13T06:33:32.969Z"
+ "tempos": {
+  "login": 9451,
+  "dias": {
+   "13/11/2026": 159342,
+   "14/11/2026": 12607,
+   "12/11/2026": 53888
+  },
+  "total": 235340
+ },
+ "pdfsSeparados": true,
+ "falhasSeguidas": 0
 }
