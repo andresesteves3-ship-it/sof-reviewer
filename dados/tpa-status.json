@@ -1,59 +1,59 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-13T08:24:40.285Z",
- "ultimoSucesso": "2026-11-13T08:24:40.285Z",
+ "atualizado": "2026-11-13T15:40:12.700Z",
+ "ultimoSucesso": "2026-11-13T15:40:12.700Z",
  "dias": [
   {
    "data": "13/11/2026",
-   "reqs": 16,
-   "escaladas": 5
+   "reqs": 22,
+   "escaladas": 10
   },
   {
    "data": "14/11/2026",
-   "reqs": 3,
+   "reqs": 8,
    "escaladas": 0
   }
  ],
  "da9": [
   {
-   "req": "25053458-1",
+   "req": "25053461-1",
    "data": "13/11/2026",
-   "n": 29,
+   "n": 24,
    "erro": "",
    "aviso": ""
   },
   {
-   "req": "25053459-1",
+   "req": "25053462-1",
    "data": "13/11/2026",
-   "n": 1,
-   "erro": "",
+   "n": 0,
+   "erro": "Perdi a tela de requisições. (não recuperou)",
    "aviso": ""
   },
   {
-   "req": "25053460-1",
+   "req": "25053463-1",
    "data": "13/11/2026",
    "n": 2,
    "erro": "",
    "aviso": ""
   },
   {
-   "req": "25053473-1",
-   "data": "13/11/2026",
-   "n": 12,
-   "erro": "",
-   "aviso": ""
-  },
-  {
-   "req": "25053474-1",
+   "req": "25053475-1",
    "data": "13/11/2026",
    "n": 6,
    "erro": "",
    "aviso": ""
+  },
+  {
+   "req": "25053476-1",
+   "data": "13/11/2026",
+   "n": 12,
+   "erro": "",
+   "aviso": ""
   }
  ],
- "novos": 6,
- "total": 403,
+ "novos": 11,
+ "total": 414,
  "diag": {
   "da9": [
    {
