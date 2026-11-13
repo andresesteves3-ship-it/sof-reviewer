@@ -1,15 +1,15 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-12T18:29:56.104Z",
- "ultimoSucesso": "2026-11-12T18:29:56.104Z",
+ "atualizado": "2026-11-13T02:44:45.493Z",
+ "ultimoSucesso": "2026-11-13T02:44:45.493Z",
  "diag": {
   "cartoes": 3,
-  "comPrevisao": 3,
+  "comPrevisao": 2,
   "amostra": [
-   "SCOT BREMEN | TÉRMINO PREVISTO / 14 nov / no ritmo real 16 nov / dentro do prazo",
+   "SCOT BREMEN | TÉRMINO PREVISTO / 16 nov / no ritmo real 17 nov / dentro do prazo",
    "FEI YUN JIANG | TÉRMINO PREVISTO / 14 nov / no ritmo real 14 nov / dentro do prazo",
-   "JIN XIANG | TÉRMINO PREVISTO / 12 nov / no ritmo real 12 nov / dentro do prazo"
+   "JIN XIANG | TÉRMINO PREVISTO / — / no ritmo real — / operação concluída"
   ]
  },
  "falhasSeguidas": 0

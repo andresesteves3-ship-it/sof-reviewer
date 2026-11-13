@@ -1,19 +1,14 @@
 {
- "atualizado": "2026-11-12T18:29:56.104Z",
+ "atualizado": "2026-11-13T02:44:45.493Z",
  "navios": {
   "SCOT BREMEN": {
-   "dia": "2026-11-16",
-   "txt": "16 nov",
+   "dia": "2026-11-17",
+   "txt": "17 nov",
    "sit": "dentro do prazo"
   },
   "FEI YUN JIANG": {
    "dia": "2026-11-14",
    "txt": "14 nov",
-   "sit": "dentro do prazo"
-  },
-  "JIN XIANG": {
-   "dia": "2026-11-12",
-   "txt": "12 nov",
    "sit": "dentro do prazo"
   }
  }
