@@ -6,5 +6,13 @@
  "site": false,
  "tentativasEntrada": 1,
  "proxTentativa": "2026-11-13T06:42:59.392Z",
- "falhasSeguidas": 1
+ "falhasSeguidas": 1,
+ "pdfs": {
+  "em": "2026-11-13T06:33:32.969Z",
+  "ms": 60,
+  "feitos": 0,
+  "erros": 0,
+  "faltam": 0
+ },
+ "pdfsEm": "2026-11-13T06:33:32.969Z"
 }
