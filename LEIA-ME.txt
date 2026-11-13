@@ -1275,3 +1275,10 @@ Subir: index.html, sw.js, versao.json
 - Requisições: o catálogo é lido do banco ao abrir a aba (a cada 5 min).
 - Inclui tudo da 0.117.0. Se a 0.117.0 não foi enviada, envie só esta.
 Subir: index.html, sw.js, versao.json
+
+== 0.119.0 (13/11/2026) ==
+- Administração: a aba aparece só para Analista, Gerente e os administradores técnicos (andres.santos e fellipe.mourao). Quem não tem acesso e abre #admin volta para o Início. "● Sistemas" no Início não abre a Administração para os assistentes.
+- Catálogo de modelos: qualquer usuário do painel cria, edita e exclui modelos (não precisa de MASTER).
+- Administração › Usuários: aviso quando um assistente ainda tem MASTER. Sem MASTER, a pessoa só deixa de adicionar/remover usuários.
+- Se a 0.118.0 ainda não foi enviada, envie só esta (inclui tudo).
+Subir: index.html, sw.js, versao.json
