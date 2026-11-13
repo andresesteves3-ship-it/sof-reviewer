@@ -6035,12 +6035,40 @@ async function readPdf(file){await loadPdf();
     var o=[];g.forEach(function(t){if(/sim/i.test(t.cancelado||''))return;var n=parseInt(t.equipe,10);if(n&&o.indexOf(n)<0)o.push(n)});return o.sort(function(a,b){return a-b})}
   function pdTnTxt(l){if(!l.length)return 'nenhum terno';if(l.length===1)return 'terno '+l[0];var seq=l.every(function(n,i){return !i||n===l[i-1]+1});return 'ternos '+(seq&&l.length>2?l[0]+' a '+l[l.length-1]:l.join(', '))}
   /* acha o pedido da requisição: mesmo dia, período e navio (balsa pelo nome da balsa ou pelo bloco "Balsa" do pedido do navio) */
+  /* v0.117.0 — fundeio. (1) pedido de balsa "SAO LUIS" acha "BALSA SÃO LUIS (AL. NAVIO)": a palavra BALSA no começo não conta.
+     (2) navio no fundeio: as funções que o catálogo põe só na balsa (bloco BALSA menos bloco NAVIO; Gusa hoje: ETR, EE, CFC)
+         saem da conferência do navio e são conferidas na requisição da balsa ligada a ele (terno N do pedido × equipe N da balsa). */
+  function pdSemBalsa(n){return String(n||'').replace(/^\s*BALSA\s+/i,'')}
+  function pdMesmaBalsa(a,b){return mesmoNavio(a,b)||mesmoNavio(pdSemBalsa(a),pdSemBalsa(b))}
+  var PDFB={};
+  function pdFuncBalsa(navio){var tipo=null;try{var fo=ctAchaCarga(navio,ctMapaCargas());tipo=fo?ctTipoDeCarga(fo.carga):null}catch(e){}
+    var k=tipo||'*';if(PDFB[k]&&Date.now()-PDFB[k].em<60000)return PDFB[k].l;var out=[],cod=function(t){var o=[];String(t||'').split('\n').forEach(function(l){var m=l.match(/^\s*([A-Z]{2,4})\s*-/);if(m)o.push(m[1])});return o};
+    ctAll().filter(function(m){return !tipo||m.tipo===tipo}).forEach(function(m){var bl=ctParseBlocks(m.comp),nv=bl.filter(function(b){return /^NAVIO/i.test(b.title||'')}),bs=bl.filter(function(b){return /^BALSA/i.test(b.title||'')});
+      if(!nv.length||!bs.length)return;var cn=cod(nv[0].text);bs.forEach(function(b){cod(b.text).forEach(function(c){if(cn.indexOf(c)<0&&out.indexOf(c)<0)out.push(c)})})});
+    PDFB[k]={l:out,em:Date.now()};return out}
+  function pdFiltra(comp,BF,fica){var o={};Object.keys(comp||{}).forEach(function(t){var m={};Object.keys(comp[t]||{}).forEach(function(c){if((BF.indexOf(c)>=0)===fica)m[c]=comp[t][c]});o[t]=m});return o}
+  function pdTemFunc(comp){return Object.keys(comp||{}).some(function(t){return Object.keys(comp[t]||{}).length})}
+  /* navio no fundeio? (OGMO com "(AL.)" no dia, balsa "(AL. NAVIO)" ou frente marcada ao largo) e nomes das balsas ligadas */
+  function pdFundeio(navio,dataIso){var o={fund:false,balsas:[]},dm=String(dataIso||'').split('-').reverse().join('/'),rec=rqLer();
+    var add=function(n){n=String(n||'').trim();if(n&&!o.balsas.some(function(x){return pdMesmaBalsa(x,n)}))o.balsas.push(n)};
+    ((rec&&rec.dados&&rec.dados.dias)||[]).filter(function(d){return !dataIso||d.data===dm}).forEach(function(d){(d.reqs||[]).forEach(function(r){var c=ctParseNavio(r.navio);
+      if(c.kind==='navio'&&c.aoLargo&&mesmoNavio(c.base,navio))o.fund=true;
+      if(c.kind==='balsa'&&!c.atracada&&c.alvo&&mesmoNavio(c.alvo,navio)){o.fund=true;add(c.base)}})});
+    try{pdFrentes().forEach(function(f){var b=pdBase(f);if(b.tipo==='navio'&&mesmoNavio(b.navio,navio)&&ehLargo(f))o.fund=true;if(b.tipo==='balsa'&&/\(\s*AL\b/i.test(f.navio||'')&&mesmoNavio(b.alvo,navio)){o.fund=true;add(b.navio)}})}catch(e){}
+    return o}
   function pdAcha(r,dmy){
     var d=String(dmy||'').split('/').reverse().join('-'),per=ORD_PER[r.periodo],ctx=ctParseNavio(r.navio),hit=null,exp=null;
-    pdTodos().filter(function(p){return p.data===d&&p.per===per}).sort(function(a,b){return (b.em||0)-(a.em||0)}).forEach(function(p){if(hit)return;
-      if(ctx.kind==='balsa'){if(p.tipo==='balsa'&&mesmoNavio(p.navio,ctx.base)){hit=p;exp=p.comp}else if(p.tipo==='navio'&&ctx.alvo&&mesmoNavio(p.navio,ctx.alvo)&&Object.keys(p.bcomp||{}).length){hit=p;exp=p.bcomp}}
+    var L=pdTodos().filter(function(p){return p.data===d&&p.per===per}).sort(function(a,b){return (b.em||0)-(a.em||0)});
+    L.forEach(function(p){if(hit)return;
+      if(ctx.kind==='balsa'){if(p.tipo==='balsa'&&pdMesmaBalsa(p.navio,ctx.base)){hit=p;exp=p.comp}else if(p.tipo==='navio'&&ctx.alvo&&mesmoNavio(p.navio,ctx.alvo)&&Object.keys(p.bcomp||{}).length){hit=p;exp=p.bcomp}}
       else if(ctx.kind==='navio'&&p.tipo==='navio'&&mesmoNavio(p.navio,ctx.base)){hit=p;exp=p.comp}});
-    return hit?{p:hit,exp:exp,balsa:exp===hit.bcomp&&hit.tipo==='navio'}:null}
+    var res=hit?{p:hit,exp:exp,balsa:exp===hit.bcomp&&hit.tipo==='navio'}:null;
+    if(ctx.kind==='navio'&&ctx.aoLargo&&res&&!res.balsa){var BF=pdFuncBalsa(ctx.base);if(BF.length)res.exp=pdFiltra(res.exp,BF,false)}
+    if(ctx.kind==='balsa'&&!ctx.atracada&&ctx.alvo&&!(res&&res.balsa)){var pn=L.filter(function(p){return p.tipo==='navio'&&mesmoNavio(p.navio,ctx.alvo)})[0];
+      if(pn){var BF2=pdFuncBalsa(ctx.alvo),ad=BF2.length?pdFiltra(pn.comp,BF2,true):{};
+        if(pdTemFunc(ad)){if(!res)res={p:pn,exp:ad,balsa:false,viaNavio:true,completo:false};
+          else{var m={};Object.keys(ad).concat(Object.keys(res.exp||{})).forEach(function(t){m[t]=Object.assign({},ad[t]||{},(res.exp||{})[t]||{})});res.exp=m}}}}
+    return res}
   /* compara o pedido de um terno (e) com a composição do OGMO (at) */
   /* v0.83.1: janela Composição com uma coluna por terno (pedido × OGMO) e a tabela Ternos com "No pedido?" */
   function rqCompEq(r,dmy){var pc=r.__p||(r.__p=pdConferir(r,dmy)),p=pc.p&&pc.T?pc.p:null,a=pdAcha(r,dmy),EX=a&&!a.balsa?a.exp||{}:{};
@@ -6083,13 +6111,14 @@ async function readPdf(file){await loadPdf();
     if(r.aviso||!(r.comp||[]).length)return {st:'sem',p:a.p,msg:'aguardando a leitura do OGMO'};
     var tl=pdReqTernos(r);if(!tl.length)return {st:'sem',p:a.p,msg:'todas as equipes canceladas no OGMO'};
     /* v0.83.1: terno a terno — terno N do pedido × equipe N do OGMO */
+    var CP=a.completo!=null?a.completo:a.p.completo;
     if(r.porEquipe&&!a.balsa){var p=a.p,T={},E={},df=[],nt=[],lido=0;
       tl.forEach(function(t){var eq=pdEqDe(r,t);
         if(p.ternos.indexOf(t)<0){var tx='T'+t+': o pedido não tem este terno (pedido: terno '+p.ternos.join(', ')+')';df.push(tx);T[t]={dc:{},sem:1,tx:tx};return}
         var e=a.exp[t]||{};E[t]=e;
         if(!eq||!Array.isArray(eq.comp)||eq.compErro){nt.push('T'+t+': composição não lida no OGMO');T[t]={nl:1,dc:{}};return}
-        if(p.completo&&!Object.keys(e).length){nt.push('T'+t+': pedido sem composição');T[t]={vz:1,dc:{}};return}
-        var u=pdCmpUm(e,pdAtual(r,eq.comp),p.completo);u.df.forEach(function(x){df.push('T'+t+' · '+x)});T[t]={dc:u.dc,ant:eq.compAnt};lido++});
+        if(CP&&!Object.keys(e).length){nt.push('T'+t+': pedido sem composição');T[t]={vz:1,dc:{}};return}
+        var u=pdCmpUm(e,pdAtual(r,eq.comp),CP);u.df.forEach(function(x){df.push('T'+t+' · '+x)});T[t]={dc:u.dc,ant:eq.compAnt};lido++});
       var e1=E[tl[0]]||{},dc1=(T[tl[0]]||{}).dc||{};
       if(df.length)return {st:'dif',p:p,diffs:df,dc:dc1,e:e1,E:E,T:T,notas:nt,h:df.join(';')};
       if(!lido)return {st:'sem',p:p,msg:nt.length?nt.join(' · '):'sem composição para comparar',E:E,T:T};
@@ -6097,14 +6126,14 @@ async function readPdf(file){await loadPdf();
     var p=a.p,t=tl.filter(function(n){return p.ternos.indexOf(n)>=0})[0]||tl[0],ks=Object.keys(a.exp||{}),e;
     if(a.balsa&&ks.length===1)e=a.exp[ks[0]];
     else{if(p.ternos.indexOf(t)<0)return {st:'dif',p:p,diffs:['o pedido não tem o terno '+t+' (pedido: terno '+p.ternos.join(', ')+')']};e=a.exp[t]||{}}
-    if(p.completo&&!Object.keys(e||{}).length)return {st:'sem',p:p,msg:'pedido sem composição — confira o pedido'};
-    var u=pdCmpUm(e,pdAtual(r),p.completo),df=u.df,dc=u.dc;
+    if(CP&&!Object.keys(e||{}).length)return {st:'sem',p:p,msg:'pedido sem composição — confira o pedido'};
+    var u=pdCmpUm(e,pdAtual(r),CP),df=u.df,dc=u.dc;
     return df.length?{st:'dif',p:p,diffs:df,dc:dc,e:e,h:df.join(';')}:{st:'ok',p:p,e:e}}
   /* v0.80.9: tratativa da diferença. Banco /solic/pedtrat/<dia_req> = {st:'corr'|'aceita',motivo,obs,h,por,u,em,dia,req,navio}. Vale enquanto a diferença for a mesma (h). */
   function pdTk(dmy,req){return slug(dmy+'_'+req)}
   function pdTrat(dmy,req,c){var t=(SL.pedtrat||{})[pdTk(dmy,req)];return t&&c&&c.st==='dif'&&t.h===c.h?t:null}
   var PD_MOT=['O especialista mudou o pedido','Falta de mão de obra no OGMO','O OGMO não tem esta função','Combinado com a operação','Outro motivo'];
-  function pdCelula(r,dmy){var h=pdCelula0(r,dmy),c=r.__p;if(!c||!c.p||/sim/i.test(r.cancelada||''))return h;var a=pdAcha(r,dmy);if(a&&a.balsa)return h;
+  function pdCelula(r,dmy){var h=pdCelula0(r,dmy),c=r.__p;if(!c||!c.p||/sim/i.test(r.cancelada||''))return h;var a=pdAcha(r,dmy);if(a&&(a.balsa||a.viaNavio))return h;
     return '<div class="rq-sub pd-cobre">Cobre: '+pdTnTxt(pdReqTernos(r))+'</div>'+h+((c.notas||[]).length&&c.st!=='sem'?'<div class="rq-sub">ℹ '+esc(c.notas.join(' · '))+'</div>':'')}
   function pdCelula0(r,dmy){var c=r.__p||(r.__p=pdConferir(r,dmy)),q=c.p?' title="Pedido de '+esc(c.p.esp||'especialista')+' · confirmado por '+esc((c.p.conf||{}).por||c.p.por||'')+'"':'';
     if(c.st==='ok')return '<div class="rq-conf ok"'+q+'>✓ Igual ao pedido</div>';
@@ -6138,7 +6167,7 @@ async function readPdf(file){await loadPdf();
   function pdNomeTxt(p){return (p.tipo==='balsa'&&!/^BALSA\b/.test(norm(p.navio))?'Balsa ':'')+p.navio}
   function pdFaltas(dia){var out=[],d=String(dia.data).split('/').reverse().join('-'),V=pdVig();
     pdTodos().filter(function(p){return p.data===d&&V[pdChave(p)]===p}).forEach(function(p){
-      p.ternos.forEach(function(t){var tem=dia.reqs.some(function(r){if(/sim/i.test(r.cancelada||''))return false;var a=pdAcha(r,dia.data);return a&&a.p===p&&!a.balsa&&pdReqTernos(r).indexOf(t)>=0});
+      p.ternos.forEach(function(t){var tem=dia.reqs.some(function(r){if(/sim/i.test(r.cancelada||''))return false;var a=pdAcha(r,dia.data);return a&&a.p===p&&!a.balsa&&!a.viaNavio&&pdReqTernos(r).indexOf(t)>=0});
         if(!tem)out.push({p:p,t:t,txt:pdNomeTxt(p)+' · '+PERIODOS[p.per]+' · terno '+t+': o pedido tem este terno, mas o OGMO não tem a requisição.'})});
       if(Object.keys(p.bcomp||{}).length&&!dia.reqs.some(function(r){var a=pdAcha(r,dia.data);return a&&a.p===p&&a.balsa}))out.push({p:p,t:0,txt:p.navio+' · '+PERIODOS[p.per]+' · balsa: o pedido tem a balsa, mas o OGMO não tem a requisição.'})});
     return out}
@@ -6315,13 +6344,15 @@ async function readPdf(file){await loadPdf();
     PD.l.forEach(function(p){if(p.fid===undefined){var f=pdAchaFrente(p);p.fid=f?f.id:(p.navio?'outro':'')}if(!p.pers)p.pers=p.per!=null?[p.per]:[];if(p.ate==null)p.ate=''});
     $('pdCards').innerHTML=PD.l.map(function(p,pi){
       var cols=p.ternos.map(function(t){return {k:'c'+t,t:'Terno '+t,m:p.comp[t]||{}}}),bk=Object.keys(p.bcomp||{});
-      bk.forEach(function(t){cols.push({k:'b'+t,t:'Balsa'+(bk.length>1?' T'+t:''),m:p.bcomp[t]})});
+      var FD=p.tipo==='navio'&&p.navio?pdFundeio(p.navio,p.data):{fund:false,balsas:[]},BFc=FD.fund?pdFuncBalsa(p.navio):[];
+      bk.forEach(function(t){cols.push({k:'b'+t,t:(FD.balsas.length===1?'Balsa '+pdSemBalsa(FD.balsas[0]):'Balsa')+(bk.length>1?' T'+t:''),m:p.bcomp[t]})});
       var cods=[];cols.forEach(function(c){Object.keys(c.m).forEach(function(k){if(cods.indexOf(k)<0)cods.push(k)})});
       cods.sort(function(a,b){var x=PD_ORDEM.indexOf(a),y=PD_ORDEM.indexOf(b);return (x<0?99:x)-(y<0?99:y)});
       var dup=pdTodos().filter(function(q){return !pdEhEd(q.id)&&q.data===p.data&&q.per===p.per&&q.tipo===p.tipo&&mesmoNavio(q.navio,p.navio)});
       var fal=function(v){return v===''||v==null?' pd-falta':''};
       return '<div class="card pd-card" data-pc="'+pi+'"><div class="ag-tit"><h3 style="margin:0">'+(PD.eds&&PD.l.length>1?'Período '+(p.per!=null?PERIODOS[p.per]:'')+' · pedido '+(pi+1):'Pedido '+(pi+1))+(p.num?' · nº '+esc(p.num):'')+'</h3><span class="ajuda">'+(p.avulso?'avulso · a composição é montada por vocês':esc(p.esp||'')+' · lido de '+(p.origem==='imagem'?'imagem':'texto'))+'</span>'+(PD.edit||p.avulso?'':'<button type="button" class="btn" data-pdrm="'+pi+'" style="margin-left:auto">Tirar este pedido</button>')+'</div>'
         +(p.av&&p.av.length?'<div class="pd-av"><b>Confira:</b> '+esc(p.av.join(' · '))+'</div>':'')
+        +(FD.fund&&BFc.length?'<div class="pd-av pd-fd"><b>Navio no fundeio'+(FD.balsas.length?' · balsa '+esc(FD.balsas.map(pdSemBalsa).join(', ')):'')+':</b> '+esc(BFc.join(', '))+' são da balsa. O painel confere essas funções na requisição da balsa.</div>':'')
         +(dup.length?'<div class="pd-av">Já existe pedido para este navio, dia e período (confirmado por '+esc((dup[0].conf||{}).por||dup[0].por)+'). A comparação usa o pedido mais novo.</div>':'')
         +'<div class="pd-cab"><div class="campo pd-fr"><label>Navio ou balsa</label><select data-f="fid" class="'+fal(p.fid)+'"><option value="">Escolha…</option>'+pdFrentes().map(function(f){return '<option value="'+esc(f.id)+'"'+(p.fid===f.id?' selected':'')+'>'+esc(f.navio)+'</option>'}).join('')+'<option value="outro"'+(p.fid==='outro'?' selected':'')+'>Outro (digitar)</option></select></div>'
         +(p.fid==='outro'?'<div class="campo"><label>Tipo</label><select data-f="tipo"><option value="navio"'+(p.tipo!=='balsa'?' selected':'')+'>Navio</option><option value="balsa"'+(p.tipo==='balsa'?' selected':'')+'>Balsa</option></select></div>'
@@ -6371,6 +6402,10 @@ async function readPdf(file){await loadPdf();
   $('pdConf').addEventListener('click',function(){pdLeDom();var bt=this;
     var ruim=PD.l.map(function(p,i){var f=[];if(!p.navio)f.push('navio');if(!p.data)f.push('data');if(!(p.pers||[]).length)f.push('período');if(p.ate&&p.data&&p.ate<p.data)f.push('"até o dia" depois da data');if(!p.ternos.length)f.push('ternos');if(p.avulso&&!String(p.esp||'').trim())f.push('quem pediu');if(p.avulso&&!Object.keys(p.comp||{}).some(function(t){return Object.keys(p.comp[t]).length}))f.push('composição');return f.length?'Pedido '+(i+1)+': falta '+f.join(', '):''}).filter(Boolean);
     if(ruim.length){pdCards();pdMsg(ruim.join(' · ')+'.',true);return}
+    /* v0.117.0: navio no fundeio com função da balsa no pedido do navio */
+    var fdv=[];PD.l.forEach(function(p){if(p.tipo!=='navio')return;var fd=pdFundeio(p.navio,p.data);if(!fd.fund)return;var BF=pdFuncBalsa(p.navio),tem=[];Object.keys(p.comp||{}).forEach(function(t){Object.keys(p.comp[t]||{}).forEach(function(c){if(BF.indexOf(c)>=0&&tem.indexOf(c)<0)tem.push(c)})});
+      if(tem.length)fdv.push(p.navio+': '+tem.join(', ')+(fd.balsas.length?' → conferido na requisição da balsa '+fd.balsas.map(pdSemBalsa).join(', '):' → conferido na requisição da balsa (ainda não lida no OGMO)'))});
+    if(fdv.length&&!confirm('Navio no fundeio: estas funções são da balsa.\n\n'+fdv.join('\n')+'\n\nOK = salvar assim (o painel confere na balsa)\nCancelar = voltar e revisar o pedido'))return;
     var agora=Date.now(),base=slId();
     var EX=[];PD.l.forEach(function(p,i){if(PD.edit){EX.push({p:p,id:p.__eid||PD.edit,data:p.data,per:p.per});return}var n=0;pdDias(p).forEach(function(d){p.pers.slice().sort().forEach(function(pr){EX.push({p:p,id:base+'_'+i+'_'+(n++),data:d,per:pr})})})});
     /* v0.81.4: já existe pedido para o mesmo navio, dia e período? */
@@ -7518,7 +7553,7 @@ async function readPdf(file){await loadPdf();
      ===================================================================== */
   var VERSAO=(/Versão\s+([\d.]+)/.exec($('hdrVersao').textContent)||[])[1]||'0';
   var NOVIDADES=[
-    {v:'0.117.0',d:'12/11/2026',l:['Navio marcado "não precisa de inspeção": o grupo Guindastes (inspeção, laudo ao OGMO e laudo no Geport) sai das Rotinas desse navio e não é cobrado em Únicas, encerramento, Não feito e Passagem. Ao desfazer, o grupo volta como estava.','Solicitações › Navios: o botão passa a ser "Desfazer" (o motivo pode ser qualquer um, não só Heavy Lift).','Linguagem mais corporativa: "integração" passa a ser "integração" em todo o painel (ex.: Integração OGMO, Status das integrações, Cópia de segurança automática).']},
+    {v:'0.117.0',d:'12/11/2026',l:['Navio marcado "não precisa de inspeção": o grupo Guindastes (inspeção, laudo ao OGMO e laudo no Geport) sai das Rotinas desse navio e não é cobrado em Únicas, encerramento, Não feito e Passagem. Ao desfazer, o grupo volta como estava.','Solicitações › Navios: o botão passa a ser "Desfazer" (o motivo pode ser qualquer um, não só Heavy Lift).','Linguagem mais corporativa em todo o painel: Integração OGMO, Status das integrações, Cópia de segurança automática.','Pedidos de estiva no fundeio: o pedido da balsa (ex.: "SAO LUIS") acha a requisição "BALSA SÃO LUIS (AL. navio)" do OGMO.','Navio no fundeio: as funções que o catálogo põe só na balsa (hoje ETR, EE e CFC no Ferro Gusa) são conferidas na requisição da balsa, mesmo quando estão no pedido do navio. O pedido mostra a balsa ligada e avisa ao salvar.']},
     {v:'0.116.1',d:'11/11/2026',l:['Notificações: a escolha "Avisar quando" vale na hora. Antes, quem enviava a mensagem usava a escolha antiga até recarregar a página.']},
     {v:'0.116.0',d:'11/11/2026',l:['Notificações do chat como no WhatsApp: o título é o nome de quem escreveu (ou "Nome · mencionou você") e o texto da mensagem aparece na notificação. Várias mensagens juntam numa só notificação.','Meu perfil › Notificações: nova opção "Mostrar o texto da mensagem na notificação" (ligada no início).','Tocar na notificação abre o chat na mensagem.','Todos os blocos da Administração e do Meu perfil agora recolhem: toque no título.','O nome do serviço das integrações aparece só na Administração. Nas outras telas: "serviço de integração". A chave das integrações mudou do Line Up para a Administração.']},
     {v:'0.115.1',d:'11/11/2026',l:['Notificações: ao ativar, o aparelho refaz a inscrição com a chave atual (uma inscrição antiga era recusada).','Meu perfil › Notificações: mostra os aparelhos cadastrados e, no teste, quantos recusaram.']},

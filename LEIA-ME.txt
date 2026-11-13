@@ -1260,3 +1260,7 @@ Subir: index.html, sw.js, versao.json
 - Solicitações › Navios: botão "↺ Desfazer" (antes "Desfazer Heavy Lift") e nota da tabela atualizada.
 Subir: index.html, sw.js, versao.json
 - (também na 0.117.0) Linguagem corporativa: na tela, "robô" virou "integração" (Integração OGMO, Status das integrações, Cópia de segurança automática, Publicação automática das regras). Os arquivos das integrações (scripts/*.js e .github/workflows) não mudaram.
+- (também na 0.117.0) Pedidos de estiva no fundeio:
+  · pedido de balsa "SAO LUIS" acha a requisição "BALSA SÃO LUIS (AL. navio)" (a palavra BALSA no começo não conta; vale também para balsa atracada).
+  · navio no fundeio: as funções que o catálogo põe só na balsa (bloco BALSA menos bloco NAVIO; hoje ETR, EE e CFC no Ferro Gusa) saem da conferência do navio e são conferidas na requisição da balsa. Navio e balsa atracados: sem mudança.
+  · o pedido do navio no fundeio mostra a balsa ligada e avisa ao salvar.
