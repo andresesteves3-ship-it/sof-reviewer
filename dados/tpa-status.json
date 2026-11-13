@@ -1,8 +1,8 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-12T22:41:56.852Z",
- "ultimoSucesso": "2026-11-12T22:41:56.852Z",
+ "atualizado": "2026-11-13T02:52:58.014Z",
+ "ultimoSucesso": "2026-11-13T02:52:58.014Z",
  "dias": [
   {
    "data": "12/11/2026",
@@ -15,115 +15,9 @@
    "escaladas": 0
   }
  ],
- "da9": [
-  {
-   "req": "25053455-1",
-   "data": "12/11/2026",
-   "n": 33,
-   "erro": "",
-   "aviso": ""
-  },
-  {
-   "req": "25053456-1",
-   "data": "12/11/2026",
-   "n": 1,
-   "erro": "",
-   "aviso": ""
-  },
-  {
-   "req": "25053457-1",
-   "data": "12/11/2026",
-   "n": 2,
-   "erro": "",
-   "aviso": ""
-  },
-  {
-   "req": "25053478-1",
-   "data": "12/11/2026",
-   "n": 7,
-   "erro": "",
-   "aviso": ""
-  },
-  {
-   "req": "25053452-1",
-   "data": "12/11/2026",
-   "n": 32,
-   "erro": "",
-   "aviso": ""
-  },
-  {
-   "req": "25053453-1",
-   "data": "12/11/2026",
-   "n": 1,
-   "erro": "",
-   "aviso": ""
-  },
-  {
-   "req": "25053454-1",
-   "data": "12/11/2026",
-   "n": 2,
-   "erro": "",
-   "aviso": ""
-  },
-  {
-   "req": "25053472-1",
-   "data": "12/11/2026",
-   "n": 13,
-   "erro": "",
-   "aviso": ""
-  },
-  {
-   "req": "25053442-1",
-   "data": "12/11/2026",
-   "n": 12,
-   "erro": "",
-   "aviso": ""
-  },
-  {
-   "req": "25053443-1",
-   "data": "12/11/2026",
-   "n": 1,
-   "erro": "",
-   "aviso": ""
-  },
-  {
-   "req": "25053450-1",
-   "data": "12/11/2026",
-   "n": 30,
-   "erro": "",
-   "aviso": ""
-  },
-  {
-   "req": "25053451-1",
-   "data": "12/11/2026",
-   "n": 2,
-   "erro": "",
-   "aviso": ""
-  }
- ],
- "novos": 28,
+ "da9": [],
+ "novos": 0,
  "total": 397,
- "diag": {
-  "da9": [
-   {
-    "tag": "A",
-    "id": "",
-    "name": "",
-    "val": "",
-    "tit": "Gera DA9 da Requisição Selecionada (Exce",
-    "vis": false,
-    "on": "return SubmitClickConfirm('IWIMAGE5','', true, '');"
-   },
-   {
-    "tag": "IMG",
-    "id": "IWIMAGE5",
-    "name": "IWIMAGE5",
-    "val": "",
-    "tit": "Gera DA9 da Requisição Selecionada (Exce",
-    "vis": true,
-    "on": ""
-   }
-  ]
- },
+ "diag": {},
  "falhasSeguidas": 0
 }
