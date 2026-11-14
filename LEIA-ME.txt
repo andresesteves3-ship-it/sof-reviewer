@@ -1291,3 +1291,25 @@ Subir: index.html, sw.js, versao.json
 - Imagens: pasta ferramentas/ajuda/ (40 arquivos .webp, cerca de 1,9 MB), baixadas só quando alguém abre o assunto.
 - Inclui tudo da 0.117.0, 0.118.0 e 0.119.0.
 Subir: index.html, sw.js, versao.json e a pasta ferramentas/ajuda/ inteira
+
+== 0.121.0 (13/11/2026) ==
+- Passagem de serviço: rotinas únicas sem prazo não aparecem mais uma a uma. Entram só quando marcadas como pendentes (com motivo e quem marcou) ou na pós-operação (navio encerrado sem concluir, com prazo).
+- Laudo/certificado de guindaste (OGMO e Geport): aparece quando o navio já está em operação e ainda não foi enviado.
+- As outras rotinas únicas em aberto viram uma linha de resumo na passagem (tela e PDF): "N navios com rotinas únicas em aberto · ver nas Rotinas".
+- Se a 0.120.0 não foi enviada, envie só esta (inclui tudo, com a pasta ferramentas/ajuda/).
+Subir: index.html, sw.js, versao.json (e a pasta ferramentas/ajuda/ se a 0.120.0 ainda não subiu)
+
+== 0.122.0 (14/11/2026) ==
+- Dobra: botão Finalizar (no lugar de Fechar/Confirmar envio). Confirma o envio ao comercial, mostra "✓ Dobra … finalizada" e fecha. Sem copiar nem abrir no Outlook, pergunta se o e-mail foi enviado. "Fechar sem finalizar" deixa a dobra como Gerada.
+- Passos visuais (gerado → copiado/aberto no Outlook → finalizado) na dobra, no Plano B e na operação ao largo.
+- Operação ao largo: botão Finalizar. Se falta registrar um dos e-mails, pergunta e registra antes de finalizar. "Fechar sem finalizar" fecha sem registrar.
+- Se as versões anteriores não foram enviadas, envie só esta (inclui tudo, com a pasta ferramentas/ajuda/).
+Subir: index.html, sw.js, versao.json
+
+== 0.123.0 (14/11/2026) ==
+- Requisições: requisição escalada com 0 vagas em todas as funções = reoferta. Catálogo: "↻ Pedido na reoferta · o OGMO mostra 0 vagas" (azul). Composição: tabela das funções com 0 vagas e a explicação.
+- Pedido de estiva: "Reoferta · sem comparação" (não cobra tratativa).
+- Rotinas: a célula da requisição de terno mostra REOFERTA; título e passagem dizem "pedida na reoferta".
+- Correção: navio "(AL.)" (fundeio) agora é marcado sozinho nas Rotinas pela integração OGMO.
+- Pendente: conferir a reoferta pelo DA9 (contagem por função) — precisa de um DA9 de exemplo para ver o formato.
+Subir: index.html, sw.js, versao.json
