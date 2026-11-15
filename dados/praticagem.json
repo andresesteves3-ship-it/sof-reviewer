@@ -5128,7 +5128,7 @@
    ]
   },
   "SINAR SUMATERA SINAR SUMATERA": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1793380654230,
@@ -5165,6 +5165,10 @@
     {
      "t": 1794703260418,
      "e": "apareceu"
+    },
+    {
+     "t": 1794757939426,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -5237,7 +5241,7 @@
      "de": "FEITICEIRA - 2F03",
      "para": "",
      "ult": 1794736531623,
-     "st": "prevista"
+     "st": "realizada"
     }
    ]
   },
@@ -5550,7 +5554,7 @@
      "vis": 1794672870199,
      "de": "TECONT4",
      "para": "",
-     "ult": 1794736531623,
+     "ult": 1794757939426,
      "st": "prevista"
     }
    ]
@@ -6649,19 +6653,15 @@
     {
      "t": 1794670949145,
      "e": "alterada"
+    },
+    {
+     "t": 1794757939426,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "15/11 04:00",
-     "navio": "YM MOBILITY YM MOBILITY",
-     "m": "E",
-     "de": "",
-     "para": "TECONT3",
-     "secao": "BAIA DE GUANABARA"
-    },
-    {
-     "pob": "16/11 04:00",
+     "pob": "16/11 10:00",
      "navio": "YM MOBILITY YM MOBILITY",
      "m": "S",
      "de": "TECONT3",
@@ -6739,7 +6739,7 @@
      "de": "",
      "para": "TECONT3",
      "ult": 1794736531623,
-     "st": "prevista"
+     "st": "realizada"
     },
     {
      "m": "S",
@@ -6749,6 +6749,16 @@
      "de": "TECONT3",
      "para": "",
      "ult": 1794736531623,
+     "st": "remarcada"
+    },
+    {
+     "m": "S",
+     "pob": "16/11 10:00",
+     "ts": 1794834000000,
+     "vis": 1794757939426,
+     "de": "TECONT3",
+     "para": "",
+     "ult": 1794757939426,
      "st": "prevista"
     }
    ]
@@ -7204,7 +7214,7 @@
      "vis": 1794677244873,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1794736531623,
+     "ult": 1794757939426,
      "st": "prevista"
     },
     {
@@ -7224,7 +7234,7 @@
      "vis": 1794417041257,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1794736531623,
+     "ult": 1794757939426,
      "st": "prevista"
     }
    ]
@@ -7278,7 +7288,7 @@
      "vis": 1794341238240,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1794736531623,
+     "ult": 1794757939426,
      "st": "prevista"
     },
     {
@@ -7298,7 +7308,7 @@
      "vis": 1794341238240,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1794736531623,
+     "ult": 1794757939426,
      "st": "prevista"
     }
    ]
@@ -8405,15 +8415,19 @@
     {
      "t": 1794734843005,
      "e": "alterada"
+    },
+    {
+     "t": 1794757939426,
+     "e": "alterada"
     }
    ],
    "man": [
     {
      "pob": "16/11 15:00",
      "navio": "GAZ SYNERGY GAZ SYNERGY",
-     "m": "S",
+     "m": "M",
      "de": "I COMPRIDA",
-     "para": "",
+     "para": "AF GNL",
      "secao": "BAIA DE GUANABARA"
     }
    ],
@@ -8457,6 +8471,16 @@
      "de": "I COMPRIDA",
      "para": "",
      "ult": 1794736531623,
+     "st": "cancelada"
+    },
+    {
+     "m": "M",
+     "pob": "16/11 15:00",
+     "ts": 1794852000000,
+     "vis": 1794757939426,
+     "de": "I COMPRIDA",
+     "para": "AF GNL",
+     "ult": 1794757939426,
      "st": "prevista"
     }
    ]
@@ -9348,7 +9372,7 @@
    ]
   },
   "AKER WAYFARER AKER WAYFARER": {
-   "est": "concluida",
+   "est": "marcada",
    "ev": [
     {
      "t": 1793541556928,
@@ -9369,14 +9393,26 @@
     {
      "t": 1793836361255,
      "e": "concluida"
+    },
+    {
+     "t": 1794757939426,
+     "e": "apareceu"
     }
    ],
    "man": [
     {
-     "pob": "04/11 17:00",
+     "pob": "17/11 17:00",
+     "navio": "AKER WAYFARER AKER WAYFARER",
+     "m": "E",
+     "de": "",
+     "para": "SIDERURG2",
+     "secao": "BAIA DE GUANABARA"
+    },
+    {
+     "pob": "18/11 17:00",
      "navio": "AKER WAYFARER AKER WAYFARER",
      "m": "S",
-     "de": "PETROBRSC2",
+     "de": "SIDERURG2",
      "para": "",
      "secao": "BAIA DE GUANABARA"
     }
@@ -9412,6 +9448,26 @@
      "para": "",
      "ult": 1793831527790,
      "st": "realizada"
+    },
+    {
+     "m": "E",
+     "pob": "17/11 17:00",
+     "ts": 1794945600000,
+     "vis": 1794757939426,
+     "de": "",
+     "para": "SIDERURG2",
+     "ult": 1794757939426,
+     "st": "prevista"
+    },
+    {
+     "m": "S",
+     "pob": "18/11 17:00",
+     "ts": 1795032000000,
+     "vis": 1794757939426,
+     "de": "SIDERURG2",
+     "para": "",
+     "ult": 1794757939426,
+     "st": "prevista"
     }
    ]
   },
@@ -11430,7 +11486,7 @@
    ]
   },
   "SKANDI SALVADOR SKANDI SALVADOR": {
-   "est": "concluida",
+   "est": "marcada",
    "ev": [
     {
      "t": 1793836361255,
@@ -11451,14 +11507,26 @@
     {
      "t": 1794422292465,
      "e": "concluida"
+    },
+    {
+     "t": 1794757939426,
+     "e": "apareceu"
     }
    ],
    "man": [
     {
-     "pob": "11/11 12:30",
+     "pob": "15/11 23:30",
+     "navio": "SKANDI SALVADOR SKANDI SALVADOR",
+     "m": "E",
+     "de": "",
+     "para": "SIDERURG2",
+     "secao": "BAIA DE GUANABARA"
+    },
+    {
+     "pob": "16/11 23:30",
      "navio": "SKANDI SALVADOR SKANDI SALVADOR",
      "m": "S",
-     "de": "BACS",
+     "de": "SIDERURG2",
      "para": "",
      "secao": "BAIA DE GUANABARA"
     }
@@ -11494,6 +11562,26 @@
      "para": "",
      "ult": 1794418728103,
      "st": "realizada"
+    },
+    {
+     "m": "E",
+     "pob": "15/11 23:30",
+     "ts": 1794796200000,
+     "vis": 1794757939426,
+     "de": "",
+     "para": "SIDERURG2",
+     "ult": 1794757939426,
+     "st": "prevista"
+    },
+    {
+     "m": "S",
+     "pob": "16/11 23:30",
+     "ts": 1794882600000,
+     "vis": 1794757939426,
+     "de": "SIDERURG2",
+     "para": "",
+     "ult": 1794757939426,
+     "st": "prevista"
     }
    ]
   },
@@ -11947,17 +12035,13 @@
     {
      "t": 1794487207880,
      "e": "alterada"
+    },
+    {
+     "t": 1794757939426,
+     "e": "alterada"
     }
    ],
    "man": [
-    {
-     "pob": "15/11 06:00",
-     "navio": "MSC DIVINA MSC DIVINA",
-     "m": "E",
-     "de": "",
-     "para": "A4",
-     "secao": "BAIA DE GUANABARA"
-    },
     {
      "pob": "15/11 18:00",
      "navio": "MSC DIVINA MSC DIVINA",
@@ -11993,7 +12077,7 @@
      "de": "",
      "para": "A4",
      "ult": 1794736531623,
-     "st": "prevista"
+     "st": "realizada"
     },
     {
      "m": "E",
@@ -12012,7 +12096,7 @@
      "vis": 1793889223018,
      "de": "A4",
      "para": "",
-     "ult": 1794736531623,
+     "ult": 1794757939426,
      "st": "prevista"
     },
     {
@@ -12022,7 +12106,7 @@
      "vis": 1793889223018,
      "de": "",
      "para": "A4",
-     "ult": 1794736531623,
+     "ult": 1794757939426,
      "st": "prevista"
     },
     {
@@ -12032,7 +12116,7 @@
      "vis": 1793889223018,
      "de": "A4",
      "para": "",
-     "ult": 1794736531623,
+     "ult": 1794757939426,
      "st": "prevista"
     }
    ]
@@ -12072,7 +12156,7 @@
      "vis": 1793889223018,
      "de": "",
      "para": "A4",
-     "ult": 1794736531623,
+     "ult": 1794757939426,
      "st": "prevista"
     },
     {
@@ -12082,7 +12166,7 @@
      "vis": 1793889223018,
      "de": "A4",
      "para": "",
-     "ult": 1794736531623,
+     "ult": 1794757939426,
      "st": "prevista"
     }
    ]
@@ -14922,7 +15006,7 @@
    ]
   },
   "LINUS P LINUS P": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1794265167093,
@@ -14951,6 +15035,10 @@
     {
      "t": 1794733999720,
      "e": "voltou"
+    },
+    {
+     "t": 1794757939426,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -15003,7 +15091,7 @@
      "de": "WPT 64",
      "para": "",
      "ult": 1794736531623,
-     "st": "prevista"
+     "st": "realizada"
     }
    ]
   },
@@ -15070,7 +15158,7 @@
      "vis": 1794609061950,
      "de": "PP-2",
      "para": "PP-1",
-     "ult": 1794736531623,
+     "ult": 1794757939426,
      "st": "prevista"
     }
    ]
@@ -15926,7 +16014,7 @@
    ]
   },
   "MSC MARIA LAURA MSC MARIA LAURA": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1794409432110,
@@ -15947,6 +16035,10 @@
     {
      "t": 1794696299798,
      "e": "alterada"
+    },
+    {
+     "t": 1794757939426,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -16019,12 +16111,12 @@
      "de": "TECONT2",
      "para": "",
      "ult": 1794736531623,
-     "st": "prevista"
+     "st": "realizada"
     }
    ]
   },
   "CMA CGM XIAMEN CMA CGM XIAMEN": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1794414034765,
@@ -16057,6 +16149,10 @@
     {
      "t": 1794719855582,
      "e": "alterada"
+    },
+    {
+     "t": 1794757939426,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -16149,7 +16245,7 @@
      "de": "TECONTPROLONG",
      "para": "",
      "ult": 1794736531623,
-     "st": "prevista"
+     "st": "realizada"
     }
    ]
   },
@@ -16171,11 +16267,15 @@
     {
      "t": 1794691379278,
      "e": "alterada"
+    },
+    {
+     "t": 1794757939426,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "15/11 13:30",
+     "pob": "15/11 13:00",
      "navio": "MERCOSUL FORTALEZA MERCOSUL FORTALEZA",
      "m": "E",
      "de": "",
@@ -16210,8 +16310,8 @@
      "vis": 1794670949145,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1794688238964,
-     "st": "remarcada"
+     "ult": 1794757939426,
+     "st": "prevista"
     },
     {
      "m": "E",
@@ -16221,7 +16321,7 @@
      "de": "",
      "para": "TECONTPROLONG",
      "ult": 1794736531623,
-     "st": "prevista"
+     "st": "realizada"
     },
     {
      "m": "S",
@@ -16240,7 +16340,7 @@
      "vis": 1794677244873,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1794736531623,
+     "ult": 1794757939426,
      "st": "prevista"
     }
    ]
@@ -16376,7 +16476,7 @@
      "vis": 1794676398178,
      "de": "",
      "para": "TECONT1",
-     "ult": 1794736531623,
+     "ult": 1794757939426,
      "st": "prevista"
     },
     {
@@ -16396,7 +16496,7 @@
      "vis": 1794677244873,
      "de": "TECONT1",
      "para": "",
-     "ult": 1794736531623,
+     "ult": 1794757939426,
      "st": "prevista"
     },
     {
@@ -16640,11 +16740,15 @@
    ]
   },
   "OCEAN SKY OCEAN SKY": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1794487207880,
      "e": "apareceu"
+    },
+    {
+     "t": 1794757939426,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -16667,16 +16771,20 @@
      "de": "",
      "para": "LARGO",
      "ult": 1794736531623,
-     "st": "prevista"
+     "st": "realizada"
     }
    ]
   },
   "OCEANIC OCEANIC": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1794491581434,
      "e": "apareceu"
+    },
+    {
+     "t": 1794757939426,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -16699,7 +16807,7 @@
      "de": "",
      "para": "SIDERURG3",
      "ult": 1794736531623,
-     "st": "prevista"
+     "st": "realizada"
     }
    ]
   },
@@ -16790,7 +16898,7 @@
      "vis": 1794676398178,
      "de": "TECONT1",
      "para": "",
-     "ult": 1794736531623,
+     "ult": 1794757939426,
      "st": "prevista"
     },
     {
@@ -16882,7 +16990,7 @@
      "vis": 1794688238964,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1794736531623,
+     "ult": 1794757939426,
      "st": "prevista"
     },
     {
@@ -16892,7 +17000,7 @@
      "vis": 1794688238964,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1794736531623,
+     "ult": 1794757939426,
      "st": "prevista"
     }
    ]
@@ -17212,13 +17320,13 @@
      "vis": 1794609061950,
      "de": "PP-1",
      "para": "",
-     "ult": 1794736531623,
+     "ult": 1794757939426,
      "st": "prevista"
     }
    ]
   },
   "BOW PERFORMER BOW PERFORMER": {
-   "est": "concluida",
+   "est": "marcada",
    "ev": [
     {
      "t": 1794616787799,
@@ -17231,15 +17339,19 @@
     {
      "t": 1794666949554,
      "e": "concluida"
+    },
+    {
+     "t": 1794757939426,
+     "e": "apareceu"
     }
    ],
    "man": [
     {
-     "pob": "14/11 10:00",
+     "pob": "15/11 11:30",
      "navio": "BOW PERFORMER BOW PERFORMER",
-     "m": "E",
-     "de": "",
-     "para": "COSAN",
+     "m": "S",
+     "de": "COSAN",
+     "para": "",
      "secao": "BAIA DE GUANABARA"
     }
    ],
@@ -17264,6 +17376,16 @@
      "para": "COSAN",
      "ult": 1794645088515,
      "st": "remarcada"
+    },
+    {
+     "m": "S",
+     "pob": "15/11 11:30",
+     "ts": 1794753000000,
+     "vis": 1794757939426,
+     "de": "COSAN",
+     "para": "",
+     "ult": 1794757939426,
+     "st": "prevista"
     }
    ]
   },
@@ -17344,7 +17466,7 @@
      "vis": 1794733999720,
      "de": "",
      "para": "VISITA N",
-     "ult": 1794736531623,
+     "ult": 1794757939426,
      "st": "prevista"
     }
    ]
@@ -17404,7 +17526,7 @@
    ]
   },
   "BAHRI GHADAH BAHRI GHADAH": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1794670949145,
@@ -17421,6 +17543,10 @@
     {
      "t": 1794730367189,
      "e": "alterada"
+    },
+    {
+     "t": 1794757939426,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -17463,7 +17589,7 @@
      "de": "VISITA N",
      "para": "",
      "ult": 1794736531623,
-     "st": "prevista"
+     "st": "realizada"
     },
     {
      "m": "S",
@@ -17483,6 +17609,10 @@
     {
      "t": 1794672870199,
      "e": "apareceu"
+    },
+    {
+     "t": 1794757939426,
+     "e": "alterada"
     }
    ],
    "man": [
@@ -17495,7 +17625,7 @@
      "secao": "BAIA DE GUANABARA"
     },
     {
-     "pob": "16/11 11:00",
+     "pob": "16/11 09:00",
      "navio": "CONTI CONQUEST CONTI CONQUEST",
      "m": "S",
      "de": "TECONT2",
@@ -17512,7 +17642,17 @@
      "vis": 1794672870199,
      "de": "",
      "para": "TECONT2",
-     "ult": 1794736531623,
+     "ult": 1794757939426,
+     "st": "prevista"
+    },
+    {
+     "m": "S",
+     "pob": "16/11 09:00",
+     "ts": 1794830400000,
+     "vis": 1794757939426,
+     "de": "TECONT2",
+     "para": "",
+     "ult": 1794757939426,
      "st": "prevista"
     },
     {
@@ -17523,6 +17663,56 @@
      "de": "TECONT2",
      "para": "",
      "ult": 1794736531623,
+     "st": "remarcada"
+    }
+   ]
+  },
+  "MSC MELINE MSC MELINE": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1794757939426,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "16/11 12:00",
+     "navio": "MSC MELINE MSC MELINE",
+     "m": "E",
+     "de": "",
+     "para": "TECONT3",
+     "secao": "BAIA DE GUANABARA"
+    },
+    {
+     "pob": "17/11 10:00",
+     "navio": "MSC MELINE MSC MELINE",
+     "m": "S",
+     "de": "TECONT3",
+     "para": "",
+     "secao": "BAIA DE GUANABARA"
+    }
+   ],
+   "nome": "MSC MELINE MSC MELINE",
+   "mov": [
+    {
+     "m": "E",
+     "pob": "16/11 12:00",
+     "ts": 1794841200000,
+     "vis": 1794757939426,
+     "de": "",
+     "para": "TECONT3",
+     "ult": 1794757939426,
+     "st": "prevista"
+    },
+    {
+     "m": "S",
+     "pob": "17/11 10:00",
+     "ts": 1794920400000,
+     "vis": 1794757939426,
+     "de": "TECONT3",
+     "para": "",
+     "ult": 1794757939426,
      "st": "prevista"
     }
    ]
@@ -17530,9 +17720,9 @@
  },
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-15T09:55:31.623Z",
- "ultimoSucesso": "2026-11-15T09:55:31.623Z",
- "total": 33,
+ "atualizado": "2026-11-15T15:52:19.426Z",
+ "ultimoSucesso": "2026-11-15T15:52:19.426Z",
+ "total": 31,
  "secoes": [
   "BAIA DE GUANABARA",
   "BAIA DE SEPETIBA",
