@@ -41,5 +41,13 @@
   "total": 79251
  },
  "pdfsSeparados": true,
- "falhasSeguidas": 0
+ "falhasSeguidas": 0,
+ "pdfs": {
+  "em": "2026-11-15T05:23:51.388Z",
+  "ms": 248756,
+  "feitos": 1,
+  "erros": 7,
+  "faltam": 0
+ },
+ "pdfsEm": "2026-11-15T05:23:51.388Z"
 }
