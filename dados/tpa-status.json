@@ -1,11 +1,87 @@
 {
- "ok": false,
- "erro": "Perdi a tela de requisições. Site: HTTP 200. Frames=[{\"sel\":0,\"tab\":0,\"inp\":0,\"txt\":\"\"}]",
- "atualizado": "2026-11-16T20:00:49.513Z",
- "ultimoSucesso": "2026-11-16T17:24:28.452Z",
- "diag": {},
- "site": false,
- "tentativasEntrada": 1,
- "proxTentativa": "2026-11-16T20:11:14.129Z",
- "falhasSeguidas": 1
+ "ok": true,
+ "erro": "",
+ "atualizado": "2026-11-16T23:00:49.826Z",
+ "ultimoSucesso": "2026-11-16T23:00:49.826Z",
+ "dias": [
+  {
+   "data": "16/11/2026",
+   "reqs": 18,
+   "escaladas": 18
+  },
+  {
+   "data": "17/11/2026",
+   "reqs": 6,
+   "escaladas": 0
+  }
+ ],
+ "da9": [
+  {
+   "req": "25053519-1",
+   "data": "16/11/2026",
+   "n": 7,
+   "erro": "",
+   "aviso": ""
+  },
+  {
+   "req": "25053520-1",
+   "data": "16/11/2026",
+   "n": 2,
+   "erro": "",
+   "aviso": ""
+  },
+  {
+   "req": "25053521-1",
+   "data": "16/11/2026",
+   "n": 1,
+   "erro": "",
+   "aviso": ""
+  },
+  {
+   "req": "25053516-1",
+   "data": "16/11/2026",
+   "n": 7,
+   "erro": "",
+   "aviso": ""
+  },
+  {
+   "req": "25053517-1",
+   "data": "16/11/2026",
+   "n": 2,
+   "erro": "",
+   "aviso": ""
+  },
+  {
+   "req": "25053518-1",
+   "data": "16/11/2026",
+   "n": 1,
+   "erro": "",
+   "aviso": ""
+  }
+ ],
+ "novos": 0,
+ "total": 432,
+ "diag": {
+  "da9": [
+   {
+    "tag": "A",
+    "id": "",
+    "name": "",
+    "val": "",
+    "tit": "Gera DA9 da Requisição Selecionada (Exce",
+    "vis": false,
+    "on": "return SubmitClickConfirm('IWIMAGE5','', true, '');"
+   },
+   {
+    "tag": "IMG",
+    "id": "IWIMAGE5",
+    "name": "IWIMAGE5",
+    "val": "",
+    "tit": "Gera DA9 da Requisição Selecionada (Exce",
+    "vis": true,
+    "on": ""
+   }
+  ]
+ },
+ "falhasSeguidas": 0
 }
