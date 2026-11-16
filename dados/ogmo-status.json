@@ -1,8 +1,8 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-16T11:26:13.576Z",
- "ultimoSucesso": "2026-11-16T11:26:13.576Z",
+ "atualizado": "2026-11-16T11:43:53.576Z",
+ "ultimoSucesso": "2026-11-16T11:43:53.576Z",
  "total": 32,
  "dias": [
   {
@@ -24,37 +24,58 @@
  "diag": {
   "frames": 1,
   "tentativasEntrada": 1,
-  "recuperacoes": 3,
-  "reaproveitadas": 1,
-  "equipesLidas": 7,
+  "recuperacoes": 2,
+  "reaproveitadas": 0,
+  "equipesLidas": 8,
   "canceladasPuladas": 0,
   "semAtualizar": 1,
   "ontemRepetido": 1,
   "quemPediu": {
    "lidas": 0,
    "erros": 1,
-   "ms": 43664,
-   "parou": "a tela Visualizar mostrou outra requisição (***53519-1) duas vezes"
+   "ms": 51296,
+   "parou": "a tela Visualizar mostrou outra requisição (25053519-1) nas 3 tentativas",
+   "detalhe": {
+    "alvo": "25053516-1",
+    "tent": [
+     {
+      "col": "req",
+      "destacada": "25053516-1",
+      "mostrou": "25053519-1",
+      "naLista": true
+     },
+     {
+      "col": "navio",
+      "destacada": "25053516-1",
+      "mostrou": "25053519-1",
+      "naLista": true
+     },
+     {
+      "col": "req",
+      "destacada": "25053516-1",
+      "mostrou": "25053519-1",
+      "naLista": true
+     }
+    ]
+   },
+   "voltar": {
+    "ok": 3,
+    "recuperou": 0,
+    "nomes": "INPUT | IWBUTTON5 | IWBUTTON5 | ",
+    "bloqueado": ""
+   }
   }
  },
  "tempos": {
-  "visualizar": 43664,
-  "login": 9674,
+  "visualizar": 51296,
+  "login": 8774,
   "dias": {
-   "16/11/2026": 135742,
-   "17/11/2026": 79430,
+   "16/11/2026": 146141,
+   "17/11/2026": 15606,
    "15/11/2026": 0
   },
-  "total": 224887
+  "total": 170571
  },
  "pdfsSeparados": true,
- "falhasSeguidas": 0,
- "pdfs": {
-  "em": "2026-11-16T11:31:01.944Z",
-  "ms": 16350,
-  "feitos": 2,
-  "erros": 0,
-  "faltam": 0
- },
- "pdfsEm": "2026-11-16T11:31:01.944Z"
+ "falhasSeguidas": 0
 }
