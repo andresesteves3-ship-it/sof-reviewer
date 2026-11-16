@@ -1,5 +1,5 @@
 {
- "atualizado": "2026-11-15T21:08:51.311Z",
+ "atualizado": "2026-11-16T02:19:00.830Z",
  "navios": {
   "FEDERAL MICHIGAN": {
    "dia": "2026-11-17",
@@ -12,8 +12,8 @@
    "sit": "dentro do prazo"
   },
   "SCOT BREMEN": {
-   "dia": "2026-11-16",
-   "txt": "16 nov",
+   "dia": "2026-11-15",
+   "txt": "15 nov",
    "sit": "dentro do prazo"
   }
  }
