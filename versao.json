@@ -1,4 +1,4 @@
 {
- "v": "0.127.0",
- "resumo": "Solicitações: nova aba Letter of Protest (LOP) com a carta pronta para imprimir no papel timbrado."
+ "v": "0.128.0",
+ "resumo": "Integração OGMO: mostra quem fez e quem alterou cada requisição."
 }

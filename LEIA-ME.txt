@@ -1364,3 +1364,11 @@ Subir: index.html, sw.js, versao.json
 - Traduções para a carta: lista editável (português = inglês).
 - Banco: /solic/lop e /solic/lopcfg (as regras atuais já permitem; não precisa publicar regras).
 Subir: index.html, sw.js, versao.json e a pasta NOVA ferramentas/lop/ (timbre-logo.png e timbre-rodape.jpg)
+
+== 0.128.0 (16/11/2026) ==
+- Integração OGMO: depois da leitura de cada dia, abre "Visualizar" das requisições novas (ou que mudaram) e lê Login Cadastro e Login Alteração. Uma vez por requisição; no máximo 60 s por rodada (o resto fica para a próxima). Erro nesta etapa não afeta a composição; o status mostra diag.quemPediu e tempos.visualizar.
+- Segurança: continua bloqueado todo botão que altera requisição. Só os botões com o texto "Visualiza..." e "Voltar" são liberados, pelo nome exato.
+- Rotinas: Requisição de Estiva com as iniciais de quem pediu (login do OGMO). Requisições: "pedida por" e "alterada/cancelada por".
+- Administração › Logins do OGMO: LOGIN = Nome (HJUNIOR, MSANTOS, AESTEVES, RMACEDO já cadastrados).
+*** ARQUIVO DO ROBÔ MUDOU: envie também scripts/ogmo.js ***
+Subir: index.html, sw.js, versao.json, scripts/ogmo.js

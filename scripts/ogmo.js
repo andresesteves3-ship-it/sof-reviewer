@@ -38,8 +38,14 @@ function decifrar(o) {
 let ANT = {}, ANT_EM = 0, ANT_DIAS = [];
 function carregarAnterior() {
   try { const o = JSON.parse(fs.readFileSync(ARQ_ENC, 'utf8')); const d = decifrar(o); ANT_EM = d.geradoEm || 0; ANT_DIAS = d.dias || [];
-    (d.dias || []).forEach(dia => (dia.reqs || []).forEach(r => { if (r && r.req && ((r.comp || []).length || (r.ternos || []).length) && !r.erro) ANT[r.req] = r; })); } catch (e) {}
+    (d.dias || []).forEach(dia => (dia.reqs || []).forEach(r => { if (r && r.req && ((r.comp || []).length || (r.ternos || []).length) && !r.erro) ANT[r.req] = r;
+      if (r && r.req && (r.cad || r.visErrEm)) CAD[r.req] = { cad: r.cad, alt: r.alt, sig: r.visSig, err: r.visErrEm || 0 }; })); } catch (e) {}
 }
+// v0.128.0: quem pediu (Login Cadastro) e quem alterou (Login Alteração), pela tela "Visualizar" do OGMO.
+// Só abre uma vez por requisição (de novo só quando a requisição muda). Etapa depois da leitura do dia; falha não afeta a composição.
+const VIS = process.env.OGMO_VIS !== '0', VIS_MAX_MS = parseInt(process.env.OGMO_VIS_MS || '60000', 10), VIS_TENTA = 6 * 3600e3;
+let CAD = {}, VIS_T = 0, VIS_N = 0, VIS_ERR = 0, VIS_PARADO = '';
+const PERMITIDOS = new Set();   // nomes exatos dos botões Visualizar e Voltar (só leitura), achados pelo texto do botão
 let RECUP = 0, REUSO = 0, EQUIPES = 0, CANC_PULADAS = 0, SEM_ATUALIZAR = 0, ONTEM_REPETIDO = 0;
 const T0 = Date.now(), TEMPOS = {};
 function gravarStatus(st) { fs.mkdirSync(DIR, { recursive: true }); fs.writeFileSync(ARQ_ST, JSON.stringify(st, null, 1) + '\n'); }
@@ -308,7 +314,7 @@ async function protegerContexto(ctx) {
     const rq = route.request();
     if (rq.method() === 'POST' && /\/EXEC$/i.test(rq.url())) {
       let ac = ''; try { ac = new URLSearchParams(rq.postData() || '').get('IW_Action') || ''; } catch (e) {}
-      if (PROIBIDO.test(ac) && !/DA9/i.test(ac) && !(PERMITIDO && ac.toUpperCase() === PERMITIDO)) { BLOQUEADO = ac; return route.abort(); }
+      if (PROIBIDO.test(ac) && !/DA9/i.test(ac) && !(PERMITIDO && ac.toUpperCase() === PERMITIDO) && !PERMITIDOS.has(ac.toUpperCase())) { BLOQUEADO = ac; return route.abort(); }
     }
     if (['image', 'media', 'font'].includes(rq.resourceType())) return route.fulfill({ status: 200, contentType: 'image/gif', body: GIF });
     return route.continue();
@@ -363,7 +369,64 @@ async function lerDia(page, fr0, lbl) {
     }
     reqs.push(req);
   }
+  if (VIS) { try { fr = await lerQuemPediu(page, fr, reqs, lbl); } catch (e) { VIS_PARADO = VIS_PARADO || mascarar(String(e.message)).slice(0, 80); } }
   return reqs;
+}
+
+// ---- v0.128.0: quem pediu / quem alterou (tela Visualizar) ----
+const visSig = r => sha(JSON.stringify([r.cancelada, r.local, r.periodo, r.comp, (r.ternos || []).map(t => [t.cancelado, t.equipe, t.fainas])]));
+async function permitirBotao(loc) {
+  const ns = await loc.evaluate(e => { const oc = e.getAttribute('onclick') || ''; const m = oc.match(/Submit\w*\(\s*['"]([^'"]+)/); return [e.getAttribute('name'), e.id, m && m[1]].filter(Boolean); }).catch(() => []);
+  ns.forEach(n => PERMITIDOS.add(String(n).toUpperCase()));
+}
+async function lerQuemPediu(page, fr, reqs, lbl) {
+  for (const req of reqs) {
+    const s = visSig(req), c = CAD[req.req];
+    if (c && c.cad) { req.cad = c.cad; if (c.alt) req.alt = c.alt; }
+    if (c && c.sig === s && (c.cad || (c.err && Date.now() - c.err < VIS_TENTA))) { req.visSig = s; if (c.err && !c.cad) req.visErrEm = c.err; continue; }
+    if (VIS_PARADO || VIS_T >= VIS_MAX_MS) { if (c) { req.visSig = c.sig; if (c.err) req.visErrEm = c.err; } continue; }   // fica para a próxima rodada
+    const t0 = Date.now();
+    try { fr = await visualizar(page, req, lbl); req.visSig = s; delete req.visErrEm; VIS_N++; }
+    catch (e) {
+      VIS_ERR++; req.visSig = s; req.visErrEm = Date.now(); req.visErro = mascarar(String(e.message)).slice(0, 80);
+      VIS_PARADO = req.visErro;   // um erro para esta etapa nesta rodada (não arrisca a leitura dos outros dias)
+      try { fr = await recuperar(page, lbl); } catch (x) {}
+    }
+    VIS_T += Date.now() - t0;
+  }
+  return fr;
+}
+async function visualizar(page, req, lbl) {
+  let fr = await frameDaTela(page);
+  if (!(await fr.evaluate(num => window.__rb.marcar(-1, num), req.req))) throw new Error('requisição não está na grade');
+  await fr.locator('[data-rb="x"]').first().click(); await espera(900);
+  fr = await frameDaTela(page);
+  const bt = fr.locator('input[value^="Visualiza"], button:has-text("Visualiza"), a:has-text("Visualiza")').first();
+  if (!(await bt.count())) throw new Error('botão Visualizar não encontrado');
+  await permitirBotao(bt);
+  await bt.click();
+  const t = await frameCom(page, async f => (await f.getByText(/Login\s*Cadastro/i).count()) ? true : null, 20000, 'Visualizar');
+  if (!t) throw new Error('a tela Visualizar não abriu' + (BLOQUEADO ? ' [bloqueado: ' + BLOQUEADO + ']' : ''));
+  const L = await t.fr.evaluate(() => {
+    const ins = [].slice.call(document.querySelectorAll('input')).filter(i => !/^(button|submit|image|hidden|checkbox|radio)$/i.test(i.type || ''));
+    const depois = (el, n) => ins.filter(i => el.compareDocumentPosition(i) & Node.DOCUMENT_POSITION_FOLLOWING).slice(0, n).map(i => (i.value || '').trim());
+    const acha = re => { const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT); let n; while ((n = w.nextNode())) { if (re.test(n.nodeValue)) return n.parentElement; } return null; };
+    const ec = acha(/Login\s*Cadastro/i), ea = acha(/Login\s*Altera/i), c = ec ? depois(ec, 2) : [], a = ea ? depois(ea, 2) : [];
+    return { cad: { u: c[0] || '', em: c[1] || '' }, alt: { u: a[0] || '', em: a[1] || '' }, req: ((document.body.innerText || '').match(/\b\d{6,}-\d\b/) || [])[0] || '' };
+  });
+  if (L.req && L.req !== req.req) throw new Error('a tela Visualizar mostrou outra requisição');
+  if (L.cad.u) req.cad = L.cad; else throw new Error('Login Cadastro vazio');
+  if (L.alt.u) req.alt = L.alt; else delete req.alt;
+  const v = t.fr.locator('input[value="Voltar"], button:has-text("Voltar"), a:has-text("Voltar")').first();
+  if (!(await v.count())) throw new Error('botão Voltar não encontrado');
+  await permitirBotao(v);
+  await v.click(); await espera(1200);
+  for (let k = 0; k < 12; k++) {
+    try { fr = await frameDaTela(page); const P = await fr.evaluate(() => window.__rb.principal()), cd = await fr.evaluate(() => window.__rb.campoData());
+      if (P && P.linhas.length && cd && cd.v === lbl && P.linhas.some(r => r[1] === req.req)) return fr; } catch (e) {}
+    await espera(800);
+  }
+  return recuperar(page, lbl);   // a grade não voltou no mesmo dia: reabre (a leitura do dia já está guardada)
 }
 
 // v0.83.1: composição de cada equipe (terno). A equipe 1 já vem selecionada quando a requisição abre: usa a composição lida.
@@ -485,7 +548,7 @@ async function main() {
     if (!dias.some(d => !d.erro)) throw new Error('Nenhum dia foi lido: ' + dias.map(d => d.data + ': ' + d.erro).join(' | '));
     fs.mkdirSync(DIR, { recursive: true });
     fs.writeFileSync(ARQ_ENC, JSON.stringify({ ...cifrar({ geradoEm: Date.now(), dias }), atualizado: st.atualizado }) + '\n');
-    st = { ok: true, erro: '', atualizado: st.atualizado, ultimoSucesso: st.atualizado, total, dias: dias.map(d => ({ data: d.data, n: d.reqs.length, erro: d.erro || '' })), diag: { ...diag, recuperacoes: RECUP, reaproveitadas: REUSO, equipesLidas: EQUIPES, canceladasPuladas: CANC_PULADAS, semAtualizar: SEM_ATUALIZAR, ontemRepetido: ONTEM_REPETIDO }, tempos: Object.assign({}, TEMPOS, { total: Date.now() - T0 }), pdfsSeparados: !PDFS };
+    st = { ok: true, erro: '', atualizado: st.atualizado, ultimoSucesso: st.atualizado, total, dias: dias.map(d => ({ data: d.data, n: d.reqs.length, erro: d.erro || '' })), diag: { ...diag, recuperacoes: RECUP, reaproveitadas: REUSO, equipesLidas: EQUIPES, canceladasPuladas: CANC_PULADAS, semAtualizar: SEM_ATUALIZAR, ontemRepetido: ONTEM_REPETIDO, quemPediu: { lidas: VIS_N, erros: VIS_ERR, ms: VIS_T, parou: VIS_PARADO || undefined } }, tempos: Object.assign({ visualizar: VIS_T }, TEMPOS, { total: Date.now() - T0 }), pdfsSeparados: !PDFS };
     console.log('OK:', total, 'requisições lidas; dias:', JSON.stringify(st.dias), '(dados criptografados).');
   } catch (e) {
     let extra = '';
@@ -563,6 +626,6 @@ async function mainPdf() {
 // o robô TPA (scripts/tpa.js) reaproveita o login e a navegação deste robô
 module.exports = {
   entrar, abrirRegistro, abrirInicio, vigiarPagina, diagSite, marcarFalha, falhaDoSite, escolherFiltros, frameDaTela, trocarData, recuperar, protegerContexto, baixar, cifrar, decifrar, mascarar, espera, resumoFrames, dm,
-  lerEquipes, lerDia, PDFBUF, usarContexto: c => { CTX = c; }, permitir: n => { PERMITIDO = String(n || '').toUpperCase(); }, bloqueado: () => BLOQUEADO
+  lerEquipes, lerDia, lerQuemPediu, quem: () => ({ VIS_N, VIS_ERR, VIS_T, VIS_PARADO, CAD }), PDFBUF, usarContexto: c => { CTX = c; }, permitir: n => { PERMITIDO = String(n || '').toUpperCase(); }, bloqueado: () => BLOQUEADO
 };
 if (require.main === module) { if (process.env.OGMO_SO_PDF === '1') mainPdf(); else main(); }
