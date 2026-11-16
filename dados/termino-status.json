@@ -1,15 +1,14 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-16T13:00:50.920Z",
- "ultimoSucesso": "2026-11-16T13:00:50.920Z",
+ "atualizado": "2026-11-16T17:00:49.818Z",
+ "ultimoSucesso": "2026-11-16T17:00:49.818Z",
  "diag": {
-  "cartoes": 3,
-  "comPrevisao": 3,
+  "cartoes": 2,
+  "comPrevisao": 0,
   "amostra": [
-   "FEDERAL MICHIGAN | TÉRMINO PREVISTO / 16 nov / no ritmo real 17 nov / dentro do prazo",
-   "FEI YUN JIANG | TÉRMINO PREVISTO / 14 nov / no ritmo real 14 nov / dentro do prazo",
-   "SCOT BREMEN | TÉRMINO PREVISTO / 15 nov / no ritmo real 15 nov / dentro do prazo"
+   "FEI YUN JIANG | TÉRMINO PREVISTO / hoje 19:00 / 0,1 dia após o prazo / PRANCHA",
+   "FEDERAL MICHIGAN | TÉRMINO PREVISTO / 17 nov 13:00 / no prazo / PRANCHA"
   ]
  },
  "falhasSeguidas": 0
