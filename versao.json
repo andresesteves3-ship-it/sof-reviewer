@@ -1,4 +1,4 @@
 {
- "v": "0.124.0",
- "resumo": "Chat: sem notificação quando você está com o chat aberto e vendo as mensagens."
+ "v": "0.125.0",
+ "resumo": "Despertador das integrações: confere a cada 15 min, mesmo com o painel fechado, e avisa se uma integração parar."
 }

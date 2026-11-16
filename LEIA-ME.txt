@@ -1322,3 +1322,30 @@ Subir: index.html, sw.js, versao.json
 - Chat: a notificação não aparece quando o chat está aberto, a aba do painel está na frente e a janela está em foco. Nos outros casos (chat fechado, outra aba, janela minimizada, celular), chega como antes.
 - O sw.js pergunta à página se a pessoa está vendo o chat antes de mostrar a notificação.
 Subir: index.html, sw.js, versao.json
+
+== 0.125.0 (16/11/2026) ==
+- Carteiro (Cloudflare): novo DESPERTADOR. A cada 15 min confere a última leitura de OGMO, Praticagem, Término, TPA e Cópia.
+  Se o GitHub pulou o agendamento, pede a leitura na hora (o mesmo que "Rodar agora"). Funciona com todos os computadores desligados.
+- Integração parada há mais de 2 h: notificação para Analista, Gerente e administradores. Repete a cada 6 h enquanto continuar parada.
+- Administração › Status das integrações: mostra a última conferência do despertador e quando ele chamou cada integração.
+Subir: index.html, sw.js, versao.json (GitHub) + carteiro/worker.js (Cloudflare)
+
+PASSO A PASSO — CONFIGURAR O DESPERTADOR (uma vez, cerca de 10 min)
+1. Cloudflare › Workers & Pages › painel-carteiro › Edit code.
+   Apague o código, cole todo o carteiro/worker.js desta versão e clique em Deploy.
+2. Settings › Variables and Secrets › Add. Cadastre 2 variáveis do tipo Secret:
+   FB_ROBO_EMAIL = o mesmo e-mail do Secret FB_ROBO_EMAIL do GitHub (usuário do robô no Firebase)
+   FB_ROBO_PASS  = a mesma senha do Secret FB_ROBO_PASS do GitHub
+   Não cole estes valores no chat, no e-mail nem no GitHub.
+3. (Opcional, recomendado) Chave própria do GitHub para o despertador:
+   GitHub › Settings › Developer settings › Fine-grained tokens › Generate new token.
+   Repository access: Only select repositories › sof-reviewer. Permissions › Actions: Read and write. Validade: 1 ano.
+   Cadastre no Cloudflare como Secret GH_TOKEN.
+   Sem GH_TOKEN, o despertador usa a chave do GitHub cadastrada no painel (Administração › Chave do GitHub).
+4. Settings › Triggers (Trigger Events) › Add › Cron Triggers. Expressão: */15 * * * *  › Add.
+5. Teste: abra no navegador  https://painel-carteiro.andres-esteves-3.workers.dev/?despertador=1
+   A resposta mostra cada integração com "ok", "atrasada" ou "parada".
+   Se aparecer "erroFirebase", confira o passo 2. Se aparecer "sem chave do GitHub", confira o passo 3 ou a chave do painel.
+6. Painel › Administração › Status das integrações deve mostrar "Despertador: última conferência …".
+Observação: o vigia do painel (painel aberto) continua funcionando. Os dois não pedem leitura em dobro:
+o despertador não pede se já há uma execução na fila, rodando ou criada há menos de 20 min.
