@@ -1313,3 +1313,12 @@ Subir: index.html, sw.js, versao.json
 - Correção: navio "(AL.)" (fundeio) agora é marcado sozinho nas Rotinas pela integração OGMO.
 - Pendente: conferir a reoferta pelo DA9 (contagem por função) — precisa de um DA9 de exemplo para ver o formato.
 Subir: index.html, sw.js, versao.json
+
+== 0.123.1 (14/11/2026) ==
+- Requisições: o catálogo mostra só "↻ Pedido na reoferta" (texto mais curto).
+Subir: index.html, sw.js, versao.json
+
+== 0.124.0 (16/11/2026) ==
+- Chat: a notificação não aparece quando o chat está aberto, a aba do painel está na frente e a janela está em foco. Nos outros casos (chat fechado, outra aba, janela minimizada, celular), chega como antes.
+- O sw.js pergunta à página se a pessoa está vendo o chat antes de mostrar a notificação.
+Subir: index.html, sw.js, versao.json

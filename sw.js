@@ -1,6 +1,6 @@
-// Painel dos Assistentes — service worker (0.123.1)
+// Painel dos Assistentes — service worker (0.124.0)
 // Rede primeiro (sempre pede a versão mais nova ao servidor); sem internet, usa a cópia guardada.
-const VERSION = '0.123.1';
+const VERSION = '0.124.0';
 const CACHE = 'painel-assistentes-' + VERSION;
 const SHELL = ['./', './index.html', './ferramentas/sof-libs.js', './ferramentas/sof-app.js', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/apple-touch-icon.png'];
@@ -23,7 +23,7 @@ self.addEventListener('fetch', e => {
     }).catch(() => caches.match(req, { ignoreSearch: true }).then(r => r || (req.mode === 'navigate' ? caches.match('./index.html') : Response.error())))
   );
 });
-// v0.123.1: notificações como no WhatsApp. O carteiro manda só o nome e o número da mensagem (no endereço, m=...).
+// v0.124.0: notificações como no WhatsApp. O carteiro manda só o nome e o número da mensagem (no endereço, m=...).
 // O aparelho busca o texto no banco com o acesso que a página guardou no IndexedDB ('painel-push' › kv › 'auth').
 // Se não conseguir em 5 s (ou a pessoa desligou "Mostrar o texto"), mostra "Nova mensagem".
 function idb(modo, valor) {
@@ -66,10 +66,23 @@ async function mensagem(id) {
   return m && m.t ? m : null;
 }
 function curto(t, n) { t = String(t || '').replace(/\s+/g, ' ').trim(); return t.length > n ? t.slice(0, n - 1) + '…' : t; }
+// v0.124.0: se a pessoa está vendo o chat (chat aberto, aba visível e janela em foco), não notifica
+function perguntaVendo(c) {
+  return new Promise(res => {
+    try { const ch = new MessageChannel(); const t = setTimeout(() => res(false), 500); ch.port1.onmessage = ev => { clearTimeout(t); res(!!(ev.data && ev.data.vendo)); }; c.postMessage({ q: 'vendoChat' }, [ch.port2]); }
+    catch (x) { res(false); }
+  });
+}
+async function alguemVendoChat() {
+  const cs = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+  for (const c of cs) { if (c.visibilityState === 'visible' && await perguntaVendo(c)) return true; }
+  return false;
+}
 self.addEventListener('push', e => {
   let d = {}; try { d = e.data ? e.data.json() : {}; } catch (x) { d = { t: 'Painel dos Assistentes', c: e.data ? e.data.text() : '' }; }
   e.waitUntil((async () => {
     const tag = d.tag || 'painel', u = d.u || './';
+    if (tag === 'chat') { try { if (await alguemVendoChat()) return; } catch (x) {} }
     let titulo = d.t || 'Painel dos Assistentes', corpo = d.c || '', nome = String(titulo).split(' · ')[0];
     const id = (String(u).match(/[?&]m=([^&]+)/) || [])[1];
     if (id) {
