@@ -446,20 +446,26 @@ async function visualizar(page, req, lbl, mapa) {
     await bt.click();
     const t = await frameCom(page, async f => (await f.getByText(/Login\s*Cadastro/i).count()) ? true : null, 20000, 'Visualizar');
     if (!t) throw new Error('a tela Visualizar não abriu' + (BLOQUEADO ? ' [bloqueado: ' + BLOQUEADO + ']' : ''));
+    // v0.128.4: a tela do OGMO é montada com posições fixas; lê pela POSIÇÃO na tela (campos na mesma linha, à direita do rótulo),
+    // não pela ordem do código da página. O nº da requisição é o número logo abaixo do rótulo "N. Requisição".
     const L = await t.fr.evaluate(() => {
-      const ins = [].slice.call(document.querySelectorAll('input')).filter(i => !/^(button|submit|image|hidden|checkbox|radio)$/i.test(i.type || ''));
-      const depois = (el, n) => ins.filter(i => el.compareDocumentPosition(i) & Node.DOCUMENT_POSITION_FOLLOWING).slice(0, n).map(i => (i.value || '').trim());
-      const acha = re => { const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT); let n; while ((n = w.nextNode())) { if (re.test(n.nodeValue)) return n.parentElement; } return null; };
-      const ec = acha(/Login\s*Cadastro/i), ea = acha(/Login\s*Altera/i), c = ec ? depois(ec, 2) : [], a = ea ? depois(ea, 2) : [];
-      // nº da requisição da tela: o primeiro número depois do rótulo "N. Requisição" (senão, o primeiro da página)
+      const vis = e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0; };
+      const ins = [].slice.call(document.querySelectorAll('input')).filter(i => !/^(button|submit|image|hidden|checkbox|radio)$/i.test(i.type || '') && vis(i));
+      const acha = re => { const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT); let n; while ((n = w.nextNode())) { if (re.test(n.nodeValue) && n.parentElement && vis(n.parentElement)) return n.parentElement; } return null; };
+      const naLinha = (el, n) => { if (!el) return []; const r = el.getBoundingClientRect(), cy = (r.top + r.bottom) / 2;
+        return ins.filter(i => { const q = i.getBoundingClientRect(); return Math.abs((q.top + q.bottom) / 2 - cy) < 12 && q.left >= r.left; }).sort((a, b) => a.getBoundingClientRect().left - b.getBoundingClientRect().left).slice(0, n).map(i => (i.value || '').trim()); };
+      const ec = acha(/Login\s*Cadastro/i), ea = acha(/Login\s*Altera/i), c = naLinha(ec, 2), a = naLinha(ea, 2);
+      // todos os números de requisição visíveis, com posição
+      const nums = []; { const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT); let n; while ((n = w.nextNode())) { const m = (n.nodeValue || '').match(/\b\d{6,}-\d\b/); if (m && n.parentElement && vis(n.parentElement)) { const r = n.parentElement.getBoundingClientRect(); nums.push({ v: m[0], x: r.left, y: r.top }); } } }
+      ins.forEach(i => { const m = (i.value || '').match(/^\s*(\d{6,}-\d)\s*$/); if (m) { const r = i.getBoundingClientRect(); nums.push({ v: m[1], x: r.left, y: r.top }); } });
       const er = acha(/N\.?\s*Requisi/i); let num = '';
-      if (er) { const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT); let n, dep = false; while ((n = w.nextNode())) { if (!dep) { if (er.contains(n)) dep = true; continue; } const m = (n.nodeValue || '').match(/\b\d{6,}-\d\b/); if (m) { num = m[0]; break; } } }
-      if (!num) num = ((document.body.innerText || '').match(/\b\d{6,}-\d\b/) || [])[0] || '';
-      return { cad: { u: c[0] || '', em: c[1] || '' }, alt: { u: a[0] || '', em: a[1] || '' }, num };
+      if (er) { const r = er.getBoundingClientRect(); const ab = nums.filter(q => q.y >= r.top - 4 && q.y < r.bottom + 60 && Math.abs(q.x - r.left) < 120).sort((p, q) => (Math.abs(p.y - r.bottom) + Math.abs(p.x - r.left)) - (Math.abs(q.y - r.bottom) + Math.abs(q.x - r.left))); if (ab[0]) num = ab[0].v; }
+      if (!num && nums.length === 1) num = nums[0].v;
+      return { cad: { u: c[0] || '', em: c[1] || '' }, alt: { u: a[0] || '', em: a[1] || '' }, num, todos: nums.map(q => q.v).filter((v, k, A) => A.indexOf(v) === k), achou: { cad: !!ec, alt: !!ea, req: !!er, campos: ins.length } };
     });
     const alvo = L.num ? mapa[L.num] : null;   // sem o nº na tela não grava nada (nunca arrisca o nome errado)
     if (alvo && L.cad.u) { if (!alvo.visOk) VIS_N++; alvo.cad = L.cad; if (L.alt.u) alvo.alt = L.alt; else delete alvo.alt; alvo.visSig = visSig(alvo); alvo.visOk = 1; delete alvo.visErrEm; }
-    ult = L.num; D.tent.push({ col: COLS[tent] === 1 ? 'req' : 'navio', destacada: dest, mostrou: L.num, naLista: !!mapa[L.num] });
+    ult = L.num; D.tent.push({ col: COLS[tent] === 1 ? 'req' : 'navio', destacada: dest, mostrou: L.num, naLista: !!mapa[L.num], numsNaTela: L.todos, leuLogin: !!L.cad.u, leuData: !!L.cad.em, achou: L.achou });
     fr = await voltarDaVisualizacao(page, t.fr, lbl, req.req);
     if (req.visOk) return fr;
   }
