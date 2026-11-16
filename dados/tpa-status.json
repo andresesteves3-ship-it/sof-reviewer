@@ -1,23 +1,11 @@
 {
- "ok": true,
- "erro": "",
- "atualizado": "2026-11-16T17:24:28.452Z",
+ "ok": false,
+ "erro": "Perdi a tela de requisições. Site: HTTP 200. Frames=[{\"sel\":0,\"tab\":0,\"inp\":0,\"txt\":\"\"}]",
+ "atualizado": "2026-11-16T20:00:49.513Z",
  "ultimoSucesso": "2026-11-16T17:24:28.452Z",
- "dias": [
-  {
-   "data": "16/11/2026",
-   "reqs": 18,
-   "escaladas": 12
-  },
-  {
-   "data": "17/11/2026",
-   "reqs": 6,
-   "escaladas": 0
-  }
- ],
- "da9": [],
- "novos": 0,
- "total": 432,
  "diag": {},
- "falhasSeguidas": 0
+ "site": false,
+ "tentativasEntrada": 1,
+ "proxTentativa": "2026-11-16T20:11:14.129Z",
+ "falhasSeguidas": 1
 }
