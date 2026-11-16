@@ -79,11 +79,11 @@
  "pdfsSeparados": true,
  "falhasSeguidas": 0,
  "pdfs": {
-  "em": "2026-11-16T11:48:35.572Z",
-  "ms": 74014,
-  "feitos": 0,
-  "erros": 1,
+  "em": "2026-11-16T11:53:18.777Z",
+  "ms": 15669,
+  "feitos": 2,
+  "erros": 0,
   "faltam": 0
  },
- "pdfsEm": "2026-11-16T11:48:35.572Z"
+ "pdfsEm": "2026-11-16T11:53:18.777Z"
 }
