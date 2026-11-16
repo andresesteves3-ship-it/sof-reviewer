@@ -44,12 +44,12 @@ function carregarAnterior() {
 // v0.128.0: quem pediu (Login Cadastro) e quem alterou (Login Alteração), pela tela "Visualizar" do OGMO.
 // Só abre uma vez por requisição (de novo só quando a requisição muda). Etapa depois da leitura do dia; falha não afeta a composição.
 const VIS = process.env.OGMO_VIS !== '0', VIS_MAX_MS = parseInt(process.env.OGMO_VIS_MS || '60000', 10), VIS_TENTA = 6 * 3600e3;
-let CAD = {}, VIS_T = 0, VIS_N = 0, VIS_ERR = 0, VIS_PARADO = '';
+let CAD = {}, VIS_T = 0, VIS_N = 0, VIS_ERR = 0, VIS_PARADO = '', VIS_DIAG = null;
 const PERMITIDOS = new Set();   // nomes exatos dos botões Visualizar e Voltar (só leitura), achados pelo texto do botão
 let RECUP = 0, REUSO = 0, EQUIPES = 0, CANC_PULADAS = 0, SEM_ATUALIZAR = 0, ONTEM_REPETIDO = 0;
 const T0 = Date.now(), TEMPOS = {};
 function gravarStatus(st) { fs.mkdirSync(DIR, { recursive: true }); fs.writeFileSync(ARQ_ST, JSON.stringify(st, null, 1) + '\n'); }
-const mascarar = t => { let r = String(t || ''); [EMPRESA, USER, PASS].filter(v => v && v.length > 2).forEach(v => { r = r.split(v).join('***'); }); return r; };
+const mascarar = t => { let r = String(t || ''); [EMPRESA, USER, PASS].filter(v => v && v.length > 2 && !/^\d{1,4}$/.test(v)).forEach(v => { r = r.split(v).join('***'); }); return r; };
 const espera = ms => new Promise(r => setTimeout(r, ms));
 
 // ---- utilidades que procuram em todos os frames da página (o OGMO pode usar frames) ----
@@ -139,11 +139,16 @@ const NA_PAGINA = `
     principal: () => dados(acha(['Requisição', 'Navio', 'Período']), ['Requisição', 'Navio', 'Período'], 5),
     composicao: () => dados(acha(['Categoria', 'Função', 'Vagas']), ['Categoria', 'Função', 'Vagas'], 3),
     ternos: () => dados(acha(['Equipe', 'Faina 1']), ['Equipe', 'Faina 1'], 2),
-    marcar: (i, num) => { const t = acha(['Requisição', 'Navio', 'Período']); if (!t) return false; const L = [].slice.call(t.querySelectorAll('tr'));
+    marcar: (i, num, col) => { const t = acha(['Requisição', 'Navio', 'Período']); if (!t) return false; const L = [].slice.call(t.querySelectorAll('tr'));
       const h = L.findIndex(tr => [].slice.call(tr.children).some(c => norm(c.innerText).toLowerCase() === 'requisição'));
       const dd = L.slice(h + 1).filter(tr => tr.children.length >= 5 && /\\d{5,}/.test(norm(tr.children[1] ? tr.children[1].innerText : '')));
       document.querySelectorAll('[data-rb]').forEach(e => e.removeAttribute('data-rb'));
-      const alvo = (num && dd.find(tr => norm(tr.children[1].innerText) === num)) || dd[i]; if (!alvo) return false; alvo.children[1].setAttribute('data-rb', 'x'); return true; },
+      const alvo = (num && dd.find(tr => norm(tr.children[1].innerText) === num)) || dd[i]; if (!alvo) return false; (alvo.children[col || 1] || alvo.children[1]).setAttribute('data-rb', 'x'); return true; },
+    // v0.128.2: requisição da linha destacada (selecionada) na grade: a cor da linha diferente das outras
+    destacada: () => { const t = acha(['Requisição', 'Navio', 'Período']); if (!t) return ''; const L = [].slice.call(t.querySelectorAll('tr'));
+      const h = L.findIndex(tr => [].slice.call(tr.children).some(c => norm(c.innerText).toLowerCase() === 'requisição'));
+      const dd = L.slice(h + 1).filter(tr => tr.children.length >= 5); const cor = tr => { const c = tr.children[1]; return getComputedStyle(c).backgroundColor + '|' + getComputedStyle(tr).backgroundColor + '|' + getComputedStyle(c).color + '|' + getComputedStyle(c).fontWeight; };
+      const n = {}; dd.forEach(tr => { const k = cor(tr); n[k] = (n[k] || 0) + 1; }); return dd.filter(tr => n[cor(tr)] === 1).map(tr => norm(tr.children[1].innerText)).join(','); },
     // v0.83.1: marca a linha i (0 = 1ª) da grade de Equipes, na coluna "Equipe". Só seleciona a linha; não altera nada.
     marcarEquipe: (i, num) => { const t = acha(['Equipe', 'Faina 1']); if (!t) return false; const L = [].slice.call(t.querySelectorAll('tr'));
       const h = L.findIndex(tr => [].slice.call(tr.children).some(c => norm(c.innerText).toLowerCase() === 'equipe'));
@@ -400,32 +405,41 @@ async function lerQuemPediu(page, fr, reqs, lbl) {
 }
 // v0.128.1: seleciona a linha e ESPERA o OGMO atualizar (como na leitura da composição) antes de clicar em Visualizar.
 // Se a tela mostrar outra requisição do mesmo dia, guarda o login dela também e tenta a certa mais uma vez.
-async function selecionar(page, num) {
+async function selecionar(page, num, col) {
   let fr = await frameDaTela(page);
-  if (!(await fr.evaluate(n => window.__rb.marcar(-1, n), num))) throw new Error('requisição não está na grade');
+  if (!(await fr.evaluate(([n, c]) => window.__rb.marcar(-1, n, c), [num, col || 1]))) throw new Error('requisição não está na grade');
   await fr.evaluate(() => { window.__rb.marcaComp(); window.__rb.marcaEq(); });
   await fr.locator('[data-rb="x"]').first().click();
   const fim = Date.now() + 6000; await espera(300);
   while (Date.now() < fim) { try { fr = await frameDaTela(page); if (await fr.evaluate(() => window.__rb.compMudou() || window.__rb.eqMudou())) break; } catch (x) {} await espera(250); }
-  await espera(700);
+  await espera(1500);
   return frameDaTela(page);
 }
+let VOLTAR = { ok: 0, recuperou: 0, nomes: '', bloqueado: '' };
 async function voltarDaVisualizacao(page, f, lbl, num) {
   const v = f.locator('input[value="Voltar"], button:has-text("Voltar"), a:has-text("Voltar")').first();
   if (!(await v.count())) throw new Error('botão Voltar não encontrado');
   await permitirBotao(v);
-  await v.click(); await espera(1200);
+  VOLTAR.nomes = await v.evaluate(e => [e.tagName, e.getAttribute('name'), e.id, (e.getAttribute('onclick') || '').slice(0, 80)].join(' | ')).catch(() => '?');
+  const b0 = BLOQUEADO; BLOQUEADO = '';
+  await v.click(); await espera(1500);
+  if (BLOQUEADO) VOLTAR.bloqueado = BLOQUEADO;   // a proteção barrou o Voltar (não deveria)
+  BLOQUEADO = BLOQUEADO || b0;
   for (let k = 0; k < 12; k++) {
     try { const fr = await frameDaTela(page); const P = await fr.evaluate(() => window.__rb.principal()), cd = await fr.evaluate(() => window.__rb.campoData());
-      if (P && P.linhas.length && cd && cd.v === lbl && (!num || P.linhas.some(r => r[1] === num))) return fr; } catch (e) {}
+      if (P && P.linhas.length && cd && cd.v === lbl && (!num || P.linhas.some(r => r[1] === num))) { VOLTAR.ok++; return fr; } } catch (e) {}
     await espera(800);
   }
+  VOLTAR.recuperou++;
   return recuperar(page, lbl);   // a grade não voltou no mesmo dia: reabre (a leitura do dia já está guardada)
 }
 async function visualizar(page, req, lbl, mapa) {
   let fr, ult = '';
-  for (let tent = 0; tent < 2; tent++) {
-    fr = await selecionar(page, req.req);
+  const D = { alvo: req.req, tent: [] };
+  const COLS = [1, 2, 1];   // 1ª e 3ª: clica no nº da requisição; 2ª: no nome do navio
+  for (let tent = 0; tent < COLS.length; tent++) {
+    fr = await selecionar(page, req.req, COLS[tent]);
+    let dest = ''; try { dest = await fr.evaluate(() => window.__rb.destacada()); } catch (e) {}
     const bt = fr.locator('input[value^="Visualiza"], button:has-text("Visualiza"), a:has-text("Visualiza")').first();
     if (!(await bt.count())) throw new Error('botão Visualizar não encontrado');
     await permitirBotao(bt);
@@ -444,12 +458,13 @@ async function visualizar(page, req, lbl, mapa) {
       return { cad: { u: c[0] || '', em: c[1] || '' }, alt: { u: a[0] || '', em: a[1] || '' }, num };
     });
     const alvo = L.num ? mapa[L.num] : null;   // sem o nº na tela não grava nada (nunca arrisca o nome errado)
-    if (alvo && L.cad.u) { alvo.cad = L.cad; if (L.alt.u) alvo.alt = L.alt; else delete alvo.alt; alvo.visSig = visSig(alvo); alvo.visOk = 1; delete alvo.visErrEm; VIS_N++; }
-    ult = L.num;
+    if (alvo && L.cad.u) { if (!alvo.visOk) VIS_N++; alvo.cad = L.cad; if (L.alt.u) alvo.alt = L.alt; else delete alvo.alt; alvo.visSig = visSig(alvo); alvo.visOk = 1; delete alvo.visErrEm; }
+    ult = L.num; D.tent.push({ col: COLS[tent] === 1 ? 'req' : 'navio', destacada: dest, mostrou: L.num, naLista: !!mapa[L.num] });
     fr = await voltarDaVisualizacao(page, t.fr, lbl, req.req);
     if (req.visOk) return fr;
   }
-  throw new Error(ult ? 'a tela Visualizar mostrou outra requisição (' + ult + ') duas vezes' : 'não achei o nº da requisição na tela Visualizar');
+  VIS_DIAG = D;
+  throw new Error(ult ? 'a tela Visualizar mostrou outra requisição (' + ult + ') nas 3 tentativas' : 'não achei o nº da requisição na tela Visualizar');
 }
 
 // v0.83.1: composição de cada equipe (terno). A equipe 1 já vem selecionada quando a requisição abre: usa a composição lida.
@@ -571,7 +586,7 @@ async function main() {
     if (!dias.some(d => !d.erro)) throw new Error('Nenhum dia foi lido: ' + dias.map(d => d.data + ': ' + d.erro).join(' | '));
     fs.mkdirSync(DIR, { recursive: true });
     fs.writeFileSync(ARQ_ENC, JSON.stringify({ ...cifrar({ geradoEm: Date.now(), dias }), atualizado: st.atualizado }) + '\n');
-    st = { ok: true, erro: '', atualizado: st.atualizado, ultimoSucesso: st.atualizado, total, dias: dias.map(d => ({ data: d.data, n: d.reqs.length, erro: d.erro || '' })), diag: { ...diag, recuperacoes: RECUP, reaproveitadas: REUSO, equipesLidas: EQUIPES, canceladasPuladas: CANC_PULADAS, semAtualizar: SEM_ATUALIZAR, ontemRepetido: ONTEM_REPETIDO, quemPediu: { lidas: VIS_N, erros: VIS_ERR, ms: VIS_T, parou: VIS_PARADO || undefined } }, tempos: Object.assign({ visualizar: VIS_T }, TEMPOS, { total: Date.now() - T0 }), pdfsSeparados: !PDFS };
+    st = { ok: true, erro: '', atualizado: st.atualizado, ultimoSucesso: st.atualizado, total, dias: dias.map(d => ({ data: d.data, n: d.reqs.length, erro: d.erro || '' })), diag: { ...diag, recuperacoes: RECUP, reaproveitadas: REUSO, equipesLidas: EQUIPES, canceladasPuladas: CANC_PULADAS, semAtualizar: SEM_ATUALIZAR, ontemRepetido: ONTEM_REPETIDO, quemPediu: { lidas: VIS_N, erros: VIS_ERR, ms: VIS_T, parou: VIS_PARADO || undefined, detalhe: VIS_DIAG || undefined, voltar: VOLTAR } }, tempos: Object.assign({ visualizar: VIS_T }, TEMPOS, { total: Date.now() - T0 }), pdfsSeparados: !PDFS };
     console.log('OK:', total, 'requisições lidas; dias:', JSON.stringify(st.dias), '(dados criptografados).');
   } catch (e) {
     let extra = '';
