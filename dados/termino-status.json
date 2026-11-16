@@ -1,14 +1,13 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-16T17:00:49.818Z",
- "ultimoSucesso": "2026-11-16T17:00:49.818Z",
+ "atualizado": "2026-11-16T23:00:41.983Z",
+ "ultimoSucesso": "2026-11-16T23:00:41.983Z",
  "diag": {
-  "cartoes": 2,
-  "comPrevisao": 0,
+  "cartoes": 1,
+  "comPrevisao": 1,
   "amostra": [
-   "FEI YUN JIANG | TÉRMINO PREVISTO / hoje 19:00 / 0,1 dia após o prazo / PRANCHA",
-   "FEDERAL MICHIGAN | TÉRMINO PREVISTO / 17 nov 13:00 / no prazo / PRANCHA"
+   "FEDERAL MICHIGAN | TÉRMINO PREVISTO / 18 nov / no ritmo real 19 nov / dentro do prazo"
   ]
  },
  "falhasSeguidas": 0
