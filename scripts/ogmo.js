@@ -380,13 +380,15 @@ async function permitirBotao(loc) {
   ns.forEach(n => PERMITIDOS.add(String(n).toUpperCase()));
 }
 async function lerQuemPediu(page, fr, reqs, lbl) {
+  const mapa = {}; reqs.forEach(r => { mapa[r.req] = r; });
   for (const req of reqs) {
     const s = visSig(req), c = CAD[req.req];
+    if (req.visOk) continue;                                    // já lida nesta rodada (veio junto, em outra tentativa)
     if (c && c.cad) { req.cad = c.cad; if (c.alt) req.alt = c.alt; }
     if (c && c.sig === s && (c.cad || (c.err && Date.now() - c.err < VIS_TENTA))) { req.visSig = s; if (c.err && !c.cad) req.visErrEm = c.err; continue; }
     if (VIS_PARADO || VIS_T >= VIS_MAX_MS) { if (c) { req.visSig = c.sig; if (c.err) req.visErrEm = c.err; } continue; }   // fica para a próxima rodada
     const t0 = Date.now();
-    try { fr = await visualizar(page, req, lbl); req.visSig = s; delete req.visErrEm; VIS_N++; }
+    try { fr = await visualizar(page, req, lbl, mapa); }
     catch (e) {
       VIS_ERR++; req.visSig = s; req.visErrEm = Date.now(); req.visErro = mascarar(String(e.message)).slice(0, 80);
       VIS_PARADO = req.visErro;   // um erro para esta etapa nesta rodada (não arrisca a leitura dos outros dias)
@@ -396,37 +398,58 @@ async function lerQuemPediu(page, fr, reqs, lbl) {
   }
   return fr;
 }
-async function visualizar(page, req, lbl) {
+// v0.128.1: seleciona a linha e ESPERA o OGMO atualizar (como na leitura da composição) antes de clicar em Visualizar.
+// Se a tela mostrar outra requisição do mesmo dia, guarda o login dela também e tenta a certa mais uma vez.
+async function selecionar(page, num) {
   let fr = await frameDaTela(page);
-  if (!(await fr.evaluate(num => window.__rb.marcar(-1, num), req.req))) throw new Error('requisição não está na grade');
-  await fr.locator('[data-rb="x"]').first().click(); await espera(900);
-  fr = await frameDaTela(page);
-  const bt = fr.locator('input[value^="Visualiza"], button:has-text("Visualiza"), a:has-text("Visualiza")').first();
-  if (!(await bt.count())) throw new Error('botão Visualizar não encontrado');
-  await permitirBotao(bt);
-  await bt.click();
-  const t = await frameCom(page, async f => (await f.getByText(/Login\s*Cadastro/i).count()) ? true : null, 20000, 'Visualizar');
-  if (!t) throw new Error('a tela Visualizar não abriu' + (BLOQUEADO ? ' [bloqueado: ' + BLOQUEADO + ']' : ''));
-  const L = await t.fr.evaluate(() => {
-    const ins = [].slice.call(document.querySelectorAll('input')).filter(i => !/^(button|submit|image|hidden|checkbox|radio)$/i.test(i.type || ''));
-    const depois = (el, n) => ins.filter(i => el.compareDocumentPosition(i) & Node.DOCUMENT_POSITION_FOLLOWING).slice(0, n).map(i => (i.value || '').trim());
-    const acha = re => { const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT); let n; while ((n = w.nextNode())) { if (re.test(n.nodeValue)) return n.parentElement; } return null; };
-    const ec = acha(/Login\s*Cadastro/i), ea = acha(/Login\s*Altera/i), c = ec ? depois(ec, 2) : [], a = ea ? depois(ea, 2) : [];
-    return { cad: { u: c[0] || '', em: c[1] || '' }, alt: { u: a[0] || '', em: a[1] || '' }, req: ((document.body.innerText || '').match(/\b\d{6,}-\d\b/) || [])[0] || '' };
-  });
-  if (L.req && L.req !== req.req) throw new Error('a tela Visualizar mostrou outra requisição');
-  if (L.cad.u) req.cad = L.cad; else throw new Error('Login Cadastro vazio');
-  if (L.alt.u) req.alt = L.alt; else delete req.alt;
-  const v = t.fr.locator('input[value="Voltar"], button:has-text("Voltar"), a:has-text("Voltar")').first();
+  if (!(await fr.evaluate(n => window.__rb.marcar(-1, n), num))) throw new Error('requisição não está na grade');
+  await fr.evaluate(() => { window.__rb.marcaComp(); window.__rb.marcaEq(); });
+  await fr.locator('[data-rb="x"]').first().click();
+  const fim = Date.now() + 6000; await espera(300);
+  while (Date.now() < fim) { try { fr = await frameDaTela(page); if (await fr.evaluate(() => window.__rb.compMudou() || window.__rb.eqMudou())) break; } catch (x) {} await espera(250); }
+  await espera(700);
+  return frameDaTela(page);
+}
+async function voltarDaVisualizacao(page, f, lbl, num) {
+  const v = f.locator('input[value="Voltar"], button:has-text("Voltar"), a:has-text("Voltar")').first();
   if (!(await v.count())) throw new Error('botão Voltar não encontrado');
   await permitirBotao(v);
   await v.click(); await espera(1200);
   for (let k = 0; k < 12; k++) {
-    try { fr = await frameDaTela(page); const P = await fr.evaluate(() => window.__rb.principal()), cd = await fr.evaluate(() => window.__rb.campoData());
-      if (P && P.linhas.length && cd && cd.v === lbl && P.linhas.some(r => r[1] === req.req)) return fr; } catch (e) {}
+    try { const fr = await frameDaTela(page); const P = await fr.evaluate(() => window.__rb.principal()), cd = await fr.evaluate(() => window.__rb.campoData());
+      if (P && P.linhas.length && cd && cd.v === lbl && (!num || P.linhas.some(r => r[1] === num))) return fr; } catch (e) {}
     await espera(800);
   }
   return recuperar(page, lbl);   // a grade não voltou no mesmo dia: reabre (a leitura do dia já está guardada)
+}
+async function visualizar(page, req, lbl, mapa) {
+  let fr, ult = '';
+  for (let tent = 0; tent < 2; tent++) {
+    fr = await selecionar(page, req.req);
+    const bt = fr.locator('input[value^="Visualiza"], button:has-text("Visualiza"), a:has-text("Visualiza")').first();
+    if (!(await bt.count())) throw new Error('botão Visualizar não encontrado');
+    await permitirBotao(bt);
+    await bt.click();
+    const t = await frameCom(page, async f => (await f.getByText(/Login\s*Cadastro/i).count()) ? true : null, 20000, 'Visualizar');
+    if (!t) throw new Error('a tela Visualizar não abriu' + (BLOQUEADO ? ' [bloqueado: ' + BLOQUEADO + ']' : ''));
+    const L = await t.fr.evaluate(() => {
+      const ins = [].slice.call(document.querySelectorAll('input')).filter(i => !/^(button|submit|image|hidden|checkbox|radio)$/i.test(i.type || ''));
+      const depois = (el, n) => ins.filter(i => el.compareDocumentPosition(i) & Node.DOCUMENT_POSITION_FOLLOWING).slice(0, n).map(i => (i.value || '').trim());
+      const acha = re => { const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT); let n; while ((n = w.nextNode())) { if (re.test(n.nodeValue)) return n.parentElement; } return null; };
+      const ec = acha(/Login\s*Cadastro/i), ea = acha(/Login\s*Altera/i), c = ec ? depois(ec, 2) : [], a = ea ? depois(ea, 2) : [];
+      // nº da requisição da tela: o primeiro número depois do rótulo "N. Requisição" (senão, o primeiro da página)
+      const er = acha(/N\.?\s*Requisi/i); let num = '';
+      if (er) { const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT); let n, dep = false; while ((n = w.nextNode())) { if (!dep) { if (er.contains(n)) dep = true; continue; } const m = (n.nodeValue || '').match(/\b\d{6,}-\d\b/); if (m) { num = m[0]; break; } } }
+      if (!num) num = ((document.body.innerText || '').match(/\b\d{6,}-\d\b/) || [])[0] || '';
+      return { cad: { u: c[0] || '', em: c[1] || '' }, alt: { u: a[0] || '', em: a[1] || '' }, num };
+    });
+    const alvo = L.num ? mapa[L.num] : null;   // sem o nº na tela não grava nada (nunca arrisca o nome errado)
+    if (alvo && L.cad.u) { alvo.cad = L.cad; if (L.alt.u) alvo.alt = L.alt; else delete alvo.alt; alvo.visSig = visSig(alvo); alvo.visOk = 1; delete alvo.visErrEm; VIS_N++; }
+    ult = L.num;
+    fr = await voltarDaVisualizacao(page, t.fr, lbl, req.req);
+    if (req.visOk) return fr;
+  }
+  throw new Error(ult ? 'a tela Visualizar mostrou outra requisição (' + ult + ') duas vezes' : 'não achei o nº da requisição na tela Visualizar');
 }
 
 // v0.83.1: composição de cada equipe (terno). A equipe 1 já vem selecionada quando a requisição abre: usa a composição lida.
