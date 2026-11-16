@@ -1349,3 +1349,10 @@ PASSO A PASSO — CONFIGURAR O DESPERTADOR (uma vez, cerca de 10 min)
 6. Painel › Administração › Status das integrações deve mostrar "Despertador: última conferência …".
 Observação: o vigia do painel (painel aberto) continua funcionando. Os dois não pedem leitura em dobro:
 o despertador não pede se já há uma execução na fila, rodando ou criada há menos de 20 min.
+
+== 0.126.0 (16/11/2026) ==
+- Equipe: nova aba Aderência (só Liderança). Histórico por dia do mês, filtro por assistente, resumo do mês e justificativas para aprovar ou recusar.
+- Liderança: cartão Aderência com o link "Ver histórico ›".
+- Celular: o botão voltar fecha o chat, o menu Mais, os avisos e as janelas.
+- Celular: cartões da Liderança e dos Pedidos de estiva sem textos encostados; Escala com nomes fixos ao rolar; abas com sombra quando há mais abas; imagens do Como usar sem corte; botão do chat menor.
+Subir: index.html, sw.js, versao.json
