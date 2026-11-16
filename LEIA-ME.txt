@@ -1356,3 +1356,11 @@ o despertador não pede se já há uma execução na fila, rodando ou criada há
 - Celular: o botão voltar fecha o chat, o menu Mais, os avisos e as janelas.
 - Celular: cartões da Liderança e dos Pedidos de estiva sem textos encostados; Escala com nomes fixos ao rolar; abas com sombra quando há mais abas; imagens do Como usar sem corte; botão do chat menor.
 Subir: index.html, sw.js, versao.json
+
+== 0.127.0 (16/11/2026) ==
+- Solicitações: nova aba Letter of Protest (LOP). O painel preenche navio, nº da carta (por navio), data, Berth e Cargo em inglês. Modelos de texto; a Liderança salva modelos novos.
+- Salvar e imprimir: carta A4 no papel timbrado (logo e faixa da Triunfo em cada página), "Página X de N", linha "(continued)" a partir da página 2. Abre a impressão do Windows.
+- Cartas emitidas: imprimir de novo, editar, excluir e situação (Aguardando assinatura / Assinada pelo Comandante / Comandante recusou assinar). As cartas do turno entram na passagem de serviço.
+- Traduções para a carta: lista editável (português = inglês).
+- Banco: /solic/lop e /solic/lopcfg (as regras atuais já permitem; não precisa publicar regras).
+Subir: index.html, sw.js, versao.json e a pasta NOVA ferramentas/lop/ (timbre-logo.png e timbre-rodape.jpg)
