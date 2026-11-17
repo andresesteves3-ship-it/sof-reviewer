@@ -6063,6 +6063,10 @@
     {
      "t": 1794923464709,
      "e": "alterada"
+    },
+    {
+     "t": 1794931233465,
+     "e": "alterada"
     }
    ],
    "man": [
@@ -6075,7 +6079,7 @@
      "secao": "BAIA DE GUANABARA"
     },
     {
-     "pob": "18/11 17:00",
+     "pob": "18/11 22:00",
      "navio": "ONE GEORGE WASHINGTON ONE GEORGE WASHINGTON",
      "m": "S",
      "de": "TECONT2",
@@ -6172,7 +6176,7 @@
      "vis": 1794923464709,
      "de": "",
      "para": "TECONT2",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     },
     {
@@ -6183,6 +6187,16 @@
      "de": "TECONT2",
      "para": "",
      "ult": 1794926552406,
+     "st": "remarcada"
+    },
+    {
+     "m": "S",
+     "pob": "18/11 22:00",
+     "ts": 1795050000000,
+     "vis": 1794931233465,
+     "de": "TECONT2",
+     "para": "",
+     "ult": 1794931233465,
      "st": "prevista"
     }
    ]
@@ -6562,7 +6576,7 @@
      "vis": 1794869779972,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     },
     {
@@ -6582,7 +6596,7 @@
      "vis": 1794851943393,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     }
    ]
@@ -7522,7 +7536,7 @@
      "vis": 1794905967900,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     },
     {
@@ -7552,7 +7566,7 @@
      "vis": 1794869779972,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     },
     {
@@ -8788,7 +8802,7 @@
      "vis": 1794923464709,
      "de": "AF GNL",
      "para": "",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     }
    ]
@@ -9398,7 +9412,7 @@
      "vis": 1794851943393,
      "de": "TECONT4",
      "para": "",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     }
    ]
@@ -9792,7 +9806,7 @@
      "vis": 1794757939426,
      "de": "",
      "para": "SIDERURG2",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     },
     {
@@ -9802,7 +9816,7 @@
      "vis": 1794757939426,
      "de": "SIDERURG2",
      "para": "",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     }
    ]
@@ -10982,7 +10996,7 @@
    ]
   },
   "SERGIO BUARQUE DE HOLANDA SERGIO BUARQUE DE HOLANDA": {
-   "est": "concluida",
+   "est": "marcada",
    "ev": [
     {
      "t": 1793719788972,
@@ -11015,15 +11029,19 @@
     {
      "t": 1794542493515,
      "e": "concluida"
+    },
+    {
+     "t": 1794931233465,
+     "e": "apareceu"
     }
    ],
    "man": [
     {
-     "pob": "12/11 21:30",
+     "pob": "17/11 15:00",
      "navio": "SERGIO BUARQUE DE HOLANDA SERGIO BUARQUE DE HOLANDA",
-     "m": "E",
-     "de": "",
-     "para": "WPT 81",
+     "m": "M",
+     "de": "WPT 81",
+     "para": "PP-2",
      "secao": "BAIA DE GUANABARA"
     }
    ],
@@ -11078,6 +11096,16 @@
      "para": "WPT 81",
      "ult": 1794538447684,
      "st": "realizada"
+    },
+    {
+     "m": "M",
+     "pob": "17/11 15:00",
+     "ts": 1794938400000,
+     "vis": 1794931233465,
+     "de": "WPT 81",
+     "para": "PP-2",
+     "ult": 1794931233465,
+     "st": "prevista"
     }
    ]
   },
@@ -12494,7 +12522,7 @@
      "vis": 1793889223018,
      "de": "",
      "para": "A4",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     },
     {
@@ -12504,7 +12532,7 @@
      "vis": 1793889223018,
      "de": "A4",
      "para": "",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     }
    ]
@@ -12544,7 +12572,7 @@
      "vis": 1793889223018,
      "de": "",
      "para": "A4",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     },
     {
@@ -12554,7 +12582,7 @@
      "vis": 1793889223018,
      "de": "A4",
      "para": "",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     }
    ]
@@ -14514,7 +14542,7 @@
    ]
   },
   "HOS MAVERICK HOS MAVERICK": {
-   "est": "concluida",
+   "est": "marcada",
    "ev": [
     {
      "t": 1794094559305,
@@ -14523,15 +14551,19 @@
     {
      "t": 1794104827100,
      "e": "concluida"
+    },
+    {
+     "t": 1794931233465,
+     "e": "apareceu"
     }
    ],
    "man": [
     {
-     "pob": "07/11 22:00",
+     "pob": "17/11 23:30",
      "navio": "HOS MAVERICK HOS MAVERICK",
-     "m": "M",
-     "de": "NITPORTOS",
-     "para": "LARGO",
+     "m": "E",
+     "de": "",
+     "para": "NITPORTOS",
      "secao": "BAIA DE GUANABARA"
     }
    ],
@@ -14546,6 +14578,16 @@
      "para": "LARGO",
      "ult": 1794101341135,
      "st": "realizada"
+    },
+    {
+     "m": "E",
+     "pob": "17/11 23:30",
+     "ts": 1794969000000,
+     "vis": 1794931233465,
+     "de": "",
+     "para": "NITPORTOS",
+     "ult": 1794931233465,
+     "st": "prevista"
     }
    ]
   },
@@ -14968,7 +15010,7 @@
      "vis": 1794923464709,
      "de": "",
      "para": "TECONT1",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     },
     {
@@ -14988,7 +15030,7 @@
      "vis": 1794851943393,
      "de": "TECONT1",
      "para": "",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     }
    ]
@@ -16344,7 +16386,7 @@
      "vis": 1794923464709,
      "de": "TECONT1",
      "para": "",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     }
    ]
@@ -17696,7 +17738,7 @@
      "vis": 1794851943393,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     },
     {
@@ -17716,7 +17758,7 @@
      "vis": 1794851943393,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     }
    ]
@@ -18428,7 +18470,7 @@
    ]
   },
   "MSC MELINE MSC MELINE": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1794757939426,
@@ -18445,6 +18487,10 @@
     {
      "t": 1794905967900,
      "e": "alterada"
+    },
+    {
+     "t": 1794931233465,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -18497,7 +18543,7 @@
      "de": "TECONT3",
      "para": "",
      "ult": 1794926552406,
-     "st": "prevista"
+     "st": "realizada"
     }
    ]
   },
@@ -18612,7 +18658,7 @@
      "vis": 1794905967900,
      "de": "TECONT1",
      "para": "",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     }
    ]
@@ -18790,7 +18836,7 @@
      "vis": 1794923464709,
      "de": "TECONT2",
      "para": "VISITA N",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     }
    ]
@@ -18844,7 +18890,7 @@
      "vis": 1794905967900,
      "de": "",
      "para": "TECONT3",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     },
     {
@@ -18854,7 +18900,7 @@
      "vis": 1794834837860,
      "de": "TECONT3",
      "para": "",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     }
    ]
@@ -18900,7 +18946,7 @@
      "vis": 1794874109575,
      "de": "",
      "para": "PÁTIO 8/9",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     }
    ]
@@ -18936,7 +18982,7 @@
      "vis": 1794923464709,
      "de": "",
      "para": "A7PARTE2",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     },
     {
@@ -18986,7 +19032,7 @@
      "vis": 1794926552406,
      "de": "",
      "para": "A4",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
      "st": "prevista"
     },
     {
@@ -18996,7 +19042,107 @@
      "vis": 1794926552406,
      "de": "A4",
      "para": "",
-     "ult": 1794926552406,
+     "ult": 1794931233465,
+     "st": "prevista"
+    }
+   ]
+  },
+  "MSC RIKKU MSC RIKKU": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1794931233465,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "18/11 17:00",
+     "navio": "MSC RIKKU MSC RIKKU",
+     "m": "E",
+     "de": "",
+     "para": "TECONT3",
+     "secao": "BAIA DE GUANABARA"
+    },
+    {
+     "pob": "19/11 12:00",
+     "navio": "MSC RIKKU MSC RIKKU",
+     "m": "S",
+     "de": "TECONT3",
+     "para": "",
+     "secao": "BAIA DE GUANABARA"
+    }
+   ],
+   "nome": "MSC RIKKU MSC RIKKU",
+   "mov": [
+    {
+     "m": "E",
+     "pob": "18/11 17:00",
+     "ts": 1795032000000,
+     "vis": 1794931233465,
+     "de": "",
+     "para": "TECONT3",
+     "ult": 1794931233465,
+     "st": "prevista"
+    },
+    {
+     "m": "S",
+     "pob": "19/11 12:00",
+     "ts": 1795100400000,
+     "vis": 1794931233465,
+     "de": "TECONT3",
+     "para": "",
+     "ult": 1794931233465,
+     "st": "prevista"
+    }
+   ]
+  },
+  "HMM JAKARTA HMM JAKARTA": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1794931233465,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "19/11 05:30",
+     "navio": "HMM JAKARTA HMM JAKARTA",
+     "m": "E",
+     "de": "",
+     "para": "TECONT2",
+     "secao": "BAIA DE GUANABARA"
+    },
+    {
+     "pob": "20/11 05:00",
+     "navio": "HMM JAKARTA HMM JAKARTA",
+     "m": "S",
+     "de": "TECONT2",
+     "para": "",
+     "secao": "BAIA DE GUANABARA"
+    }
+   ],
+   "nome": "HMM JAKARTA HMM JAKARTA",
+   "mov": [
+    {
+     "m": "E",
+     "pob": "19/11 05:30",
+     "ts": 1795077000000,
+     "vis": 1794931233465,
+     "de": "",
+     "para": "TECONT2",
+     "ult": 1794931233465,
+     "st": "prevista"
+    },
+    {
+     "m": "S",
+     "pob": "20/11 05:00",
+     "ts": 1795161600000,
+     "vis": 1794931233465,
+     "de": "TECONT2",
+     "para": "",
+     "ult": 1794931233465,
      "st": "prevista"
     }
    ]
@@ -19004,9 +19150,9 @@
  },
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-17T14:42:32.406Z",
- "ultimoSucesso": "2026-11-17T14:42:32.406Z",
- "total": 28,
+ "atualizado": "2026-11-17T16:00:33.465Z",
+ "ultimoSucesso": "2026-11-17T16:00:33.465Z",
+ "total": 33,
  "secoes": [
   "BAIA DE GUANABARA",
   "BAIA DE SEPETIBA",
