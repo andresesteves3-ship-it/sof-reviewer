@@ -97,26 +97,52 @@ async function avisosNovos(page, ms) {
 async function fecharAvisos(page) { await page.evaluate(() => document.querySelectorAll('.q-notification button').forEach(b => b.click())).catch(() => {}); }
 
 /* ---------- login ---------- */
+// v0.135.3: o CONTRATO do login é uma lista ("SELECIONE" › TPS), não um campo de digitar
 async function escolherContratoLogin(page) {
-  const re = new RegExp(CONTRATO, 'i');
-  let c = page.locator('.q-field, label').filter({ hasText: /contrato/i }).locator('input').first();
-  if (!(await c.count())) return false;
-  await c.click(); await page.waitForTimeout(400); await c.fill(''); await c.pressSequentially(CONTRATO, { delay: 80 }); await page.waitForTimeout(1200);
-  const op = page.locator('.q-menu .q-item, [role=option]').filter({ hasText: re }).first();
-  if (await op.count()) await op.click(); else await page.keyboard.press('Enter');
-  await page.waitForTimeout(500); return true;
+  const re = new RegExp('^\\s*' + CONTRATO + '\\s*$', 'i');
+  const nat = page.locator('select').filter({ has: page.locator('option', { hasText: re }) }).first();
+  if (await nat.count()) { await nat.selectOption({ label: CONTRATO }).catch(() => {}); return 'lista nativa'; }
+  let alvo = page.getByText(/^\s*SELECIONE\s*$/i).first();
+  if (!(await visivel(alvo))) alvo = page.locator('.q-select, [role=combobox], [role=listbox], .v-select, .dropdown').first();
+  if (!(await visivel(alvo))) return 'lista não achada';
+  for (let t = 0; t < 3; t++) {
+    await alvo.click().catch(() => {}); await page.waitForTimeout(900);
+    const ops = page.locator('.q-menu .q-item, [role=option], li, .q-item, div, span').filter({ hasText: re });
+    for (let i = 0; i < Math.min(await ops.count(), 30); i++) { const o = ops.nth(i); if (!(await visivel(o))) continue; const tx = ((await o.innerText().catch(() => '')) || '').trim(); if (re.test(tx)) { await o.click(); await page.waitForTimeout(700); return 'escolhido'; } }
+  }
+  return 'TPS não apareceu na lista';
 }
 async function entrar(page) {
   await page.goto(BASE, { waitUntil: 'networkidle' }); await page.waitForTimeout(1500);
   const temSenha = async () => (await page.locator('input[type=password]').count().catch(() => 0)) > 0;
   if (!(await temSenha())) return;
-  await page.locator('input:not([type=password]):not([type=hidden]):not([type=checkbox]):not([type=search])').first().fill(USER);
-  await page.locator('input[type=password]').first().fill(PASS);
-  await escolherContratoLogin(page);
+  // v0.135.2: usa o 1º campo de texto VISÍVEL (a tela do celular tem campos escondidos) e digita como uma pessoa
+  const ins = page.locator('input:not([type=password]):not([type=hidden]):not([type=checkbox]):not([type=radio]):not([type=search])');
+  let u = null; for (let i = 0; i < await ins.count(); i++) if (await visivel(ins.nth(i))) { u = ins.nth(i); break; }
+  const pw = page.locator('input[type=password]').first();
+  if (u) { await u.click(); await u.fill(''); await u.pressSequentially(USER, { delay: 40 }); }
+  await pw.click(); await pw.fill(''); await pw.pressSequentially(PASS, { delay: 40 });
+  const ct = await escolherContratoLogin(page);
   const b = page.locator('button[type=submit], button:has-text("ENTRAR"), button:has-text("Entrar"), button:has-text("ACESSAR")').first();
   if (await b.count()) await b.click(); else await page.keyboard.press('Enter');
-  for (let i = 0; i < 40; i++) { await page.waitForTimeout(500); if (!(await temSenha())) { await page.waitForLoadState('networkidle').catch(() => {}); await page.waitForTimeout(2000); return; } }
-  throw new Error('Login no Geport não concluído (senha recusada, código extra ou "não sou robô"?). Tela: ' + mascarar(JSON.stringify(await resumoTela(page))));
+  for (let i = 0; i < 40; i++) { await page.waitForTimeout(500); if (!(await temSenha())) { await page.waitForLoadState('networkidle').catch(() => {}); await page.waitForTimeout(2000); await irMobile(page); return; } }
+  const d = await page.evaluate(() => {
+    const vis = e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0; };
+    return {
+      inputs: [].slice.call(document.querySelectorAll('input, select, textarea')).map(e => [e.tagName.toLowerCase(), e.type || '', e.name || '', e.id || '', e.placeholder || '', e.getAttribute('aria-label') || '', vis(e) ? 'vis' : 'oculto', 'tam=' + String(e.value || '').length].join(':')).slice(0, 12),
+      rotulos: [].slice.call(document.querySelectorAll('label, .q-field__label, .text-caption, .text-subtitle1, .text-h6, p, span')).filter(vis).map(e => (e.innerText || '').replace(/\s+/g, ' ').trim()).filter(t => t && t.length < 40).filter((t, i, a) => a.indexOf(t) === i).slice(0, 20),
+      erros: [].slice.call(document.querySelectorAll('.q-notification, [role=alert], .text-negative, .q-field__messages, .error, .alert')).map(e => (e.innerText || '').trim().slice(0, 100)).filter(Boolean),
+      entrar: [].slice.call(document.querySelectorAll('button')).filter(b => /ENTRAR/i.test(b.innerText)).map(b => (b.disabled ? 'desabilitado' : 'habilitado') + ':' + (b.type || ''))
+    };
+  }).catch(() => ({}));
+  throw new Error('Login no Geport não concluído. Usuário digitado: ' + (u ? 'sim' : 'NÃO (campo não achado)') + '. Contrato: ' + ct + '. Detalhe: ' + mascarar(JSON.stringify(d)));
+}
+// v0.135.3: depois de entrar, abre a versão do celular (#/mobile/tela-inicial)
+const ROTA_MOBILE = process.env.GEPORT_ROTA_MOBILE || '#/mobile/tela-inicial';
+async function irMobile(page) {
+  await page.goto(BASE.replace(/#.*$/, '').replace(/\/?$/, '/') + ROTA_MOBILE, { waitUntil: 'domcontentloaded' }).catch(() => {});
+  await page.waitForLoadState('networkidle').catch(() => {}); await page.waitForTimeout(2500);
+  if ((await page.locator('input[type=password]').count().catch(() => 0)) > 0) throw new Error('O Geport voltou para o login ao abrir a tela do celular. Tela: ' + mascarar(JSON.stringify(await resumoTela(page))));
 }
 // confere o contrato no canto superior direito; se não for TPS, tenta trocar
 async function garantirContrato(page) {
@@ -276,7 +302,7 @@ async function rodarPedido(page, pid, ped) {
     if (!FB_EMAIL || !FB_PASS) throw new Error('Faltam os Secrets FB_ROBO_EMAIL e FB_ROBO_PASS no GitHub.');
     await fbLogin();
     browser = await chromium.launch({ args: ['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream'] });
-    const ctx = await browser.newContext(Object.assign({}, devices['Pixel 7'], { locale: 'pt-BR', timezoneId: 'America/Sao_Paulo', geolocation: GEO, permissions: ['geolocation', 'camera'] }));
+    const ctx = await browser.newContext(Object.assign({ viewport: { width: 1366, height: 900 } }, { locale: 'pt-BR', timezoneId: 'America/Sao_Paulo', geolocation: GEO, permissions: ['geolocation', 'camera'] }));
     const page = await ctx.newPage(); page.setDefaultTimeout(30000);
     let logado = false, feitos = 0;
     for (let volta = 0; volta < 6; volta++) {
