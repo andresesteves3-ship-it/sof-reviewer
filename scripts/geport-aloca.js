@@ -227,6 +227,9 @@ async function rodarPedido(page, pid, ped) {
   let nOk = 0, nErr = 0;
   for (const fr of ped.itens || []) {
     const base = 'painel/area/gpRes/' + ped.esc + '/' + fr.fid + (fin ? '/fin' : '');
+    // a pessoa pode ter cancelado esta frente no painel enquanto o pedido esperava
+    const atual = await fbGet(base + '/st').catch(() => null);
+    if (atual === 'cancelado') { console.log('Frente cancelada no painel: pulada.'); continue; }
     const res = { st: 'rodando', em: Date.now(), por: ped.por || '', ensaio: ens, pessoas: {}, passos: [] };
     await fbPatch(base, { st: 'rodando', em: res.em });
     try {

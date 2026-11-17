@@ -1,4 +1,4 @@
 {
- "v": "0.135.0",
- "resumo": "Área: robô de alocação no Geport (alocar por frente, alocar tudo e finalizar)."
+ "v": "0.135.1",
+ "resumo": "Geport: cancelar pedido na fila e aviso de carteiro antigo."
 }
