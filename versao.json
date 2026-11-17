@@ -1,4 +1,4 @@
 {
- "v": "0.135.1",
- "resumo": "Geport: cancelar pedido na fila e aviso de carteiro antigo."
+ "v": "0.136.0",
+ "resumo": "Escala da Área: Supervisor e Empilhadeira dentro de cada frente; o robô aloca todos."
 }
