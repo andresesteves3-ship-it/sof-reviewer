@@ -1,4 +1,4 @@
 {
- "v": "0.134.0",
- "resumo": "Área: seletor sem quem já está escalado, mensagem final por escala, imagem por blocos e novo Início."
+ "v": "0.135.0",
+ "resumo": "Área: robô de alocação no Geport (alocar por frente, alocar tudo e finalizar)."
 }

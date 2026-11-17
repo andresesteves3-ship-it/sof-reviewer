@@ -1372,3 +1372,95 @@ Subir: index.html, sw.js, versao.json e a pasta NOVA ferramentas/lop/ (timbre-lo
 - Administração › Logins do OGMO: LOGIN = Nome (HJUNIOR, MSANTOS, AESTEVES, RMACEDO já cadastrados).
 *** ARQUIVO DO ROBÔ MUDOU: envie também scripts/ogmo.js ***
 Subir: index.html, sw.js, versao.json, scripts/ogmo.js
+
+== 0.128.1 (16/11/2026) — só o robô ==
+- OGMO / quem pediu: o robô espera o OGMO trocar a linha selecionada antes de clicar em Visualizar (na 1ª rodada abriu a requisição anterior e a checagem barrou). Se a tela mostrar outra requisição do dia, guarda o login dela e tenta a certa mais uma vez. Sem o nº da requisição na tela, não grava nome.
+*** ARQUIVO DO ROBÔ MUDOU: envie scripts/ogmo.js ***
+Subir: scripts/ogmo.js
+
+== 0.128.2 (16/11/2026) — só o robô ==
+- OGMO / quem pediu: a 2ª rodada real também abriu outra requisição no Visualizar. Agora o robô espera mais depois de selecionar (1,5 s), tenta 3 vezes (nº da requisição, nome do navio, nº de novo) e grava no status um detalhe para diagnóstico: qual linha ficou destacada na grade e qual requisição o Visualizar mostrou.
+- Correção: o nº da requisição não aparece mais com *** no erro (o código da empresa só era escondido nos números).
+*** ARQUIVO DO ROBÔ MUDOU: envie scripts/ogmo.js ***
+Subir: scripts/ogmo.js
+
+== 0.128.3 (16/11/2026) — só o robô ==
+- OGMO / quem pediu: o status passa a mostrar se o "Voltar" funcionou (diag.quemPediu.voltar: ok = voltou para a lista, recuperou = não voltou e o robô reabriu a tela pelo menu, bloqueado = a proteção barrou o botão, nomes = como o OGMO chama o botão).
+*** ARQUIVO DO ROBÔ MUDOU: envie scripts/ogmo.js ***
+Subir: scripts/ogmo.js
+
+== 0.128.4 (16/11/2026) — só o robô ==
+- OGMO / quem pediu: o Voltar funciona (ok 3, recuperou 0). A linha certa fica destacada na grade, mas o Visualizar abriu sempre a última requisição do dia, e o robô também não leu o Login Cadastro.
+- Correção da leitura: os campos são lidos pela POSIÇÃO na tela (mesma linha, à direita do rótulo) e o nº da requisição é o número logo abaixo de "N. Requisição". O status mostra os números que apareceram na tela e se o login foi lido (sem gravar o login no status).
+*** ARQUIVO DO ROBÔ MUDOU: envie scripts/ogmo.js ***
+Subir: scripts/ogmo.js
+
+== 0.129.0 (17/11/2026) — Assistentes Operacionais, fase 1 ==
+- Equipe › Escala (Liderança): card "Assistentes ADM e Operacionais · equipes TPS". Define a área de cada assistente e a escala das equipes (1º dia de trabalho da A e da C; B e D = 2 dias depois).
+- Operacional: perfil com Equipe A/B/C/D; menu Início (próprio), Line Up (só consulta), Solicitações (Manutenção e Extra, em construção), Minha equipe.
+- Minha equipe: funcionários TPS com código de alocação do Geport e frentes avulsas. Banco: /painel/tps/func e /painel/tps/frentes.
+- IMPORTANTE: o arquivo equipe-tps-importar.json (lista com nomes e matrículas) NÃO vai para o GitHub (o repositório é público). A Liderança importa em Minha equipe › "Importar lista".
+Subir: index.html, sw.js, versao.json
+
+== 0.129.1 (17/11/2026) ==
+- Liderança: link "Equipe TPS" no menu de cima, no Mais do celular e em Equipe › Escala (lista de nomes e códigos do Geport, com Importar lista).
+Subir: index.html, sw.js, versao.json
+
+== 0.130.0 (17/11/2026) ==
+- Administração › Usuários: Área (ADM/Operacional) e Equipe (A–D) no formulário de cadastro e em cada linha da lista.
+- Equipe › Escala: lista com todos os assistentes cadastrados, inclusive "ainda não entrou", com Área e Equipe.
+- Perfil do Operacional: equipe definida pela Liderança fica só para consulta.
+- MASTER vem desmarcado no cadastro.
+Subir: index.html, sw.js, versao.json
+
+== 0.130.1 (17/11/2026) ==
+- Line Up do Operacional: sem a coluna de ações (inspeção, INICIAR, ocultar).
+- Liderança: "Equipe TPS" saiu do menu de cima e do Mais; o acesso fica em Equipe › Escala (botão "Abrir a lista da Equipe TPS").
+Subir: index.html, sw.js, versao.json
+
+== 0.131.0 (17/11/2026) — Sala × Área ==
+- Cada ambiente vê só o seu: Escala da equipe (perfil), troca de turno (só com colega do mesmo ambiente), pedidos e comunicados.
+- Liderança: seletor "Sala (ADM) | Área (Operacional)" em Equipe e no painel da Liderança. Na Área: escala das equipes TPS, pedidos e comunicados da Área; Acompanhamento e Aderência só na Sala; Liderança mostra "Área agora".
+- Área: sem chat e sem notificações do chat; sino só com comunicados e resposta de pedidos. Avisos só depois de o painel saber o ambiente.
+- Comunicados: campo "Quem recebe" (Todos / só Sala / só Área).
+- Selo no topo: Sala, Área ou Liderança.
+Subir: index.html, sw.js, versao.json
+
+== 0.132.0 (17/11/2026) — Área, fase 2 ==
+- Nova tela "Escala do turno" (menu Escala do Operacional; Liderança abre pelo card "Área agora"): Conferente e Auxiliares por navio em operação; frentes avulsas que continuam no próximo turno até tirar com ✕; imagem para o WhatsApp.
+- Passagem de serviço da Área no modelo da equipe (concluídas 🟢, a concluir 🔴, Equipamentos TPS ✅/❌ com local). Copiar, WhatsApp, salvar; histórico.
+- Aviso da Área: escala do turno não montada (30 min depois do início).
+- Selo Sala/Área do topo removido.
+- Banco: /painel/area/escala, /painel/area/avPadrao, /painel/area/maquinas, /painel/area/passagens (regras atuais já permitem).
+Subir: index.html, sw.js, versao.json
+
+== 0.133.0 (17/11/2026) — Área: escala por frentes e passagem com imagem ==
+- Escala do turno: frentes (navio, avulsa, livre) com Conferente obrigatório (Balanceiro na Balança), Opmc, máquinas, obs., Continua/Concluída e situação da alocação no Geport. Placar, Repetir a última escala da equipe, Op. de Empilhadeira, Lideranças, mensagem final (Liderança).
+- Seletor filtrado por função e equipe do turno (Outra equipe, Todas as funções, busca). Tabela função × papel em Equipe TPS (Liderança).
+- Texto no modelo da equipe e imagem no padrão do Line Up.
+- Passagem: prévia da imagem, listas pela escala, ocorrências, equipamentos com locais prontos e destaque do que mudou, ciente da equipe que recebe (aviso no sino).
+- Banco: /painel/area/escala (v:2, fr/emp/lid), /painel/area/cfg (msg, papeis), /painel/area/passagens (+ciente). Escalas da 0.132 são convertidas sozinhas.
+Subir: index.html, sw.js, versao.json
+
+=== Versão 0.134.0 ===
+- Escala da Área: no seletor de Opmc e de Empilhadeira, quem já está em outra frente fica escondido. "Mostrar já escalados" permite trocar a pessoa de frente; o painel tira a pessoa da frente antiga e avisa.
+- Conferente, Balanceiro e Liderança continuam na lista, com o nome da outra frente.
+- Mensagem final por escala: o assistente edita o texto do dia, salva como modelo ou volta ao modelo. O modelo não tem "@todos".
+- Tirado o "ver quem" do placar.
+- Imagem e texto da escala em três blocos: Navios, Frentes avulsas e Apoio.
+- Início da Área: escala de hoje, passagem recebida (com ciente), navios em operação com conferente e próximos navios em 48 h.
+Subir: index.html, sw.js, versao.json
+
+=== Versão 0.135.0 ===
+- Escala da Área: robô de alocação no Geport mobile.
+  * "Alocar no Geport" em cada frente e "Alocar tudo no Geport" na barra Geport.
+  * O robô aloca o Conferente e os Opmc pelo código TPS: Alocação de Recurso › AQUAVIÁRIO (nº da atracação) ou AVULSA (código) › contrato TPS › Buscar frente › FUNCIONÁRIO › Hora extra › código › ADICIONAR › confere em Visualizar listagem.
+  * "Finalizar no Geport" libera na última hora do turno e clica em FINALIZAR para as pessoas da escala.
+  * O resultado aparece no cartão da frente (quem foi alocado e o motivo de quem não foi).
+  * Para os administradores: opção "Ensaio" (o robô faz o caminho e não clica em ADICIONAR nem em FINALIZAR).
+- Máquinas ficam para depois (stand by).
+
+ARQUIVO DO ROBÔ MUDOU: envie também scripts/geport-aloca.js e .github/workflows/geport-aloca.yml (arquivos novos).
+CARTEIRO MUDOU: cole carteiro/worker.js no Cloudflare (painel-carteiro › Edit code) e clique em Deploy. Nenhuma variável nova.
+Secrets usados (já cadastrados): GEPORT_USER, GEPORT_PASS, FB_ROBO_EMAIL, FB_ROBO_PASS.
+Subir: index.html, sw.js, versao.json, scripts/geport-aloca.js, .github/workflows/geport-aloca.yml

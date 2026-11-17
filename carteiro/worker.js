@@ -1,4 +1,4 @@
-/* Carteiro do Painel dos Assistentes — Cloudflare Worker (v0.125.0)
+/* Carteiro do Painel dos Assistentes — Cloudflare Worker (v0.135.0)
    Recebe do painel um pedido de notificação e envia Web Push para os celulares e computadores inscritos.
    Segurança: o painel manda o token de login do Firebase de quem enviou. O carteiro usa esse token para ler
    /painel/push no banco. Se o token não for de um usuário do painel, o banco recusa e nada é enviado.
@@ -19,6 +19,9 @@
                    Sem ela, o despertador usa a chave dos robôs cadastrada no painel (Administração).
      SITE          texto   (opcional) https://andresesteves3-ship-it.github.io/sof-reviewer
      GH_REPO       texto   (opcional) andresesteves3-ship-it/sof-reviewer
+   v0.135.0 — ROBÔ DE ALOCAÇÃO NO GEPORT: GET /?geport=1 (o painel chama depois de gravar um pedido em /painel/area/gpFila)
+   pede ao GitHub para rodar geport-aloca.yml, se houver pedido pendente e o robô ainda não estiver rodando.
+   O despertador (a cada 15 min) faz a mesma conferência, para o caso de o pedido do painel se perder. Nenhuma variável nova.
 */
 const b64u = {
   dec(s) { s = String(s).replace(/-/g, '+').replace(/_/g, '/'); while (s.length % 4) s += '='; const b = atob(s), u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; },
@@ -116,6 +119,22 @@ async function ghPede(env, tk, repo, wf) {
   const x = await fetch('https://api.github.com/repos/' + repo + '/actions/workflows/' + wf + '/dispatches', { method: 'POST', headers: Object.assign({ 'Content-Type': 'application/json' }, h), body: JSON.stringify({ ref: 'main' }) });
   return x.status === 204 ? 'pedido' : 'GitHub respondeu ' + x.status;
 }
+/* robô de alocação: só pede se há pedido pendente; não repete se já há rodada na fila ou rodando */
+async function geportFila(env) {
+  const site = String(env.SITE || ((env.ORIGEM || 'https://andresesteves3-ship-it.github.io') + '/sof-reviewer')).replace(/\/$/, '');
+  const repo = env.GH_REPO || 'andresesteves3-ship-it/sof-reviewer';
+  const fb = await fbLogin(env, site);
+  const fila = (await fbGet(fb, 'painel/area/gpFila')) || {};
+  const pend = Object.keys(fila).filter(k => fila[k] && fila[k].st === 'pendente');
+  if (!pend.length) return { ok: true, pendentes: 0, gh: 'nada a fazer' };
+  let tk = env.GH_TOKEN || ''; if (!tk) { try { tk = String((await fbGet(fb, 'painel/config/token')) || ''); } catch (e) {} }
+  if (!tk) return { ok: false, pendentes: pend.length, gh: 'sem chave do GitHub' };
+  const h = { Accept: 'application/vnd.github+json', Authorization: 'Bearer ' + tk, 'X-GitHub-Api-Version': '2022-11-28', 'User-Agent': 'painel-carteiro' };
+  const u = await fetch('https://api.github.com/repos/' + repo + '/actions/workflows/geport-aloca.yml/runs?per_page=3', { headers: h });
+  if (u.ok) { const rs = (await u.json()).workflow_runs || []; if (rs.some(r => r.status === 'queued' || r.status === 'waiting' || r.status === 'pending' || (r.status === 'in_progress' && Date.now() - Date.parse(r.created_at) < 25 * 60e3))) return { ok: true, pendentes: pend.length, gh: 'já rodando' }; }
+  const x = await fetch('https://api.github.com/repos/' + repo + '/actions/workflows/geport-aloca.yml/dispatches', { method: 'POST', headers: Object.assign({ 'Content-Type': 'application/json' }, h), body: JSON.stringify({ ref: 'main' }) });
+  return { ok: x.status === 204, pendentes: pend.length, gh: x.status === 204 ? 'pedido' : 'GitHub respondeu ' + x.status };
+}
 const hm = min => min >= 120 ? Math.round(min / 60) + ' h' : Math.round(min) + ' min';
 async function despertador(env) {
   const agora = Date.now(), site = String(env.SITE || ((env.ORIGEM || 'https://andresesteves3-ship-it.github.io') + '/sof-reviewer')).replace(/\/$/, '');
@@ -157,7 +176,8 @@ export default {
     if (req.method !== 'POST') {
       // GET /?despertador=1 roda a conferência agora (para testar); só pede leitura das integrações atrasadas
       if (new URL(req.url).searchParams.get('despertador')) return resp(env, await despertador(env));
-      return resp(env, { ok: true, carteiro: '0.125.0', despertador: !!(env.FB_ROBO_EMAIL && env.FB_ROBO_PASS) });
+      if (new URL(req.url).searchParams.get('geport')) { try { return resp(env, await geportFila(env)); } catch (e) { return resp(env, { ok: false, erro: String(e.message || e) }, 500); } }
+      return resp(env, { ok: true, carteiro: '0.135.0', despertador: !!(env.FB_ROBO_EMAIL && env.FB_ROBO_PASS) });
     }
     let p; try { p = await req.json(); } catch (e) { return resp(env, { ok: false, erro: 'pedido inválido' }, 400); }
     if (!p || !p.token || !Array.isArray(p.para) || !p.para.length || p.para.length > 50) return resp(env, { ok: false, erro: 'faltam dados' }, 400);
@@ -174,5 +194,5 @@ export default {
     return resp(env, { ok: true, enviadas: n, falhas });
   }
 ,
-  async scheduled(ev, env, ctx) { ctx.waitUntil(despertador(env)); }
+  async scheduled(ev, env, ctx) { ctx.waitUntil(Promise.all([despertador(env), geportFila(env).catch(() => null)])); }
 };
