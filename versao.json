@@ -1,4 +1,4 @@
 {
- "v": "0.130.1",
- "resumo": "Line Up do Operacional sem ações; Equipe TPS só dentro de Equipe."
+ "v": "0.131.0",
+ "resumo": "Dois ambientes: Sala (ADM) e Área (Operacional), cada um com o seu."
 }
