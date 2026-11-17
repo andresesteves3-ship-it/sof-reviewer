@@ -1,0 +1,28 @@
+name: Robô de alocação no Geport
+# Roda só quando o painel pede (pelo carteiro) ou a cada 15 min pelo despertador, se houver pedido na fila.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: geport-aloca
+  cancel-in-progress: false
+jobs:
+  alocar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      # mesmo pacote pronto do Playwright dos outros robôs (versão igual à do package.json: 1.49.1)
+      - name: Alocar (dentro do Playwright pronto)
+        env:
+          GEPORT_USER: ${{ secrets.GEPORT_USER }}
+          GEPORT_PASS: ${{ secrets.GEPORT_PASS }}
+          FB_ROBO_EMAIL: ${{ secrets.FB_ROBO_EMAIL }}
+          FB_ROBO_PASS: ${{ secrets.FB_ROBO_PASS }}
+        run: |
+          docker run --rm --ipc=host --user "$(id -u):$(id -g)" -e HOME=/tmp \
+            -e GEPORT_USER -e GEPORT_PASS -e FB_ROBO_EMAIL -e FB_ROBO_PASS \
+            -v "$GITHUB_WORKSPACE":/w -w /w \
+            mcr.microsoft.com/playwright:v1.49.1-noble \
+            bash -c "npm install --no-audit --no-fund && node scripts/geport-aloca.js"
