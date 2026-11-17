@@ -254,36 +254,69 @@ async function adicionarPessoa(page, p, ensaio) {
   return { ok: true, msg: (av.find(a => /sucesso|adicionad|alocad/i.test(a)) || 'adicionado').slice(0, 140) };
 }
 // abre "Visualizar listagem", espera os botões e devolve as linhas {nome, sit, i}
-async function abrirListagem(page) {
-  if (!(await visivel(page.getByText(/Visualizar/i).first()))) { await clicar(page, /FUNCION[AÁ]RIO/i, 6000); await page.waitForTimeout(1200); }
-  if (!(await clicar(page, /Visualizar/i, 10000))) throw new Error('Não achei "Visualizar listagem alocação recurso". Tela: ' + JSON.stringify(await resumoTela(page)));
-  await page.waitForTimeout(ESPERA_LISTA);
-  return page.evaluate(() => [].slice.call(document.querySelectorAll('.q-dialog tbody tr, .q-dialog .q-table tr, tbody tr')).map((tr, i) => {
-    const td = [].slice.call(tr.children).map(x => (x.innerText || '').replace(/\s+/g, ' ').trim());
-    return { i, nome: td[0] || '', sit: td.find(x => /CONFIRMAD|FINALIZAD|CANCELAD|PENDENT/i.test(x)) || '' };
-  }).filter(r => r.nome && !/^NOME$/i.test(r.nome))).catch(() => []);
+/* v0.135.6: listagem "LISTAGEM DE ALOCAÇÃO PELA FRENTE" (NOME, PROGRAMAÇÃO, REAL, SITUAÇÃO ALOCADO e os botões
+   relógio, pessoa, FINALIZAR, CANCELAR, FALTA, FOLGA). A janela fica aberta: finaliza uma pessoa, espera 3 s e segue. */
+const ESPERA_FIN = 3000;
+async function lerLinhas(page) {
+  return page.evaluate(() => {
+    const tabs = [].slice.call(document.querySelectorAll('table')).filter(t => /SITUA[CÇ][AÃ]O|NOME/i.test((t.querySelector('thead') || t).innerText || ''));
+    const t = tabs[tabs.length - 1]; if (!t) return [];
+    return [].slice.call(t.querySelectorAll('tbody tr')).map((tr, i) => {
+      tr.setAttribute('data-robo-i', String(i));
+      const td = [].slice.call(tr.children).map(x => (x.innerText || '').replace(/\s+/g, ' ').trim());
+      return { i, nome: td[0] || '', sit: td.find(x => /CONFIRMAD|FINALIZAD|CANCELAD|PENDENT|FALTA|FOLGA/i.test(x)) || '', fin: [].slice.call(tr.querySelectorAll('button, .q-btn')).some(b => /^\s*FINALIZAR\s*$/i.test(b.innerText || '')) };
+    }).filter(r => r.nome && !/^NOME$/i.test(r.nome));
+  }).catch(() => []);
 }
+async function abrirListagem(page) {
+  if (!(await visivel(page.getByText(/VISUALIZAR LISTAGEM/i).first()))) { await clicar(page, /^\s*FUNCION[AÁ]RIO\s*$/i, 6000); await page.waitForTimeout(1200); }
+  if (!(await clicar(page, /VISUALIZAR LISTAGEM/i, 10000))) throw new Error('Não achei "VISUALIZAR LISTAGEM ALOCAÇÃO RECURSO". Tela: ' + JSON.stringify(await resumoTela(page)));
+  await page.waitForTimeout(ESPERA_LISTA);
+  let L = await lerLinhas(page);
+  for (let t = 0; t < 4 && !L.length; t++) { await page.waitForTimeout(1500); L = await lerLinhas(page); }
+  return L;
+}
+// acha a linha pelo nome completo; o atalho (1º + último nome) só vale se houver UMA linha assim
 function achaLinha(linhas, nome) {
   const n = norm(nome), ps = n.split(' ');
-  return linhas.find(l => norm(l.nome) === n) || linhas.find(l => { const q = norm(l.nome).split(' '); return q[0] === ps[0] && q[q.length - 1] === ps[ps.length - 1]; });
+  const exata = linhas.filter(l => norm(l.nome) === n);
+  if (exata.length) return exata.find(l => l.fin) || exata[0];
+  const parc = linhas.filter(l => { const q = norm(l.nome).split(' '); return q[0] === ps[0] && q[q.length - 1] === ps[ps.length - 1]; });
+  return parc.length === 1 ? parc[0] : null;
 }
 async function fecharListagem(page) {
-  const b = page.locator('.q-dialog button').filter({ hasText: /close|fechar|voltar/i }).first();
+  const b = page.locator('.q-dialog button, .q-dialog .q-btn').filter({ hasText: /^\s*(close|fechar|voltar)\s*$/i }).first();
   if (await visivel(b)) await b.click().catch(() => {}); else await page.keyboard.press('Escape').catch(() => {});
   await page.waitForTimeout(800);
 }
-async function finalizarPessoa(page, linha, ensaio) {
-  const tr = page.locator('.q-dialog tbody tr, tbody tr').nth(linha.i);
-  const b = tr.locator('button, .q-btn').filter({ hasText: /FINALIZAR/i }).first();
-  if (!(await b.count())) return { ok: false, msg: 'sem botão FINALIZAR (situação: ' + (linha.sit || '?') + ')' };
+async function finalizarPessoa(page, p, ensaio) {
+  const l = achaLinha(await lerLinhas(page), p.nome);
+  if (!l) return { ok: false, msg: 'não está na listagem desta frente' };
+  if (/FINALIZAD/i.test(l.sit)) return { ok: true, msg: 'já estava finalizado' };
+  if (!l.fin) return { ok: false, msg: 'sem botão FINALIZAR (situação: ' + (l.sit || '?') + ')' };
   if (ensaio) return { ok: true, msg: 'ensaio: FINALIZAR achado, não clicado' };
-  await fecharAvisos(page); await marcarAvisos(page); await b.click(); await page.waitForTimeout(1500);
-  // confirmação, se o Geport perguntar
-  const conf = page.locator('.q-dialog button, .q-dialog .q-btn').filter({ hasText: /^(SIM|CONFIRMAR|OK|SALVAR|FINALIZAR)$/i }).last();
-  if (await visivel(conf)) { await conf.click(); await page.waitForTimeout(1500); }
-  const av = await avisosNovos(page, 1200);
+  const b = page.locator('tr[data-robo-i="' + l.i + '"]').locator('button, .q-btn').filter({ hasText: /^\s*FINALIZAR\s*$/i }).first();
+  const JAN = '.q-dialog, .swal2-popup, [role=dialog], [role=alertdialog], .modal.show, .v-dialog';
+  const dlgAntes = await page.locator(JAN).count().catch(() => 0);
+  /* v0.135.8: anota as chamadas que a página faz ao servidor depois do clique (só método, caminho e status) */
+  const rede = [], ouve = r => { try { const q = r.request(); if (q.method() !== 'GET' || /finaliz|aloca|recurso/i.test(q.url())) rede.push(q.method() + ' ' + new URL(q.url()).pathname.split('/').slice(-2).join('/') + ' ' + r.status()); } catch (e) {} };
+  page.on('response', ouve);
+  await fecharAvisos(page); await marcarAvisos(page); await b.click();
+  await page.waitForTimeout(1000);
+  /* só confirma numa janela NOVA (nunca clica em FINALIZAR de outra linha). v0.135.7: guarda o que a janela mostrou */
+  let janela = '';
+  if ((await page.locator(JAN).count().catch(() => 0)) > dlgAntes) {
+    const dl = page.locator(JAN).last();
+    janela = ((await dl.innerText().catch(() => '')) || '').replace(/\s+/g, ' ').trim().slice(0, 220);
+    const conf = dl.locator('button, .q-btn').filter({ hasText: /^\s*(SIM|CONFIRMAR|OK|SALVAR|FINALIZAR)\b/i }).last();
+    if (await visivel(conf)) { const rot = ((await conf.innerText().catch(() => '')) || '').trim(); await conf.click(); await page.waitForTimeout(1500); janela += ' [cliquei: ' + rot + ']'; }
+    else janela += ' [sem botão de confirmar]';
+  }
+  const av = await avisosNovos(page, ESPERA_FIN);
+  page.off('response', ouve); if (rede.length) janela += ' · servidor: ' + rede.slice(0, 4).join(', ');
   const ruim = av.find(a => /erro|n[aã]o|falh/i.test(a) && !/sucesso/i.test(a));
-  return ruim ? { ok: false, msg: ruim.slice(0, 140) } : { ok: true, msg: (av[0] || 'finalizado').slice(0, 140) };
+  if (ruim) return { ok: false, msg: (ruim + (janela ? ' · ' + janela : '')).slice(0, 400) };
+  return { ok: true, msg: ((av[0] || 'FINALIZAR clicado') + (janela ? ' · janela: ' + janela : '')).slice(0, 400), janela: !!janela };
 }
 
 /* ---------- um pedido ---------- */
@@ -313,10 +346,15 @@ async function rodarPedido(page, pid, ped) {
       } else {
         const lin = await abrirListagem(page); res.passos.push('listagem:' + lin.length);
         for (const p of fr.pessoas || []) {
-          const l = achaLinha(lin, p.nome);
-          if (!l) { res.pessoas[p.m] = { ok: false, msg: 'não está na listagem desta frente' }; continue; }
-          if (/FINALIZAD/i.test(l.sit)) { res.pessoas[p.m] = { ok: true, msg: 'já estava finalizado' }; continue; }
-          try { res.pessoas[p.m] = await finalizarPessoa(page, l, ens); } catch (e) { res.pessoas[p.m] = { ok: false, msg: mascarar(e.message).slice(0, 300) }; }
+          try { res.pessoas[p.m] = await finalizarPessoa(page, p, ens); } catch (e) { res.pessoas[p.m] = { ok: false, msg: mascarar(e.message).slice(0, 300) }; }
+        }
+        /* v0.135.7: confere de verdade — fecha, abre a listagem de novo e vê se a pessoa ainda está CONFIRMADO */
+        if (!ens) {
+          await fecharListagem(page); await page.waitForTimeout(1500);
+          const L2 = await abrirListagem(page).catch(() => []); res.passos.push('conferencia:' + L2.length);
+          (fr.pessoas || []).forEach(p => { const r = res.pessoas[p.m]; if (!r || !r.ok || /já estava/.test(r.msg)) return; const d = achaLinha(L2, p.nome);
+            if (!L2.length) { r.ok = false; r.msg = 'não consegui reabrir a listagem para conferir. ' + r.msg; }
+            else if (d && !/FINALIZAD/i.test(d.sit)) { r.ok = false; r.msg = 'continua ' + (d.sit || 'na listagem') + ' depois do FINALIZAR. ' + r.msg; } });
         }
         await fecharListagem(page);
       }
