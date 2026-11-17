@@ -312,8 +312,20 @@ async function finalizarPessoa(page, p, ensaio) {
     if (await visivel(conf)) { const rot = ((await conf.innerText().catch(() => '')) || '').trim(); await conf.click(); await page.waitForTimeout(1500); janela += ' [cliquei: ' + rot + ']'; }
     else janela += ' [sem botão de confirmar]';
   }
-  const av = await avisosNovos(page, ESPERA_FIN);
-  page.off('response', ouve); if (rede.length) janela += ' · servidor: ' + rede.slice(0, 4).join(', ');
+  /* v0.135.9: no Geport a pessoa SOME da lista uns 5 s depois do FINALIZAR. Espera sumir (até 15 s);
+     lista vazia no meio da atualização não conta como "sumiu". */
+  let sumiu = false;
+  for (let t = 0; t < 30 && !sumiu; t++) {
+    await page.waitForTimeout(500);
+    const L = await lerLinhas(page);
+    if (!L.length) continue;
+    const d = achaLinha(L, p.nome);
+    if (!d || /FINALIZAD/i.test(d.sit)) sumiu = true;
+  }
+  const av = await avisosNovos(page, 500);
+  page.off('response', ouve);
+  if (!sumiu) return { ok: false, msg: ('cliquei em FINALIZAR, mas a pessoa continuou na lista depois de 15 s' + (janela ? ' · ' + janela : '') + (rede.length ? ' · servidor: ' + rede.slice(0, 4).join(', ') : '')).slice(0, 400) };
+  await page.waitForTimeout(ESPERA_FIN);   /* intervalo antes da próxima pessoa */ if (rede.length) janela += ' · servidor: ' + rede.slice(0, 4).join(', ');
   const ruim = av.find(a => /erro|n[aã]o|falh/i.test(a) && !/sucesso/i.test(a));
   if (ruim) return { ok: false, msg: (ruim + (janela ? ' · ' + janela : '')).slice(0, 400) };
   return { ok: true, msg: ((av[0] || 'FINALIZAR clicado') + (janela ? ' · janela: ' + janela : '')).slice(0, 400), janela: !!janela };
