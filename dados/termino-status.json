@@ -1,13 +1,13 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-17T17:00:53.754Z",
- "ultimoSucesso": "2026-11-17T17:00:53.754Z",
+ "atualizado": "2026-11-17T23:00:44.083Z",
+ "ultimoSucesso": "2026-11-17T23:00:44.083Z",
  "diag": {
   "cartoes": 1,
   "comPrevisao": 1,
   "amostra": [
-   "FEDERAL MICHIGAN | TÉRMINO PREVISTO / 18 nov / no ritmo real 19 nov / dentro do prazo"
+   "FEDERAL MICHIGAN | TÉRMINO PREVISTO / 19 nov / no ritmo real 20 nov / dentro do prazo"
   ]
  },
  "falhasSeguidas": 0
