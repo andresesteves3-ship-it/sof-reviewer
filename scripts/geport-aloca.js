@@ -356,6 +356,9 @@ async function rodarPedido(page, pid, ped) {
         if (!ens) (fr.pessoas || []).forEach(p => { const r = res.pessoas[p.m]; if (!r || !r.ok) return; const l = achaLinha(lin, p.nome); if (!l) { r.ok = false; r.msg = 'não apareceu na listagem do Geport'; } else r.sit = l.sit; });
         await fecharListagem(page);
       } else {
+        /* v0.135.10: para finalizar a caixa HORA EXTRA também precisa estar marcada (informado pelo usuário) */
+        res.horaExtra = await abaFuncionario(page); res.passos.push('funcionario');
+        if (res.horaExtra === 'sem-campo' || res.horaExtra === 'nao-confirmada' || res.horaExtra === 'erro') throw new Error('Não consegui marcar HORA EXTRA antes de finalizar (' + res.horaExtra + ').');
         const lin = await abrirListagem(page); res.passos.push('listagem:' + lin.length);
         for (const p of fr.pessoas || []) {
           try { res.pessoas[p.m] = await finalizarPessoa(page, p, ens); } catch (e) { res.pessoas[p.m] = { ok: false, msg: mascarar(e.message).slice(0, 300) }; }
