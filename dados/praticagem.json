@@ -6067,11 +6067,15 @@
     {
      "t": 1794931233465,
      "e": "alterada"
+    },
+    {
+     "t": 1794948795906,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "17/11 22:00",
+     "pob": "18/11 00:00",
      "navio": "ONE GEORGE WASHINGTON ONE GEORGE WASHINGTON",
      "m": "E",
      "de": "",
@@ -6177,6 +6181,16 @@
      "de": "",
      "para": "TECONT2",
      "ult": 1794939489272,
+     "st": "remarcada"
+    },
+    {
+     "m": "E",
+     "pob": "18/11 00:00",
+     "ts": 1794970800000,
+     "vis": 1794948795906,
+     "de": "",
+     "para": "TECONT2",
+     "ult": 1794948795906,
      "st": "prevista"
     },
     {
@@ -6196,7 +6210,7 @@
      "vis": 1794931233465,
      "de": "TECONT2",
      "para": "",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     }
    ]
@@ -6576,7 +6590,7 @@
      "vis": 1794869779972,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     },
     {
@@ -6596,7 +6610,7 @@
      "vis": 1794851943393,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     }
    ]
@@ -7487,17 +7501,13 @@
     {
      "t": 1794905967900,
      "e": "alterada"
+    },
+    {
+     "t": 1794948795906,
+     "e": "alterada"
     }
    ],
    "man": [
-    {
-     "pob": "17/11 14:30",
-     "navio": "COSCO SHIPPING MEXICO COSCO SHIPPING MEXICO",
-     "m": "E",
-     "de": "",
-     "para": "TECONTPROLONG",
-     "secao": "BAIA DE GUANABARA"
-    },
     {
      "pob": "18/11 13:00",
      "navio": "COSCO SHIPPING MEXICO COSCO SHIPPING MEXICO",
@@ -7537,7 +7547,7 @@
      "de": "",
      "para": "TECONTPROLONG",
      "ult": 1794939489272,
-     "st": "prevista"
+     "st": "realizada"
     },
     {
      "m": "E",
@@ -7566,7 +7576,7 @@
      "vis": 1794869779972,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     },
     {
@@ -9416,7 +9426,7 @@
      "vis": 1794851943393,
      "de": "TECONT4",
      "para": "",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     }
    ]
@@ -9810,7 +9820,7 @@
      "vis": 1794757939426,
      "de": "",
      "para": "SIDERURG2",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     },
     {
@@ -9820,7 +9830,7 @@
      "vis": 1794757939426,
      "de": "SIDERURG2",
      "para": "",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     }
    ]
@@ -11000,7 +11010,7 @@
    ]
   },
   "SERGIO BUARQUE DE HOLANDA SERGIO BUARQUE DE HOLANDA": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1793719788972,
@@ -11037,6 +11047,10 @@
     {
      "t": 1794931233465,
      "e": "apareceu"
+    },
+    {
+     "t": 1794948795906,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -11109,7 +11123,7 @@
      "de": "WPT 81",
      "para": "PP-2",
      "ult": 1794939489272,
-     "st": "prevista"
+     "st": "realizada"
     }
    ]
   },
@@ -12046,7 +12060,7 @@
    ]
   },
   "WINNIPEG WINNIPEG": {
-   "est": "concluida",
+   "est": "marcada",
    "ev": [
     {
      "t": 1793882185372,
@@ -12071,15 +12085,19 @@
     {
      "t": 1794304562042,
      "e": "concluida"
+    },
+    {
+     "t": 1794948795906,
+     "e": "apareceu"
     }
    ],
    "man": [
     {
-     "pob": "10/11 05:30",
+     "pob": "18/11 06:00",
      "navio": "WINNIPEG WINNIPEG",
-     "m": "S",
-     "de": "I COMPRIDA",
-     "para": "",
+     "m": "E",
+     "de": "",
+     "para": "I COMPRIDA",
      "secao": "BAIA DE GUANABARA"
     }
    ],
@@ -12124,6 +12142,16 @@
      "para": "",
      "ult": 1794294362174,
      "st": "realizada"
+    },
+    {
+     "m": "E",
+     "pob": "18/11 06:00",
+     "ts": 1794992400000,
+     "vis": 1794948795906,
+     "de": "",
+     "para": "I COMPRIDA",
+     "ult": 1794948795906,
+     "st": "prevista"
     }
    ]
   },
@@ -12526,7 +12554,7 @@
      "vis": 1793889223018,
      "de": "",
      "para": "A4",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     },
     {
@@ -12536,7 +12564,7 @@
      "vis": 1793889223018,
      "de": "A4",
      "para": "",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     }
    ]
@@ -12576,7 +12604,7 @@
      "vis": 1793889223018,
      "de": "",
      "para": "A4",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     },
     {
@@ -12586,7 +12614,7 @@
      "vis": 1793889223018,
      "de": "A4",
      "para": "",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     }
    ]
@@ -14612,7 +14640,7 @@
      "vis": 1794936630309,
      "de": "",
      "para": "NITPORTOS",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     },
     {
@@ -14622,7 +14650,7 @@
      "vis": 1794936630309,
      "de": "NITPORTOS",
      "para": "",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     }
    ]
@@ -15046,7 +15074,7 @@
      "vis": 1794923464709,
      "de": "",
      "para": "TECONT1",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     },
     {
@@ -15066,7 +15094,7 @@
      "vis": 1794851943393,
      "de": "TECONT1",
      "para": "",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     }
    ]
@@ -15618,7 +15646,7 @@
    ]
   },
   "SFL TIGRIS SFL TIGRIS": {
-   "est": "concluida",
+   "est": "marcada",
    "ev": [
     {
      "t": 1794267659552,
@@ -15643,15 +15671,19 @@
     {
      "t": 1794838415204,
      "e": "concluida"
+    },
+    {
+     "t": 1794948795906,
+     "e": "apareceu"
     }
    ],
    "man": [
     {
-     "pob": "16/11 07:00",
+     "pob": "18/11 12:00",
      "navio": "SFL TIGRIS SFL TIGRIS",
      "m": "M",
-     "de": "PP-2",
-     "para": "PP-1",
+     "de": "PP-1",
+     "para": "VISITA N",
      "secao": "BAIA DE GUANABARA"
     }
    ],
@@ -15686,6 +15718,16 @@
      "para": "PP-1",
      "ult": 1794834837860,
      "st": "realizada"
+    },
+    {
+     "m": "M",
+     "pob": "18/11 12:00",
+     "ts": 1795014000000,
+     "vis": 1794948795906,
+     "de": "PP-1",
+     "para": "VISITA N",
+     "ult": 1794948795906,
+     "st": "prevista"
     }
    ]
   },
@@ -16422,7 +16464,7 @@
      "vis": 1794923464709,
      "de": "TECONT1",
      "para": "",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     }
    ]
@@ -17774,7 +17816,7 @@
      "vis": 1794851943393,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     },
     {
@@ -17794,7 +17836,7 @@
      "vis": 1794851943393,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     }
    ]
@@ -18034,7 +18076,7 @@
    ]
   },
   "MILTON SANTOS MILTON SANTOS": {
-   "est": "concluida",
+   "est": "marcada",
    "ev": [
     {
      "t": 1794598547403,
@@ -18043,15 +18085,19 @@
     {
      "t": 1794635228858,
      "e": "concluida"
+    },
+    {
+     "t": 1794948795906,
+     "e": "apareceu"
     }
    ],
    "man": [
     {
-     "pob": "13/11 18:00",
+     "pob": "18/11 09:00",
      "navio": "MILTON SANTOS MILTON SANTOS",
-     "m": "E",
-     "de": "",
-     "para": "WPT 61",
+     "m": "S",
+     "de": "WPT 61",
+     "para": "",
      "secao": "BAIA DE GUANABARA"
     }
    ],
@@ -18066,6 +18112,16 @@
      "para": "WPT 61",
      "ult": 1794628020735,
      "st": "realizada"
+    },
+    {
+     "m": "S",
+     "pob": "18/11 09:00",
+     "ts": 1795003200000,
+     "vis": 1794948795906,
+     "de": "WPT 61",
+     "para": "",
+     "ult": 1794948795906,
+     "st": "prevista"
     }
    ]
   },
@@ -18296,7 +18352,7 @@
    ]
   },
   "SKANDI JUPITER SKANDI JUPITER": {
-   "est": "concluida",
+   "est": "marcada",
    "ev": [
     {
      "t": 1794666949554,
@@ -18313,15 +18369,19 @@
     {
      "t": 1794719855582,
      "e": "concluida"
+    },
+    {
+     "t": 1794948795906,
+     "e": "apareceu"
     }
    ],
    "man": [
     {
-     "pob": "14/11 22:00",
+     "pob": "17/11 21:00",
      "navio": "SKANDI JUPITER SKANDI JUPITER",
-     "m": "E",
-     "de": "",
-     "para": "LARGO",
+     "m": "S",
+     "de": "LARGO",
+     "para": "",
      "secao": "BAIA DE GUANABARA"
     }
    ],
@@ -18346,6 +18406,16 @@
      "para": "LARGO",
      "ult": 1794708659248,
      "st": "realizada"
+    },
+    {
+     "m": "S",
+     "pob": "17/11 21:00",
+     "ts": 1794960000000,
+     "vis": 1794948795906,
+     "de": "LARGO",
+     "para": "",
+     "ult": 1794948795906,
+     "st": "prevista"
     }
    ]
   },
@@ -18694,7 +18764,7 @@
      "vis": 1794905967900,
      "de": "TECONT1",
      "para": "",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     }
    ]
@@ -18825,11 +18895,15 @@
     {
      "t": 1794936630309,
      "e": "alterada"
+    },
+    {
+     "t": 1794948795906,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "17/11 20:00",
+     "pob": "17/11 22:00",
      "navio": "MAERSK KARUN MAERSK KARUN",
      "m": "M",
      "de": "TECONT2",
@@ -18885,6 +18959,16 @@
      "de": "TECONT2",
      "para": "VISITA N",
      "ult": 1794939489272,
+     "st": "remarcada"
+    },
+    {
+     "m": "M",
+     "pob": "17/11 22:00",
+     "ts": 1794963600000,
+     "vis": 1794948795906,
+     "de": "TECONT2",
+     "para": "VISITA N",
+     "ult": 1794948795906,
      "st": "prevista"
     },
     {
@@ -18894,7 +18978,7 @@
      "vis": 1794936630309,
      "de": "VISITA N",
      "para": "",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     }
    ]
@@ -18909,17 +18993,13 @@
     {
      "t": 1794905967900,
      "e": "alterada"
+    },
+    {
+     "t": 1794948795906,
+     "e": "alterada"
     }
    ],
    "man": [
-    {
-     "pob": "17/11 13:00",
-     "navio": "LE HAVRE LE HAVRE",
-     "m": "E",
-     "de": "",
-     "para": "TECONT3",
-     "secao": "BAIA DE GUANABARA"
-    },
     {
      "pob": "18/11 12:00",
      "navio": "LE HAVRE LE HAVRE",
@@ -18949,7 +19029,7 @@
      "de": "",
      "para": "TECONT3",
      "ult": 1794939489272,
-     "st": "prevista"
+     "st": "realizada"
     },
     {
      "m": "S",
@@ -18958,7 +19038,7 @@
      "vis": 1794834837860,
      "de": "TECONT3",
      "para": "",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     }
    ]
@@ -19004,7 +19084,7 @@
      "vis": 1794874109575,
      "de": "",
      "para": "PÁTIO 8/9",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     }
    ]
@@ -19040,7 +19120,7 @@
      "vis": 1794923464709,
      "de": "",
      "para": "A7PARTE2",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     },
     {
@@ -19090,7 +19170,7 @@
      "vis": 1794926552406,
      "de": "",
      "para": "A4",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     },
     {
@@ -19100,7 +19180,7 @@
      "vis": 1794926552406,
      "de": "A4",
      "para": "",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     }
    ]
@@ -19140,7 +19220,7 @@
      "vis": 1794931233465,
      "de": "",
      "para": "TECONT3",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     },
     {
@@ -19150,7 +19230,7 @@
      "vis": 1794931233465,
      "de": "TECONT3",
      "para": "",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     }
    ]
@@ -19190,7 +19270,7 @@
      "vis": 1794931233465,
      "de": "",
      "para": "TECONT2",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     },
     {
@@ -19200,7 +19280,7 @@
      "vis": 1794931233465,
      "de": "TECONT2",
      "para": "",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     }
    ]
@@ -19232,7 +19312,7 @@
      "vis": 1794936630309,
      "de": "",
      "para": "WPT 62",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     }
    ]
@@ -19264,7 +19344,7 @@
      "vis": 1794939489272,
      "de": "",
      "para": "BACS",
-     "ult": 1794939489272,
+     "ult": 1794948795906,
      "st": "prevista"
     }
    ]
@@ -19272,9 +19352,9 @@
  },
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-17T18:18:09.272Z",
- "ultimoSucesso": "2026-11-17T18:18:09.272Z",
- "total": 36,
+ "atualizado": "2026-11-17T20:53:15.906Z",
+ "ultimoSucesso": "2026-11-17T20:53:15.906Z",
+ "total": 37,
  "secoes": [
   "BAIA DE GUANABARA",
   "BAIA DE SEPETIBA",
