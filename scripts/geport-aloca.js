@@ -160,56 +160,95 @@ async function garantirContrato(page) {
 }
 
 /* ---------- caminho até a frente ---------- */
-let ROTA_ALOC = '';
+/* v0.135.5: fluxo confirmado com os prints do Geport mobile (#/mobile/alocar-recurso)
+   TIPO DA FRENTE (lista: AQUAVIÁRIO, AVULSA, FERROVIÁRIA, RODOVIÁRIO) › CÓDIGO DA FRENTE › BUSCAR FRENTE
+   › "ALOCAR RECURSO / AQUAVIARIA: nº" › FUNCIONÁRIO › caixa HORA EXTRA › código › espera 3 s › ADICIONAR › espera 3 s */
+const ESPERA_CODIGO = 3000, ESPERA_DEPOIS = 3000;
+async function campoEditavel(page, fora) {
+  const ins = page.locator('input:not([type=checkbox]):not([type=radio]):not([type=hidden]):not([type=password]):not([readonly])');
+  const L = [];
+  for (let i = 0; i < await ins.count(); i++) { const e = ins.nth(i); if (!(await visivel(e))) continue; if (fora && await e.evaluate((x, f) => { let p = x; for (let k = 0; k < 4 && p; k++) { if (new RegExp(f, 'i').test(p.innerText || '')) return true; p = p.parentElement; } return false; }, fora).catch(() => false)) continue; L.push(e); }
+  return L;
+}
 async function irAlocacao(page) {
-  if (ROTA_ALOC) { await page.evaluate(h => { location.hash = h; }, ROTA_ALOC); await page.waitForTimeout(2500); if (await visivel(page.getByText(/AVULSA|AQUAVI/i).first())) return; }
-  const reMenu = /Aloca[cç][aã]o de Recurso/i;
-  if (!(await visivel(page.getByText(reMenu).first()))) {
-    const ham = page.locator('button[aria-label*=enu], .q-btn:has(i:text-is("menu")), button:has(i:text-is("menu"))').first();
-    if (await ham.count()) { await ham.click().catch(() => {}); await page.waitForTimeout(900); }
+  await irMobile(page);   /* volta sempre à tela inicial: cada frente começa do zero */
+  if (!(await clicar(page, /ALOCA[CÇ][AÃ]O (DE )?RECURSO/i, 12000))) throw new Error('Não achei o botão "ALOCAÇÃO RECURSO". Tela: ' + JSON.stringify(await resumoTela(page)));
+  await page.waitForLoadState('networkidle').catch(() => {}); await page.waitForTimeout(2000);
+  if (!(await visivel(page.getByText(/TIPO DA FRENTE/i).first()))) throw new Error('A tela de alocação não abriu (sem "TIPO DA FRENTE"). Tela: ' + JSON.stringify(await resumoTela(page)));
+}
+async function escolherTipo(page, nav) {
+  const re = nav ? /^\s*AQUAVI[AÁ]RI[OA]\s*$/i : /^\s*AVULSA\s*$/i;
+  const nat = page.locator('select').first();
+  if (await visivel(nat)) { const ops = await nat.locator('option').allTextContents(); const k = ops.findIndex(t => re.test(t)); if (k >= 0) { await nat.selectOption({ index: k }); return true; } }
+  /* lista do Quasar: clica no campo abaixo de "TIPO DA FRENTE" e escolhe a opção */
+  let alvo = page.locator('.q-select, .q-field').filter({ hasText: /SELECIONE|AQUAVI|AVULSA|FERROVI|RODOVI/i }).first();
+  if (!(await visivel(alvo))) alvo = page.getByText(/^\s*SELECIONE\s*$/i).first();
+  for (let t = 0; t < 3; t++) {
+    await alvo.click().catch(() => {}); await page.waitForTimeout(900);
+    const ops = page.locator('.q-menu .q-item, [role=option], .q-item, li, div, span').filter({ hasText: re });
+    for (let i = 0; i < Math.min(await ops.count(), 40); i++) { const o = ops.nth(i); if (!(await visivel(o))) continue; if (re.test(((await o.innerText().catch(() => '')) || '').trim())) { await o.click(); await page.waitForTimeout(800); return true; } }
   }
-  if (!(await clicar(page, reMenu, 12000))) throw new Error('Não achei o menu "Alocação de Recurso". Tela: ' + JSON.stringify(await resumoTela(page)));
-  await page.waitForLoadState('networkidle').catch(() => {}); await page.waitForTimeout(2500);
-  ROTA_ALOC = await page.evaluate(() => location.hash).catch(() => '');
+  return false;
 }
 async function buscarFrente(page, fr) {
   await irAlocacao(page);
-  const tipo = fr.tipo === 'nav' ? /AQUAVI[AÁ]RIO/i : /AVULSA/i;
-  if (!(await clicar(page, tipo, 10000))) throw new Error('Não achei a opção ' + (fr.tipo === 'nav' ? 'AQUAVIÁRIO' : 'AVULSA') + '. Tela: ' + JSON.stringify(await resumoTela(page)));
-  await page.waitForTimeout(1200);
+  const nav = fr.tipo === 'nav';
+  if (!(await escolherTipo(page, nav))) throw new Error('Não consegui escolher ' + (nav ? 'AQUAVIÁRIO' : 'AVULSA') + ' em TIPO DA FRENTE. Tela: ' + JSON.stringify(await resumoTela(page)));
   const ct = await garantirContrato(page);
-  let inp = await campo(page, /frente|atraca|c[oó]digo|n[uú]mero|pesquis|busca/i);
-  if (!inp) { const ins = page.locator('input:not([type=checkbox]):not([type=radio]):not([type=hidden])'); for (let i = 0; i < await ins.count(); i++) if (await visivel(ins.nth(i))) { inp = ins.nth(i); break; } }
-  if (!inp) throw new Error('Não achei o campo do código da frente. Tela: ' + JSON.stringify(await resumoTela(page)));
-  await marcarAvisos(page); await digitar(inp, fr.cod); await page.waitForTimeout(900);
-  const op = page.locator('.q-menu .q-item').filter({ hasText: new RegExp(fr.cod) }).first();
-  if (await visivel(op)) { await op.click(); await page.waitForTimeout(600); }
-  if (!(await clicar(page, /Buscar frente|BUSCAR/i, 8000))) await inp.press('Enter');
-  await page.waitForLoadState('networkidle').catch(() => {}); await page.waitForTimeout(2500);
+  let inp = await campo(page, /C[OÓ]DIGO DA FRENTE/i);
+  if (!inp) { const L = await campoEditavel(page); inp = L[L.length - 1] || null; }
+  if (!inp) throw new Error('Não achei o campo CÓDIGO DA FRENTE. Tela: ' + JSON.stringify(await resumoTela(page)));
+  await marcarAvisos(page); await digitar(inp, fr.cod); await page.waitForTimeout(1200);
+  if (!(await clicar(page, /BUSCAR FRENTE/i, 8000))) await inp.press('Enter');
+  await page.waitForLoadState('networkidle').catch(() => {});
+  const fim = Date.now() + 15000;
+  while (Date.now() < fim) { if (await visivel(page.getByText(/ALOCAR RECURSO/i).first()) || await visivel(page.getByText(/^\s*FUNCION[AÁ]RIO\s*$/i).first())) break; await page.waitForTimeout(500); }
   const av = await avisosNovos(page, 300);
-  if (av.some(a => /n[aã]o (foi )?encontrad|inv[aá]lid|erro/i.test(a))) throw new Error('O Geport não achou a frente ' + fr.cod + ': ' + av.join(' / '));
+  if (!(await visivel(page.getByText(/^\s*FUNCION[AÁ]RIO\s*$/i).first()))) throw new Error('O Geport não abriu a frente ' + fr.cod + (av.length ? ': ' + av.join(' / ') : '') + '. Tela: ' + JSON.stringify(await resumoTela(page)));
   return ct;
 }
+// caixa HORA EXTRA (caixa comum do navegador ou do Quasar); marca se estiver desmarcada
+async function horaExtra(page) {
+  const r = await page.evaluate(() => {
+    const vis = e => { const q = e.getBoundingClientRect(); return q.width > 0 && q.height > 0; };
+    const cxs = [].slice.call(document.querySelectorAll('input[type=checkbox], [role=checkbox], .q-checkbox'));
+    for (const c of cxs) {
+      /* texto logo ao lado da caixa; se não houver, sobe até achar um bloco que fale só de HORA EXTRA */
+      let txt = ((c.nextSibling && c.nextSibling.textContent) || '') + ' ' + ((c.closest('label') && c.closest('label').innerText) || '');
+      if (!/HORA EXTRA/i.test(txt)) { let p = c.parentElement; for (let k = 0; k < 3 && p; k++) { const t = p.innerText || ''; if (/HORA EXTRA/i.test(t) && !/RESPONS/i.test(t)) { txt = t; break; } p = p.parentElement; } }
+      if (!/HORA EXTRA/i.test(txt) || /RESPONS/i.test(txt)) continue;
+      const marcado = () => c.matches('input') ? c.checked : c.getAttribute('aria-checked') === 'true';
+      if (!marcado()) { (c.matches('input') && !vis(c) && c.closest('label')) ? c.closest('label').click() : c.click(); }
+      return marcado() ? 'marcada' : 'nao-confirmada';
+    }
+    return 'sem-campo';
+  }).catch(() => 'erro');
+  if (r === 'nao-confirmada') { const l = page.getByText(/^\s*HORA EXTRA\s*$/i).first(); if (await visivel(l)) { await l.click(); await page.waitForTimeout(300); } }
+  return r;
+}
 async function abaFuncionario(page) {
-  if (!(await clicar(page, /FUNCION[AÁ]RIO/i, 12000))) throw new Error('Não achei a aba FUNCIONÁRIO (a frente abriu?). Tela: ' + JSON.stringify(await resumoTela(page)));
+  if (!(await clicar(page, /^\s*FUNCION[AÁ]RIO\s*$/i, 12000))) throw new Error('Não achei a aba FUNCIONÁRIO. Tela: ' + JSON.stringify(await resumoTela(page)));
   await page.waitForTimeout(1500);
-  // Hora extra: marca logo depois de abrir a aba
-  const he = page.locator('.q-checkbox, .q-toggle, [role=checkbox]').filter({ hasText: /hora extra/i }).first();
-  if (!(await he.count())) return 'sem-campo';
-  const est = await he.getAttribute('aria-checked').catch(() => null);
-  if (est !== 'true') { await he.click(); await page.waitForTimeout(500); }
-  return (await he.getAttribute('aria-checked').catch(() => null)) === 'true' ? 'marcada' : 'nao-confirmada';
+  return horaExtra(page);
+}
+async function campoFuncionario(page) {
+  let inp = await campo(page, [/funcion[aá]rio|colaborador|matr[ií]cula/i], /frente|atraca/i);
+  if (!inp) { const L = await campoEditavel(page, 'C[OÓ]DIGO DA FRENTE'); inp = L[L.length - 1] || null; }
+  return inp;
 }
 async function adicionarPessoa(page, p, ensaio) {
-  let inp = await campo(page, [/funcion[aá]rio|colaborador|matr[ií]cula/i, /c[oó]digo/i], /frente|atraca/i);
+  const inp = await campoFuncionario(page);
   if (!inp) throw new Error('Não achei o campo do código do funcionário. Tela: ' + JSON.stringify(await resumoTela(page)));
-  await digitar(inp, p.cod); await page.waitForTimeout(1200);
-  const op = page.locator('.q-menu .q-item').filter({ hasText: new RegExp(p.cod) }).first();
-  if (await visivel(op)) { await op.click(); await page.waitForTimeout(600); }
-  if (ensaio) { await inp.fill('').catch(() => {}); return { ok: true, msg: 'ensaio: campo achado, ADICIONAR não clicado' }; }
+  await digitar(inp, p.cod); await page.waitForTimeout(ESPERA_CODIGO);
+  const he = await horaExtra(page);
+  if (ensaio) { await inp.fill('').catch(() => {}); return { ok: true, msg: 'ensaio: código digitado, hora extra ' + he + ', ADICIONAR não clicado' }; }
   await fecharAvisos(page); await marcarAvisos(page);
-  if (!(await clicar(page, /^\s*ADICIONAR\s*$/i, 8000)) && !(await clicar(page, /ADICIONAR/i, 3000))) throw new Error('Não achei o botão ADICIONAR. Tela: ' + JSON.stringify(await resumoTela(page)));
-  const av = await avisosNovos(page, 2500);
+  if (!(await clicar(page, /^\s*ADICIONAR\s*$/i, 8000))) throw new Error('Não achei o botão ADICIONAR. Tela: ' + JSON.stringify(await resumoTela(page)));
+  await page.waitForTimeout(800);
+  /* se o Geport perguntar algo (localização/câmera), confirma */
+  const ok = page.locator('.q-dialog button, .q-dialog .q-btn').filter({ hasText: /^(PERMITIR|OK|SIM|CONFIRMAR)$/i }).last();
+  if (await visivel(ok)) { await ok.click().catch(() => {}); await page.waitForTimeout(800); }
+  const av = await avisosNovos(page, ESPERA_DEPOIS);
   const ruim = av.find(a => /erro|n[aã]o|inv[aá]lid|j[aá] (est[aá]|aloc)|falh|permiss/i.test(a) && !/sucesso/i.test(a));
   if (ruim) return { ok: false, msg: ruim.slice(0, 140) };
   return { ok: true, msg: (av.find(a => /sucesso|adicionad|alocad/i.test(a)) || 'adicionado').slice(0, 140) };
