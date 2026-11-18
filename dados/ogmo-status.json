@@ -1,14 +1,14 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-18T12:27:05.134Z",
- "ultimoSucesso": "2026-11-18T12:27:05.134Z",
- "total": 21,
+ "atualizado": "2026-11-18T12:36:13.818Z",
+ "ultimoSucesso": "2026-11-18T12:36:13.818Z",
+ "total": 15,
  "dias": [
   {
    "data": "17/11/2026",
-   "n": 6,
-   "erro": ""
+   "n": 0,
+   "erro": "Perdi a tela de requisições."
   },
   {
    "data": "18/11/2026",
@@ -24,19 +24,18 @@
  "diag": {
   "frames": 1,
   "tentativasEntrada": 1,
-  "recuperacoes": 3,
+  "recuperacoes": 0,
   "reaproveitadas": 0,
   "equipesLidas": 0,
   "canceladasPuladas": 0,
-  "semAtualizar": 2,
+  "semAtualizar": 0,
   "ontemRepetido": 0,
   "quemPediu": {
-   "lidas": 7,
-   "erros": 1,
-   "ms": 92350,
-   "parou": "O site do OGMO devolveu uma página em branco (Visualizar).",
+   "lidas": 2,
+   "erros": 0,
+   "ms": 10859,
    "voltar": {
-    "ok": 7,
+    "ok": 2,
     "recuperou": 0,
     "nomes": "INPUT | IWBUTTON5 | IWBUTTON5 | ",
     "bloqueado": ""
@@ -44,14 +43,14 @@
   }
  },
  "tempos": {
-  "visualizar": 92350,
-  "login": 8922,
+  "visualizar": 10859,
+  "login": 8763,
   "dias": {
-   "18/11/2026": 37682,
-   "19/11/2026": 106433,
-   "17/11/2026": 79471
+   "18/11/2026": 12898,
+   "19/11/2026": 26343,
+   "17/11/2026": 95356
   },
-  "total": 232575
+  "total": 143410
  },
  "pdfsSeparados": true,
  "falhasSeguidas": 0
