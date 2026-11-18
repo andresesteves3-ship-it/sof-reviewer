@@ -1,16 +1,23 @@
 {
- "ok": false,
- "erro": "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.ogmorj.com.br/weboperador/WEBOPERADOR12081830.dll\", waiting until \"domcontentloaded\"\n Site: sem resposta (net::ERR_CONNECTION_TIMED_OUT). Frames=[{\"erro\":\"frame.evaluate: Execution context was destroyed, most likely\"}]",
- "atualizado": "2026-11-18T17:11:25.565Z",
- "ultimoSucesso": "2026-11-18T14:04:03.814Z",
- "diag": {},
- "site": true,
- "tentativasEntrada": 3,
- "errosEntrada": [
-  "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.og",
-  "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.og",
-  "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.og"
+ "ok": true,
+ "erro": "",
+ "atualizado": "2026-11-18T18:33:11.958Z",
+ "ultimoSucesso": "2026-11-18T18:33:11.958Z",
+ "dias": [
+  {
+   "data": "18/11/2026",
+   "reqs": 9,
+   "escaladas": 3
+  },
+  {
+   "data": "19/11/2026",
+   "reqs": 6,
+   "escaladas": 0
+  }
  ],
- "repeticao": true,
- "falhasSeguidas": 2
+ "da9": [],
+ "novos": 0,
+ "total": 433,
+ "diag": {},
+ "falhasSeguidas": 0
 }
