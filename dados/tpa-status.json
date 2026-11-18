@@ -1,36 +1,37 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-18T20:01:45.544Z",
- "ultimoSucesso": "2026-11-18T20:01:45.544Z",
+ "atualizado": "2026-11-18T23:00:39.146Z",
+ "ultimoSucesso": "2026-11-18T23:00:39.146Z",
  "dias": [
   {
    "data": "18/11/2026",
    "reqs": 9,
-   "escaladas": 6
+   "escaladas": 9
   },
   {
    "data": "19/11/2026",
-   "erro": "Perdi a tela de requisições."
+   "reqs": 6,
+   "escaladas": 0
   }
  ],
  "da9": [
   {
-   "req": "25053531-1",
+   "req": "25053534-1",
    "data": "18/11/2026",
    "n": 7,
    "erro": "",
    "aviso": ""
   },
   {
-   "req": "25053532-1",
+   "req": "25053535-1",
    "data": "18/11/2026",
    "n": 2,
    "erro": "",
    "aviso": ""
   },
   {
-   "req": "25053533-1",
+   "req": "25053536-1",
    "data": "18/11/2026",
    "n": 1,
    "erro": "",
