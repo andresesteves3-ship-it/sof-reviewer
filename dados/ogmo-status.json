@@ -1,23 +1,57 @@
 {
- "ok": false,
- "erro": "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.ogmorj.com.br/weboperador/WEBOPERADOR12081830.dll\", waiting until \"domcontentloaded\"\n Site: sem resposta (net::ERR_CONNECTION_TIMED_OUT). Frames=[{\"erro\":\"frame.evaluate: Execution context was destroyed, most likely\"}]",
- "atualizado": "2026-11-18T16:54:20.585Z",
- "ultimoSucesso": "2026-11-18T14:20:46.292Z",
- "site": true,
- "tentativasEntrada": 3,
- "errosEntrada": [
-  "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.og",
-  "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.og",
-  "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.og"
+ "ok": true,
+ "erro": "",
+ "atualizado": "2026-11-18T18:15:51.438Z",
+ "ultimoSucesso": "2026-11-18T18:15:51.438Z",
+ "total": 15,
+ "dias": [
+  {
+   "data": "17/11/2026",
+   "n": 0,
+   "erro": "Perdi a tela de requisições."
+  },
+  {
+   "data": "18/11/2026",
+   "n": 9,
+   "erro": ""
+  },
+  {
+   "data": "19/11/2026",
+   "n": 6,
+   "erro": ""
+  }
  ],
- "repeticao": true,
- "falhasSeguidas": 3,
- "pdfs": {
-  "em": "2026-11-18T16:58:19.099Z",
-  "ms": 47,
-  "feitos": 0,
-  "erros": 0,
-  "faltam": 0
+ "diag": {
+  "frames": 1,
+  "tentativasEntrada": 2,
+  "recuperacoes": 0,
+  "reaproveitadas": 0,
+  "equipesLidas": 0,
+  "canceladasPuladas": 0,
+  "semAtualizar": 0,
+  "ontemRepetido": 0,
+  "quemPediu": {
+   "lidas": 0,
+   "erros": 0,
+   "ms": 0,
+   "voltar": {
+    "ok": 0,
+    "recuperou": 0,
+    "nomes": "",
+    "bloqueado": ""
+   }
+  }
  },
- "pdfsEm": "2026-11-18T16:58:19.099Z"
+ "tempos": {
+  "visualizar": 0,
+  "login": 67867,
+  "dias": {
+   "18/11/2026": 10941,
+   "19/11/2026": 15042,
+   "17/11/2026": 95227
+  },
+  "total": 189117
+ },
+ "pdfsSeparados": true,
+ "falhasSeguidas": 0
 }
