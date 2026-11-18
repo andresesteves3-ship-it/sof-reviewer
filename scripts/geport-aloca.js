@@ -22,6 +22,8 @@ const GEO = { latitude: -22.8792, longitude: -43.2262, accuracy: 30 };   // term
 const ESPERA_LISTA = 4500;   // a listagem demora uns 4 s para mostrar os botões
 
 const mascarar = t => [USER, PASS, FB_EMAIL, FB_PASS].filter(v => v && v.length > 2).reduce((r, v) => r.split(v).join('***'), String(t || ''));
+// v0.137.0: o cartão mostra só o motivo curto; o detalhe técnico vai para /painel/area/gpLog (Administração)
+const curto = t => String(t || '').split(/ Tela: | · | Detalhe: |\. Tela|\(senha/)[0].replace(/\s+/g, ' ').trim().slice(0, 90);
 const norm = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase().replace(/[^A-Z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
 const esperar = ms => new Promise(r => setTimeout(r, ms));
 
@@ -243,15 +245,19 @@ async function adicionarPessoa(page, p, ensaio) {
   const he = await horaExtra(page);
   if (ensaio) { await inp.fill('').catch(() => {}); return { ok: true, msg: 'ensaio: código digitado, hora extra ' + he + ', ADICIONAR não clicado' }; }
   await fecharAvisos(page); await marcarAvisos(page);
-  if (!(await clicar(page, /^\s*ADICIONAR\s*$/i, 8000))) throw new Error('Não achei o botão ADICIONAR. Tela: ' + JSON.stringify(await resumoTela(page)));
+  const rede = [], ouve = r => { try { const q = r.request(); if (q.method() !== 'GET') rede.push({ t: q.method() + ' ' + new URL(q.url()).pathname.split('/').slice(-2).join('/') + ' ' + r.status(), ok: r.status() >= 200 && r.status() < 300 }); } catch (e) {} };
+  page.on('response', ouve);
+  if (!(await clicar(page, /^\s*ADICIONAR\s*$/i, 8000))) { page.off('response', ouve); throw new Error('Não achei o botão ADICIONAR. Tela: ' + JSON.stringify(await resumoTela(page))); }
   await page.waitForTimeout(800);
   /* se o Geport perguntar algo (localização/câmera), confirma */
   const ok = page.locator('.q-dialog button, .q-dialog .q-btn').filter({ hasText: /^(PERMITIR|OK|SIM|CONFIRMAR)$/i }).last();
   if (await visivel(ok)) { await ok.click().catch(() => {}); await page.waitForTimeout(800); }
   const av = await avisosNovos(page, ESPERA_DEPOIS);
+  page.off('response', ouve);
+  const det = 'servidor: ' + (rede.map(x => x.t).slice(0, 4).join(', ') || 'nenhuma chamada');
   const ruim = av.find(a => /erro|n[aã]o|inv[aá]lid|j[aá] (est[aá]|aloc)|falh|permiss/i.test(a) && !/sucesso/i.test(a));
-  if (ruim) return { ok: false, msg: ruim.slice(0, 140) };
-  return { ok: true, msg: (av.find(a => /sucesso|adicionad|alocad/i.test(a)) || 'adicionado').slice(0, 140) };
+  if (ruim) return { ok: false, msg: curto(ruim), det: ruim + ' · ' + det };
+  return { ok: true, srv: rede.some(x => x.ok), msg: 'alocado', det: (av.find(a => /sucesso|adicionad|alocad/i.test(a)) || 'sem aviso na tela') + ' · ' + det };
 }
 // abre "Visualizar listagem", espera os botões e devolve as linhas {nome, sit, i}
 /* v0.135.6: listagem "LISTAGEM DE ALOCAÇÃO PELA FRENTE" (NOME, PROGRAMAÇÃO, REAL, SITUAÇÃO ALOCADO e os botões
@@ -291,19 +297,18 @@ async function fecharListagem(page) {
 }
 async function finalizarPessoa(page, p, ensaio) {
   const l = achaLinha(await lerLinhas(page), p.nome);
-  if (!l) return { ok: false, msg: 'não está na listagem desta frente' };
-  if (/FINALIZAD/i.test(l.sit)) return { ok: true, msg: 'já estava finalizado' };
-  if (!l.fin) return { ok: false, msg: 'sem botão FINALIZAR (situação: ' + (l.sit || '?') + ')' };
+  /* v0.137.0: quem não está na listagem já foi finalizado (ou não estava alocado) — não é erro */
+  if (!l) return { ok: true, ja: true, msg: 'já não estava na listagem' };
+  if (/FINALIZAD/i.test(l.sit)) return { ok: true, ja: true, msg: 'já estava finalizado' };
+  if (!l.fin) return { ok: false, msg: 'sem botão FINALIZAR (' + (l.sit || '?') + ')' };
   if (ensaio) return { ok: true, msg: 'ensaio: FINALIZAR achado, não clicado' };
   const b = page.locator('tr[data-robo-i="' + l.i + '"]').locator('button, .q-btn').filter({ hasText: /^\s*FINALIZAR\s*$/i }).first();
   const JAN = '.q-dialog, .swal2-popup, [role=dialog], [role=alertdialog], .modal.show, .v-dialog';
   const dlgAntes = await page.locator(JAN).count().catch(() => 0);
-  /* v0.135.8: anota as chamadas que a página faz ao servidor depois do clique (só método, caminho e status) */
-  const rede = [], ouve = r => { try { const q = r.request(); if (q.method() !== 'GET' || /finaliz|aloca|recurso/i.test(q.url())) rede.push(q.method() + ' ' + new URL(q.url()).pathname.split('/').slice(-2).join('/') + ' ' + r.status()); } catch (e) {} };
+  const rede = [], ouve = r => { try { const q = r.request(); if (q.method() !== 'GET') rede.push({ t: q.method() + ' ' + new URL(q.url()).pathname.split('/').slice(-2).join('/') + ' ' + r.status(), ok: r.status() >= 200 && r.status() < 300 }); } catch (e) {} };
   page.on('response', ouve);
   await fecharAvisos(page); await marcarAvisos(page); await b.click();
   await page.waitForTimeout(1000);
-  /* só confirma numa janela NOVA (nunca clica em FINALIZAR de outra linha). v0.135.7: guarda o que a janela mostrou */
   let janela = '';
   if ((await page.locator(JAN).count().catch(() => 0)) > dlgAntes) {
     const dl = page.locator(JAN).last();
@@ -312,79 +317,87 @@ async function finalizarPessoa(page, p, ensaio) {
     if (await visivel(conf)) { const rot = ((await conf.innerText().catch(() => '')) || '').trim(); await conf.click(); await page.waitForTimeout(1500); janela += ' [cliquei: ' + rot + ']'; }
     else janela += ' [sem botão de confirmar]';
   }
-  /* v0.135.9: no Geport a pessoa SOME da lista uns 5 s depois do FINALIZAR. Espera sumir (até 15 s);
-     lista vazia no meio da atualização não conta como "sumiu". */
-  let sumiu = false;
-  for (let t = 0; t < 30 && !sumiu; t++) {
+  /* espera a resposta do servidor (PUT 2xx) ou a pessoa sumir da lista — o que vier primeiro, até 12 s */
+  let srv = false, sumiu = false;
+  for (let t = 0; t < 24 && !srv && !sumiu; t++) {
     await page.waitForTimeout(500);
-    const L = await lerLinhas(page);
-    if (!L.length) continue;
-    const d = achaLinha(L, p.nome);
-    if (!d || /FINALIZAD/i.test(d.sit)) sumiu = true;
+    srv = rede.some(x => x.ok && /^(PUT|POST|PATCH)/.test(x.t));
+    const L = await lerLinhas(page); if (L.length) { const d = achaLinha(L, p.nome); if (!d || /FINALIZAD/i.test(d.sit)) sumiu = true; }
   }
   const av = await avisosNovos(page, 500);
   page.off('response', ouve);
-  if (!sumiu) return { ok: false, msg: ('cliquei em FINALIZAR, mas a pessoa continuou na lista depois de 15 s' + (janela ? ' · ' + janela : '') + (rede.length ? ' · servidor: ' + rede.slice(0, 4).join(', ') : '')).slice(0, 400) };
-  await page.waitForTimeout(ESPERA_FIN);   /* intervalo antes da próxima pessoa */ if (rede.length) janela += ' · servidor: ' + rede.slice(0, 4).join(', ');
+  const det = (janela ? 'janela: ' + janela + ' · ' : '') + 'servidor: ' + (rede.map(x => x.t).slice(0, 4).join(', ') || 'nenhuma chamada') + (av.length ? ' · aviso: ' + av.join(' / ') : '');
+  await page.waitForTimeout(ESPERA_FIN);   /* intervalo antes da próxima pessoa */
   const ruim = av.find(a => /erro|n[aã]o|falh/i.test(a) && !/sucesso/i.test(a));
-  if (ruim) return { ok: false, msg: (ruim + (janela ? ' · ' + janela : '')).slice(0, 400) };
-  return { ok: true, msg: ((av[0] || 'FINALIZAR clicado') + (janela ? ' · janela: ' + janela : '')).slice(0, 400), janela: !!janela };
+  if (ruim) return { ok: false, msg: curto(ruim), det };
+  if (!srv && !sumiu) return { ok: false, msg: 'o Geport não confirmou o FINALIZAR', det };
+  return { ok: true, srv, msg: 'finalizado', det };
 }
 
 /* ---------- um pedido ---------- */
 async function rodarPedido(page, pid, ped) {
   const fin = ped.tipo === 'fin', ens = !!ped.ensaio;
   let nOk = 0, nErr = 0;
+  const log = { em: ped.em || Date.now(), ini: Date.now(), tipo: ped.tipo, esc: ped.esc, por: ped.por || '', ensaio: ens, frentes: {} };
   for (const fr of ped.itens || []) {
-    const base = 'painel/area/gpRes/' + ped.esc + '/' + fr.fid + (fin ? '/fin' : '');
-    // a pessoa pode ter cancelado esta frente no painel enquanto o pedido esperava
+    const raiz = 'painel/area/gpRes/' + ped.esc + '/' + fr.fid, base = raiz + (fin ? '/fin' : '');
     const atual = await fbGet(base + '/st').catch(() => null);
-    if (atual === 'cancelado') { console.log('Frente cancelada no painel: pulada.'); continue; }
+    if (atual === 'cancelado') { console.log('Frente cancelada no painel: pulada.'); log.frentes[fr.fid] = { nome: fr.nome, st: 'cancelado' }; continue; }
     const res = { st: 'rodando', em: Date.now(), por: ped.por || '', ensaio: ens, pessoas: {}, passos: [] };
-    await fbPatch(base, { st: 'rodando', em: res.em });
+    await fbPatch(base, { st: 'rodando', em: res.em, msg: null, pessoas: null });
     try {
       if (!fr.cod) throw new Error('A frente não tem código do Geport.');
       res.contrato = await buscarFrente(page, fr); res.passos.push('frente');
+      res.horaExtra = await abaFuncionario(page); res.passos.push('funcionario');
+      if (fin && /sem-campo|nao-confirmada|erro/.test(res.horaExtra)) throw new Error('Não consegui marcar HORA EXTRA antes de finalizar (' + res.horaExtra + ').');
       if (!fin) {
-        res.horaExtra = await abaFuncionario(page); res.passos.push('funcionario');
         for (const p of fr.pessoas || []) {
           if (!p.cod) { res.pessoas[p.m] = { ok: false, msg: 'sem código no cadastro TPS' }; continue; }
-          try { res.pessoas[p.m] = await adicionarPessoa(page, p, ens); } catch (e) { res.pessoas[p.m] = { ok: false, msg: mascarar(e.message).slice(0, 300) }; }
+          try { res.pessoas[p.m] = await adicionarPessoa(page, p, ens); } catch (e) { res.pessoas[p.m] = { ok: false, msg: curto(mascarar(e.message)), det: mascarar(e.message).slice(0, 600) }; }
         }
         res.passos.push('adicionar');
         const lin = await abrirListagem(page); res.passos.push('listagem:' + lin.length);
-        if (!ens) (fr.pessoas || []).forEach(p => { const r = res.pessoas[p.m]; if (!r || !r.ok) return; const l = achaLinha(lin, p.nome); if (!l) { r.ok = false; r.msg = 'não apareceu na listagem do Geport'; } else r.sit = l.sit; });
+        if (!ens) (fr.pessoas || []).forEach(p => { const r = res.pessoas[p.m]; if (!r || !r.ok) return; const l = achaLinha(lin, p.nome);
+          if (l) r.sit = l.sit; else if (r.srv) r.msg = 'alocado (o nome não apareceu na listagem: confira no Geport)'; else { r.ok = false; r.msg = 'não apareceu na listagem do Geport'; } });
         await fecharListagem(page);
       } else {
-        /* v0.135.10: para finalizar a caixa HORA EXTRA também precisa estar marcada (informado pelo usuário) */
-        res.horaExtra = await abaFuncionario(page); res.passos.push('funcionario');
-        if (res.horaExtra === 'sem-campo' || res.horaExtra === 'nao-confirmada' || res.horaExtra === 'erro') throw new Error('Não consegui marcar HORA EXTRA antes de finalizar (' + res.horaExtra + ').');
-        const lin = await abrirListagem(page); res.passos.push('listagem:' + lin.length);
+        await abrirListagem(page).then(L => res.passos.push('listagem:' + L.length));
         for (const p of fr.pessoas || []) {
-          try { res.pessoas[p.m] = await finalizarPessoa(page, p, ens); } catch (e) { res.pessoas[p.m] = { ok: false, msg: mascarar(e.message).slice(0, 300) }; }
-        }
-        /* v0.135.7: confere de verdade — fecha, abre a listagem de novo e vê se a pessoa ainda está CONFIRMADO */
-        if (!ens) {
-          await fecharListagem(page); await page.waitForTimeout(1500);
-          const L2 = await abrirListagem(page).catch(() => []); res.passos.push('conferencia:' + L2.length);
-          (fr.pessoas || []).forEach(p => { const r = res.pessoas[p.m]; if (!r || !r.ok || /já estava/.test(r.msg)) return; const d = achaLinha(L2, p.nome);
-            if (!L2.length) { r.ok = false; r.msg = 'não consegui reabrir a listagem para conferir. ' + r.msg; }
-            else if (d && !/FINALIZAD/i.test(d.sit)) { r.ok = false; r.msg = 'continua ' + (d.sit || 'na listagem') + ' depois do FINALIZAR. ' + r.msg; } });
+          try { res.pessoas[p.m] = await finalizarPessoa(page, p, ens); } catch (e) { res.pessoas[p.m] = { ok: false, msg: curto(mascarar(e.message)), det: mascarar(e.message).slice(0, 600) }; }
         }
         await fecharListagem(page);
+        /* conferência: a lista aberta não atualiza; abre a frente do zero e vê quem ainda está lá */
+        if (!ens && Object.values(res.pessoas).some(r => r.ok && !r.ja)) {
+          try {
+            await buscarFrente(page, fr); await abaFuncionario(page);
+            const L2 = await abrirListagem(page); res.passos.push('conferencia:' + L2.length);
+            (fr.pessoas || []).forEach(p => { const r = res.pessoas[p.m]; if (!r || !r.ok || r.ja) return; const d = achaLinha(L2, p.nome);
+              if (d && !/FINALIZAD/i.test(d.sit)) { r.ok = false; r.msg = 'continua na listagem do Geport'; } });
+            await fecharListagem(page);
+          } catch (e) { res.passos.push('conferencia:falhou'); }
+        }
       }
       const v = Object.values(res.pessoas), ok = v.filter(x => x.ok).length;
       res.st = !v.length ? 'erro' : ok === v.length ? 'ok' : ok ? 'parcial' : 'erro';
       if (!v.length) res.msg = 'Nenhuma pessoa no pedido.';
     } catch (e) {
-      res.st = 'erro'; res.msg = mascarar(e.message).slice(0, 900);
+      res.st = 'erro'; res.det = mascarar(e.message).slice(0, 1500); res.msg = curto(res.det);
     }
     res.fim = Date.now();
-    await fbPatch(base, res);
+    /* registro completo para Administração */
+    log.frentes[fr.fid] = { nome: fr.nome, tipo: fr.tipo, cod: fr.cod, st: res.st, passos: res.passos, contrato: res.contrato || '', horaExtra: res.horaExtra || '', msg: res.det || res.msg || '',
+      pessoas: Object.fromEntries(Object.entries(res.pessoas).map(([m, r]) => [m, { ok: !!r.ok, msg: r.msg || '', det: r.det || '' }])) };
+    /* cartão: só o resumo e o motivo curto */
+    const curtoP = Object.fromEntries(Object.entries(res.pessoas).map(([m, r]) => [m, { ok: !!r.ok, msg: r.msg || '' }]));
+    await fbPatch(base, { st: res.st, em: res.em, fim: res.fim, por: res.por, ensaio: ens, pessoas: curtoP, msg: res.msg || null });
+    /* memória por pessoa: quem já foi alocado/finalizado não vai de novo */
+    if (!ens) { const est = {}; Object.entries(res.pessoas).forEach(([m, r]) => { if (r.ok) est[m + '/' + (fin ? 'fin' : 'al')] = res.fim; }); if (Object.keys(est).length) await fbPatch(raiz + '/est', est); }
     if (res.st === 'ok') nOk++; else if (res.st === 'parcial') { nOk++; nErr++; } else nErr++;
     console.log('Frente', (fr.tipo === 'nav' ? 'aquaviária' : 'avulsa'), '→', res.st, '| pessoas:', Object.keys(res.pessoas).length, '| etapas:', res.passos.join(','));
   }
-  await fbPatch('painel/area/gpFila/' + pid, { st: nErr ? (nOk ? 'parcial' : 'erro') : 'ok', fim: Date.now() });
+  log.fim = Date.now(); log.st = nErr ? (nOk ? 'parcial' : 'erro') : 'ok';
+  await fbPatch('painel/area/gpLog/' + pid, log);
+  await fbPatch('painel/area/gpFila/' + pid, { st: log.st, fim: log.fim });
 }
 
 (async () => {
@@ -417,7 +430,7 @@ async function rodarPedido(page, pid, ped) {
     console.error('FALHOU:', mascarar(e.message || e).slice(0, 300).replace(/"botoes".*/, '(detalhes no painel)'));
     // marca os pedidos pendentes/rodando como erro, para o painel mostrar
     try {
-      if (FB) { const t = (await fbGet('painel/area/gpFila')) || {}; for (const k of Object.keys(t)) { const p = t[k]; if (p && (p.st === 'pendente' || p.st === 'rodando')) { await fbPatch('painel/area/gpFila/' + k, { st: 'erro', erro: mascarar(e.message).slice(0, 900) }); for (const fr of p.itens || []) await fbPatch('painel/area/gpRes/' + p.esc + '/' + fr.fid + (p.tipo === 'fin' ? '/fin' : ''), { st: 'erro', msg: mascarar(e.message).slice(0, 900), fim: Date.now() }); } } }
+      if (FB) { const t = (await fbGet('painel/area/gpFila')) || {}; for (const k of Object.keys(t)) { const p = t[k]; if (p && (p.st === 'pendente' || p.st === 'rodando')) { const det = mascarar(e.message).slice(0, 1500); await fbPatch('painel/area/gpFila/' + k, { st: 'erro', erro: curto(det) }); await fbPatch('painel/area/gpLog/' + k, { em: p.em || Date.now(), fim: Date.now(), tipo: p.tipo, esc: p.esc, por: p.por || '', ensaio: !!p.ensaio, st: 'erro', erro: det }); for (const fr of p.itens || []) await fbPatch('painel/area/gpRes/' + p.esc + '/' + fr.fid + (p.tipo === 'fin' ? '/fin' : ''), { st: 'erro', msg: curto(det), fim: Date.now() }); } } }
     } catch (x) {}
     process.exitCode = 1;
   } finally { if (browser) await browser.close(); }

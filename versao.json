@@ -1,4 +1,4 @@
 {
- "v": "0.136.0",
- "resumo": "Escala da Área: Supervisor e Empilhadeira dentro de cada frente; o robô aloca todos."
+ "v": "0.137.0",
+ "resumo": "Geport: memória de quem já foi alocado, finalizar por cartão, cartão limpo; ausências na escala; ajuda e perfil da Área."
 }
