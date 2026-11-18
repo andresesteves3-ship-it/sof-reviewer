@@ -1,18 +1,15 @@
 {
  "ok": false,
- "erro": "Perdi a tela de requisições. Site: HTTP 200. Frames=[{\"sel\":0,\"tab\":0,\"inp\":0,\"txt\":\"\"}]",
- "atualizado": "2026-11-18T15:45:50.173Z",
+ "erro": "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.ogmorj.com.br/weboperador/WEBOPERADOR12081830.dll\", waiting until \"domcontentloaded\"\n Site: sem resposta (net::ERR_CONNECTION_TIMED_OUT). Frames=[{\"erro\":\"frame.evaluate: Execution context was destroyed, most likely\"}]",
+ "atualizado": "2026-11-18T16:42:01.167Z",
  "ultimoSucesso": "2026-11-18T14:20:46.292Z",
- "site": false,
- "tentativasEntrada": 1,
- "proxTentativa": "2026-11-18T15:56:14.661Z",
- "falhasSeguidas": 1,
- "pdfs": {
-  "em": "2026-11-18T15:47:00.851Z",
-  "ms": 48,
-  "feitos": 0,
-  "erros": 0,
-  "faltam": 0
- },
- "pdfsEm": "2026-11-18T15:47:00.851Z"
+ "site": true,
+ "tentativasEntrada": 3,
+ "errosEntrada": [
+  "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.og",
+  "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.og",
+  "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.og"
+ ],
+ "proxTentativa": "2026-11-18T16:55:16.787Z",
+ "falhasSeguidas": 2
 }
