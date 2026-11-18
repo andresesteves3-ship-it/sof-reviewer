@@ -339,11 +339,16 @@ async function rodarPedido(page, pid, ped) {
   const fin = ped.tipo === 'fin', ens = !!ped.ensaio;
   let nOk = 0, nErr = 0;
   const log = { em: ped.em || Date.now(), ini: Date.now(), tipo: ped.tipo, esc: ped.esc, por: ped.por || '', ensaio: ens, frentes: {} };
+  /* v0.138.0: progresso real para a barra do painel (pessoas feitas / total, frente e etapa) */
+  const prog = { feito: 0, total: (ped.itens || []).reduce((t, i) => t + (i.pessoas || []).length, 0), frente: '', etapa: 'entrando no Geport' };
+  const avisa = (o) => { Object.assign(prog, o || {}, { em: Date.now() }); return fbPatch('painel/area/gpFila/' + pid + '/prog', prog).catch(() => {}); };
+  await avisa();
   for (const fr of ped.itens || []) {
     const raiz = 'painel/area/gpRes/' + ped.esc + '/' + fr.fid, base = raiz + (fin ? '/fin' : '');
     const atual = await fbGet(base + '/st').catch(() => null);
     if (atual === 'cancelado') { console.log('Frente cancelada no painel: pulada.'); log.frentes[fr.fid] = { nome: fr.nome, st: 'cancelado' }; continue; }
     const res = { st: 'rodando', em: Date.now(), por: ped.por || '', ensaio: ens, pessoas: {}, passos: [] };
+    await avisa({ frente: fr.nome || fr.cod, etapa: 'abrindo a frente' });
     await fbPatch(base, { st: 'rodando', em: res.em, msg: null, pessoas: null });
     try {
       if (!fr.cod) throw new Error('A frente não tem código do Geport.');
@@ -352,9 +357,12 @@ async function rodarPedido(page, pid, ped) {
       if (fin && /sem-campo|nao-confirmada|erro/.test(res.horaExtra)) throw new Error('Não consegui marcar HORA EXTRA antes de finalizar (' + res.horaExtra + ').');
       if (!fin) {
         for (const p of fr.pessoas || []) {
-          if (!p.cod) { res.pessoas[p.m] = { ok: false, msg: 'sem código no cadastro TPS' }; continue; }
+          if (!p.cod) { res.pessoas[p.m] = { ok: false, msg: 'sem código no cadastro TPS' }; await avisa({ feito: prog.feito + 1 }); continue; }
+          await avisa({ etapa: 'alocando' });
           try { res.pessoas[p.m] = await adicionarPessoa(page, p, ens); } catch (e) { res.pessoas[p.m] = { ok: false, msg: curto(mascarar(e.message)), det: mascarar(e.message).slice(0, 600) }; }
+          await avisa({ feito: prog.feito + 1 });
         }
+        await avisa({ etapa: 'conferindo a listagem' });
         res.passos.push('adicionar');
         const lin = await abrirListagem(page); res.passos.push('listagem:' + lin.length);
         if (!ens) (fr.pessoas || []).forEach(p => { const r = res.pessoas[p.m]; if (!r || !r.ok) return; const l = achaLinha(lin, p.nome);
@@ -363,8 +371,11 @@ async function rodarPedido(page, pid, ped) {
       } else {
         await abrirListagem(page).then(L => res.passos.push('listagem:' + L.length));
         for (const p of fr.pessoas || []) {
+          await avisa({ etapa: 'finalizando' });
           try { res.pessoas[p.m] = await finalizarPessoa(page, p, ens); } catch (e) { res.pessoas[p.m] = { ok: false, msg: curto(mascarar(e.message)), det: mascarar(e.message).slice(0, 600) }; }
+          await avisa({ feito: prog.feito + 1 });
         }
+        await avisa({ etapa: 'conferindo a listagem' });
         await fecharListagem(page);
         /* conferência: a lista aberta não atualiza; abre a frente do zero e vê quem ainda está lá */
         if (!ens && Object.values(res.pessoas).some(r => r.ok && !r.ja)) {
@@ -384,6 +395,7 @@ async function rodarPedido(page, pid, ped) {
       res.st = 'erro'; res.det = mascarar(e.message).slice(0, 1500); res.msg = curto(res.det);
     }
     res.fim = Date.now();
+    { const k = Object.keys(res.pessoas).length, n = (fr.pessoas || []).length; if (k < n) await avisa({ feito: prog.feito + (n - k) }); }
     /* registro completo para Administração */
     log.frentes[fr.fid] = { nome: fr.nome, tipo: fr.tipo, cod: fr.cod, st: res.st, passos: res.passos, contrato: res.contrato || '', horaExtra: res.horaExtra || '', msg: res.det || res.msg || '',
       pessoas: Object.fromEntries(Object.entries(res.pessoas).map(([m, r]) => [m, { ok: !!r.ok, msg: r.msg || '', det: r.det || '' }])) };
@@ -396,6 +408,7 @@ async function rodarPedido(page, pid, ped) {
     console.log('Frente', (fr.tipo === 'nav' ? 'aquaviária' : 'avulsa'), '→', res.st, '| pessoas:', Object.keys(res.pessoas).length, '| etapas:', res.passos.join(','));
   }
   log.fim = Date.now(); log.st = nErr ? (nOk ? 'parcial' : 'erro') : 'ok';
+  await avisa({ feito: prog.total, etapa: 'pronto' });
   await fbPatch('painel/area/gpLog/' + pid, log);
   await fbPatch('painel/area/gpFila/' + pid, { st: log.st, fim: log.fim });
 }
