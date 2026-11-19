@@ -4836,12 +4836,8 @@
    ]
   },
   "LOG IN PANTANAL LOG IN PANTANAL": {
-   "est": "concluida",
+   "est": "marcada",
    "ev": [
-    {
-     "t": 1793836361255,
-     "e": "apareceu"
-    },
     {
      "t": 1793903749508,
      "e": "alterada"
@@ -4917,14 +4913,26 @@
     {
      "t": 1794719855582,
      "e": "concluida"
+    },
+    {
+     "t": 1795113600948,
+     "e": "apareceu"
     }
    ],
    "man": [
     {
-     "pob": "14/11 23:30",
+     "pob": "20/11 21:00",
+     "navio": "LOG-IN PANTANAL LOG-IN PANTANAL",
+     "m": "E",
+     "de": "",
+     "para": "TECONTPROLONG",
+     "secao": "BAIA DE GUANABARA"
+    },
+    {
+     "pob": "21/11 09:00",
      "navio": "LOG-IN PANTANAL LOG-IN PANTANAL",
      "m": "S",
-     "de": "TECONT1",
+     "de": "TECONTPROLONG",
      "para": "",
      "secao": "BAIA DE GUANABARA"
     }
@@ -5160,6 +5168,26 @@
      "para": "",
      "ult": 1794708659248,
      "st": "realizada"
+    },
+    {
+     "m": "E",
+     "pob": "20/11 21:00",
+     "ts": 1795219200000,
+     "vis": 1795113600948,
+     "de": "",
+     "para": "TECONTPROLONG",
+     "ult": 1795113600948,
+     "st": "prevista"
+    },
+    {
+     "m": "S",
+     "pob": "21/11 09:00",
+     "ts": 1795262400000,
+     "vis": 1795113600948,
+     "de": "TECONTPROLONG",
+     "para": "",
+     "ult": 1795113600948,
+     "st": "prevista"
     }
    ]
   },
@@ -5628,7 +5656,7 @@
      "vis": 1795110645921,
      "de": "",
      "para": "TECONT4",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     },
     {
@@ -5638,7 +5666,7 @@
      "vis": 1795110645921,
      "de": "TECONT4",
      "para": "",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     }
    ]
@@ -6670,7 +6698,7 @@
      "vis": 1795110645921,
      "de": "TECONTPROLONG",
      "para": "VISITA",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     },
     {
@@ -6680,7 +6708,7 @@
      "vis": 1795110645921,
      "de": "VISITA",
      "para": "",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     }
    ]
@@ -11790,7 +11818,7 @@
      "vis": 1795095257628,
      "de": "",
      "para": "A6PARTE1",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     },
     {
@@ -11800,7 +11828,7 @@
      "vis": 1795095257628,
      "de": "A6PARTE1",
      "para": "",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     }
    ]
@@ -12738,7 +12766,7 @@
      "vis": 1793889223018,
      "de": "",
      "para": "A4",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     },
     {
@@ -12748,7 +12776,7 @@
      "vis": 1793889223018,
      "de": "A4",
      "para": "",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     },
     {
@@ -12758,7 +12786,7 @@
      "vis": 1795027807686,
      "de": "",
      "para": "A4",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     },
     {
@@ -12768,7 +12796,7 @@
      "vis": 1795027807686,
      "de": "A4",
      "para": "",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     }
    ]
@@ -12828,7 +12856,7 @@
      "vis": 1793889223018,
      "de": "",
      "para": "A4",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     },
     {
@@ -12838,7 +12866,7 @@
      "vis": 1793889223018,
      "de": "A4",
      "para": "",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     },
     {
@@ -12848,7 +12876,7 @@
      "vis": 1795025886665,
      "de": "",
      "para": "A4",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     },
     {
@@ -12858,7 +12886,7 @@
      "vis": 1795025886665,
      "de": "A4",
      "para": "",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     }
    ]
@@ -13490,7 +13518,7 @@
      "vis": 1795092724663,
      "de": "",
      "para": "LARGO",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     }
    ]
@@ -14320,7 +14348,7 @@
      "vis": 1795065324102,
      "de": "WPT 64",
      "para": "I COMPRIDA",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     }
    ]
@@ -14496,7 +14524,7 @@
      "vis": 1795094411955,
      "de": "",
      "para": "MACLAREN D",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     },
     {
@@ -14856,7 +14884,7 @@
      "vis": 1795034505194,
      "de": "WPT 92",
      "para": "",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     }
    ]
@@ -15460,7 +15488,7 @@
      "vis": 1795110645921,
      "de": "TECONT1",
      "para": "",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     }
    ]
@@ -16902,7 +16930,7 @@
      "vis": 1795110645921,
      "de": "TECONT1",
      "para": "",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     }
    ]
@@ -18278,7 +18306,7 @@
      "vis": 1795110645921,
      "de": "",
      "para": "TECONT1",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     },
     {
@@ -18288,7 +18316,7 @@
      "vis": 1794851943393,
      "de": "TECONT1",
      "para": "",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     }
    ]
@@ -19724,7 +19752,7 @@
      "vis": 1794926552406,
      "de": "",
      "para": "A4",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     },
     {
@@ -19734,7 +19762,7 @@
      "vis": 1794926552406,
      "de": "A4",
      "para": "",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     }
    ]
@@ -19792,7 +19820,7 @@
      "vis": 1795017632361,
      "de": "",
      "para": "TECONT2",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     },
     {
@@ -19822,7 +19850,7 @@
      "vis": 1795009088801,
      "de": "TECONT2",
      "para": "",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     }
    ]
@@ -19886,7 +19914,7 @@
      "vis": 1794931233465,
      "de": "TECONT3",
      "para": "",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     },
     {
@@ -20072,7 +20100,7 @@
      "vis": 1795110645921,
      "de": "",
      "para": "TECONT3",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     },
     {
@@ -20082,7 +20110,7 @@
      "vis": 1795009818950,
      "de": "TECONT3",
      "para": "",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     }
    ]
@@ -20122,7 +20150,7 @@
      "vis": 1795011506909,
      "de": "",
      "para": "TPASSAGE2",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     },
     {
@@ -20132,17 +20160,21 @@
      "vis": 1795011506909,
      "de": "TPASSAGE2",
      "para": "",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     }
    ]
   },
   "BGP PROSPECTOR BGP PROSPECTOR": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1795012350241,
      "e": "apareceu"
+    },
+    {
+     "t": 1795113600948,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -20165,7 +20197,7 @@
      "de": "",
      "para": "LARGO",
      "ult": 1795110645921,
-     "st": "prevista"
+     "st": "realizada"
     }
    ]
   },
@@ -20196,7 +20228,7 @@
      "vis": 1795012350241,
      "de": "",
      "para": "LARGO",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     }
    ]
@@ -20250,7 +20282,7 @@
      "vis": 1795090529299,
      "de": "",
      "para": "TECONT5",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     },
     {
@@ -20260,7 +20292,7 @@
      "vis": 1795017632361,
      "de": "TECONT5",
      "para": "",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     }
    ]
@@ -20300,7 +20332,7 @@
      "vis": 1795023740541,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     },
     {
@@ -20310,7 +20342,7 @@
      "vis": 1795023740541,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     }
    ]
@@ -20350,7 +20382,7 @@
      "vis": 1795025886665,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     },
     {
@@ -20360,7 +20392,7 @@
      "vis": 1795025886665,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     }
    ]
@@ -20400,7 +20432,7 @@
      "vis": 1795025886665,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     },
     {
@@ -20410,7 +20442,7 @@
      "vis": 1795025886665,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     }
    ]
@@ -20514,7 +20546,7 @@
      "vis": 1795110645921,
      "de": "",
      "para": "PS-1",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     }
    ]
@@ -20554,7 +20586,7 @@
      "vis": 1795110645921,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
      "st": "prevista"
     },
     {
@@ -20564,7 +20596,107 @@
      "vis": 1795110645921,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1795110645921,
+     "ult": 1795113600948,
+     "st": "prevista"
+    }
+   ]
+  },
+  "CMA CGM RABELAIS CMA CGM RABELAIS": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1795113600948,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "22/11 07:30",
+     "navio": "CMA CGM RABELAIS CMA CGM RABELAIS",
+     "m": "E",
+     "de": "",
+     "para": "TECONTPROLONG",
+     "secao": "BAIA DE GUANABARA"
+    },
+    {
+     "pob": "22/11 23:00",
+     "navio": "CMA CGM RABELAIS CMA CGM RABELAIS",
+     "m": "S",
+     "de": "TECONTPROLONG",
+     "para": "",
+     "secao": "BAIA DE GUANABARA"
+    }
+   ],
+   "nome": "CMA CGM RABELAIS CMA CGM RABELAIS",
+   "mov": [
+    {
+     "m": "E",
+     "pob": "22/11 07:30",
+     "ts": 1795343400000,
+     "vis": 1795113600948,
+     "de": "",
+     "para": "TECONTPROLONG",
+     "ult": 1795113600948,
+     "st": "prevista"
+    },
+    {
+     "m": "S",
+     "pob": "22/11 23:00",
+     "ts": 1795399200000,
+     "vis": 1795113600948,
+     "de": "TECONTPROLONG",
+     "para": "",
+     "ult": 1795113600948,
+     "st": "prevista"
+    }
+   ]
+  },
+  "MERCOSUL GUARUJA MERCOSUL GUARUJA": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1795113600948,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "23/11 01:00",
+     "navio": "MERCOSUL GUARUJA MERCOSUL GUARUJA",
+     "m": "E",
+     "de": "",
+     "para": "TECONTPROLONG",
+     "secao": "BAIA DE GUANABARA"
+    },
+    {
+     "pob": "24/11 01:00",
+     "navio": "MERCOSUL GUARUJA MERCOSUL GUARUJA",
+     "m": "S",
+     "de": "TECONTPROLONG",
+     "para": "",
+     "secao": "BAIA DE GUANABARA"
+    }
+   ],
+   "nome": "MERCOSUL GUARUJA MERCOSUL GUARUJA",
+   "mov": [
+    {
+     "m": "E",
+     "pob": "23/11 01:00",
+     "ts": 1795406400000,
+     "vis": 1795113600948,
+     "de": "",
+     "para": "TECONTPROLONG",
+     "ult": 1795113600948,
+     "st": "prevista"
+    },
+    {
+     "m": "S",
+     "pob": "24/11 01:00",
+     "ts": 1795492800000,
+     "vis": 1795113600948,
+     "de": "TECONTPROLONG",
+     "para": "",
+     "ult": 1795113600948,
      "st": "prevista"
     }
    ]
@@ -20572,9 +20704,9 @@
  },
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-19T17:50:45.921Z",
- "ultimoSucesso": "2026-11-19T17:50:45.921Z",
- "total": 44,
+ "atualizado": "2026-11-19T18:40:00.948Z",
+ "ultimoSucesso": "2026-11-19T18:40:00.948Z",
+ "total": 49,
  "secoes": [
   "BAIA DE GUANABARA",
   "BAIA DE SEPETIBA",
