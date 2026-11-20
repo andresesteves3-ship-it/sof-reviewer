@@ -1,44 +1,50 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-20T08:03:25.697Z",
- "ultimoSucesso": "2026-11-20T08:03:25.697Z",
+ "atualizado": "2026-11-20T14:00:58.174Z",
+ "ultimoSucesso": "2026-11-20T14:00:58.174Z",
  "dias": [
   {
    "data": "20/11/2026",
-   "reqs": 3,
-   "escaladas": 3
+   "reqs": 6,
+   "escaladas": 6
   },
   {
    "data": "21/11/2026",
-   "reqs": 0,
-   "escaladas": 0
+   "erro": "Perdi a tela de requisições."
   }
  ],
  "da9": [
   {
-   "req": "25053549-1",
-   "data": "20/11/2026",
-   "n": 0,
-   "erro": "locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('[data-da9=\"x\"]",
-   "aviso": ""
-  },
-  {
-   "req": "25053550-1",
+   "req": "25053552-1",
    "data": "20/11/2026",
    "n": 2,
    "erro": "",
    "aviso": ""
   },
   {
-   "req": "25053551-1",
+   "req": "25053553-1",
    "data": "20/11/2026",
    "n": 1,
    "erro": "",
    "aviso": ""
+  },
+  {
+   "req": "25053554-1",
+   "data": "20/11/2026",
+   "n": 6,
+   "erro": "",
+   "aviso": ""
+  },
+  {
+   "req": "25053549-1",
+   "data": "20/11/2026",
+   "n": 7,
+   "erro": "",
+   "aviso": ""
   }
  ],
- "novos": 1,
+ "novos": 0,
  "total": 435,
  "diag": {
   "da9": [
