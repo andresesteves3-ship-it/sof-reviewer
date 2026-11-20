@@ -1,9 +1,9 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-20T16:17:38.310Z",
- "ultimoSucesso": "2026-11-20T16:17:38.310Z",
- "total": 18,
+ "atualizado": "2026-11-20T17:45:43.207Z",
+ "ultimoSucesso": "2026-11-20T17:45:43.207Z",
+ "total": 21,
  "dias": [
   {
    "data": "19/11/2026",
@@ -12,7 +12,7 @@
   },
   {
    "data": "20/11/2026",
-   "n": 6,
+   "n": 9,
    "erro": ""
   },
   {
@@ -24,42 +24,35 @@
  "diag": {
   "frames": 1,
   "tentativasEntrada": 1,
-  "recuperacoes": 2,
+  "recuperacoes": 1,
   "reaproveitadas": 0,
   "equipesLidas": 0,
   "canceladasPuladas": 0,
   "semAtualizar": 0,
   "ontemRepetido": 1,
   "quemPediu": {
-   "lidas": 0,
-   "erros": 0,
-   "ms": 0,
+   "lidas": 1,
+   "erros": 1,
+   "ms": 20108,
+   "parou": "O site do OGMO deu \"500 - Erro de servidor interno\".",
    "voltar": {
-    "ok": 0,
+    "ok": 1,
     "recuperou": 0,
-    "nomes": "",
+    "nomes": "INPUT | IWBUTTON5 | IWBUTTON5 | ",
     "bloqueado": ""
    }
   }
  },
  "tempos": {
-  "visualizar": 0,
-  "login": 9215,
+  "visualizar": 20108,
+  "login": 8492,
   "dias": {
-   "20/11/2026": 148630,
-   "21/11/2026": 60321,
+   "20/11/2026": 31273,
+   "21/11/2026": 14121,
    "19/11/2026": 0
   },
-  "total": 218217
+  "total": 53916
  },
  "pdfsSeparados": true,
- "falhasSeguidas": 0,
- "pdfs": {
-  "em": "2026-11-20T16:21:56.538Z",
-  "ms": 52,
-  "feitos": 0,
-  "erros": 0,
-  "faltam": 0
- },
- "pdfsEm": "2026-11-20T16:21:56.538Z"
+ "falhasSeguidas": 0
 }
