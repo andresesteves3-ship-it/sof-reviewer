@@ -1,23 +1,66 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-20T01:26:03.402Z",
- "ultimoSucesso": "2026-11-20T01:26:03.402Z",
+ "atualizado": "2026-11-20T08:03:25.697Z",
+ "ultimoSucesso": "2026-11-20T08:03:25.697Z",
  "dias": [
-  {
-   "data": "19/11/2026",
-   "reqs": 12,
-   "escaladas": 12
-  },
   {
    "data": "20/11/2026",
    "reqs": 3,
+   "escaladas": 3
+  },
+  {
+   "data": "21/11/2026",
+   "reqs": 0,
    "escaladas": 0
   }
  ],
- "da9": [],
- "novos": 0,
- "total": 434,
- "diag": {},
+ "da9": [
+  {
+   "req": "25053549-1",
+   "data": "20/11/2026",
+   "n": 0,
+   "erro": "locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('[data-da9=\"x\"]",
+   "aviso": ""
+  },
+  {
+   "req": "25053550-1",
+   "data": "20/11/2026",
+   "n": 2,
+   "erro": "",
+   "aviso": ""
+  },
+  {
+   "req": "25053551-1",
+   "data": "20/11/2026",
+   "n": 1,
+   "erro": "",
+   "aviso": ""
+  }
+ ],
+ "novos": 1,
+ "total": 435,
+ "diag": {
+  "da9": [
+   {
+    "tag": "A",
+    "id": "",
+    "name": "",
+    "val": "",
+    "tit": "Gera DA9 da Requisição Selecionada (Exce",
+    "vis": false,
+    "on": "return SubmitClickConfirm('IWIMAGE5','', true, '');"
+   },
+   {
+    "tag": "IMG",
+    "id": "IWIMAGE5",
+    "name": "IWIMAGE5",
+    "val": "",
+    "tit": "Gera DA9 da Requisição Selecionada (Exce",
+    "vis": true,
+    "on": ""
+   }
+  ]
+ },
  "falhasSeguidas": 0
 }
