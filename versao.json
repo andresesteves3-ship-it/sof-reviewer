@@ -1,4 +1,4 @@
 {
- "v": "0.140.0",
- "resumo": "Passagem de serviço: abre no seu plantão, avisa turno errado e permite cancelar a passagem errada."
+ "v": "0.141.0",
+ "resumo": "Sala e Área não se misturam: passagem, chat e listas de pessoas."
 }
