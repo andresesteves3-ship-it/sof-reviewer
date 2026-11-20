@@ -1,4 +1,4 @@
 {
- "v": "0.139.0",
- "resumo": "Pedidos de estiva: bloco Enlonamento (terno único) conferido com a requisição do OGMO."
+ "v": "0.140.0",
+ "resumo": "Passagem de serviço: abre no seu plantão, avisa turno errado e permite cancelar a passagem errada."
 }
