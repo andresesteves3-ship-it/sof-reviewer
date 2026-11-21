@@ -1,8 +1,8 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-21T13:00:42.227Z",
- "ultimoSucesso": "2026-11-21T13:00:42.227Z",
+ "atualizado": "2026-11-21T14:30:50.745Z",
+ "ultimoSucesso": "2026-11-21T14:30:50.745Z",
  "total": 9,
  "dias": [
   {
@@ -18,13 +18,13 @@
   {
    "data": "22/11/2026",
    "n": 0,
-   "erro": "Perdi a tela de requisições."
+   "erro": ""
   }
  ],
  "diag": {
   "frames": 1,
   "tentativasEntrada": 1,
-  "recuperacoes": 0,
+  "recuperacoes": 1,
   "reaproveitadas": 0,
   "equipesLidas": 0,
   "canceladasPuladas": 0,
@@ -44,22 +44,14 @@
  },
  "tempos": {
   "visualizar": 0,
-  "login": 8788,
+  "login": 9156,
   "dias": {
-   "21/11/2026": 7230,
-   "22/11/2026": 71676,
+   "21/11/2026": 7245,
+   "22/11/2026": 60350,
    "20/11/2026": 0
   },
-  "total": 87724
+  "total": 76786
  },
  "pdfsSeparados": true,
- "falhasSeguidas": 0,
- "pdfs": {
-  "em": "2026-11-21T13:02:54.081Z",
-  "ms": 36,
-  "feitos": 0,
-  "erros": 0,
-  "faltam": 0
- },
- "pdfsEm": "2026-11-21T13:02:54.081Z"
+ "falhasSeguidas": 0
 }
