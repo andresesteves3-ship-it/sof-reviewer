@@ -1,10 +1,57 @@
 {
- "ok": false,
- "erro": "O site do OGMO deu \"500 - Erro de servidor interno\". Site: HTTP 500. Frames=[{\"sel\":0,\"tab\":0,\"inp\":0,\"txt\":\"Erro do Servidor 500 - Erro de servidor interno. Existe um problema com o recurso que você está procurando e ele não pode ser exibido.\"}]",
- "atualizado": "2026-11-21T11:28:10.337Z",
- "ultimoSucesso": "2026-11-21T10:45:47.466Z",
- "site": true,
- "tentativasEntrada": 1,
- "proxTentativa": "2026-11-21T11:38:18.852Z",
- "falhasSeguidas": 1
+ "ok": true,
+ "erro": "",
+ "atualizado": "2026-11-21T11:37:22.281Z",
+ "ultimoSucesso": "2026-11-21T11:37:22.281Z",
+ "total": 9,
+ "dias": [
+  {
+   "data": "20/11/2026",
+   "n": 9,
+   "erro": ""
+  },
+  {
+   "data": "21/11/2026",
+   "n": 0,
+   "erro": ""
+  },
+  {
+   "data": "22/11/2026",
+   "n": 0,
+   "erro": ""
+  }
+ ],
+ "diag": {
+  "frames": 1,
+  "tentativasEntrada": 1,
+  "recuperacoes": 0,
+  "reaproveitadas": 0,
+  "equipesLidas": 0,
+  "canceladasPuladas": 0,
+  "semAtualizar": 0,
+  "ontemRepetido": 1,
+  "quemPediu": {
+   "lidas": 0,
+   "erros": 0,
+   "ms": 0,
+   "voltar": {
+    "ok": 0,
+    "recuperou": 0,
+    "nomes": "",
+    "bloqueado": ""
+   }
+  }
+ },
+ "tempos": {
+  "visualizar": 0,
+  "login": 8537,
+  "dias": {
+   "21/11/2026": 7257,
+   "22/11/2026": 14179,
+   "20/11/2026": 0
+  },
+  "total": 30023
+ },
+ "pdfsSeparados": true,
+ "falhasSeguidas": 0
 }
