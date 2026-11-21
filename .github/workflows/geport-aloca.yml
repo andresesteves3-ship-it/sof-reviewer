@@ -10,7 +10,7 @@ concurrency:
 jobs:
   alocar:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       # mesmo pacote pronto do Playwright dos outros robôs (versão igual à do package.json: 1.49.1)
