@@ -1,4 +1,4 @@
 {
- "v": "0.145.0",
- "resumo": "Nova aba Operação: produção da planilha, imagem para o grupo da estiva e e-mail ao Comercial, com registro nas Rotinas."
+ "v": "0.147.0",
+ "resumo": "Operação: uma linha por terno na imagem e no e-mail, e confirmação de ternos quando há troca de porão."
 }
