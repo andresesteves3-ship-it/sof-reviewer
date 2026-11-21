@@ -289,6 +289,13 @@ async function abrirListagem(page) {
   return L;
 }
 // acha a linha pelo nome completo; o atalho (1º + último nome) só vale se houver UMA linha assim
+/* v0.144.0: quem está CONFIRMADO na listagem do Geport e não está na escala desta frente */
+function sobras(linhas, todos) {
+  const T = (todos || []).map(norm).filter(Boolean);
+  if (!T.length) return [];
+  return linhas.filter(l => l.fin && !/FINALIZAD/i.test(l.sit)).filter(l => { const n = norm(l.nome), q = n.split(' ');
+    return !T.some(t => { const p = t.split(' '); return t === n || (p[0] === q[0] && p[p.length - 1] === q[q.length - 1]); }); }).map(l => l.nome).slice(0, 30);
+}
 function achaLinha(linhas, nome) {
   const n = norm(nome), ps = n.split(' ');
   const exata = linhas.filter(l => norm(l.nome) === n);
@@ -325,7 +332,7 @@ async function finalizarPessoa(page, p, ensaio) {
   }
   /* espera a resposta do servidor (PUT 2xx) ou a pessoa sumir da lista — o que vier primeiro, até 12 s */
   let srv = false, sumiu = false;
-  for (let t = 0; t < 24 && !srv && !sumiu; t++) {
+  for (let t = 0; t < 16 && !srv && !sumiu; t++) {
     await page.waitForTimeout(500);
     srv = rede.some(x => x.ok && /^(PUT|POST|PATCH)/.test(x.t));
     const L = await lerLinhas(page); if (L.length) { const d = achaLinha(L, p.nome); if (!d || /FINALIZAD/i.test(d.sit)) sumiu = true; }
@@ -370,12 +377,12 @@ async function rodarPedido(page, pid, ped) {
         }
         await avisa({ etapa: 'conferindo a listagem' });
         res.passos.push('adicionar');
-        const lin = await abrirListagem(page); res.passos.push('listagem:' + lin.length);
+        const lin = await abrirListagem(page); res.passos.push('listagem:' + lin.length); res.extras = sobras(lin, fr.todos);
         if (!ens) (fr.pessoas || []).forEach(p => { const r = res.pessoas[p.m]; if (!r || !r.ok) return; const l = achaLinha(lin, p.nome);
           if (l) r.sit = l.sit; else if (r.srv) r.msg = 'alocado (o nome não apareceu na listagem: confira no Geport)'; else { r.ok = false; r.msg = 'não apareceu na listagem do Geport'; } });
         await fecharListagem(page);
       } else {
-        await abrirListagem(page).then(L => res.passos.push('listagem:' + L.length));
+        await abrirListagem(page).then(L => { res.passos.push('listagem:' + L.length); res.extras = sobras(L, fr.todos); });
         for (const p of fr.pessoas || []) {
           await avisa({ etapa: 'finalizando' });
           try { res.pessoas[p.m] = await finalizarPessoa(page, p, ens); } catch (e) { res.pessoas[p.m] = { ok: false, msg: curto(mascarar(e.message)), det: mascarar(e.message).slice(0, 600) }; }
@@ -384,7 +391,8 @@ async function rodarPedido(page, pid, ped) {
         await avisa({ etapa: 'conferindo a listagem' });
         await fecharListagem(page);
         /* conferência: a lista aberta não atualiza; abre a frente do zero e vê quem ainda está lá */
-        if (!ens && Object.values(res.pessoas).some(r => r.ok && !r.ja)) {
+        /* v0.144.0: só reabre para conferir se alguém não teve a confirmação do servidor */
+        if (!ens && Object.values(res.pessoas).some(r => r.ok && !r.ja && !r.srv)) {
           try {
             await buscarFrente(page, fr); await abaFuncionario(page);
             const L2 = await abrirListagem(page); res.passos.push('conferencia:' + L2.length);
@@ -409,13 +417,23 @@ async function rodarPedido(page, pid, ped) {
     res.fim = Date.now();
     { const k = Object.keys(res.pessoas).length, n = (fr.pessoas || []).length; if (k < n) await avisa({ feito: prog.feito + (n - k) }); }
     /* registro completo para Administração */
-    log.frentes[fr.fid] = { nome: fr.nome, tipo: fr.tipo, cod: fr.cod, st: res.st, passos: res.passos, contrato: res.contrato || '', horaExtra: res.horaExtra || '', msg: res.det || res.msg || '',
+    log.frentes[fr.fid] = { extras: res.extras || [], nome: fr.nome, tipo: fr.tipo, cod: fr.cod, st: res.st, passos: res.passos, contrato: res.contrato || '', horaExtra: res.horaExtra || '', msg: res.det || res.msg || '',
       pessoas: Object.fromEntries(Object.entries(res.pessoas).map(([m, r]) => [m, { ok: !!r.ok, msg: r.msg || '', det: r.det || '' }])) };
     /* cartão: só o resumo e o motivo curto */
     const curtoP = Object.fromEntries(Object.entries(res.pessoas).map(([m, r]) => [m, { ok: !!r.ok, msg: r.msg || '' }]));
-    await fbPatch(base, { st: res.st, em: res.em, fim: res.fim, por: res.por, ensaio: ens, pessoas: curtoP, msg: res.msg || null });
+    await fbPatch(base, { st: res.st, em: res.em, fim: res.fim, por: res.por, ensaio: ens, pessoas: curtoP, msg: res.msg || null, extras: (res.extras && res.extras.length) ? res.extras : null, extrasEm: Date.now() });
     /* memória por pessoa: quem já foi alocado/finalizado não vai de novo */
     if (!ens) { const est = {}; Object.entries(res.pessoas).forEach(([m, r]) => { if (r.ok) est[m + '/' + (fin ? 'fin' : 'al')] = res.fim; }); if (Object.keys(est).length) await fbPatch(raiz + '/est', est); }
+    if (!ens && !ped.tentativa && res.st !== 'ok') {
+      const PERM = /finalizada no Geport|sem c[oó]digo|n[aã]o encontrad|j[aá] (est[aá]|aloc)/i;
+      const falhou = (fr.pessoas || []).filter(p => { const r = res.pessoas[p.m]; return (!r || !r.ok) && !PERM.test((r && r.msg) || res.msg || ''); });
+      if (falhou.length && !PERM.test(res.msg || '')) {
+        const npid = Date.now() + '_rt' + Math.random().toString(36).slice(2, 5);
+        await fbPatch('painel/area/gpFila/' + npid, { tipo: ped.tipo, esc: ped.esc, itens: [Object.assign({}, fr, { pessoas: falhou })], por: ped.por || '', em: Date.now(), st: 'pendente', ensaio: false, tentativa: 2, naoAntes: Date.now() + 5 * 60000 });
+        res.retry = true; console.log('Nova tentativa marcada para daqui a 5 min:', falhou.length, 'pessoa(s).');
+        await fbPatch(base, { retry: Date.now() + 5 * 60000 });
+      }
+    }
     if (res.st === 'ok') nOk++; else if (res.st === 'parcial') { nOk++; nErr++; } else nErr++;
     console.log('Frente', (fr.tipo === 'nav' ? 'aquaviária' : 'avulsa'), '→', res.st, '| pessoas:', Object.keys(res.pessoas).length, '| etapas:', res.passos.join(','));
   }
@@ -437,7 +455,7 @@ async function rodarPedido(page, pid, ped) {
     /* v0.143.0: janelas de aviso do navegador (ex.: "Operação X não pode ser realizada pois se encontra na situação Finalizada") */
     page.on('dialog', async d => { JANELAS.push({ t: Date.now(), msg: String(d.message() || '').replace(/\s+/g, ' ').trim().slice(0, 200) }); try { await d.accept(); } catch (e) {} });
     let logado = false, feitos = 0;
-    for (let volta = 0; volta < 6; volta++) {
+    for (let volta = 0; volta < 10; volta++) {
       const fila = (await fbGet('painel/area/gpFila', '&orderBy=%22st%22&equalTo=%22pendente%22').catch(async () => {
         const t = (await fbGet('painel/area/gpFila')) || {}; const o = {}; Object.keys(t).forEach(k => { if (t[k] && t[k].st === 'pendente') o[k] = t[k]; }); return o;
       })) || {};
@@ -447,6 +465,13 @@ async function rodarPedido(page, pid, ped) {
       for (const k of ks) {
         const ped = fila[k];
         if (!ped || Date.now() - (ped.em || 0) > 12 * 3600e3) { await fbPatch('painel/area/gpFila/' + k, { st: 'vencido' }); continue; }
+        /* v0.144.0: pedido com hora marcada (ex.: finalização às 19:00 em ponto; nova tentativa em 5 min) */
+        if (ped.naoAntes && ped.naoAntes > Date.now()) {
+          const falta = ped.naoAntes - Date.now();
+          if (falta > 20 * 60000) continue;
+          await fbPatch('painel/area/gpFila/' + k, { st: 'rodando', ini: Date.now(), prog: { feito: 0, total: 0, frente: '', etapa: 'esperando ' + new Date(ped.naoAntes - 3 * 3600e3).toISOString().slice(11, 16), em: Date.now() } });
+          while (Date.now() < ped.naoAntes) { await page.waitForTimeout(Math.min(60000, ped.naoAntes - Date.now())); await fbPatch('painel/area/gpFila/' + k + '/prog', { em: Date.now() }); }
+        }
         await fbPatch('painel/area/gpFila/' + k, { st: 'rodando', ini: Date.now() });
         console.log('Pedido', ped.tipo === 'fin' ? 'FINALIZAR' : 'ALOCAR', ped.ensaio ? '(ensaio)' : '', '| frentes:', (ped.itens || []).length);
         await rodarPedido(page, k, ped); feitos++;
