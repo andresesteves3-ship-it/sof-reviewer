@@ -166,6 +166,9 @@ async function garantirContrato(page) {
    TIPO DA FRENTE (lista: AQUAVIÁRIO, AVULSA, FERROVIÁRIA, RODOVIÁRIO) › CÓDIGO DA FRENTE › BUSCAR FRENTE
    › "ALOCAR RECURSO / AQUAVIARIA: nº" › FUNCIONÁRIO › caixa HORA EXTRA › código › espera 3 s › ADICIONAR › espera 3 s */
 const ESPERA_CODIGO = 3000, ESPERA_DEPOIS = 3000;
+const JANELAS = [];
+function janelasDesde(t) { return JANELAS.filter(j => j.t >= t).map(j => j.msg); }
+class FrenteFinalizada extends Error {}
 async function campoEditavel(page, fora) {
   const ins = page.locator('input:not([type=checkbox]):not([type=radio]):not([type=hidden]):not([type=password]):not([readonly])');
   const L = [];
@@ -201,11 +204,14 @@ async function buscarFrente(page, fr) {
   if (!inp) { const L = await campoEditavel(page); inp = L[L.length - 1] || null; }
   if (!inp) throw new Error('Não achei o campo CÓDIGO DA FRENTE. Tela: ' + JSON.stringify(await resumoTela(page)));
   await marcarAvisos(page); await digitar(inp, fr.cod); await page.waitForTimeout(1200);
+  const t0 = Date.now();
   if (!(await clicar(page, /BUSCAR FRENTE/i, 8000))) await inp.press('Enter');
   await page.waitForLoadState('networkidle').catch(() => {});
   const fim = Date.now() + 15000;
   while (Date.now() < fim) { if (await visivel(page.getByText(/ALOCAR RECURSO/i).first()) || await visivel(page.getByText(/^\s*FUNCION[AÁ]RIO\s*$/i).first())) break; await page.waitForTimeout(500); }
-  const av = await avisosNovos(page, 300);
+  const av = (await avisosNovos(page, 300)).concat(janelasDesde(t0));
+  const fz = av.find(a => /situa[cç][aã]o\s+Finalizad/i.test(a));
+  if (fz) throw new FrenteFinalizada(fz);
   if (!(await visivel(page.getByText(/^\s*FUNCION[AÁ]RIO\s*$/i).first()))) throw new Error('O Geport não abriu a frente ' + fr.cod + (av.length ? ': ' + av.join(' / ') : '') + '. Tela: ' + JSON.stringify(await resumoTela(page)));
   return ct;
 }
@@ -252,7 +258,7 @@ async function adicionarPessoa(page, p, ensaio) {
   /* se o Geport perguntar algo (localização/câmera), confirma */
   const ok = page.locator('.q-dialog button, .q-dialog .q-btn').filter({ hasText: /^(PERMITIR|OK|SIM|CONFIRMAR)$/i }).last();
   if (await visivel(ok)) { await ok.click().catch(() => {}); await page.waitForTimeout(800); }
-  const av = await avisosNovos(page, ESPERA_DEPOIS);
+  const av = (await avisosNovos(page, ESPERA_DEPOIS)).concat(janelasDesde(Date.now() - ESPERA_DEPOIS - 1500));
   page.off('response', ouve);
   const det = 'servidor: ' + (rede.map(x => x.t).slice(0, 4).join(', ') || 'nenhuma chamada');
   const ruim = av.find(a => /erro|n[aã]o|inv[aá]lid|j[aá] (est[aá]|aloc)|falh|permiss/i.test(a) && !/sucesso/i.test(a));
@@ -392,7 +398,13 @@ async function rodarPedido(page, pid, ped) {
       res.st = !v.length ? 'erro' : ok === v.length ? 'ok' : ok ? 'parcial' : 'erro';
       if (!v.length) res.msg = 'Nenhuma pessoa no pedido.';
     } catch (e) {
-      res.st = 'erro'; res.det = mascarar(e.message).slice(0, 1500); res.msg = curto(res.det);
+      if (e instanceof FrenteFinalizada && fin) {
+        /* a frente encerrada no Geport desaloca todo mundo: conta como finalizado */
+        (fr.pessoas || []).forEach(p => { res.pessoas[p.m] = { ok: true, ja: true, msg: 'frente finalizada no Geport (todos desalocados)', det: e.message }; });
+        res.st = 'ok'; res.msg = 'frente finalizada no Geport'; res.passos.push('frente-finalizada');
+      } else if (e instanceof FrenteFinalizada) {
+        res.st = 'erro'; res.det = e.message; res.msg = 'a frente está finalizada no Geport';
+      } else { res.st = 'erro'; res.det = mascarar(e.message).slice(0, 1500); res.msg = curto(res.det); }
     }
     res.fim = Date.now();
     { const k = Object.keys(res.pessoas).length, n = (fr.pessoas || []).length; if (k < n) await avisa({ feito: prog.feito + (n - k) }); }
@@ -422,6 +434,8 @@ async function rodarPedido(page, pid, ped) {
     browser = await chromium.launch({ args: ['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream'] });
     const ctx = await browser.newContext(Object.assign({ viewport: { width: 1366, height: 900 } }, { locale: 'pt-BR', timezoneId: 'America/Sao_Paulo', geolocation: GEO, permissions: ['geolocation', 'camera'] }));
     const page = await ctx.newPage(); page.setDefaultTimeout(30000);
+    /* v0.143.0: janelas de aviso do navegador (ex.: "Operação X não pode ser realizada pois se encontra na situação Finalizada") */
+    page.on('dialog', async d => { JANELAS.push({ t: Date.now(), msg: String(d.message() || '').replace(/\s+/g, ' ').trim().slice(0, 200) }); try { await d.accept(); } catch (e) {} });
     let logado = false, feitos = 0;
     for (let volta = 0; volta < 6; volta++) {
       const fila = (await fbGet('painel/area/gpFila', '&orderBy=%22st%22&equalTo=%22pendente%22').catch(async () => {
