@@ -1,9 +1,9 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-22T20:45:50.613Z",
- "ultimoSucesso": "2026-11-22T20:45:50.613Z",
- "total": 6,
+ "atualizado": "2026-11-22T22:15:44.478Z",
+ "ultimoSucesso": "2026-11-22T22:15:44.478Z",
+ "total": 0,
  "dias": [
   {
    "data": "21/11/2026",
@@ -17,18 +17,18 @@
   },
   {
    "data": "23/11/2026",
-   "n": 6,
-   "erro": ""
+   "n": 0,
+   "erro": "Perdi a tela de requisições."
   }
  ],
  "diag": {
   "frames": 1,
-  "tentativasEntrada": 1,
-  "recuperacoes": 2,
+  "tentativasEntrada": 2,
+  "recuperacoes": 0,
   "reaproveitadas": 0,
-  "equipesLidas": 2,
+  "equipesLidas": 0,
   "canceladasPuladas": 0,
-  "semAtualizar": 2,
+  "semAtualizar": 0,
   "ontemRepetido": 1,
   "quemPediu": {
    "lidas": 0,
@@ -44,22 +44,14 @@
  },
  "tempos": {
   "visualizar": 0,
-  "login": 8625,
+  "login": 56608,
   "dias": {
-   "22/11/2026": 7257,
-   "23/11/2026": 144452,
+   "22/11/2026": 7244,
+   "23/11/2026": 83658,
    "21/11/2026": 0
   },
-  "total": 160381
+  "total": 147545
  },
  "pdfsSeparados": true,
- "falhasSeguidas": 0,
- "pdfs": {
-  "em": "2026-11-22T20:49:11.244Z",
-  "ms": 36,
-  "feitos": 0,
-  "erros": 0,
-  "faltam": 0
- },
- "pdfsEm": "2026-11-22T20:49:11.244Z"
+ "falhasSeguidas": 0
 }
