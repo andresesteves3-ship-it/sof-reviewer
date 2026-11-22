@@ -1,8 +1,8 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-21T23:00:45.373Z",
- "ultimoSucesso": "2026-11-21T23:00:45.373Z",
+ "atualizado": "2026-11-21T23:54:53.519Z",
+ "ultimoSucesso": "2026-11-21T23:54:53.519Z",
  "dias": [
   {
    "data": "21/11/2026",
@@ -11,8 +11,7 @@
   },
   {
    "data": "22/11/2026",
-   "reqs": 0,
-   "escaladas": 0
+   "erro": "locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('input').nth(13)\n    - locator resolved to <i"
   }
  ],
  "da9": [],
