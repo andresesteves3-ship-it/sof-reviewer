@@ -1,4 +1,4 @@
 {
- "v": "0.150.0",
- "resumo": "Nova aba SOF: Maker (monta o Statement of Facts, exporta PDF e Excel no modelo da Triunfo) e Revisor."
+ "v": "0.151.0",
+ "resumo": "SOF Maker: tela no padrão do painel, Stowage Plan no PDF e no Excel, frases padrão e aviso de edição ao mesmo tempo."
 }
