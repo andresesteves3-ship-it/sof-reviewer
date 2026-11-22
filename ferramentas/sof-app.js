@@ -664,7 +664,7 @@ function checkGangs(errors){
     const a=parseTime(r.values[3]),b=parseTime(r.values[4]);
     if(a===null||b===null||a===b)return;
     if(!blocks.has(r.periodBlock))blocks.set(r.periodBlock,[]);
-    blocks.get(r.periodBlock).push({a,b,row:r.row,sheet:r.sheet,g:(r.gang||'-').toLowerCase(),date:r.operationalDate});
+    blocks.get(r.periodBlock).push({a,b,row:r.row,sheet:r.sheet,g:(r.gang||'-').toLowerCase(),date:r.operationalDate,np:!(r.w||r.vol)});
   });
   // v0.104.0: a ocorrência aponta a LINHA A CONFERIR e o que fazer; a mesma causa em várias equipes vira uma ocorrência só
   const nmG=g=>names.get(g)||g, lst=a=>a.length<2?String(a[0]||''):a.slice(0,-1).join(', ')+' e '+a[a.length-1];
@@ -673,6 +673,9 @@ function checkGangs(errors){
     const base=list[0].a, norm=x=>x<base-720?x+1440:x;
     list.forEach(x=>{x.s=norm(x.a);x.e=x.s+(x.b>x.a?x.b-x.a:x.b+1440-x.a)});
     const start=Math.min(...list.map(x=>x.s)), end=Math.max(...list.map(x=>x.e));
+    /* v0.156: linha de uma equipe SEM produção que começa no início do período (ex.: operação suspensa, sem operador) não sobrepõe as linhas "-" do começo (DDS, aguardando estivadores): ela passa a valer depois delas */
+    const tracos=list.filter(x=>x.g==='-').sort((p,q)=>p.s-q.s);
+    list.forEach(x=>{if(x.g==='-'||!x.np||x.s!==start)return;let p=start;tracos.forEach(t=>{if(t.s<=p&&t.e>p)p=t.e});if(p>x.s&&p<x.e)x.s=p});
     const rr=list.map(x=>x.row), sheet=list[0].sheet, date=list[0].date||'—', per=hmm(start)+'–'+hmm(end);
     const achados=new Map();   // chave -> {tipo, linha, txt, acao, eqs:Set, det:[]}
     const poe=(k,o,eq,det)=>{if(!achados.has(k))achados.set(k,Object.assign(o,{eqs:new Set(),det:[]}));const a=achados.get(k);a.eqs.add(eq);a.det.push(nmG(eq)+': '+det)};

@@ -1657,3 +1657,56 @@ Subir: index.html, sw.js, versao.json
 - Banco novo: /painel/sofm e /painel/sofnav (regras sem mudança).
 - ARQUIVOS NOVOS: crie a pasta ferramentas/sof/ no GitHub e envie os 3 arquivos dela.
 Subir: index.html, sw.js, versao.json, ferramentas/sof/exceljs.min.js, ferramentas/sof/sof-modelo.json, ferramentas/sof/sof-modelo.xlsx
+
+=== Versão 0.151.0 ===
+- SOF › Maker: a tela de preenchimento voltou a ser formulário no padrão do painel. O PDF e o Excel continuam iguais ao modelo.
+- PERIOD TOTAL sem produção sai com "-" (como no modelo).
+- Aviso quando outra pessoa está com o mesmo SOF aberto; a tela atualiza com as alterações dela. Os campos do cabeçalho agora gravam um a um.
+- Frases padrão das paralisações (botão "Frases padrão"): a Liderança muda as traduções. Banco /painel/sofcfg/frases.
+- Stowage Plan: marque "Incluir no PDF e no Excel" no fim do SOF (padrão: marcado para Export). Página deitada no PDF e aba STOWAGE PLAN no Excel, com o desenho do navio do modelo (5 porões).
+- ARQUIVOS NOVOS/ALTERADOS na pasta ferramentas/sof/: sof-modelo.xlsx e sof-modelo.json (mudaram), jszip.min.js e stowage-desenho.xml (novos).
+Subir: index.html, sw.js, versao.json, ferramentas/sof/sof-modelo.xlsx, ferramentas/sof/sof-modelo.json, ferramentas/sof/jszip.min.js, ferramentas/sof/stowage-desenho.xml
+
+=== Versão 0.152.0 ===
+- SOF › Maker em 5 etapas (abas): Cabeçalho (4 cartões), Eventos (linha do tempo com aviso de ordem), Períodos (recolhidos, com resumo), Stowage Plan e Conferir e exportar (lista do que falta; clique leva ao campo).
+- Berth side (Starboard side / Port side) e Type of operation (Import / Export) são escolhidos numa lista. Saiu o botão "Nova guia".
+- Stowage Plan no PDF com desenho novo (4 a 9 porões, cores por carga, tabela por porão, espaço para assinatura e carimbo). Opção "Modelo antigo" no PDF. O Excel continua no modelo da equipe (5 porões).
+Subir: index.html, sw.js, versao.json (se a 0.151.0 ainda não subiu, envie também os arquivos dela da pasta ferramentas/sof/)
+
+=== Versão 0.153.0 ===
+- SOF › Maker: botão "Importar planilha" (barra do SOF, card do navio e topo da lista; também dá para arrastar o .xlsx). Lê o modelo PL_TPS_006 Rev04: cabeçalho, eventos, drafts, draft survey, carga, todos os períodos (blocos até o PERIOD TOTAL) e a aba STOWAGE PLAN.
+- Janela "Importar a planilha": lista o que é novo e o que é diferente (Painel × Planilha). Padrão: só o vazio + períodos novos; opção "Importar tudo". O que entra fica confirmado, com origem "Planilha importada". Aviso se o navio da planilha for outro.
+- Pelo topo da lista, o painel acha o navio pelo nome da planilha e abre o SOF dele.
+Subir: index.html, sw.js, versao.json
+
+=== Versão 0.154.0 ===
+- SOF › Maker: fase do período (Atracado ou Fundeio). Novo período herda a fase do anterior. Exportação: "TOTAL LOADED/DISCHARGED ASHORE" depois do último período atracado, título "LOADING/DISCHARGING AT ANCHORAGE AREA" antes do 1º período de fundeio, "TOTAL ... AT ANCHORAGE AREA" e o "TOTAL ..." geral no fim.
+- "+ Incluir manobra": bloco só de eventos (data opcional), com as frases Awaiting pilot for shifting maneuver / Vessel unberthed / Vessel dropped anchor at anchorage area / Awaiting resume operation. Sai com PERIOD TOTAL "-".
+- Totais por fase na etapa Períodos e em "Conferir e exportar" (comparados com os totais da planilha importada).
+- Importação: linhas TOTAL em qualquer coluna (não viram produção), fórmula sem resultado = vazio, título AT ANCHORAGE AREA = fase de fundeio, bloco sem horário nem produção = manobra.
+Subir: index.html, sw.js, versao.json
+
+=== Versão 0.155.0 ===
+- SOF › Exportar PDF/Excel abre uma janela: PDF = Só o SOF / SOF + Stowage Plan / Só o Stowage Plan (A4 paisagem); Excel = caixa "Incluir a aba STOWAGE PLAN". O padrão vem da etapa Stowage Plan.
+- PDF e Excel sem células amarelas. Linha abaixo do Final draft survey completa (borda de baixo de H20:H22).
+- Saiu o "+ Incluir período" da barra do topo e a nota do rodapé do Stowage Plan novo.
+Subir: index.html, sw.js, versao.json
+
+=== Versão 0.156.0 ===
+- SOF › Maker usa o motor do Revisor: gera o Excel em memória e roda o Revisor num quadro escondido (2,5 s depois de cada gravação). Ocorrências em "Conferir e exportar" (seção Revisor), linha com ocorrência em vermelho, selo no período e nas abas. "Ignorar" grava na lista da equipe (a mesma do Revisor). A conferência própria de equipe sobreposta do Maker saiu (o Revisor faz).
+- Histórico do SOF (botão "Histórico"): /painel/sofhist/<navio>/<id> {em,por,u,o,t}. Registra campos do cabeçalho e eventos (antes → depois), períodos (linhas incluídas/tiradas, campos alterados, confirmações, fase), manobras, Stowage Plan, importação, exportação e ocorrências ignoradas. Edições seguidas do mesmo item em 2 min viram uma linha.
+- Revisor: depois de analisar, se o navio tem SOF no Maker aparece "Abrir no Maker" / "Importar esta planilha no Maker".
+- Revisor (sof-app.js): linha de equipe sem produção que começa no início do período não acusa sobreposição com as linhas "-" do começo (DDS, aguardando estivadores).
+Subir: index.html, sw.js, versao.json, ferramentas/sof-app.js
+
+=== Versão 0.156.1 ===
+- SOF › Maker: Hold vira lista (- e 1 a 6), como o Gang. Valor antigo fora da lista (ex.: 2/3) continua aparecendo como opção. Lista do Excel (validação da coluna HOLD) também vai até 6.
+Subir: index.html, sw.js, versao.json
+
+=== Versão 0.157.0 ===
+- Início: cartões na ordem do fluxo (Line Up, Rotinas, Requisições, Solicitações, Operação, SOF, Como usar). Operação e SOF com cartão e ícone próprios; selo BETA pequeno ao lado do nome.
+- Situação de cada cartão (chip [data-tst]): Operação = períodos terminados nos últimos 3 dias sem envio (Estiva/Comercial); SOF = SOFs iniciados e itens a confirmar/ocorrências do Revisor (revN). O cais 3D usa os mesmos números (CAIS.selos).
+- Cais 3D (ferramentas/cais.js): estrutura nova da Operação (balança com caminhão e placar PRODUÇÃO).
+- Agora no meu turno e sino: aviso "SOF com itens a confirmar ou ocorrências do Revisor" (tipo sof).
+- Como usar: guia novo "Operação: produção, estiva e Comercial" (5 passos) e "SOF: Maker e Revisor" (4 passos do Maker + Revisor). "Como usar esta tela" da Operação abre o guia.
+Subir: index.html, sw.js, versao.json, ferramentas/cais.js, ferramentas/ajuda/op-1.webp a op-5.webp, ferramentas/ajuda/sofmk-1.webp a sofmk-4.webp

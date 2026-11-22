@@ -154,7 +154,7 @@ var lanca;
   ESTR.solicitacoes={grupo:g,ancora:new T.Vector3(-2.4,CAIS_Y+4.5,-11.2),toque:[6,4.4,4.6],toqueC:new T.Vector3(-2.4,CAIS_Y+2,-11.2)};
 })();
 
-/* ---- SOF Reviewer → central documental com prancheta e verificação ---- */
+/* ---- SOF (Maker e Revisor) → central documental com prancheta e verificação ---- */
 (function(){
   var g=new T.Group();g.position.set(5.2,CAIS_Y,-11.0);cena.add(g);
   caixa(4.6,2.0,3.2,C.concreto,0,1.0,0,g);caixa(4.62,1.1,0.06,C.vidro,0,1.15,1.6,g,false);caixa(4.8,0.18,3.4,C.grafite,0,2.08,0,g);
@@ -169,6 +169,24 @@ var lanca;
   var v2=caixa(0.22,1.25,0.06,C.vermelho,0.12,1.12,0.12,p,false);v2.rotation.z=-0.62;
   cil(0.07,0.07,1.2,C.grafite,0,2.6,-0.75,g,6).rotation.x=0.4;
   ESTR.revisor={grupo:g,ancora:new T.Vector3(5.2,CAIS_Y+5.5,-11.0),toque:[5,5.4,3.8],toqueC:new T.Vector3(5.2,CAIS_Y+2.6,-11.0)};
+})();
+
+/* ---- Operação → balança rodoviária com caminhão de granel e placar de produção (v0.157) ---- */
+(function(){
+  var g=new T.Group();g.position.set(-8.2,CAIS_Y,-4.3);cena.add(g);
+  caixa(5.0,0.16,2.0,C.concretoEsc,0,0.08,0,g);caixa(4.4,0.06,1.5,C.cinza,0,0.19,0,g);            // plataforma da balança
+  caixa(4.46,0.04,0.08,C.amarelo,0,0.23,0.78,g,false);caixa(4.46,0.04,0.08,C.amarelo,0,0.23,-0.78,g,false);
+  // caminhão: cavalo vermelho + caçamba com carga
+  caixa(1.1,1.0,1.3,C.vermelho,1.55,0.85,0,g);caixa(0.06,0.42,1.0,C.vidro,2.11,1.05,0,g,false);caixa(1.12,0.12,1.32,C.grafite,1.55,1.4,0,g);
+  caixa(2.6,0.22,1.3,C.grafite,-0.4,0.48,0,g);caixa(2.5,0.75,1.25,C.cinza,-0.45,0.96,0,g);
+  var mt=new T.Mesh(G(new T.ConeGeometry(0.62,0.42,4)),C.gusa);mt.rotation.y=Math.PI/4;mt.scale.set(1.9,1,1);mt.position.set(-0.45,1.52,0);mt.castShadow=true;g.add(mt);
+  [[1.7,0.62],[1.7,-0.62],[-0.1,0.62],[-0.1,-0.62],[-1.3,0.62],[-1.3,-0.62]].forEach(function(p){var r=cil(0.26,0.26,0.2,C.preto,p[0],0.42,p[1],g,12);r.rotation.x=Math.PI/2});
+  // placar de produção (barras por período)
+  var pt=textura(512,320,function(x,w,h){x.fillStyle='#24262A';x.fillRect(0,0,w,h);x.fillStyle='#DA202C';x.fillRect(0,0,w,40);x.fillStyle='#FFFFFF';x.font='bold 26px Arial, Helvetica, sans-serif';x.fillText('PRODUÇÃO',18,29);
+    var b=[0.55,0.8,0.68,0.92];for(var i=0;i<4;i++){var bh=(h-120)*b[i];x.fillStyle=i===3?'#E8B04A':'#EDEEEF';x.fillRect(40+i*115,h-40-bh,70,bh)}x.fillStyle='#8A8C91';x.fillRect(24,h-38,w-48,3)});
+  var pm=new T.Mesh(G(new T.BoxGeometry(2.4,1.5,0.12)),[C.grafiteEsc,C.grafiteEsc,C.grafiteEsc,C.grafiteEsc,new T.MeshStandardMaterial({map:pt.tex,roughness:0.85}),C.grafiteEsc]);pm.position.set(-1.2,3.0,-1.35);pm.castShadow=true;g.add(pm);
+  cil(0.07,0.07,2.3,C.grafite,-2.2,1.15,-1.35,g,6);cil(0.07,0.07,2.3,C.grafite,-0.2,1.15,-1.35,g,6);
+  ESTR.operacao={grupo:g,ancora:new T.Vector3(-9.2,CAIS_Y+4.1,-5.6),toque:[5.2,4.2,3.4],toqueC:new T.Vector3(-8.2,CAIS_Y+1.6,-4.6)};
 })();
 
 /* ---- Como usar → torre de controle com identificação de ajuda ---- */
