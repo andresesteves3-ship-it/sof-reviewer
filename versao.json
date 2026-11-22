@@ -1,4 +1,4 @@
 {
- "v": "0.155.0",
- "resumo": "SOF: escolher o Stowage Plan ao exportar, sem amarelo no PDF e no Excel."
+ "v": "0.156.0",
+ "resumo": "SOF: Maker e Revisor juntos, histórico de alterações e ponte do Revisor para o Maker."
 }
