@@ -1,4 +1,4 @@
-/* Carteiro do Painel dos Assistentes — Cloudflare Worker (v0.135.0)
+/* Carteiro do Painel dos Assistentes — Cloudflare Worker (v0.144.0)
    Recebe do painel um pedido de notificação e envia Web Push para os celulares e computadores inscritos.
    Segurança: o painel manda o token de login do Firebase de quem enviou. O carteiro usa esse token para ler
    /painel/push no banco. Se o token não for de um usuário do painel, o banco recusa e nada é enviado.
@@ -22,6 +22,8 @@
    v0.135.0 — ROBÔ DE ALOCAÇÃO NO GEPORT: GET /?geport=1 (o painel chama depois de gravar um pedido em /painel/area/gpFila)
    pede ao GitHub para rodar geport-aloca.yml, se houver pedido pendente e o robô ainda não estiver rodando.
    O despertador (a cada 15 min) faz a mesma conferência, para o caso de o pedido do painel se perder. Nenhuma variável nova.
+   v0.138.0 — FINALIZAÇÃO AUTOMÁTICA (v0.144.0: clique às 07:00 e 19:00 em ponto; pedido criado 06:45/18:45): antes às 07:15 e às 19:15 (horário de Brasília), quem ficou alocado no Geport na escala do turno
+   que terminou recebe um pedido de finalização (por "Automático"). Uma vez por escala (/painel/area/gpAuto/<escala>).
 */
 const b64u = {
   dec(s) { s = String(s).replace(/-/g, '+').replace(/_/g, '/'); while (s.length % 4) s += '='; const b = atob(s), u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; },
@@ -131,9 +133,42 @@ async function geportFila(env) {
   if (!tk) return { ok: false, pendentes: pend.length, gh: 'sem chave do GitHub' };
   const h = { Accept: 'application/vnd.github+json', Authorization: 'Bearer ' + tk, 'X-GitHub-Api-Version': '2022-11-28', 'User-Agent': 'painel-carteiro' };
   const u = await fetch('https://api.github.com/repos/' + repo + '/actions/workflows/geport-aloca.yml/runs?per_page=3', { headers: h });
-  if (u.ok) { const rs = (await u.json()).workflow_runs || []; if (rs.some(r => r.status === 'queued' || r.status === 'waiting' || r.status === 'pending' || (r.status === 'in_progress' && Date.now() - Date.parse(r.created_at) < 25 * 60e3))) return { ok: true, pendentes: pend.length, gh: 'já rodando' }; }
+  if (u.ok) { const rs = (await u.json()).workflow_runs || []; if (rs.some(r => r.status === 'queued' || r.status === 'waiting' || r.status === 'pending' || (r.status === 'in_progress' && Date.now() - Date.parse(r.created_at) < 50 * 60e3))) return { ok: true, pendentes: pend.length, gh: 'já rodando' }; }
   const x = await fetch('https://api.github.com/repos/' + repo + '/actions/workflows/geport-aloca.yml/dispatches', { method: 'POST', headers: Object.assign({ 'Content-Type': 'application/json' }, h), body: JSON.stringify({ ref: 'main' }) });
   return { ok: x.status === 204, pendentes: pend.length, gh: x.status === 204 ? 'pedido' : 'GitHub respondeu ' + x.status };
+}
+/* v0.138.0: finalização automática 15 min depois do fim do turno */
+async function geportAuto(env, agora) {
+  agora = agora || Date.now();
+  const br = new Date(agora - 3 * 3600e3), h = br.getUTCHours(), mi = br.getUTCMinutes(), hm = h * 60 + mi;
+  const ymd = d => d.toISOString().slice(0, 10);
+  let esc = null;
+  /* v0.144.0: o Geport grava a saída na hora do clique. O pedido nasce às 06:45/18:45 com "naoAntes" = 07:00/19:00 em ponto:
+     a integração entra antes e só clica em FINALIZAR no fim do turno. */
+  let naoAntes = 0;
+  const hojeBr = Date.UTC(br.getUTCFullYear(), br.getUTCMonth(), br.getUTCDate()) + 3 * 3600e3;   /* 00:00 de Brasília em UTC */
+  if (hm >= 6 * 60 + 45 && hm < 9 * 60) { esc = ymd(new Date(br.getTime() - 864e5)) + '_noite'; naoAntes = hojeBr + 7 * 3600e3; }
+  else if (hm >= 18 * 60 + 45 && hm < 21 * 60) { esc = ymd(br) + '_dia'; naoAntes = hojeBr + 19 * 3600e3; }
+  if (!esc) return { auto: 'fora do horário' };
+  const site = String(env.SITE || ((env.ORIGEM || 'https://andresesteves3-ship-it.github.io') + '/sof-reviewer')).replace(/\/$/, '');
+  const fb = await fbLogin(env, site);
+  if (await fbGet(fb, 'painel/area/gpAuto/' + esc)) return { auto: 'já feito', esc };
+  const [gr, es, tf] = await Promise.all([fbGet(fb, 'painel/area/gpRes/' + esc), fbGet(fb, 'painel/area/escala/' + esc), fbGet(fb, 'painel/tps/func')]);
+  const itens = [], R = gr || {}, F = (es && es.fr) || {}, T = tf || {};
+  Object.keys(R).forEach(fid => {
+    const g = R[fid] || {}, e = g.est || {}, f = F[fid], fin = g.fin || {};
+    if (!f || !f.cod || fin.st === 'fila' || fin.st === 'rodando') return;
+    const ms = Object.keys(e).filter(m => e[m] && e[m].al && !e[m].fin);
+    if (!ms.length) return;
+    const todos = ['sup', 'conf', 'opmc', 'emp'].reduce((a, k) => a.concat(f[k] || []), []).map(m => String((T[m] || {}).nome || '')).filter(Boolean);
+    itens.push({ fid, tipo: f.tipo === 'nav' ? 'nav' : 'av', cod: String(f.cod), nome: String(f.nome || ''), todos, pessoas: ms.map(m => ({ m, cod: String((T[m] || {}).cod || ''), nome: String((T[m] || {}).nome || '') })) });
+  });
+  await fbPut(fb, 'painel/area/gpAuto/' + esc, { em: agora, frentes: itens.length });
+  if (!itens.length) return { auto: 'ninguém alocado', esc };
+  const pid = agora + '_auto', em = agora;
+  await fbPut(fb, 'painel/area/gpFila/' + pid, { tipo: 'fin', esc, itens, por: 'Automático', em, st: 'pendente', ensaio: false, auto: true, naoAntes: Math.max(naoAntes, agora) });
+  for (const i of itens) { const b = 'painel/area/gpRes/' + esc + '/' + i.fid + '/fin'; await fbPut(fb, b + '/st', 'fila'); await fbPut(fb, b + '/em', em); await fbPut(fb, b + '/por', 'Automático'); }
+  return { auto: 'pedido', esc, frentes: itens.length };
 }
 const hm = min => min >= 120 ? Math.round(min / 60) + ' h' : Math.round(min) + ' min';
 async function despertador(env) {
@@ -176,8 +211,9 @@ export default {
     if (req.method !== 'POST') {
       // GET /?despertador=1 roda a conferência agora (para testar); só pede leitura das integrações atrasadas
       if (new URL(req.url).searchParams.get('despertador')) return resp(env, await despertador(env));
+      if (new URL(req.url).searchParams.get('geportauto')) { try { return resp(env, await geportAuto(env)); } catch (e) { return resp(env, { ok: false, erro: String(e.message || e) }, 500); } }
       if (new URL(req.url).searchParams.get('geport')) { try { return resp(env, await geportFila(env)); } catch (e) { return resp(env, { ok: false, erro: String(e.message || e) }, 500); } }
-      return resp(env, { ok: true, carteiro: '0.135.0', despertador: !!(env.FB_ROBO_EMAIL && env.FB_ROBO_PASS) });
+      return resp(env, { ok: true, carteiro: '0.144.0', despertador: !!(env.FB_ROBO_EMAIL && env.FB_ROBO_PASS) });
     }
     let p; try { p = await req.json(); } catch (e) { return resp(env, { ok: false, erro: 'pedido inválido' }, 400); }
     if (!p || !p.token || !Array.isArray(p.para) || !p.para.length || p.para.length > 50) return resp(env, { ok: false, erro: 'faltam dados' }, 400);
@@ -194,5 +230,5 @@ export default {
     return resp(env, { ok: true, enviadas: n, falhas });
   }
 ,
-  async scheduled(ev, env, ctx) { ctx.waitUntil(Promise.all([despertador(env), geportFila(env).catch(() => null)])); }
+  async scheduled(ev, env, ctx) { ctx.waitUntil(Promise.all([despertador(env), geportAuto(env).catch(() => null).then(() => geportFila(env)).catch(() => null)])); }
 };

@@ -1464,3 +1464,196 @@ ARQUIVO DO ROBÔ MUDOU: envie também scripts/geport-aloca.js e .github/workflow
 CARTEIRO MUDOU: cole carteiro/worker.js no Cloudflare (painel-carteiro › Edit code) e clique em Deploy. Nenhuma variável nova.
 Secrets usados (já cadastrados): GEPORT_USER, GEPORT_PASS, FB_ROBO_EMAIL, FB_ROBO_PASS.
 Subir: index.html, sw.js, versao.json, scripts/geport-aloca.js, .github/workflows/geport-aloca.yml
+
+=== Versão 0.135.1 ===
+- Geport: "Cancelar o pedido" no cartão da frente e "Cancelar a fila" na barra Geport (enquanto o robô ainda não começou). O robô pula a frente cancelada.
+- Aviso quando o carteiro ainda está na versão antiga e não chamou o robô.
+ARQUIVO DO ROBÔ MUDOU: envie também scripts/geport-aloca.js.
+Subir: index.html, sw.js, versao.json, scripts/geport-aloca.js
+
+=== Robô do Geport 0.135.2 (só o robô) ===
+- Login: digita o usuário no 1º campo VISÍVEL (a tela do celular tem campos escondidos, como o do QR Code) e digita como uma pessoa.
+- Se o login falhar, o cartão mostra os campos da tela (sem os valores), as mensagens de erro e se o botão ENTRAR está habilitado.
+ARQUIVO DO ROBÔ MUDOU: envie scripts/geport-aloca.js.
+Subir: scripts/geport-aloca.js
+
+=== Robô do Geport 0.135.3 (só o robô) ===
+- Login como o usuário faz: USUARIO, SENHA, CONTRATO = TPS (lista "SELECIONE"), ENTRAR.
+- Depois do login abre a versão do celular: #/mobile/tela-inicial.
+- Navegador em tamanho de computador (com localização do terminal e câmera falsa).
+ARQUIVO DO ROBÔ MUDOU: envie scripts/geport-aloca.js.
+Subir: scripts/geport-aloca.js
+
+=== Robô do Geport 0.135.4 (só o robô) ===
+- Botão da tela inicial do celular: "ALOCAÇÃO RECURSO".
+Subir: scripts/geport-aloca.js
+
+=== Robô do Geport 0.135.5 (só o robô) ===
+- Fluxo dos prints: ALOCAÇÃO RECURSO › TIPO DA FRENTE (AQUAVIÁRIO para navio, AVULSA para as demais) › CÓDIGO DA FRENTE › BUSCAR FRENTE › FUNCIONÁRIO › HORA EXTRA › código › espera 3 s › ADICIONAR › espera 3 s › próximo.
+- Confere HORA EXTRA antes de cada pessoa e nunca marca RESPONSÁVEL DA ATIVIDADE.
+- Cada frente começa da tela inicial do celular.
+Subir: scripts/geport-aloca.js
+
+=== Robô do Geport 0.135.6 (só o robô) ===
+- Finalizar: FUNCIONÁRIO › VISUALIZAR LISTAGEM ALOCAÇÃO RECURSO › para cada pessoa da escala, FINALIZAR na linha dela › espera 3 s › próxima (a janela fica aberta).
+- Segurança: acha a linha pelo nome completo; só confirma em janela nova (SIM/OK); nunca clica em FINALIZAR de outra linha; confere se a linha mudou.
+Subir: scripts/geport-aloca.js
+
+=== Versão 0.136.0 ===
+- Escala da Área: cada frente tem Supervisor, Conferente (ou Balanceiro), Opmc, Op. de Empilhadeira, Máquinas e Obs.
+- Saíram os blocos separados "Lideranças" e "Op. de Empilhadeira".
+- Todo navio precisa de Supervisor: o cartão fica marcado e o placar mostra "navio(s) sem supervisor".
+- Supervisor pode ficar em mais de uma frente; Op. de Empilhadeira sai da lista quando já está em outra frente.
+- O robô do Geport aloca e finaliza todos da frente (Supervisor, Conferente, Opmc, Empilhadeira).
+- Escalas antigas: as pessoas dos blocos antigos aparecem no aviso "pessoa(s) sem frente" até serem movidas.
+- Imagem e texto do WhatsApp: cada frente mostra Supervisor, Conferente, Opmc e Empilhadeira; o bloco APOIO saiu.
+- A caixa "RESPONSÁVEL DA ATIVIDADE" do Geport continua sem marcar.
+Subir: index.html, sw.js, versao.json (o robô não mudou)
+
+=== Robô do Geport 0.135.7 (só o robô) ===
+- Finalizar: depois de todos, fecha e reabre a listagem e confere. Se a pessoa continua CONFIRMADO, o cartão mostra o erro (antes dizia "finalizado" sem conferir).
+- Reconhece mais tipos de janela de confirmação (Quasar, SweetAlert, role=dialog) e guarda no cartão o texto que a janela mostrou.
+Subir: scripts/geport-aloca.js
+
+=== Robô do Geport 0.135.8 (só o robô) ===
+- Finalizar: o cartão mostra também as chamadas ao servidor do Geport depois do clique (só método, caminho e código), para achar o passo que falta.
+Subir: scripts/geport-aloca.js
+
+=== Robô do Geport 0.135.9 (só o robô) ===
+- Finalizar: depois do clique, espera a pessoa SUMIR da lista (até 15 s; no Geport leva uns 5 s). Lista vazia durante a atualização não conta. Depois espera 3 s e segue para a próxima.
+- Se a pessoa continua na lista, o cartão mostra o erro.
+Subir: scripts/geport-aloca.js
+
+=== Robô do Geport 0.135.10 (só o robô) ===
+- Finalizar: marca HORA EXTRA depois de FUNCIONÁRIO, antes de abrir a listagem (o Geport exige). Se não conseguir marcar, para e avisa no cartão.
+Subir: scripts/geport-aloca.js
+
+=== Versão 0.137.0 ===
+- Geport: a integração guarda quem já foi alocado e finalizado (por pessoa). Ao clicar de novo, só vai quem falta.
+- Geport: "Finalizar no Geport" também em cada cartão (última hora do turno). A finalização vale quando o Geport responde que aceitou; no fim, a integração abre a frente de novo e confere a listagem. Quem já não está na listagem conta como finalizado.
+- Cartão limpo: só o resumo ("⚠ Alocou 4 de 5 · ver quem"). Clique para ver quem falta e o motivo curto.
+- Administração › "Alocação no Geport (Área)": os últimos pedidos com o detalhe técnico de cada frente e pessoa.
+- Escala: "da equipe sem frente" abre a lista por função. Motivo (Falta, Afastado, Folga, Férias, Atestado, Em outra equipe) pelo botão Motivo, botão direito ou tocar e segurar. Ausências não vão para a imagem do WhatsApp.
+- Área: Meu perfil sem "cais 3D" e "Supervisor padrão"; "Ao entrar, abrir" só com telas da Área. Ajuda com assuntos só da Área (Escala, Geport, Passagem, Line Up, Solicitações, Minha equipe, Perfil).
+- Telas: a palavra "robô" foi trocada por "integração".
+ARQUIVO DA INTEGRAÇÃO MUDOU: envie também scripts/geport-aloca.js.
+Subir: index.html, sw.js, versao.json, scripts/geport-aloca.js
+
+=== Versão 0.138.0 ===
+- Geport: barra de progresso real (a integração grava pessoas feitas, frente e etapa).
+- Escala: cor do nome pelo status no Geport (cinza não alocado, verde alocado, amarelo não conseguiu, ✓ finalizado) e legenda acima das frentes.
+- "Finalizar no Geport" sem trava de horário (cartão e barra), com confirmação.
+- Sino: aviso de gente ainda alocada 30 min antes do fim do turno.
+- Finalização automática às 07:15 e 19:15 (carteiro), uma vez por escala, por "Automático".
+ARQUIVO DA INTEGRAÇÃO MUDOU: envie também scripts/geport-aloca.js.
+CARTEIRO MUDOU: cole carteiro/worker.js no Cloudflare (painel-carteiro › Edit code) e clique em Deploy. Nenhuma variável nova.
+Subir: index.html, sw.js, versao.json, scripts/geport-aloca.js (e o carteiro no Cloudflare)
+
+=== Versão 0.138.1 ===
+- Barra de progresso do Geport: "aguardando a integração começar" (sem o nome GitHub). Aviso de carteiro antigo sem nome técnico.
+Subir: index.html, sw.js, versao.json
+
+=== Versão 0.139.0 ===
+- Pedidos de estiva: botão "+ Enlonamento" (ao lado de "+ Balsa"). Bloco com terno único e composição do catálogo (Potássio: PE 2). "✕" no título tira o bloco.
+- Requisições: "NAVIO (ENLONAMENTO)" é conferida com o bloco Enlonamento do pedido.
+- Leitura do pedido: a seção "Enlonamento" do texto do especialista preenche o bloco (sem composição = catálogo, com aviso).
+- Navio de Potássio sem enlonamento no pedido: aviso "Incluir enlonamento".
+- Aviso quando o pedido tem enlonamento e o OGMO não tem a requisição.
+Subir: index.html, sw.js, versao.json
+
+=== Versão 0.140.0 ===
+- Passagem de serviço: a janela abre no plantão da pessoa pela escala (até 3 h depois do fim do plantão).
+- Aviso amarelo e confirmação quando o turno escolhido não é o da pessoa; botão "Usar o meu plantão".
+- "Cancelar esta passagem": no histórico (quem gerou ou Liderança) e no aviso (Liderança). Cancelada sai do aviso de ciente.
+Subir: index.html, sw.js, versao.json
+
+=== Versão 0.141.0 ===
+- Regra única Sala × Área (daSala/daArea): passagem de serviço da Sala (quem assume, "é para você", avisos), chat (@nome, @todos, notificações) e Rumo à 1.0 usam só gente da Sala.
+- Passagens já gravadas também ignoram quem não é da Sala.
+- Teste fixo Sala × Área (teste-sala-area.js no projeto) a cada versão.
+Subir: index.html, sw.js, versao.json
+
+=== Versão 0.141.1 ===
+- Rotinas: "Feito por outra pessoa" e "Não feito" listam só pessoas da Sala (sem Área e sem contas de integração).
+Subir: index.html, sw.js, versao.json
+
+=== Versão 0.141.2 ===
+- Tema escuro: opções das listas de escolha (ex.: navio no pedido de estiva) com fundo escuro e texto claro.
+Subir: index.html, sw.js, versao.json
+
+=== Versão 0.142.0 ===
+- Liderança › Área (Operacional): alertas no topo, alocação no Geport do turno (barra, frentes, quem não foi alocado e motivo, integração rodando), escala do turno (frentes, sem conferente, navios sem supervisor, sem frente, ausências), passagem da Área, últimos 7 dias e assistentes da Área (entrada no painel no turno). Atualiza a cada 1 min.
+Subir: index.html, sw.js, versao.json
+
+=== Versão 0.143.0 ===
+- Barra de progresso do Geport só com a integração trabalhando (sinal nos últimos 5 min). Parada no meio = pedido "interrompido"; o cartão pede para tentar de novo.
+- Cartão: todos feitos = ✓ (mesmo com pedido cancelado depois).
+- Integração: lê as janelas de aviso do Geport. "se encontra na situação Finalizada" ao finalizar = todos desalocados (ok); ao alocar = "a frente está finalizada no Geport".
+- Integração pode rodar até 45 min (workflow) e o carteiro espera até 50 min antes de pedir outra rodada.
+ARQUIVO DA INTEGRAÇÃO MUDOU: envie também scripts/geport-aloca.js e .github/workflows/geport-aloca.yml.
+CARTEIRO MUDOU: cole carteiro/worker.js no Cloudflare (painel-carteiro › Edit code) e clique em Deploy. Nenhuma variável nova.
+Subir: index.html, sw.js, versao.json, scripts/geport-aloca.js, .github/workflows/geport-aloca.yml (e o carteiro no Cloudflare)
+
+=== Versão 0.144.0 ===
+- Finalização automática: o pedido nasce às 06:45/18:45 e a integração clica em FINALIZAR às 07:00/19:00 em ponto (o Geport grava a saída na hora do clique).
+- Finalizar mais rápido: a integração só reabre a frente para conferir quando o Geport não confirma.
+- Escala: botão direito (ou tocar e segurar) no nome: "Finalizar só esta pessoa", "Alocar só esta pessoa" e "Trocar de frente" (finaliza na antiga e aloca na nova).
+- "Concluída" pergunta se quer finalizar a frente no Geport (só quem está alocado).
+- Aviso "N no Geport fora da escala": pessoas CONFIRMADAS no Geport que não estão na escala da frente.
+- Falha que pode passar sozinha (não vale para "não encontrado", "sem código", "frente finalizada"): a integração tenta de novo uma vez, 5 min depois. Integração parada no meio: o painel pede a nova tentativa.
+- Passagem da Área: linha "Geport: N de M finalizados às hh:mm". Liderança › Área › 7 dias: tempo médio entre o fim do turno e a última finalização.
+ARQUIVO DA INTEGRAÇÃO MUDOU: envie também scripts/geport-aloca.js.
+CARTEIRO MUDOU: cole carteiro/worker.js no Cloudflare (painel-carteiro › Edit code) e clique em Deploy. Nenhuma variável nova.
+Subir: index.html, sw.js, versao.json, scripts/geport-aloca.js (e o carteiro no Cloudflare)
+
+=== Versão 0.145.0 ===
+- Nova aba Operação (Sala): lê a produção de cada navio na planilha de produção (a mesma do Line Up; uma aba por navio, com o nome do navio). Navios: em operação no Line Up ou com frente aberta nas Rotinas.
+- "Atualizar a Produção" marcada sozinha nas Rotinas (etiqueta PLANILHA) quando o período terminou e tem produção na planilha (últimos 3 dias). A leitura roda a cada 10 min com o painel aberto.
+- Estiva: imagem "Tally Sheet" (acumulada ou só os períodos escolhidos). Copiar a imagem registra o envio e marca "Enviar Produção".
+- Comercial: e-mail no modelo de hoje (copiar ou abrir no Outlook). Finalizar registra o envio e marca "Enviar Planilha de Pagamentos — Ao Comercial".
+- "Marcar como já enviados": para os períodos enviados antes, fora do painel (não marca as Rotinas).
+- Banco: /painel/operacao (env e cfg). Regras sem mudança.
+Subir: index.html, sw.js, versao.json
+
+=== Versão 0.146.0 ===
+- Operação: layout novo (ordem do mais antigo ao mais novo, total do dia e do navio, cartões que recolhem, grade de 4 períodos por dia na Estiva e no Comercial, enviados escondidos).
+- Planilha: L a P = porões (não ternos); ternos = coluna "Ternos p/ Turno". Imagem e e-mail: uma linha por período, com a quantidade de ternos.
+- Local vem da coluna LOCAL do Line Up. Logo do OGMO fixo na imagem (a liderança pode trocar).
+- A aba Produção (site) virou a sub-aba "Central" dentro de Operação; #producao abre a Central.
+- Administração: "Logins do OGMO" e "Alocação no Geport" recolhem.
+Subir: index.html, sw.js, versao.json
+
+=== Versão 0.147.0 ===
+- Operação: imagem da estiva e e-mail ao Comercial com uma linha por terno (1º, 2º, 3º…), com a produção e os trucks de cada terno.
+- Troca de porão (porões diferente de ternos): selo "⚠ confirmar ternos". Janela com porões × ternos; porão dividido = digita a parte de um terno, o último fica com o resto. Sugestão pela tabela de paralisações da planilha ("1º / 2") e pelo período anterior.
+- A imagem e o e-mail só saem depois de confirmar. Se a planilha mudar os números do período, pede de novo.
+- Banco novo: /painel/operacao/tp (regras sem mudança).
+Subir: index.html, sw.js, versao.json
+
+=== Versão 0.148.0 ===
+- Operação (só gusa): terno abaixo da PRANCHA PADRÃO da aba do navio (sem o valor, 1050 t) pede justificativa antes da imagem e do e-mail. Selo "⚠ … abaixo da prancha · justificar".
+- Sugestão da Obs. pela maior parada de cada terno na tabela de paralisações (ignora DDS e aguardando estivadores/trabalhadores). Ternos com o mesmo motivo ficam numa frase só. A pessoa confere e salva.
+- Imagem e e-mail de gusa: coluna "Caçambas" e "Média" (produção ÷ caçambas) e a Obs. em vermelho abaixo da tabela.
+- Banco novo: /painel/operacao/just (regras sem mudança).
+Subir: index.html, sw.js, versao.json
+
+=== Versão 0.148.1 ===
+- Imagem da estiva (Tally Sheet) sem a linha "navio · períodos" abaixo do título.
+- Saiu o botão "Trocar o logo do OGMO" (o logo fica fixo).
+Subir: index.html, sw.js, versao.json
+
+=== Versão 0.149.0 ===
+- Área: a Passagem de serviço saiu de dentro da Escala e virou aba própria no menu (#passagem; no celular, Mais › Passagem de serviço). O aviso "aguardando ciente" abre direto nela.
+- Escala: vaga "Assistente" em cada frente, abaixo do Supervisor (funções ASSISTENTE DE OPERAÇÃO e ASSISTENTE DE OPERAÇÕES; a Liderança muda em Equipe TPS › Funções de cada papel). Entra na imagem, no texto e na alocação do Geport.
+- Minha equipe: a Função é escolhida numa lista (funções que já existem) e passou a ser obrigatória.
+Subir: index.html, sw.js, versao.json
+
+=== Versão 0.150.0 ===
+- Nova aba SOF (#sof) com duas sub-abas: Maker e Revisor (o antigo SOF Reviewer, sem mudança).
+- Maker: um card por navio em operação, botão "Statement of Facts" (abre aqui ou em nova guia). O painel preenche o cabeçalho (Line Up e Operação) e os períodos (produção e paralisações da planilha de produção, já em inglês). Campo preenchido pelo painel fica azul até a pessoa confirmar; campo vazio fica amarelo.
+- "Incluir período": data e dia em inglês, Gang, Hold, descrição, TRUCKS (potássio) ou VOLUMES (outras cargas) e peso.
+- Exportar PDF e Excel no topo e no fim de cada período ("até este período").
+- O Excel abre a planilha modelo da Triunfo (ferramentas/sof/sof-modelo.xlsx, sem dados de navio) e só troca os dados: mesmas fontes, cores, bordas, logo, impressão, listas de GANG/HOLD e fórmulas.
+- Banco novo: /painel/sofm e /painel/sofnav (regras sem mudança).
+- ARQUIVOS NOVOS: crie a pasta ferramentas/sof/ no GitHub e envie os 3 arquivos dela.
+Subir: index.html, sw.js, versao.json, ferramentas/sof/exceljs.min.js, ferramentas/sof/sof-modelo.json, ferramentas/sof/sof-modelo.xlsx
