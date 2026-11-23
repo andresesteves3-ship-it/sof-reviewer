@@ -89,7 +89,7 @@ SEG.forEach(function(L){faixaCais(L,0,-2.6,C.patio,CY+0.42);faixaCais(L,-0.32,-0
 var NAV={},proxies=[],selId=null,moverId=null;
 /* ---------- v0.163.0 operação animada: guindastes (1 por terno), pás carregadeiras (1 por operador do Plano B), caçambas e pilha do pátio ---------- */
 var OPM={amar:mat('amar',0xE8B21E),verm:mat('vermG',0xC8102E),cabo:mat('cabo',0x222326),pneu:mat('pneu',0x1E1F22),cacamba:mat('cacamba',0x6E747A),vidroE:mat('vidroE',0x2E4652,{r:0.3})};
-var animOn=!leve,OPS={},YG=CY+0.43;   /* YG = piso do pátio (faixaCais em CY+0.42) */
+var animOn=!toque,OPS={},YG=CY+0.43;   /* YG = piso do pátio (faixaCais em CY+0.42) */
 function grupoCrawler(){var g=new T.Group(),bs=new T.Group();g.add(bs);
   caixa(0.95,0.16,0.18,C.preto,0,0.08,0.24,g);caixa(0.95,0.16,0.18,C.preto,0,0.08,-0.24,g);caixa(0.3,0.08,0.5,C.grafite,0,0.18,0,g);
   caixa(0.62,0.22,0.46,OPM.amar,-0.04,0.32,0,bs);caixa(0.2,0.22,0.44,C.grafite,-0.36,0.34,0,bs);caixa(0.2,0.2,0.16,OPM.amar,0.2,0.48,0.14,bs);caixa(0.04,0.13,0.14,OPM.vidroE,0.31,0.5,0.14,bs,false);
@@ -144,14 +144,14 @@ function navioMesh(o){var g=new T.Group(),fant=!!o.fant;
   var M2=function(m){if(!fant)return m;var k='f_'+m.uuid;if(M[k])return M[k];var c=m.clone();c.transparent=true;c.opacity=0.38;c.depthWrite=false;return M[k]=c};
   var B=o.bl?1.25:1.6,L=o.L;
   if(o.bl){var h=new T.Mesh(cascoGeo(L,B,0.75,0),M2(C.balsa));h.position.y=-0.25;h.castShadow=h.receiveShadow=true;g.add(h);
-    var hp=new T.Mesh(G(new T.ConeGeometry(0.55,0.5,8)),M2(corCarga(o.carga)));hp.scale.set(L*0.55,1,1.4);hp.position.set(0,0.72,0);hp.castShadow=true;g.add(hp);return {g:g,B:B}}
+    var ch=o.cheio||0;if(ch>0){var hp=new T.Mesh(G(new T.ConeGeometry(0.55,0.5,8)),M2(corCarga(o.carga)));hp.scale.set(L*0.55*(0.5+0.5*ch),0.25+0.75*ch,1.4*(0.6+0.4*ch));hp.position.set(0,0.47+0.25*(0.25+0.75*ch),0);hp.castShadow=true;g.add(hp)}return {g:g,B:B}}
   var h1=new T.Mesh(cascoGeo(L,B,1.05,0),M2(C.casco));h1.position.y=-0.35;h1.castShadow=h1.receiveShadow=true;g.add(h1);
   var bt=new T.Mesh(cascoGeo(L,B,0.22,-0.01),M2(C.cascoF));bt.position.y=-0.34;g.add(bt);
   var cv=new T.Mesh(cascoGeo(L,B,0.04,0.06),M2(C.conves));cv.position.y=0.7;cv.receiveShadow=true;g.add(cv);
   var sx=-L/2+1.05,nh=Math.max(3,Math.min(9,Math.round((L-3.4)/1.5))),esp=(L-3.6)/nh,x0=sx+1.0+esp/2;
   for(var i=0;i<nh;i++){var hx=x0+i*esp,tw=esp*0.72,aberta=o.cl==='op'&&i%2===0;
     caixa(tw+0.08,0.1,B*0.66,M2(C.grafite),hx,0.79,0,g);
-    if(aberta){var cg=new T.Mesh(G(new T.ConeGeometry(0.45,0.32,7)),M2(corCarga(o.carga)));cg.scale.set(tw*1.6,1,B*0.95);cg.position.set(hx,0.86,0);g.add(cg)}
+    if(aberta&&(o.cheio==null||o.cheio>0)){var hc=o.cheio==null?1:0.25+0.75*o.cheio,cg=new T.Mesh(G(new T.ConeGeometry(0.45,0.32,7)),M2(corCarga(o.carga)));cg.scale.set(tw*1.6,hc,B*0.95);cg.position.set(hx,0.86,0);g.add(cg)}
     else caixa(tw,0.16,B*0.62,M2(C.tampa[o.cl]||C.tampa.fi),hx,0.9,0,g)}
   if(o.carga!=='pot'&&!o.semGui)for(var j=1;j<nh;j+=2){var cx=x0+(j-0.5)*esp;cil(0.09,0.11,0.9,M2(C.guind),cx,1.2,B*0.22,g,8);var lc=caixa(0.07,0.07,1.5,M2(C.guind),cx,1.6,-0.2,g);lc.rotation.x=-0.5}
   /* superestrutura na popa */
@@ -168,8 +168,8 @@ function anel(L,B){var s=new T.Shape(),a=L/2+0.45,b=B/2+0.45,r=0.45;s.moveTo(-a+
 function dados(lista){var vivos={},maeP={},slot=0;
   lista.forEach(function(o){if(o.fund)o.slot=slot++;if(!o.bl&&(o.fund||o.c0!=null)){var l=lugar(o);l.fundM=!!o.fund;maeP[o.id]=l}});
   lista.forEach(function(o){if(o.bl&&o.mae&&maeP[o.mae])o.maeP=maeP[o.mae];if(o.c0==null&&!o.fund&&!o.maeP)return;vivos[o.id]=1;
-    var sg=!!(o.op&&o.op.tn&&!o.op.terra),l=lugar(o),k=[o.cl,o.carga,o.fant?1:0,o.bl?1:0,l.L.toFixed(1),sg?1:0].join('|'),n=NAV[o.id];
-    if(!n||n.k!==k){if(n)apaga(o.id);var mm=navioMesh({L:l.L,cl:o.cl,carga:o.carga,bl:o.bl,fant:o.fant,semGui:sg});n=NAV[o.id]={k:k,g:mm.g,B:mm.B,L:l.L};cena.add(mm.g);
+    var sg=!!(o.op&&o.op.tn&&!o.op.terra),l=lugar(o),k=[o.cl,o.carga,o.fant?1:0,o.bl?1:0,l.L.toFixed(1),sg?1:0,o.cheio==null?'':o.cheio].join('|'),n=NAV[o.id];
+    if(!n||n.k!==k){if(n)apaga(o.id);var mm=navioMesh({L:l.L,cl:o.cl,carga:o.carga,bl:o.bl,fant:o.fant,semGui:sg,cheio:o.cheio});n=NAV[o.id]={k:k,g:mm.g,B:mm.B,L:l.L};cena.add(mm.g);
       var px=new T.Mesh(G(new T.BoxGeometry(l.L+0.6,2.6,mm.B+0.8)),new T.MeshBasicMaterial({visible:false}));px.position.y=0.8;px.userData.id=o.id;mm.g.add(px);proxies.push(px);n.px=px;
       var an=new T.Mesh(anel(l.L,mm.B),new T.MeshBasicMaterial({color:0xFFFFFF,transparent:true,opacity:0,depthWrite:false}));an.position.y=0.04;mm.g.add(an);n.an=an;
       var r=document.createElement('button');r.type='button';r.className='b3-n';r.addEventListener('click',function(){O.clique&&O.clique(o.id)});camadaRot.appendChild(r);n.r=r}
