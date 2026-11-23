@@ -1,4 +1,4 @@
 {
- "v": "0.159.0",
- "resumo": "SOF por cliente: o painel gera o SOF de cada cliente a partir do SOF Total Operation."
+ "v": "0.159.1",
+ "resumo": "Requisição de balsa ligada à frente pelo navio-mãe."
 }
