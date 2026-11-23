@@ -4558,7 +4558,7 @@
      "vis": 1795444228178,
      "de": "",
      "para": "BRASKEM",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
@@ -8346,7 +8346,7 @@
    ]
   },
   "SARONIC BAY SARONIC BAY": {
-   "est": "concluida",
+   "est": "marcada",
    "ev": [
     {
      "t": 1793398419175,
@@ -8363,15 +8363,19 @@
     {
      "t": 1793541556928,
      "e": "concluida"
+    },
+    {
+     "t": 1795458658025,
+     "e": "apareceu"
     }
    ],
    "man": [
     {
-     "pob": "01/11 08:00",
+     "pob": "23/11 23:00",
      "navio": "SARONIC BAY SARONIC BAY",
-     "m": "M",
-     "de": "MAUADIQUE",
-     "para": "WPT 63",
+     "m": "S",
+     "de": "WPT 63",
+     "para": "",
      "secao": "BAIA DE GUANABARA"
     }
    ],
@@ -8396,6 +8400,16 @@
      "para": "WPT 63",
      "ult": 1793530562309,
      "st": "realizada"
+    },
+    {
+     "m": "S",
+     "pob": "23/11 23:00",
+     "ts": 1795485600000,
+     "vis": 1795458658025,
+     "de": "WPT 63",
+     "para": "",
+     "ult": 1795458658025,
+     "st": "prevista"
     }
    ]
   },
@@ -8702,7 +8716,7 @@
      "vis": 1795439165703,
      "de": "",
      "para": "TECONT3",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     },
     {
@@ -8712,7 +8726,7 @@
      "vis": 1795439165703,
      "de": "TECONT3",
      "para": "",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
@@ -10006,7 +10020,7 @@
      "vis": 1795439165703,
      "de": "",
      "para": "TECONT5",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     },
     {
@@ -10016,7 +10030,7 @@
      "vis": 1795439165703,
      "de": "TECONT5",
      "para": "",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
@@ -10990,7 +11004,7 @@
      "vis": 1795377380388,
      "de": "",
      "para": "PS-2",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
@@ -12396,7 +12410,7 @@
      "vis": 1795447958519,
      "de": "",
      "para": "BACS",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
@@ -12986,7 +13000,7 @@
      "vis": 1795027807686,
      "de": "",
      "para": "A4",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     },
     {
@@ -12996,7 +13010,7 @@
      "vis": 1795027807686,
      "de": "A4",
      "para": "",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
@@ -13056,7 +13070,7 @@
      "vis": 1793889223018,
      "de": "",
      "para": "A4",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     },
     {
@@ -13066,7 +13080,7 @@
      "vis": 1793889223018,
      "de": "A4",
      "para": "",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     },
     {
@@ -13076,7 +13090,7 @@
      "vis": 1795025886665,
      "de": "",
      "para": "A4",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     },
     {
@@ -13086,7 +13100,7 @@
      "vis": 1795025886665,
      "de": "A4",
      "para": "",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
@@ -14878,7 +14892,7 @@
      "vis": 1795444228178,
      "de": "RNVHENRIQ",
      "para": "",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
@@ -16086,7 +16100,7 @@
      "vis": 1795134400319,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
@@ -17474,7 +17488,7 @@
      "vis": 1795432751330,
      "de": "TECONT1",
      "para": "",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
@@ -20632,7 +20646,7 @@
      "vis": 1795439165703,
      "de": "",
      "para": "TECONT2",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     },
     {
@@ -20642,7 +20656,7 @@
      "vis": 1795439165703,
      "de": "TECONT2",
      "para": "",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
@@ -20946,7 +20960,7 @@
      "vis": 1795011506909,
      "de": "",
      "para": "TPASSAGE2",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     },
     {
@@ -20956,7 +20970,7 @@
      "vis": 1795011506909,
      "de": "TPASSAGE2",
      "para": "",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
@@ -21224,7 +21238,7 @@
      "vis": 1795023740541,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     },
     {
@@ -21234,7 +21248,7 @@
      "vis": 1795023740541,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
@@ -21245,11 +21259,15 @@
     {
      "t": 1795025886665,
      "e": "apareceu"
+    },
+    {
+     "t": 1795458658025,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "30/11 17:00",
+     "pob": "01/12 09:30",
      "navio": "CMA CGM SILVER CMA CGM SILVER",
      "m": "E",
      "de": "",
@@ -21257,7 +21275,7 @@
      "secao": "BAIA DE GUANABARA"
     },
     {
-     "pob": "01/12 14:00",
+     "pob": "02/12 10:00",
      "navio": "CMA CGM SILVER CMA CGM SILVER",
      "m": "S",
      "de": "TECONTPROLONG",
@@ -21275,6 +21293,16 @@
      "de": "",
      "para": "TECONTPROLONG",
      "ult": 1795447958519,
+     "st": "remarcada"
+    },
+    {
+     "m": "E",
+     "pob": "01/12 09:30",
+     "ts": 1796128200000,
+     "vis": 1795458658025,
+     "de": "",
+     "para": "TECONTPROLONG",
+     "ult": 1795458658025,
      "st": "prevista"
     },
     {
@@ -21285,6 +21313,16 @@
      "de": "TECONTPROLONG",
      "para": "",
      "ult": 1795447958519,
+     "st": "remarcada"
+    },
+    {
+     "m": "S",
+     "pob": "02/12 10:00",
+     "ts": 1796216400000,
+     "vis": 1795458658025,
+     "de": "TECONTPROLONG",
+     "para": "",
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
@@ -21295,11 +21333,15 @@
     {
      "t": 1795025886665,
      "e": "apareceu"
+    },
+    {
+     "t": 1795458658025,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "01/12 16:00",
+     "pob": "02/12 12:00",
      "navio": "CMA CGM LISA MARIE CMA CGM LISA MARIE",
      "m": "E",
      "de": "",
@@ -21307,7 +21349,7 @@
      "secao": "BAIA DE GUANABARA"
     },
     {
-     "pob": "02/12 17:00",
+     "pob": "03/12 16:00",
      "navio": "CMA CGM LISA MARIE CMA CGM LISA MARIE",
      "m": "S",
      "de": "TECONTPROLONG",
@@ -21325,6 +21367,16 @@
      "de": "",
      "para": "TECONTPROLONG",
      "ult": 1795447958519,
+     "st": "remarcada"
+    },
+    {
+     "m": "E",
+     "pob": "02/12 12:00",
+     "ts": 1796223600000,
+     "vis": 1795458658025,
+     "de": "",
+     "para": "TECONTPROLONG",
+     "ult": 1795458658025,
      "st": "prevista"
     },
     {
@@ -21335,6 +21387,16 @@
      "de": "TECONTPROLONG",
      "para": "",
      "ult": 1795447958519,
+     "st": "remarcada"
+    },
+    {
+     "m": "S",
+     "pob": "03/12 16:00",
+     "ts": 1796324400000,
+     "vis": 1795458658025,
+     "de": "TECONTPROLONG",
+     "para": "",
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
@@ -21744,7 +21806,7 @@
      "vis": 1795353325206,
      "de": "",
      "para": "TECONT1",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     },
     {
@@ -21774,13 +21836,13 @@
      "vis": 1795353325206,
      "de": "TECONT1",
      "para": "",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
   },
   "SOUTHERN XANTIS SOUTHERN XANTIS": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1795116292344,
@@ -21793,6 +21855,10 @@
     {
      "t": 1795363193064,
      "e": "apareceu"
+    },
+    {
+     "t": 1795458658025,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -21825,7 +21891,7 @@
      "de": "PS-2",
      "para": "",
      "ult": 1795447958519,
-     "st": "prevista"
+     "st": "realizada"
     }
    ]
   },
@@ -21978,7 +22044,7 @@
      "vis": 1795386624862,
      "de": "",
      "para": "LARGO",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     },
     {
@@ -22096,7 +22162,7 @@
    ]
   },
   "NAVIOS DOMINO NAVIOS DOMINO": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1795248925043,
@@ -22109,6 +22175,10 @@
     {
      "t": 1795401925704,
      "e": "alterada"
+    },
+    {
+     "t": 1795458658025,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -22151,7 +22221,7 @@
      "de": "TECONT1",
      "para": "",
      "ult": 1795447958519,
-     "st": "prevista"
+     "st": "realizada"
     }
    ]
   },
@@ -22173,11 +22243,15 @@
     {
      "t": 1795444228178,
      "e": "alterada"
+    },
+    {
+     "t": 1795458658025,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "23/11 18:00",
+     "pob": "23/11 17:00",
      "navio": "MSC ALBANY MSC ALBANY",
      "m": "S",
      "de": "TECONT3",
@@ -22199,13 +22273,23 @@
     },
     {
      "m": "S",
+     "pob": "23/11 17:00",
+     "ts": 1795464000000,
+     "vis": 1795458658025,
+     "de": "TECONT3",
+     "para": "",
+     "ult": 1795458658025,
+     "st": "prevista"
+    },
+    {
+     "m": "S",
      "pob": "23/11 18:00",
      "ts": 1795467600000,
      "vis": 1795444228178,
      "de": "TECONT3",
      "para": "",
      "ult": 1795447958519,
-     "st": "prevista"
+     "st": "remarcada"
     },
     {
      "m": "S",
@@ -22270,7 +22354,7 @@
      "vis": 1795282623633,
      "de": "TECONT5",
      "para": "",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
@@ -22452,7 +22536,7 @@
      "vis": 1795439165703,
      "de": "",
      "para": "TERMTRIGO",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
@@ -22506,7 +22590,7 @@
      "vis": 1795392029206,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     },
     {
@@ -22526,7 +22610,7 @@
      "vis": 1795392029206,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
@@ -22566,7 +22650,7 @@
      "vis": 1795392029206,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     },
     {
@@ -22576,7 +22660,7 @@
      "vis": 1795392029206,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
@@ -22616,7 +22700,7 @@
      "vis": 1795434853535,
      "de": "",
      "para": "TECONT3",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     },
     {
@@ -22626,7 +22710,7 @@
      "vis": 1795434853535,
      "de": "TECONT3",
      "para": "",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
@@ -22666,7 +22750,7 @@
      "vis": 1795437005151,
      "de": "",
      "para": "TECONT3",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     },
     {
@@ -22676,7 +22760,7 @@
      "vis": 1795437005151,
      "de": "TECONT3",
      "para": "",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
@@ -22716,7 +22800,7 @@
      "vis": 1795437005151,
      "de": "",
      "para": "TECONT2",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     },
     {
@@ -22726,7 +22810,7 @@
      "vis": 1795437005151,
      "de": "TECONT2",
      "para": "",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
@@ -22770,7 +22854,7 @@
      "vis": 1795444228178,
      "de": "",
      "para": "A4",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     },
     {
@@ -22780,7 +22864,7 @@
      "vis": 1795447958519,
      "de": "A4",
      "para": "",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
@@ -22812,7 +22896,139 @@
      "vis": 1795447958519,
      "de": "",
      "para": "PÁTIO 9",
-     "ult": 1795447958519,
+     "ult": 1795458658025,
+     "st": "prevista"
+    }
+   ]
+  },
+  "ABU AL ABYAD ABU AL ABYAD": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1795458658025,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "24/11 05:00",
+     "navio": "ABU AL ABYAD ABU AL ABYAD",
+     "m": "E",
+     "de": "",
+     "para": "A10",
+     "secao": "BAIA DE GUANABARA"
+    }
+   ],
+   "nome": "ABU AL ABYAD ABU AL ABYAD",
+   "mov": [
+    {
+     "m": "E",
+     "pob": "24/11 05:00",
+     "ts": 1795507200000,
+     "vis": 1795458658025,
+     "de": "",
+     "para": "A10",
+     "ult": 1795458658025,
+     "st": "prevista"
+    }
+   ]
+  },
+  "COSCO SHIPPING PERU COSCO SHIPPING PERU": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1795458658025,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "08/12 08:00",
+     "navio": "COSCO SHIPPING PERU COSCO SHIPPING PERU",
+     "m": "E",
+     "de": "",
+     "para": "TECONTPROLONG",
+     "secao": "BAIA DE GUANABARA"
+    },
+    {
+     "pob": "09/12 08:00",
+     "navio": "COSCO SHIPPING PERU COSCO SHIPPING PERU",
+     "m": "S",
+     "de": "TECONTPROLONG",
+     "para": "",
+     "secao": "BAIA DE GUANABARA"
+    }
+   ],
+   "nome": "COSCO SHIPPING PERU COSCO SHIPPING PERU",
+   "mov": [
+    {
+     "m": "E",
+     "pob": "08/12 08:00",
+     "ts": 1796727600000,
+     "vis": 1795458658025,
+     "de": "",
+     "para": "TECONTPROLONG",
+     "ult": 1795458658025,
+     "st": "prevista"
+    },
+    {
+     "m": "S",
+     "pob": "09/12 08:00",
+     "ts": 1796814000000,
+     "vis": 1795458658025,
+     "de": "TECONTPROLONG",
+     "para": "",
+     "ult": 1795458658025,
+     "st": "prevista"
+    }
+   ]
+  },
+  "COSCO MALAYSIA COSCO MALAYSIA": {
+   "est": "marcada",
+   "ev": [
+    {
+     "t": 1795458658025,
+     "e": "apareceu"
+    }
+   ],
+   "man": [
+    {
+     "pob": "11/12 06:00",
+     "navio": "COSCO MALAYSIA COSCO MALAYSIA",
+     "m": "E",
+     "de": "",
+     "para": "TECONTPROLONG",
+     "secao": "BAIA DE GUANABARA"
+    },
+    {
+     "pob": "12/12 07:00",
+     "navio": "COSCO MALAYSIA COSCO MALAYSIA",
+     "m": "S",
+     "de": "TECONTPROLONG",
+     "para": "",
+     "secao": "BAIA DE GUANABARA"
+    }
+   ],
+   "nome": "COSCO MALAYSIA COSCO MALAYSIA",
+   "mov": [
+    {
+     "m": "E",
+     "pob": "11/12 06:00",
+     "ts": 1796979600000,
+     "vis": 1795458658025,
+     "de": "",
+     "para": "TECONTPROLONG",
+     "ult": 1795458658025,
+     "st": "prevista"
+    },
+    {
+     "m": "S",
+     "pob": "12/12 07:00",
+     "ts": 1797069600000,
+     "vis": 1795458658025,
+     "de": "TECONTPROLONG",
+     "para": "",
+     "ult": 1795458658025,
      "st": "prevista"
     }
    ]
@@ -22820,9 +23036,9 @@
  },
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-23T15:32:38.519Z",
- "ultimoSucesso": "2026-11-23T15:32:38.519Z",
- "total": 47,
+ "atualizado": "2026-11-23T18:30:58.025Z",
+ "ultimoSucesso": "2026-11-23T18:30:58.025Z",
+ "total": 51,
  "secoes": [
   "BAIA DE GUANABARA",
   "BAIA DE SEPETIBA",
