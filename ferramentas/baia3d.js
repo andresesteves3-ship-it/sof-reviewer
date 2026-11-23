@@ -89,7 +89,7 @@ SEG.forEach(function(L){faixaCais(L,0,-2.6,C.patio,CY+0.42);faixaCais(L,-0.32,-0
 var NAV={},proxies=[],selId=null,moverId=null;
 /* ---------- v0.163.0 operação animada: guindastes (1 por terno), pás carregadeiras (1 por operador do Plano B), caçambas e pilha do pátio ---------- */
 var OPM={amar:mat('amar',0xE8B21E),verm:mat('vermG',0xC8102E),cabo:mat('cabo',0x222326),pneu:mat('pneu',0x1E1F22),cacamba:mat('cacamba',0x6E747A),vidroE:mat('vidroE',0x2E4652,{r:0.3})};
-var animOn=!toque,OPS={},YG=CY+0.43;   /* YG = piso do pátio (faixaCais em CY+0.42) */
+var animOn=!toque,OPS={},YG=CY+0.43,YT=CY-0.6+0.01;   /* YG = piso do pátio (faixaCais em CY+0.42) */
 function grupoCrawler(){var g=new T.Group(),bs=new T.Group();g.add(bs);
   caixa(0.95,0.16,0.18,C.preto,0,0.08,0.24,g);caixa(0.95,0.16,0.18,C.preto,0,0.08,-0.24,g);caixa(0.3,0.08,0.5,C.grafite,0,0.18,0,g);
   caixa(0.62,0.22,0.46,OPM.amar,-0.04,0.32,0,bs);caixa(0.2,0.22,0.44,C.grafite,-0.36,0.34,0,bs);caixa(0.2,0.2,0.16,OPM.amar,0.2,0.48,0.14,bs);caixa(0.04,0.13,0.14,OPM.vidroE,0.31,0.5,0.14,bs,false);
@@ -103,38 +103,50 @@ function grupoDeck(){var g=new T.Group(),bs=new T.Group();cil(0.13,0.16,0.7,C.gu
   caixa(Lb,0.07,0.07,C.guind,Lb/2,0,0,lan);return {g:g,giro:bs,lanca:lan,Lb:Lb,h0:0.82}}
 function grupoPa(){var g=new T.Group();caixa(0.42,0.16,0.24,OPM.amar,0,0.17,0,g);caixa(0.16,0.16,0.2,OPM.amar,-0.12,0.33,0,g);caixa(0.02,0.1,0.16,OPM.vidroE,-0.035,0.34,0,g,false);
   [[0.13,0.13],[0.13,-0.13],[-0.13,0.13],[-0.13,-0.13]].forEach(function(q){var r=cil(0.085,0.085,0.06,OPM.pneu,q[0],0.085,q[1],g,10);r.rotation.x=Math.PI/2});
-  var br=new T.Group();br.position.set(0.2,0.22,0);g.add(br);caixa(0.2,0.04,0.04,OPM.amar,0.1,0,0.08,br);caixa(0.2,0.04,0.04,OPM.amar,0.1,0,-0.08,br);var ca=caixa(0.1,0.1,0.28,C.grafite,0.22,-0.02,0,br);
-  return {g:g,braco:br}}
-function cacambaMesh(pai){var g=new T.Group();caixa(0.28,0.16,0.22,OPM.cacamba,0,0.08,0,g);var cg=caixa(0.24,0.05,0.18,C.gusa,0,0.17,0,g,false);pai.add(g);return {g:g,cg:cg}}
+  var br=new T.Group();br.position.set(0.2,0.22,0);g.add(br);caixa(0.2,0.04,0.04,OPM.amar,0.1,0,0.08,br);caixa(0.2,0.04,0.04,OPM.amar,0.1,0,-0.08,br);caixa(0.1,0.1,0.28,C.grafite,0.22,-0.02,0,br);
+  var cg=new T.Mesh(G(new T.ConeGeometry(0.1,0.08,6)),C.gusa);cg.scale.set(0.7,1,1.4);cg.position.set(0.22,0.06,0);br.add(cg);
+  return {g:g,braco:br,cg:cg}}
+function cacambaMesh(pai){var g=new T.Group();caixa(0.28,0.16,0.22,OPM.cacamba,0,0.08,0,g);var cg=caixa(0.24,0.08,0.18,C.gusa,0,0.14,0,g,false);pai.add(g);return {g:g,cg:cg}}
 function cabo(pai){var c=new T.Mesh(G(new T.BoxGeometry(0.02,1,0.02)),OPM.cabo);c.castShadow=false;pai.add(c);return c}
-function opMonta(id,o,l){var n=NAV[id];if(!n)return;var k=JSON.stringify(o.op||null)+'|'+l.L.toFixed(1)+'|'+(l.fundM||o.fund?1:0);if(OPS[id]&&OPS[id].k===k)return;opApaga(id);var op=o.op;if(!op||(!op.tn&&!op.pas))return;
-  var g=new T.Group();n.g.add(g);var R={k:k,g:g,gr:[],pas:[],t0:Math.random()*8};OPS[id]=R;
-  /* lado do cais em z local do navio */
+/* ciclo (P segundos): guindaste espera a caçamba encher no chão (0–0,42), iça (0,42–0,5), gira (0,5–0,68), despeja (0,68–0,76), volta (0,76–0,96) e baixa (0,96–1).
+   Pá: enche na pilha (0–0,14), leva até a caçamba (0,14–0,42), despeja (0,42–0,52), volta (0,52–0,86), aproxima da pilha (0,86–1). Despeja quando o guindaste está esperando. */
+var OP_P=10;
+function opMonta(id,o,l){var n=NAV[id];if(!n)return;var k=JSON.stringify(o.op||null)+'|'+l.L.toFixed(1)+'|'+(l.fundM||o.fund?1:0)+'|'+(o.carga||'');if(OPS[id]&&OPS[id].k===k)return;opApaga(id);var op=o.op;if(!op||(!op.tn&&!op.pas))return;
+  var g=new T.Group();n.g.add(g);var R={k:k,g:g,gr:[],pas:[],t0:Math.random()*OP_P};OPS[id]=R;
   var w=nrm(l.hm||0,1),lz={x:-Math.sin(l.ang),z:Math.cos(l.ang)},sc=(w.x*lz.x+w.y*lz.z)>0?-1:1,off=l.off||1.05,L=l.L,terra=!!op.terra,mar=op.lado==='balsa';
-  if(mar){sc=1;off=1.6/2+1.25/2+0.15}var zC=sc*off,yC=mar?0.45:CY;   /* zC = beira do cais (ou costado da balsa) */
+  if(mar){sc=1;off=1.6/2+1.25/2+0.15}var zC=sc*off;R.sc=sc;R.off=off;R.mar=mar;
   var tn=Math.max(0,Math.min(op.tn||0,8));
   var xa=terra&&!mar?-L/2:-L/2+2.1,xb=terra&&!mar?L/2:L/2-0.7;for(var i=0;i<tn;i++){var xi=xa+(i+0.5)*(xb-xa)/tn,cr,base,pk,dr;
     if(terra&&!mar){cr=grupoCrawler();base={x:xi,y:YG,z:zC+sc*0.7};pk={x:xi+0.55,z:zC+sc*1.35};dr={x:xi,z:0}}
-    else{cr=grupoDeck();base={x:xi+0.05,y:0.7,z:0};pk={x:xi+0.25,z:mar?zC:zC+sc*0.35};dr={x:xi+0.62,z:0}}
-    cr.g.position.set(base.x,base.y,base.z);g.add(cr.g);var cb=cabo(g),ca=cacambaMesh(g);
-    var py=mar?0.5:YG;R.gr.push({c:cr,b:base,pk:pk,dr:dr,cb:cb,ca:ca,py:py,dy:0.62,fase:i*0.37,parado:!!(op.par&&op.par[i+1])})}
-  var pz=zC+sc*(mar?0:2.15);if(!mar&&(tn||op.pas)){var pl=new T.Mesh(G(new T.ConeGeometry(0.9,1,9)),corCarga(o.carga));var r=Math.max(0.12,Math.min(1,op.rest==null?1:op.rest));var sx=Math.min(1.6,L*0.13)*(0.55+0.45*r),sz=0.5*(0.6+0.4*r);R.pz=sz*0.9;pl.scale.set(sx,0.2+0.6*r,sz);pl.position.set(0,YG+(0.2+0.6*r)/2,pz);pl.castShadow=true;g.add(pl);R.pl=pl}
-  var np=mar?0:Math.max(0,Math.min(op.pas||0,6));for(var j=0;j<np;j++){var p=grupoPa();g.add(p.g);var alvo=R.gr.length?R.gr[j%R.gr.length].pk:{x:-L/4+j*0.8,z:zC+sc*1.5};
-    R.pas.push({parado:!!(R.gr.length&&R.gr[j%R.gr.length].parado),p:p,a:{x:alvo.x+((j>=R.gr.length)?0.35:0)*(j%2?1:-1),z:alvo.z+sc*0.45},b:{x:alvo.x*0.5+(j%2?0.3:-0.3),z:pz-sc*((R.pz||0.5)+0.35)},fase:(j*0.5)%1,sc:sc})}
+    else{cr=grupoDeck();base={x:xi+0.05,y:0.7,z:0};pk={x:xi+0.25,z:mar?zC:zC+sc*0.4};dr={x:xi+0.62,z:0}}
+    cr.g.position.set(base.x,base.y,base.z);g.add(cr.g);var cb=cabo(g),ca=cacambaMesh(g);ca.cg.material=corCarga(o.carga);
+    R.gr.push({c:cr,b:base,pk:pk,dr:dr,cb:cb,ca:ca,py:mar?0.5:YG,fase:i*0.29,np:0,parado:!!(op.par&&op.par[i+1])})}
+  /* pilha no pátio (faixa clara atrás da faixa cinza do cais: 2,6 a 5,4 da beira) */
+  var pz=zC+sc*3.95;if(!mar){var r=Math.max(0.12,Math.min(1,op.rest==null?1:op.rest)),sx=Math.min(2.2,L*0.2)*(0.55+0.45*r),sz=1.15*(0.6+0.4*r),hy=0.3+0.7*r;
+    var pl=new T.Mesh(G(new T.ConeGeometry(0.9,1,10)),corCarga(o.carga));pl.scale.set(sx,hy,sz);pl.position.set(0,YT+hy/2,pz);pl.castShadow=pl.receiveShadow=true;g.add(pl);R.pl=pl;R.prz=0.9*sz;R.prx=0.9*sx}
+  var np=mar?0:Math.max(0,Math.min(op.pas||0,6));for(var j=0;j<np;j++){var p=grupoPa();p.cg.material=corCarga(o.carga);g.add(p.g);var q=R.gr.length?R.gr[j%R.gr.length]:null,alvo=q?q.pk:{x:-L/4+j*0.8,z:zC+sc*1.2};if(q)q.np++;
+    var bx=Math.max(-R.prx*0.8,Math.min(R.prx*0.8,alvo.x+(j%2?0.25:-0.25)));
+    R.pas.push({q:q,ord:q?q.np-1:j,p:p,a:{x:alvo.x+(j%2?0.12:-0.12),z:alvo.z+sc*0.42},b:{x:bx,z:pz-sc*(R.prz*0.75)}})}
   precisa()}
 function opApaga(id){var R=OPS[id];if(!R)return;var n=NAV[id];if(n)n.g.remove(R.g);delete OPS[id]}
 function ease(k){return k<0.5?2*k*k:1-Math.pow(-2*k+2,2)/2}
+function chaoY(R,z){if(R.mar)return 0.5;var d=Math.abs(z)-R.off;return d<2.45?YG:d>2.75?YT:YG+(YT-YG)*(d-2.45)/0.3}
 function opAnima(t){Object.keys(OPS).forEach(function(id){var R=OPS[id],tt=t+R.t0;
-  R.gr.forEach(function(q){var c=q.c,per=8,k=q.parado?0.03:((tt/per)+q.fase)%1,b=q.b;
+  R.gr.forEach(function(q){var c=q.c,k=q.parado?0.02:((tt/OP_P)+q.fase)%1,b=q.b;q.k=k;
     var angP=Math.atan2(-(q.pk.z-b.z),q.pk.x-b.x),angD=Math.atan2(-(q.dr.z-b.z),q.dr.x-b.x),rP=Math.hypot(q.pk.x-b.x,q.pk.z-b.z),rD=Math.hypot(q.dr.x-b.x,q.dr.z-b.z);
-    var s=0,alt=0,carregada=false;   /* s: 0 = coleta, 1 = despejo; alt: 0 = baixa, 1 = alta */
-    if(k<0.12){s=0;alt=k/0.12<0.5?1-k/0.06:(k-0.06)/0.06;carregada=k>0.06}else if(k<0.45){s=ease((k-0.12)/0.33);alt=1;carregada=true}else if(k<0.55){s=1;alt=0.4;carregada=k<0.5}else{s=1-ease((k-0.55)/0.45);alt=1}
+    var s=0,alt=0,ench=0;   /* ench: quanto a caçamba está cheia (0–1) */
+    if(k<0.42){s=0;alt=0;if(q.np){var nd=0;for(var u=0;u<q.np;u++)if(k>0.06+0.36*(u+0.5)/q.np)nd++;ench=nd/q.np}else ench=k>0.2?1:0}
+    else if(k<0.5){s=0;alt=(k-0.42)/0.08;ench=1}else if(k<0.68){s=ease((k-0.5)/0.18);alt=1;ench=1}else if(k<0.76){s=1;alt=1-(k-0.68)/0.08*0.6;ench=k<0.72?1:0}else if(k<0.96){s=1-ease((k-0.76)/0.2);alt=1;ench=0}else{s=0;alt=1-(k-0.96)/0.04;ench=0}
     var dA=angD-angP;while(dA>Math.PI)dA-=2*Math.PI;while(dA<-Math.PI)dA+=2*Math.PI;var a=angP+dA*s,rr=rP+(rD-rP)*s;c.giro.rotation.y=a;
     var cos=Math.max(0.12,Math.min(0.97,(rr-0.2)/c.Lb));c.lanca.rotation.z=Math.acos(cos);
-    var hx=b.x+Math.cos(a)*rr,hz=b.z-Math.sin(a)*rr,ty=b.y+c.h0+Math.sin(Math.acos(cos))*c.Lb,yb=q.py+0.02,yA=Math.max(yb+0.4,ty-0.55),y=yb+(yA-yb)*Math.max(0,Math.min(1,alt));
-    if(s>0.99&&k>=0.45&&k<0.55)y=Math.max(0.75,y);q.ca.g.position.set(hx,y,hz);q.ca.cg.visible=carregada;q.cb.position.set(hx,(ty+y+0.16)/2,hz);q.cb.scale.y=Math.max(0.05,ty-y-0.16)});
-  R.pas.forEach(function(q){var per=6,k=q.parado?0:((tt/per)+q.fase)%1,f=k<0.45?ease(k/0.45):k<0.55?1:1-ease((k-0.55)/0.45),x=q.b.x+(q.a.x-q.b.x)*f,z=q.b.z+(q.a.z-q.b.z)*f;
-    q.p.g.position.set(x,YG,z);q.p.g.rotation.y=Math.atan2(-(q.a.z-q.b.z),q.a.x-q.b.x)+(k>=0.55?Math.PI:0);q.p.braco.rotation.z=k>0.4&&k<0.6?0.7:k<0.1||k>0.9?-0.15:0.15})})}
+    var hx=b.x+Math.cos(a)*rr,hz=b.z-Math.sin(a)*rr,ty=b.y+c.h0+Math.sin(Math.acos(cos))*c.Lb,yb=q.py+0.01,yA=Math.max(yb+0.45,ty-0.55),y=yb+(yA-yb)*Math.max(0,Math.min(1,alt));
+    q.ca.g.position.set(hx,y,hz);q.ca.cg.visible=ench>0.01;q.ca.cg.scale.y=Math.max(0.2,ench);q.ca.cg.position.y=0.1+0.04*ench;
+    var cl=Math.max(0.02,ty-y-0.16);q.cb.position.set(hx,(ty+y+0.16)/2,hz);q.cb.scale.y=cl});
+  R.pas.forEach(function(q){var c=q.q,k;
+    if(c){var ck=c.k==null?0:c.k,dump=0.06+0.36*(q.ord+0.5)/Math.max(1,c.np);k=(ck-dump+0.47+1)%1;if(c.parado)k=0.05}else k=((tt/OP_P)+q.ord*0.37)%1;
+    var f,carga,br;if(k<0.14){f=0;carga=k>0.07;br=k<0.07?-0.25:0.05}else if(k<0.42){f=ease((k-0.14)/0.28);carga=true;br=0.15}else if(k<0.52){f=1;carga=k<0.47;br=0.75}else if(k<0.86){f=1-ease((k-0.52)/0.34);carga=false;br=0.15}else{f=0;carga=false;br=-0.1}
+    var x=q.b.x+(q.a.x-q.b.x)*f,z=q.b.z+(q.a.z-q.b.z)*f,ida=k<0.52;
+    q.p.g.position.set(x,chaoY(R,z),z);q.p.g.rotation.y=Math.atan2(-(q.a.z-q.b.z),q.a.x-q.b.x)+(ida?0:Math.PI);q.p.braco.rotation.z=br;q.p.cg.visible=carga})})}
 
 function corCarga(t){return t==='gusa'?C.gusa:t==='pot'?C.pot:C.geral}
 function cascoGeo(L,B,alt,enc){var s=new T.Shape(),a=L/2-enc,b=B/2-enc,pr=Math.min(2.4,L*0.16);
