@@ -1,14 +1,12 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-24T05:00:40.940Z",
- "ultimoSucesso": "2026-11-24T05:00:40.940Z",
+ "atualizado": "2026-11-24T11:00:52.974Z",
+ "ultimoSucesso": "2026-11-24T11:00:52.974Z",
  "diag": {
-  "cartoes": 1,
-  "comPrevisao": 1,
-  "amostra": [
-   "RIO PORT II (BBG MASTER) | TÉRMINO PREVISTO / 24 nov / no ritmo real 24 nov / dentro do prazo"
-  ]
+  "cartoes": 0,
+  "comPrevisao": 0,
+  "amostra": []
  },
  "falhasSeguidas": 0
 }
