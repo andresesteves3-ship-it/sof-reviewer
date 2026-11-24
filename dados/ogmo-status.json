@@ -1,18 +1,10 @@
 {
  "ok": false,
  "erro": "Perdi a tela de requisições. Site: HTTP 200. Frames=[{\"sel\":0,\"tab\":0,\"inp\":0,\"txt\":\"\"}]",
- "atualizado": "2026-11-24T12:02:35.603Z",
+ "atualizado": "2026-11-24T12:30:06.252Z",
  "ultimoSucesso": "2026-11-24T11:53:13.386Z",
  "site": false,
  "tentativasEntrada": 1,
- "proxTentativa": "2026-11-24T12:12:59.598Z",
- "falhasSeguidas": 1,
- "pdfs": {
-  "em": "2026-11-24T12:03:53.087Z",
-  "ms": 16450,
-  "feitos": 2,
-  "erros": 0,
-  "faltam": 0
- },
- "pdfsEm": "2026-11-24T12:03:53.087Z"
+ "proxTentativa": "2026-11-24T12:40:30.852Z",
+ "falhasSeguidas": 2
 }
