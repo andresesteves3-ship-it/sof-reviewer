@@ -95,13 +95,13 @@ function vigiarPagina(page) {
 }
 function diagSite() { if (!ULT_DOC) return ''; return ' Site: ' + (ULT_DOC.falha ? 'sem resposta (' + ULT_DOC.falha + ')' : 'HTTP ' + ULT_DOC.http) + '.'; }
 // erro causado pelo site do OGMO (fora do ar, lento ou página vazia), e não pelo robô
-const ERRO_SITE = /página em branco|servidor interno|Timeout|não carregou|não voltou|Perdi a tela|Não achei o menu|não apareceu|net::ERR|HTTP 5\d\d|sem resposta/i;
+const ERRO_SITE = /página em branco|servidor interno|Timeout|não carregou|Não achei o menu|não apareceu|net::ERR|HTTP 5\d\d|sem resposta/i;
 function falhaDoSite(msg) { return ERRO_SITE.test(String(msg || '')); }
 // v0.102.0: entrada (login + menu + filtros) com até 3 tentativas; entre elas limpa a sessão e espera 30 s e depois 60 s
 let TENT_INI = 0; const ERROS_INI = [];
 async function abrirInicio(page) {
   for (let t = 1; t <= 3; t++) {
-    try { await entrar(page); let fr = await abrirRegistro(page); fr = await escolherFiltros(fr); fr = await frameDaTela(page); if (!(await fr.evaluate(() => window.__rb.campoData()))) throw new Error('Perdi a tela de requisições (sem o campo da data).'); TENT_INI = t; return fr; }
+    try { await entrar(page); const fr = await abrirRegistro(page); await escolherFiltros(fr); TENT_INI = t; return fr; }
     catch (e) {
       ERROS_INI.push(mascarar(String(e.message || e)).slice(0, 80) + diagSite());
       if (t === 3) throw e;
@@ -111,11 +111,6 @@ async function abrirInicio(page) {
       ULT_DOC = null; await espera(t * (parseInt(process.env.OGMO_ESPERA_TENT || '', 10) || 30000));
     }
   }
-}
-// v0.163.9: estado da página para o diagnóstico (sem dados: só se carregou, se há envio pendente e o tamanho)
-async function estadoPagina(page) {
-  try { const f = page.mainFrame(); const e = await f.evaluate(() => ({ rs: document.readyState, env: !!window.GSubmitting, tam: (document.documentElement.outerHTML || '').length, tit: (document.title || '').slice(0, 30) }));
-    return ' (página ' + e.rs + (e.env ? ', envio pendente' : '') + ', ' + e.tam + ' bytes' + (e.tit ? ', título "' + e.tit + '"' : '') + ')'; } catch (x) { return ''; }
 }
 async function resumoFrames(page) {
   const out = [];
@@ -213,37 +208,22 @@ async function abrirRegistro(page) {
   return t.fr;
 }
 
-// v0.163.9: cada troca de lista faz o IntraWeb recarregar a tela. Antes, a 2ª lista era trocada 1,5 s depois da 1ª, com a tela ainda
-// recarregando (num dia de OGMO lento) — dois envios ao mesmo tempo e o OGMO devolvia uma página vazia ("Perdi a tela").
-// Agora: só troca a lista que não está certa e espera a tela voltar pronta (documento completo, sem envio pendente) antes do passo seguinte.
-async function telaPronta(page, ms) {
-  const t = await frameCom(page, async f => {
-    const ok = await f.evaluate(() => document.readyState === 'complete' && !window.GSubmitting && document.querySelectorAll('select').length >= 2 && /Requisição de Trabalhadores/.test((document.body && document.body.innerText) || '')).catch(() => false);
-    return ok ? true : null; }, ms || 45000, 'tela de requisições');
-  if (!t) throw new Error('A tela de requisições não voltou depois de trocar o filtro (página em branco).');
-  await espera(600);
-  await t.fr.evaluate(NA_PAGINA);
-  return t.fr;
-}
 async function escolherFiltros(fr) {
-  const page = fr.page();
-  for (const [qual, casa] of [['Porto', o => o.toUpperCase() === PORTO.toUpperCase()], ['Período', o => /^todos$/i.test(o)]]) {
-    fr = await telaPronta(page);
-    const sels = await fr.evaluate(() => [].slice.call(document.querySelectorAll('select')).map((s, i) => ({ i, ops: [].slice.call(s.options).map(o => (o.text || '').replace(/\s+/g, ' ').trim()), at: s.selectedIndex >= 0 ? (s.options[s.selectedIndex].text || '').replace(/\s+/g, ' ').trim() : '' })));
-    const s = sels.find(x => x.ops.some(casa));
-    if (!s) throw new Error('Não achei a lista ' + qual + ' (selects=' + sels.length + ').');
-    // v0.164.3: SEMPRE escolhe de novo (como até a 0.163.8). No OGMO a data nova só vale depois que um filtro
-    // recarrega a lista; pular o filtro "já certo" deixava a lista no dia anterior. Um filtro por vez, esperando a tela.
-    await fr.locator('select').nth(s.i).selectOption({ label: s.ops.find(casa) });
-    await espera(1200);
-  }
-  return telaPronta(page);
+  await fr.evaluate(NA_PAGINA);
+  const sels = await fr.evaluate(() => window.__rb.selects());
+  const ip = sels.find(s => s.ops.some(o => o.toUpperCase() === PORTO.toUpperCase()));
+  const iq = sels.find(s => s.ops.some(o => /^todos$/i.test(o)));
+  if (!ip || !iq) throw new Error('Não achei as listas Porto/Período (selects=' + sels.length + ').');
+  await fr.locator('select').nth(ip.i).selectOption({ label: ip.ops.find(o => o.toUpperCase() === PORTO.toUpperCase()) });
+  await espera(1500);
+  await fr.locator('select').nth(iq.i).selectOption({ label: iq.ops.find(o => /^todos$/i.test(o)) });
+  await espera(2500);
 }
 
 // reencontra o frame da tela (a página pode recarregar a cada clique)
 async function frameDaTela(page) {
-  const t = await frameCom(page, async fr => (await fr.getByText(/Requisição de Trabalhadores/).count()) ? true : null, 30000, 'tela de requisições');
-  if (!t) throw new Error('Perdi a tela de requisições' + (await estadoPagina(page)) + '.');
+  const t = await frameCom(page, async fr => (await fr.getByText(/Requisição de Trabalhadores/).count()) ? true : null, 15000);
+  if (!t) throw new Error('Perdi a tela de requisições.');
   // IntraWeb: a tela só está pronta depois do onload (variável GActivateLock)
   await t.fr.waitForFunction(() => typeof window.SubmitClickConfirm !== 'function' || typeof window.GActivateLock !== 'undefined', null, { timeout: 25000 }).catch(() => {});
   await t.fr.evaluate(NA_PAGINA);
@@ -256,10 +236,10 @@ async function recuperar(page, lbl) {
   let fr;
   try { fr = await abrirRegistro(page); }
   catch (e) { try { await page.context().clearCookies(); } catch (x) {} await entrar(page); fr = await abrirRegistro(page); }   // v0.102.2: sessão nova (o erro 500 costuma vir de sessão vencida)
-  fr = await escolherFiltros(fr);
+  await escolherFiltros(fr);
   fr = await frameDaTela(page);
   let c = await fr.evaluate(() => window.__rb.campoData());
-  if (!c || c.v !== lbl) { await trocarData(page, lbl); fr = await frameDaTela(page); fr = await escolherFiltros(fr); fr = await frameDaTela(page); c = await fr.evaluate(() => window.__rb.campoData()); }
+  if (!c || c.v !== lbl) { await trocarData(page, lbl); fr = await frameDaTela(page); await escolherFiltros(fr); fr = await frameDaTela(page); c = await fr.evaluate(() => window.__rb.campoData()); }
   if (!c || c.v !== lbl) throw new Error('não consegui voltar para o dia ' + lbl);
   RECUP++;
   return fr;
@@ -537,7 +517,7 @@ async function trocarData(page, ddmmyyyy) {
   if (v !== ddmmyyyy) { await loc.fill(ddmmyyyy); v = await loc.inputValue(); }
   await loc.press('Tab');
   await espera(2500);
-  const fr2 = await telaPronta(page);
+  const fr2 = await frameDaTela(page);
   return fr2;
 }
 const dm = d => String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth() + 1).padStart(2, '0') + '/' + d.getFullYear();
@@ -581,9 +561,7 @@ async function main() {
     const lerOntem = process.env.OGMO_ONTEM === '1' || hBR < 8 || hBR % 3 === 0;
     for (const off of DIAS) {
       const dt = new Date(y0, m0 - 1, d0 + off), lbl = dm(dt), tD = Date.now();
-      // v0.164.2: não copia a leitura anterior de ontem se ela tiver nº de requisição de outro dia (cópia estragada) — lê de novo
-      const jaLidos = new Set(dias.flatMap(d => (d.reqs || []).map(r => String(r.req))));
-      if (off < 0 && !lerOntem) { const a = ANT_DIAS.find(x => x.data === lbl && !x.erro && !(x.reqs || []).some(r => jaLidos.has(String(r.req)))); if (a) { dias.push(Object.assign({}, a, { anterior: 1 })); TEMPOS.dias[lbl] = 0; ONTEM_REPETIDO = 1; continue; } }
+      if (off < 0 && !lerOntem) { const a = ANT_DIAS.find(x => x.data === lbl && !x.erro); if (a) { dias.push(Object.assign({}, a, { anterior: 1 })); TEMPOS.dias[lbl] = 0; ONTEM_REPETIDO = 1; continue; } }
       for (let tent = 0; tent < 2; tent++) {
       try {
         { fr = await frameDaTela(page); const atual = await fr.evaluate(() => window.__rb.campoData());
@@ -593,10 +571,6 @@ async function main() {
         const cd = await fr.evaluate(() => window.__rb.campoData());
         if (!cd || cd.v !== lbl) throw new Error('a tela ficou em ' + (cd ? cd.v : '?') + ' em vez de ' + lbl);
         const reqs = await lerDia(page, fr, lbl);
-        // v0.164.1: o número da requisição é único; se já apareceu em outro dia desta leitura, a grade não trocou de data
-        const nums = new Set(reqs.map(r => String(r.req)));
-        const outro = dias.find(d => d.data !== lbl && (d.reqs || []).some(r => nums.has(String(r.req))));
-        if (outro) throw new Error('a grade ainda mostrava as requisições de ' + outro.data + ' (não trocou de data)');
         dias.push({ data: lbl, reqs, lidoEm: Date.now() });
         break;
       } catch (e) {
