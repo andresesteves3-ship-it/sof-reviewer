@@ -1,14 +1,14 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-24T13:26:08.051Z",
- "ultimoSucesso": "2026-11-24T13:26:08.051Z",
- "total": 14,
+ "atualizado": "2026-11-24T13:36:11.104Z",
+ "ultimoSucesso": "2026-11-24T13:36:11.104Z",
+ "total": 7,
  "dias": [
   {
    "data": "23/11/2026",
-   "n": 7,
-   "erro": ""
+   "n": 0,
+   "erro": "a grade ainda mostrava as requisições de 24/11/2026 (não trocou de data)"
   },
   {
    "data": "24/11/2026",
@@ -18,18 +18,18 @@
   {
    "data": "25/11/2026",
    "n": 0,
-   "erro": "O site do OGMO devolveu uma página em branco (tela de requisições)."
+   "erro": "a grade ainda mostrava as requisições de 24/11/2026 (não trocou de data)"
   }
  ],
  "diag": {
   "frames": 1,
-  "tentativasEntrada": 1,
-  "recuperacoes": 0,
-  "reaproveitadas": 0,
+  "tentativasEntrada": 2,
+  "recuperacoes": 3,
+  "reaproveitadas": 1,
   "equipesLidas": 0,
-  "canceladasPuladas": 4,
-  "semAtualizar": 0,
-  "ontemRepetido": 1,
+  "canceladasPuladas": 10,
+  "semAtualizar": 1,
+  "ontemRepetido": 0,
   "quemPediu": {
    "lidas": 0,
    "erros": 0,
@@ -44,22 +44,14 @@
  },
  "tempos": {
   "visualizar": 0,
-  "login": 9628,
+  "login": 61329,
   "dias": {
-   "24/11/2026": 7894,
-   "25/11/2026": 90959,
-   "23/11/2026": 0
+   "24/11/2026": 114412,
+   "25/11/2026": 94367,
+   "23/11/2026": 94219
   },
-  "total": 108516
+  "total": 364378
  },
  "pdfsSeparados": true,
- "falhasSeguidas": 0,
- "pdfs": {
-  "em": "2026-11-24T13:28:37.350Z",
-  "ms": 52,
-  "feitos": 0,
-  "erros": 0,
-  "faltam": 0
- },
- "pdfsEm": "2026-11-24T13:28:37.350Z"
+ "falhasSeguidas": 0
 }
