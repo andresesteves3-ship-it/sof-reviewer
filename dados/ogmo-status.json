@@ -1,66 +1,15 @@
 {
- "ok": true,
- "erro": "",
- "atualizado": "2026-11-24T13:59:26.870Z",
+ "ok": false,
+ "erro": "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.ogmorj.com.br/weboperador/WEBOPERADOR12081830.dll\", waiting until \"domcontentloaded\"\n Site: sem resposta (net::ERR_CONNECTION_TIMED_OUT). Frames=[{\"erro\":\"frame.evaluate: Execution context was destroyed, most likely\"}]",
+ "atualizado": "2026-11-24T15:15:44.880Z",
  "ultimoSucesso": "2026-11-24T13:59:26.870Z",
- "total": 19,
- "dias": [
-  {
-   "data": "23/11/2026",
-   "n": 8,
-   "erro": ""
-  },
-  {
-   "data": "24/11/2026",
-   "n": 7,
-   "erro": ""
-  },
-  {
-   "data": "25/11/2026",
-   "n": 4,
-   "erro": ""
-  }
+ "site": true,
+ "tentativasEntrada": 3,
+ "errosEntrada": [
+  "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.og",
+  "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.og",
+  "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.og"
  ],
- "diag": {
-  "frames": 1,
-  "tentativasEntrada": 1,
-  "recuperacoes": 2,
-  "reaproveitadas": 0,
-  "equipesLidas": 2,
-  "canceladasPuladas": 2,
-  "semAtualizar": 1,
-  "ontemRepetido": 0,
-  "quemPediu": {
-   "lidas": 3,
-   "erros": 1,
-   "ms": 66589,
-   "parou": "O site do OGMO devolveu uma página em branco (Visualizar).",
-   "voltar": {
-    "ok": 3,
-    "recuperou": 0,
-    "nomes": "INPUT | IWBUTTON5 | IWBUTTON5 | ",
-    "bloqueado": ""
-   }
-  }
- },
- "tempos": {
-  "visualizar": 66589,
-  "login": 8739,
-  "dias": {
-   "24/11/2026": 7225,
-   "25/11/2026": 18484,
-   "23/11/2026": 310128
-  },
-  "total": 344609
- },
- "pdfsSeparados": true,
- "falhasSeguidas": 0,
- "pdfs": {
-  "em": "2026-11-24T14:06:45.927Z",
-  "ms": 33883,
-  "feitos": 5,
-  "erros": 0,
-  "faltam": 0
- },
- "pdfsEm": "2026-11-24T14:06:45.927Z"
+ "proxTentativa": "2026-11-24T15:28:57.852Z",
+ "falhasSeguidas": 1
 }
