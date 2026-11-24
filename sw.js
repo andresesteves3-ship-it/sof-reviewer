@@ -1,6 +1,6 @@
-// Painel dos Assistentes — service worker (0.165.0)
+// Painel dos Assistentes — service worker (0.166.0)
 // Rede primeiro (sempre pede a versão mais nova ao servidor); sem internet, usa a cópia guardada.
-const VERSION = '0.165.0';
+const VERSION = '0.166.0';
 const CACHE = 'painel-assistentes-' + VERSION;
 const SHELL = ['./', './index.html', './ferramentas/sof-libs.js', './ferramentas/sof-app.js', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/apple-touch-icon.png'];
@@ -63,7 +63,7 @@ async function mensagem(id) {
   const r = await fetch(a.db + '/chat/msg/' + encodeURIComponent(id) + '.json?auth=' + encodeURIComponent(tk));
   if (!r.ok) return null;
   const m = await r.json();
-  return m && m.t ? m : null;
+  return m && (m.t || m.a) ? m : null;
 }
 function curto(t, n) { t = String(t || '').replace(/\s+/g, ' ').trim(); return t.length > n ? t.slice(0, n - 1) + '…' : t; }
 // v0.143.0: se a pessoa está vendo o chat (chat aberto, aba visível e janela em foco), não notifica
@@ -88,7 +88,7 @@ self.addEventListener('push', e => {
     if (id) {
       try {
         const m = await Promise.race([mensagem(decodeURIComponent(id)), new Promise(r => setTimeout(() => r(null), 5000))]);
-        if (m) { corpo = curto(m.t, 300); nome = m.nome || nome; }
+        if (m) { const an = m.a ? (m.a.tipo === 'img' ? '📷 Foto' : '📎 ' + (m.a.nome || 'Documento')) : ''; corpo = curto(an && m.t ? an + ' · ' + m.t : (m.t || an), 300); nome = m.nome || nome; }
       } catch (x) {}
     }
     if (tag !== 'chat') {
