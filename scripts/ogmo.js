@@ -591,7 +591,9 @@ async function main() {
     const lerOntem = process.env.OGMO_ONTEM === '1' || hBR < 8 || hBR % 3 === 0;
     for (const off of DIAS) {
       const dt = new Date(y0, m0 - 1, d0 + off), lbl = dm(dt), tD = Date.now();
-      if (off < 0 && !lerOntem) { const a = ANT_DIAS.find(x => x.data === lbl && !x.erro); if (a) { dias.push(Object.assign({}, a, { anterior: 1 })); TEMPOS.dias[lbl] = 0; ONTEM_REPETIDO = 1; continue; } }
+      // v0.164.2: não copia a leitura anterior de ontem se ela tiver nº de requisição de outro dia (cópia estragada) — lê de novo
+      const jaLidos = new Set(dias.flatMap(d => (d.reqs || []).map(r => String(r.req))));
+      if (off < 0 && !lerOntem) { const a = ANT_DIAS.find(x => x.data === lbl && !x.erro && !(x.reqs || []).some(r => jaLidos.has(String(r.req)))); if (a) { dias.push(Object.assign({}, a, { anterior: 1 })); TEMPOS.dias[lbl] = 0; ONTEM_REPETIDO = 1; continue; } }
       for (let tent = 0; tent < 2; tent++) {
       try {
         { fr = await frameDaTela(page); const atual = await fr.evaluate(() => window.__rb.campoData());

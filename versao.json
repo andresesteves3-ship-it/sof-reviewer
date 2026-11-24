@@ -1,4 +1,4 @@
 {
- "v": "0.164.1",
- "resumo": "Correção: Amanhã mostrava as requisições de hoje."
+ "v": "0.164.2",
+ "resumo": "Correção: requisições de hoje apareciam em Ontem."
 }
