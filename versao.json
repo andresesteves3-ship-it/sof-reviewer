@@ -1,4 +1,4 @@
 {
- "v": "0.164.0",
- "resumo": "Balsa: frente própria só para balsa de ferro gusa atracada; nos outros casos a requisição marca no navio."
+ "v": "0.164.1",
+ "resumo": "Correção: Amanhã mostrava as requisições de hoje."
 }

@@ -534,9 +534,20 @@ async function trocarData(page, ddmmyyyy) {
   await loc.click(); await loc.press('Control+A'); await loc.pressSequentially(ddmmyyyy.replace(/\//g, ''), { delay: 40 }).catch(() => {});
   let v = await loc.inputValue();
   if (v !== ddmmyyyy) { await loc.fill(ddmmyyyy); v = await loc.inputValue(); }
+  // v0.164.1: guarda as requisições da grade ANTES da troca e espera a grade mudar (ou o OGMO terminar um envio).
+  // Na 0.163.9 a espera curta deixava ler a grade antiga com a data nova no campo (amanhã com as requisições de hoje).
+  const sigDe = async () => { try { const f = await frameDaTela(page, 8000); return await f.evaluate(() => { const P = window.__rb.principal(); return { s: (P && P.linhas || []).map(r => r[1]).join(','), env: !!window.GSubmitting, ok: document.readyState === 'complete' }; }); } catch (e) { return null; } };
+  const a0 = await sigDe(); const sig0 = a0 ? a0.s : null;
   await loc.press('Tab');
-  await espera(1200);
-  const fr2 = await telaPronta(page);   // v0.163.9: espera o recarregamento terminar
+  let viuEnvio = false; const t0 = Date.now();
+  while (Date.now() - t0 < 20000) {
+    await espera(500);
+    const a = await sigDe(); if (!a) { viuEnvio = true; continue; }
+    if (a.env) { viuEnvio = true; continue; }
+    if (sig0 != null && a.s !== sig0) break;            // a grade mudou
+    if (viuEnvio && a.ok && Date.now() - t0 > 1500) break;   // o OGMO enviou e terminou (dias com a mesma grade, ex.: os dois vazios)
+  }
+  const fr2 = await telaPronta(page);
   return fr2;
 }
 const dm = d => String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth() + 1).padStart(2, '0') + '/' + d.getFullYear();
@@ -590,6 +601,10 @@ async function main() {
         const cd = await fr.evaluate(() => window.__rb.campoData());
         if (!cd || cd.v !== lbl) throw new Error('a tela ficou em ' + (cd ? cd.v : '?') + ' em vez de ' + lbl);
         const reqs = await lerDia(page, fr, lbl);
+        // v0.164.1: o número da requisição é único; se já apareceu em outro dia desta leitura, a grade não trocou de data
+        const nums = new Set(reqs.map(r => String(r.req)));
+        const outro = dias.find(d => d.data !== lbl && (d.reqs || []).some(r => nums.has(String(r.req))));
+        if (outro) throw new Error('a grade ainda mostrava as requisições de ' + outro.data + ' (não trocou de data)');
         dias.push({ data: lbl, reqs, lidoEm: Date.now() });
         break;
       } catch (e) {
