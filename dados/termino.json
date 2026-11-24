@@ -1,4 +1,10 @@
 {
- "atualizado": "2026-11-23T23:00:39.312Z",
- "navios": {}
+ "atualizado": "2026-11-24T02:59:08.612Z",
+ "navios": {
+  "RIO PORT II (BBG MASTER)": {
+   "dia": "2026-11-24",
+   "txt": "24 nov",
+   "sit": "dentro do prazo"
+  }
+ }
 }
