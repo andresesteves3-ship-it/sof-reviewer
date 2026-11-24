@@ -1,18 +1,58 @@
 {
- "ok": false,
- "erro": "Perdi a tela de requisições. Site: HTTP 200. Frames=[{\"sel\":0,\"tab\":0,\"inp\":0,\"txt\":\"\"}]",
- "atualizado": "2026-11-24T12:30:06.252Z",
- "ultimoSucesso": "2026-11-24T11:53:13.386Z",
- "site": false,
- "tentativasEntrada": 1,
- "proxTentativa": "2026-11-24T12:40:30.852Z",
- "falhasSeguidas": 2,
- "pdfs": {
-  "em": "2026-11-24T12:31:16.098Z",
-  "ms": 35,
-  "feitos": 0,
-  "erros": 0,
-  "faltam": 0
+ "ok": true,
+ "erro": "",
+ "atualizado": "2026-11-24T12:55:55.355Z",
+ "ultimoSucesso": "2026-11-24T12:55:55.355Z",
+ "total": 21,
+ "dias": [
+  {
+   "data": "23/11/2026",
+   "n": 7,
+   "erro": ""
+  },
+  {
+   "data": "24/11/2026",
+   "n": 7,
+   "erro": ""
+  },
+  {
+   "data": "25/11/2026",
+   "n": 7,
+   "erro": ""
+  }
+ ],
+ "diag": {
+  "frames": 1,
+  "tentativasEntrada": 1,
+  "recuperacoes": 2,
+  "reaproveitadas": 0,
+  "equipesLidas": 0,
+  "canceladasPuladas": 6,
+  "semAtualizar": 1,
+  "ontemRepetido": 0,
+  "quemPediu": {
+   "lidas": 2,
+   "erros": 1,
+   "ms": 74405,
+   "parou": "O site do OGMO devolveu uma página em branco (tela de requisições).",
+   "voltar": {
+    "ok": 2,
+    "recuperou": 0,
+    "nomes": "INPUT | IWBUTTON5 | IWBUTTON5 | ",
+    "bloqueado": ""
+   }
+  }
  },
- "pdfsEm": "2026-11-24T12:31:16.098Z"
+ "tempos": {
+  "visualizar": 74405,
+  "login": 9689,
+  "dias": {
+   "24/11/2026": 19397,
+   "25/11/2026": 73591,
+   "23/11/2026": 73620
+  },
+  "total": 176338
+ },
+ "pdfsSeparados": true,
+ "falhasSeguidas": 0
 }
