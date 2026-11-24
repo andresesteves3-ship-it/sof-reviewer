@@ -1,4 +1,4 @@
 {
- "v": "0.167.0",
- "resumo": "Vigia cancelada não marca CANC nas Rotinas."
+ "v": "0.168.0",
+ "resumo": "Só o painel mais novo faz marcações automáticas; atualização sozinha depois de 10 min sem uso."
 }
