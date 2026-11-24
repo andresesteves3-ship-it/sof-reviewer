@@ -232,7 +232,8 @@ async function escolherFiltros(fr) {
     const sels = await fr.evaluate(() => [].slice.call(document.querySelectorAll('select')).map((s, i) => ({ i, ops: [].slice.call(s.options).map(o => (o.text || '').replace(/\s+/g, ' ').trim()), at: s.selectedIndex >= 0 ? (s.options[s.selectedIndex].text || '').replace(/\s+/g, ' ').trim() : '' })));
     const s = sels.find(x => x.ops.some(casa));
     if (!s) throw new Error('Não achei a lista ' + qual + ' (selects=' + sels.length + ').');
-    if (casa(s.at)) continue;   // já está certo: não recarrega a tela à toa
+    // v0.164.3: SEMPRE escolhe de novo (como até a 0.163.8). No OGMO a data nova só vale depois que um filtro
+    // recarrega a lista; pular o filtro "já certo" deixava a lista no dia anterior. Um filtro por vez, esperando a tela.
     await fr.locator('select').nth(s.i).selectOption({ label: s.ops.find(casa) });
     await espera(1200);
   }
@@ -534,19 +535,8 @@ async function trocarData(page, ddmmyyyy) {
   await loc.click(); await loc.press('Control+A'); await loc.pressSequentially(ddmmyyyy.replace(/\//g, ''), { delay: 40 }).catch(() => {});
   let v = await loc.inputValue();
   if (v !== ddmmyyyy) { await loc.fill(ddmmyyyy); v = await loc.inputValue(); }
-  // v0.164.1: guarda as requisições da grade ANTES da troca e espera a grade mudar (ou o OGMO terminar um envio).
-  // Na 0.163.9 a espera curta deixava ler a grade antiga com a data nova no campo (amanhã com as requisições de hoje).
-  const sigDe = async () => { try { const f = await frameDaTela(page, 8000); return await f.evaluate(() => { const P = window.__rb.principal(); return { s: (P && P.linhas || []).map(r => r[1]).join(','), env: !!window.GSubmitting, ok: document.readyState === 'complete' }; }); } catch (e) { return null; } };
-  const a0 = await sigDe(); const sig0 = a0 ? a0.s : null;
   await loc.press('Tab');
-  let viuEnvio = false; const t0 = Date.now();
-  while (Date.now() - t0 < 20000) {
-    await espera(500);
-    const a = await sigDe(); if (!a) { viuEnvio = true; continue; }
-    if (a.env) { viuEnvio = true; continue; }
-    if (sig0 != null && a.s !== sig0) break;            // a grade mudou
-    if (viuEnvio && a.ok && Date.now() - t0 > 1500) break;   // o OGMO enviou e terminou (dias com a mesma grade, ex.: os dois vazios)
-  }
+  await espera(2500);
   const fr2 = await telaPronta(page);
   return fr2;
 }
