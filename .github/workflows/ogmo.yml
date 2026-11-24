@@ -23,9 +23,11 @@ jobs:
           OGMO_USER: ${{ secrets.OGMO_USER }}
           OGMO_PASS: ${{ secrets.OGMO_PASS }}
           LINEUP_KEY: ${{ secrets.LINEUP_KEY }}
+          FB_ROBO_EMAIL: ${{ secrets.FB_ROBO_EMAIL }}   # v0.169.0: andamento ao vivo no painel (opcional; sem ele a leitura segue igual)
+          FB_ROBO_PASS: ${{ secrets.FB_ROBO_PASS }}
         run: |
           docker run --rm --ipc=host --user "$(id -u):$(id -g)" -e HOME=/tmp -e OGMO_PROX_MIN=10 -e OGMO_PDFS=0 \
-            -e OGMO_EMPRESA -e OGMO_USER -e OGMO_PASS -e LINEUP_KEY \
+            -e OGMO_EMPRESA -e OGMO_USER -e OGMO_PASS -e LINEUP_KEY -e FB_ROBO_EMAIL -e FB_ROBO_PASS \
             -v "$GITHUB_WORKSPACE":/w -w /w \
             mcr.microsoft.com/playwright:v1.49.1-noble \
             bash -c "npm install --no-audit --no-fund && node scripts/ogmo.js"
@@ -61,9 +63,11 @@ jobs:
           OGMO_USER: ${{ secrets.OGMO_USER }}
           OGMO_PASS: ${{ secrets.OGMO_PASS }}
           LINEUP_KEY: ${{ secrets.LINEUP_KEY }}
+          FB_ROBO_EMAIL: ${{ secrets.FB_ROBO_EMAIL }}
+          FB_ROBO_PASS: ${{ secrets.FB_ROBO_PASS }}
         run: |
           docker run --rm --ipc=host --user "$(id -u):$(id -g)" -e HOME=/tmp -e OGMO_REPETICAO=1 -e OGMO_PDFS=0 \
-            -e OGMO_EMPRESA -e OGMO_USER -e OGMO_PASS -e LINEUP_KEY \
+            -e OGMO_EMPRESA -e OGMO_USER -e OGMO_PASS -e LINEUP_KEY -e FB_ROBO_EMAIL -e FB_ROBO_PASS \
             -v "$GITHUB_WORKSPACE":/w -w /w \
             mcr.microsoft.com/playwright:v1.49.1-noble \
             bash -c "npm install --no-audit --no-fund && node scripts/ogmo.js"
