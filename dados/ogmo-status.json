@@ -1,9 +1,9 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-24T05:15:37.331Z",
- "ultimoSucesso": "2026-11-24T05:15:37.331Z",
- "total": 10,
+ "atualizado": "2026-11-24T06:45:43.516Z",
+ "ultimoSucesso": "2026-11-24T06:45:43.516Z",
+ "total": 11,
  "dias": [
   {
    "data": "23/11/2026",
@@ -12,7 +12,7 @@
   },
   {
    "data": "24/11/2026",
-   "n": 2,
+   "n": 3,
    "erro": ""
   },
   {
@@ -23,43 +23,35 @@
  ],
  "diag": {
   "frames": 1,
-  "tentativasEntrada": 1,
-  "recuperacoes": 0,
-  "reaproveitadas": 0,
-  "equipesLidas": 4,
-  "canceladasPuladas": 0,
-  "semAtualizar": 0,
+  "tentativasEntrada": 2,
+  "recuperacoes": 2,
+  "reaproveitadas": 1,
+  "equipesLidas": 3,
+  "canceladasPuladas": 2,
+  "semAtualizar": 1,
   "ontemRepetido": 0,
   "quemPediu": {
-   "lidas": 0,
+   "lidas": 3,
    "erros": 0,
-   "ms": 0,
+   "ms": 17937,
    "voltar": {
-    "ok": 0,
+    "ok": 3,
     "recuperou": 0,
-    "nomes": "",
+    "nomes": "INPUT | IWBUTTON5 | IWBUTTON5 | ",
     "bloqueado": ""
    }
   }
  },
  "tempos": {
-  "visualizar": 0,
-  "login": 8504,
+  "visualizar": 17937,
+  "login": 56651,
   "dias": {
-   "24/11/2026": 2742,
-   "25/11/2026": 14156,
-   "23/11/2026": 21013
+   "24/11/2026": 19370,
+   "25/11/2026": 14120,
+   "23/11/2026": 148932
   },
-  "total": 46469
+  "total": 239103
  },
  "pdfsSeparados": true,
- "falhasSeguidas": 0,
- "pdfs": {
-  "em": "2026-11-24T05:17:07.304Z",
-  "ms": 49,
-  "feitos": 0,
-  "erros": 0,
-  "faltam": 0
- },
- "pdfsEm": "2026-11-24T05:17:07.304Z"
+ "falhasSeguidas": 0
 }
