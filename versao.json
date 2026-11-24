@@ -1,4 +1,4 @@
 {
- "v": "0.164.3",
- "resumo": "Correção: integração do OGMO volta a ler Ontem e Amanhã."
+ "v": "0.165.0",
+ "resumo": "Requisição só de vigia (CCOS) vai para Ocultos e não entra nas Rotinas."
 }
