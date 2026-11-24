@@ -1,31 +1,38 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-24T08:00:50.703Z",
- "ultimoSucesso": "2026-11-24T08:00:50.703Z",
+ "atualizado": "2026-11-24T14:07:26.289Z",
+ "ultimoSucesso": "2026-11-24T14:07:26.289Z",
  "dias": [
   {
    "data": "24/11/2026",
-   "reqs": 3,
-   "escaladas": 1
+   "reqs": 7,
+   "escaladas": 3
   },
   {
    "data": "25/11/2026",
-   "reqs": 0,
+   "reqs": 4,
    "escaladas": 0
   }
  ],
  "da9": [
   {
-   "req": "25053568-1",
+   "req": "25053569-1",
    "data": "24/11/2026",
-   "n": 1,
+   "n": 14,
+   "erro": "",
+   "aviso": ""
+  },
+  {
+   "req": "25053570-1",
+   "data": "24/11/2026",
+   "n": 7,
    "erro": "",
    "aviso": ""
   }
  ],
- "novos": 0,
- "total": 445,
+ "novos": 12,
+ "total": 457,
  "diag": {
   "da9": [
    {
