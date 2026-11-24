@@ -11,5 +11,13 @@
   "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.og"
  ],
  "repeticao": true,
- "falhasSeguidas": 2
+ "falhasSeguidas": 2,
+ "pdfs": {
+  "em": "2026-11-24T15:31:58.734Z",
+  "ms": 36,
+  "feitos": 0,
+  "erros": 0,
+  "faltam": 0
+ },
+ "pdfsEm": "2026-11-24T15:31:58.734Z"
 }
