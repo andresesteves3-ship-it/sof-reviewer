@@ -1,4 +1,4 @@
 {
- "v": "0.168.0",
- "resumo": "Só o painel mais novo faz marcações automáticas; atualização sozinha depois de 10 min sem uso."
+ "v": "0.169.0",
+ "resumo": "Requisições mostra o andamento real da leitura do OGMO."
 }

@@ -48,6 +48,39 @@ let CAD = {}, VIS_T = 0, VIS_N = 0, VIS_ERR = 0, VIS_PARADO = '', VIS_DIAG = nul
 const PERMITIDOS = new Set();   // nomes exatos dos botões Visualizar e Voltar (só leitura), achados pelo texto do botão
 let RECUP = 0, REUSO = 0, EQUIPES = 0, CANC_PULADAS = 0, CANC_LIDAS = 0, SEM_ATUALIZAR = 0, ONTEM_REPETIDO = 0;
 const T0 = Date.now(), TEMPOS = {};
+
+// ---- v0.169.0: andamento ao vivo para o painel (/painel/ogprog), igual à integração do Geport ----
+// REGRA: nada aqui pode parar ou atrasar a leitura. Sem login, sem banco ou com erro, só não mostra o andamento.
+const PG = { on: false, tok: '', db: '', ult: 0, t: null, st: { dias: {} } };
+async function pgIni() {
+  try {
+    const em = process.env.FB_ROBO_EMAIL, se = process.env.FB_ROBO_PASS;
+    if (!em || !se || process.env.OGMO_SO_PDF === '1') return;
+    const cfg = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'firebase-config.json'), 'utf8'));
+    const ac = new AbortController(), to = setTimeout(() => ac.abort(), 8000);
+    const r = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + encodeURIComponent(cfg.apiKey),
+      { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: em, password: se, returnSecureToken: true }), signal: ac.signal }).finally(() => clearTimeout(to));
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok || !j.idToken) { console.log('Andamento: login no banco recusado (a leitura segue normal).'); return; }
+    PG.tok = j.idToken; PG.db = String(cfg.dbUrl || '').replace(/\/+$/, ''); PG.on = !!PG.db;
+  } catch (e) { console.log('Andamento desligado nesta rodada (a leitura segue normal).'); }
+}
+function pgEnvia() {
+  try {
+    PG.ult = Date.now(); const body = JSON.stringify(PG.st); const ac = new AbortController(), to = setTimeout(() => ac.abort(), 5000); if (to.unref) to.unref();
+    fetch(PG.db + '/painel/ogprog.json?auth=' + encodeURIComponent(PG.tok), { method: 'PUT', body, signal: ac.signal }).catch(() => {}).finally(() => clearTimeout(to));
+  } catch (e) {}
+}
+function pg(o) {
+  try {
+    if (!PG.on) return; Object.assign(PG.st, o || {}); PG.st.em = Date.now();
+    const falta = 2000 - (Date.now() - PG.ult);
+    if (falta <= 0 || (o && o.fim)) { if (PG.t) { clearTimeout(PG.t); PG.t = null; } pgEnvia(); return; }
+    if (!PG.t) { PG.t = setTimeout(() => { PG.t = null; pgEnvia(); }, falta); if (PG.t.unref) PG.t.unref(); }
+  } catch (e) {}
+}
+function pgDia(lbl, o) { try { PG.st.dias[lbl.replace(/\//g, '-')] = Object.assign(PG.st.dias[lbl.replace(/\//g, '-')] || {}, o); pg({}); } catch (e) {} }
+async function pgFim(o) { try { if (!PG.on) return; pg(Object.assign({ fim: true }, o)); await espera(1500); } catch (e) {} }
 function gravarStatus(st) { fs.mkdirSync(DIR, { recursive: true }); fs.writeFileSync(ARQ_ST, JSON.stringify(st, null, 1) + '\n'); }
 const mascarar = t => { let r = String(t || ''); [EMPRESA, USER, PASS].filter(v => v && v.length > 2 && !/^\d{1,4}$/.test(v)).forEach(v => { r = r.split(v).join('***'); }); return r; };
 const espera = ms => new Promise(r => setTimeout(r, ms));
@@ -352,9 +385,11 @@ async function lerDia(page, fr0, lbl) {
   for (let t = 0; t < 6 && (!P || !P.linhas.length); t++) { await espera(1200); fr = await frameDaTela(page); P = await fr.evaluate(() => window.__rb.principal()); }
   const reqs = [];
   const linhas = (P && P.linhas ? P.linhas : []).filter(r => /\d{5,}/.test(r[1] || ''));
+  pgDia(lbl, { n: linhas.length, f: 0 }); pg({ etapa: 'ler', dia: lbl, i: 0, n: linhas.length, req: '', navio: '', per: '', passo: '' });
   for (let i = 0; i < linhas.length; i++) {
     const r = linhas[i];
     const req = { cancelada: r[0], req: r[1], navio: r[2], periodo: r[3], local: r[4], escalada: r[5] || '', viagem: r[6] || '', comp: [], ternos: [] };
+    pg({ i: i + 1, req: req.req, navio: req.navio, per: req.periodo, passo: /^s/i.test(req.cancelada || '') ? 'cancelada' : 'composição' }); pgDia(lbl, { f: i });
     // v0.84.0: requisição cancelada não é conferida no painel.
     // v0.167.0: mas o painel precisa saber se era de VIGIA (outro setor). Usa a composição da leitura anterior;
     // se nunca foi lida, abre a composição uma vez (sem equipes, sem PDF) e ela fica guardada para as próximas leituras.
@@ -378,6 +413,7 @@ async function lerDia(page, fr0, lbl) {
         req.ternos = (T ? T.linhas : []).map(c => ({ cancelado: c[0], equipe: c[1], fainas: c.slice(2).filter(Boolean) }));
         delete req.erro;
         if (canc) { CANC_LIDAS++; break; }
+        pg({ passo: 'equipes' });
         fr = await lerEquipes(page, fr, req, lbl);
         // o PDF oficial só é tentado na 1ª vez (é o passo que mais derruba a tela)
         if (!PDFS && fs.existsSync(path.join(DIR_PDF, req.req + '.enc.json'))) req.pdf = 'ok';   // v0.85.0: os PDFs vêm na 2ª etapa
@@ -401,7 +437,8 @@ async function lerDia(page, fr0, lbl) {
     }
     reqs.push(req);
   }
-  if (VIS) { try { fr = await lerQuemPediu(page, fr, reqs, lbl); } catch (e) { VIS_PARADO = VIS_PARADO || mascarar(String(e.message)).slice(0, 80); } }
+  pgDia(lbl, { f: linhas.length });
+  if (VIS) { pg({ passo: 'quem pediu', req: '', navio: '', per: '' }); try { fr = await lerQuemPediu(page, fr, reqs, lbl); } catch (e) { VIS_PARADO = VIS_PARADO || mascarar(String(e.message)).slice(0, 80); } }
   return reqs;
 }
 
@@ -575,7 +612,9 @@ async function main() {
     page.setDefaultTimeout(30000);
     page.on('dialog', d => d.dismiss().catch(() => {}));   // nunca confirma nada
     vigiarPagina(page);
+    await pgIni(); pg({ ini: Date.now(), etapa: 'entrar', fim: false, ok: null, msg: '', rep: process.env.OGMO_REPETICAO === '1' ? 1 : 0, dias: {}, ordem: [] });
     let fr = await abrirInicio(page);
+    pg({ etapa: 'dias' });
     const dias = [], diag = { frames: (await resumoFrames(page)).length, tentativasEntrada: TENT_INI };
     // data de hoje exibida pelo sistema
     fr = await frameDaTela(page);
@@ -588,9 +627,10 @@ async function main() {
     const lerOntem = process.env.OGMO_ONTEM === '1' || hBR < 8 || hBR % 3 === 0;
     for (const off of DIAS) {
       const dt = new Date(y0, m0 - 1, d0 + off), lbl = dm(dt), tD = Date.now();
+      try { PG.st.ordem.push(lbl); } catch (e) {} pg({ etapa: 'ler', dia: lbl, i: 0, n: 0, req: '', navio: '', per: '', passo: 'trocando a data' });
       // v0.164.2: não copia a leitura anterior de ontem se ela tiver nº de requisição de outro dia (cópia estragada) — lê de novo
       const jaLidos = new Set(dias.flatMap(d => (d.reqs || []).map(r => String(r.req))));
-      if (off < 0 && !lerOntem) { const a = ANT_DIAS.find(x => x.data === lbl && !x.erro && !(x.reqs || []).some(r => jaLidos.has(String(r.req)))); if (a) { dias.push(Object.assign({}, a, { anterior: 1 })); TEMPOS.dias[lbl] = 0; ONTEM_REPETIDO = 1; continue; } }
+      if (off < 0 && !lerOntem) { const a = ANT_DIAS.find(x => x.data === lbl && !x.erro && !(x.reqs || []).some(r => jaLidos.has(String(r.req)))); if (a) { dias.push(Object.assign({}, a, { anterior: 1 })); TEMPOS.dias[lbl] = 0; ONTEM_REPETIDO = 1; pgDia(lbl, { n: (a.reqs || []).length, f: (a.reqs || []).length, ok: 1, copia: 1 }); continue; } }
       for (let tent = 0; tent < 2; tent++) {
       try {
         { fr = await frameDaTela(page); const atual = await fr.evaluate(() => window.__rb.campoData());
@@ -605,9 +645,10 @@ async function main() {
         const outro = dias.find(d => d.data !== lbl && (d.reqs || []).some(r => nums.has(String(r.req))));
         if (outro) throw new Error('a grade ainda mostrava as requisições de ' + outro.data + ' (não trocou de data)');
         dias.push({ data: lbl, reqs, lidoEm: Date.now() });
+        pgDia(lbl, { n: reqs.length, f: reqs.length, ok: 1 });
         break;
       } catch (e) {
-        if (tent === 1) { dias.push({ data: lbl, reqs: [], erro: mascarar(String(e.message)).slice(0, 120) }); break; }
+        if (tent === 1) { dias.push({ data: lbl, reqs: [], erro: mascarar(String(e.message)).slice(0, 120) }); pgDia(lbl, { erro: 1 }); break; }
         try { await recuperar(page, lbl); } catch (x) {}
       }
       }
@@ -622,17 +663,20 @@ async function main() {
       else Object.keys(idxAnt).forEach(k => { if (!idxNovo[k] && fs.existsSync(path.join(DIR_PDF, k + '.enc.json'))) idxNovo[k] = idxAnt[k]; });
       fs.mkdirSync(DIR, { recursive: true }); fs.writeFileSync(ARQ_IDX, JSON.stringify(idxNovo) + '\n');
     }
+    pg({ etapa: 'salvar', req: '', navio: '', per: '', passo: '' });
     if (!dias.some(d => !d.erro)) throw new Error('Nenhum dia foi lido: ' + dias.map(d => d.data + ': ' + d.erro).join(' | '));
     fs.mkdirSync(DIR, { recursive: true });
     fs.writeFileSync(ARQ_ENC, JSON.stringify({ ...cifrar({ geradoEm: Date.now(), dias }), atualizado: st.atualizado }) + '\n');
     st = { ok: true, erro: '', atualizado: st.atualizado, ultimoSucesso: st.atualizado, total, dias: dias.map(d => ({ data: d.data, n: d.reqs.length, erro: d.erro || '' })), diag: { ...diag, recuperacoes: RECUP, reaproveitadas: REUSO, equipesLidas: EQUIPES, canceladasPuladas: CANC_PULADAS, canceladasLidas: CANC_LIDAS, semAtualizar: SEM_ATUALIZAR, ontemRepetido: ONTEM_REPETIDO, quemPediu: { lidas: VIS_N, erros: VIS_ERR, ms: VIS_T, parou: VIS_PARADO || undefined, detalhe: VIS_DIAG || undefined, voltar: VOLTAR } }, tempos: Object.assign({ visualizar: VIS_T }, TEMPOS, { total: Date.now() - T0 }), pdfsSeparados: !PDFS };
     console.log('OK:', total, 'requisições lidas; dias:', JSON.stringify(st.dias), '(dados criptografados).');
+    await pgFim({ etapa: 'fim', ok: true, total, ms: Date.now() - T0 });
   } catch (e) {
     let extra = '';
     try { if (page) extra = ' Frames=' + JSON.stringify(await resumoFrames(page)).slice(0, 600); } catch (x) {}
     st.erro = mascarar(String(e.message || e) + (BLOQUEADO ? ' [bloqueado: ' + BLOQUEADO + ']' : '') + diagSite() + extra).slice(0, 900);
     marcarFalha(st);
     console.error('FALHOU:', st.erro);
+    await pgFim({ etapa: 'erro', ok: false, msg: st.site ? 'O site do OGMO não respondeu.' : 'A leitura parou com erro.', ms: Date.now() - T0 });
   } finally {
     if (browser) await browser.close();
   }
