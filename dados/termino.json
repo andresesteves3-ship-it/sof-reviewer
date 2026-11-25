@@ -1,4 +1,10 @@
 {
- "atualizado": "2026-11-25T11:00:44.161Z",
- "navios": {}
+ "atualizado": "2026-11-25T14:45:19.003Z",
+ "navios": {
+  "BBC WASHINGTON": {
+   "dia": "2026-11-25",
+   "txt": "25 nov",
+   "sit": "0,4 dia após o prazo"
+  }
+ }
 }

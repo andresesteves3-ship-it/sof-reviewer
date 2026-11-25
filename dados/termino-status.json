@@ -1,13 +1,13 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-25T11:00:44.161Z",
- "ultimoSucesso": "2026-11-25T11:00:44.161Z",
+ "atualizado": "2026-11-25T14:45:19.003Z",
+ "ultimoSucesso": "2026-11-25T14:45:19.003Z",
  "diag": {
   "cartoes": 2,
-  "comPrevisao": 0,
+  "comPrevisao": 1,
   "amostra": [
-   "BBC WASHINGTON | TÉRMINO PREVISTO / 25 nov / no ritmo real — / 0,6 dia após o prazo",
+   "BBC WASHINGTON | TÉRMINO PREVISTO / 25 nov / no ritmo real 25 nov / 0,4 dia após o prazo",
    "HAPPY DELTA | TÉRMINO PREVISTO / — / no ritmo real — / PRANCHA T/DIA"
   ]
  },
