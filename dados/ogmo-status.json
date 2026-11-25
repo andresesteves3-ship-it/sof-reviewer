@@ -1,15 +1,10 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-25T02:30:50.802Z",
- "ultimoSucesso": "2026-11-25T02:30:50.802Z",
- "total": 21,
+ "atualizado": "2026-11-25T03:56:50.327Z",
+ "ultimoSucesso": "2026-11-25T03:56:50.327Z",
+ "total": 25,
  "dias": [
-  {
-   "data": "23/11/2026",
-   "n": 8,
-   "erro": ""
-  },
   {
    "data": "24/11/2026",
    "n": 13,
@@ -17,50 +12,47 @@
   },
   {
    "data": "25/11/2026",
+   "n": 12,
+   "erro": ""
+  },
+  {
+   "data": "26/11/2026",
    "n": 0,
-   "erro": "O site do OGMO deu \"500 - Erro de servidor interno\" (tela de requisições)."
+   "erro": ""
   }
  ],
  "diag": {
   "frames": 1,
   "tentativasEntrada": 1,
   "recuperacoes": 1,
-  "reaproveitadas": 1,
+  "reaproveitadas": 0,
   "equipesLidas": 0,
   "canceladasPuladas": 4,
-  "canceladasLidas": 0,
-  "semAtualizar": 2,
-  "ontemRepetido": 1,
+  "canceladasLidas": 4,
+  "semAtualizar": 1,
+  "ontemRepetido": 0,
   "quemPediu": {
-   "lidas": 0,
+   "lidas": 10,
    "erros": 0,
-   "ms": 0,
+   "ms": 62317,
    "voltar": {
-    "ok": 0,
+    "ok": 10,
     "recuperou": 0,
-    "nomes": "",
+    "nomes": "INPUT | IWBUTTON5 | IWBUTTON5 | ",
     "bloqueado": ""
    }
   }
  },
  "tempos": {
-  "visualizar": 0,
-  "login": 9329,
+  "visualizar": 62317,
+  "login": 9714,
   "dias": {
-   "24/11/2026": 137242,
-   "25/11/2026": 46113,
-   "23/11/2026": 0
+   "25/11/2026": 139420,
+   "26/11/2026": 14941,
+   "24/11/2026": 21390
   },
-  "total": 192726
+  "total": 185518
  },
  "pdfsSeparados": true,
- "falhasSeguidas": 0,
- "pdfs": {
-  "em": "2026-11-25T02:34:54.475Z",
-  "ms": 96,
-  "feitos": 0,
-  "erros": 0,
-  "faltam": 0
- },
- "pdfsEm": "2026-11-25T02:34:54.475Z"
+ "falhasSeguidas": 0
 }
