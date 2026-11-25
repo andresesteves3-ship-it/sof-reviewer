@@ -1,8 +1,8 @@
-/* Painel dos Assistentes — Baía 3D (v0.158). Motor herdado do cais 3D do Início (conceito de Fellipe Mourão).
+/* Painel dos Assistentes — Baía 3D (v0.158; v0.174.0: mesmo nível, avenida sem dobra, carga por tipo, carretas no potássio, balsa a contrabordo). Motor herdado do cais 3D do Início (conceito de Fellipe Mourão).
    Carregado sob demanda depois de ferramentas/three.min.js (Three.js r128).
    window.Baia3D.montar({palco, cabs:{n:{x,y,h}}, verm:[n], clique(id|null), movido(id,c0,c1), mudouVista()})
      → {dados(lista), sel(id), ver('nav'|'tudo'), zoom(f), girar(graus), mover(id|null), enquadra(), destruir(), diag()}
-   lista: [{id, nome, sub, cl:'op'|'at'|'fi'|'bl', c0, c1, mae, carga:'gusa'|'pot'|'geral', alerta:''|'r'|'a', fant:bool, fund:bool}]
+   lista: [{id, nome, sub, cl:'op'|'at'|'fi'|'bl', c0, c1, mae, carga:'gusa'|'pot'|'carr'|'geral', imp:bool, alerta:''|'r'|'a', fant:bool, fund:bool}]
    Coordenadas: as do mapa 2D (1 unidade ≈ distância entre 2 cabeços). x → X, y do mapa → Z. A água fica à esquerda de quem anda do 227 para o 80. */
 (function(){'use strict';
 var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
@@ -37,7 +37,7 @@ function cil(rt,rb,h,m,x,y,z,pai,sg){var o=new T.Mesh(G(new T.CylinderGeometry(r
 var C={terra:mat('terra',0xB4B9B0),patio:mat('patio',0x8E9397),asfalto:mat('asfalto',0x4C5157),faixa:mat('faixa',0xE8B04A),branco:mat('branco',0xEFF1F2),
   armazem:mat('armazem',0xB9C2C8),telhado:mat('telhado',0x6F8796),grafite:mat('grafite',0x34383D),preto:mat('preto',0x1B1C1F),verde:mat('verdeT',0x7E9A7A),
   casco:mat('casco',0x13243A),cascoF:mat('cascoF',0x8A1E24),conves:mat('conves',0x6C747B),sup:mat('sup',0xF2F3F4),vidro:mat('vidro',0x3E5A66,{r:0.3,m:0.1}),
-  guind:mat('guind',0xE2A93B),gusa:mat('gusa',0x4D3F39,{flat:true}),pot:mat('pot',0xC48C7A,{flat:true}),geral:mat('geral',0x8F7F62,{flat:true}),balsa:mat('balsa',0x7A5A3A),
+  guind:mat('guind',0xE2A93B),gusa:mat('gusa',0x4D3F39,{flat:true}),pot:mat('pot',0xC48C7A,{flat:true}),geral:mat('geral',0x8F7F62,{flat:true}),carr:mat('carr',0x8C6A45),carrF:mat('carrF',0x5A4330),caixaM:mat('caixaM',0xA9844F),tubo:mat('tubo',0x7D868C,{r:0.5,m:0.3}),balsa:mat('balsa',0x7A5A3A),
   tampa:{op:mat('tOp',0x1F8A44),at:mat('tAt',0xD98C00),fi:mat('tFi',0x5B6B82),bl:mat('tBl',0x8A6A4A)}};
 
 /* ---------- geometria do cais ---------- */
@@ -54,7 +54,7 @@ function placa(pts,alt,m,y0){var s=new T.Shape();pts.forEach(function(p,i){if(i)
 (function(){var a0=CABS[227],z0=CABS[80],p164=CABS[164],p162=CABS[162];
   var A=[[-120,-120],[a0.x+12,-120],[a0.x+12,a0.y-12]].concat(SEG[0].map(function(c){return [CABS[c].x,CABS[c].y]})).concat([[p164.x+0.6,200],[-120,200]]);
   var B=[[p162.x-0.6,200]].concat(SEG[1].map(function(c){return [CABS[c].x,CABS[c].y]})).concat([[z0.x+90,z0.y-0.4],[z0.x+90,200]]);
-  placa(A,CY,C.terra,-0.6);placa(B,CY,C.terra,-0.6);
+  placa(A,CY+0.41+0.6,C.terra,-0.6);placa(B,CY+0.41+0.6,C.terra,-0.6);   /* v0.174.0: pátio no mesmo nível do cais (antes 1 unidade abaixo) */
   /* ilhas */
   var il=new T.Shape(),Y=function(v){return -v};il.moveTo(20.5,Y(4));il.bezierCurveTo(26,Y(1.5),31,Y(4),29.5,Y(12));il.bezierCurveTo(28.5,Y(17),25,Y(20),23.5,Y(26));il.bezierCurveTo(22.8,Y(30),21,Y(31.5),20,Y(29));
   il.bezierCurveTo(18.8,Y(25),21,Y(21),20,Y(17));il.bezierCurveTo(19,Y(14),15.5,Y(13.5),16,Y(9.5));il.bezierCurveTo(16.4,Y(6),18,Y(5),20.5,Y(4));
@@ -62,7 +62,11 @@ function placa(pts,alt,m,y0){var s=new T.Shape();pts.forEach(function(p,i){if(i)
   placa([[74,4.5],[80,3.6],[80.5,5.4],[76,6.6],[73.4,6.2]],0.7,C.verde,-0.3)})();
 
 /* faixas ao longo do cais: d0 → d1 (terra = negativo), na altura y */
-function faixaCais(lista,d0,d1,m,y){var pos=[],idx=[];lista.forEach(function(c,i){var p=CABS[c],a=nrm(p.h,d0),b=nrm(p.h,d1);pos.push(p.x+a.x,y,p.y+a.y,p.x+b.x,y,p.y+b.y);if(i){var k=i*2;idx.push(k-2,k-1,k,k-1,k+1,k)}});
+/* v0.174.0: normal de cada cabeço pela média dos trechos vizinhos (com esquadria): faixas largas não dobram nas curvas */
+function nrmS(lista,i,d){var p=CABS[lista[i]],A=CABS[lista[Math.max(0,i-1)]],B=CABS[lista[Math.min(lista.length-1,i+1)]],n0=nrm(p.h,1),ns=[];
+  [[A,p],[p,B]].forEach(function(q){var dx=q[1].x-q[0].x,dy=q[1].y-q[0].y,L=Math.hypot(dx,dy);if(L<1e-6)return;var nx=-dy/L,ny=dx/L;if(nx*n0.x+ny*n0.y<0){nx=-nx;ny=-ny}ns.push([nx,ny])});
+  if(!ns.length)return nrm(p.h,d);var mx=0,my=0;ns.forEach(function(v){mx+=v[0];my+=v[1]});var ml=Math.hypot(mx,my)||1;mx/=ml;my/=ml;var cs=Math.max(0.6,mx*ns[0][0]+my*ns[0][1]);return {x:mx*d/cs,y:my*d/cs}}
+function faixaCais(lista,d0,d1,m,y){var pos=[],idx=[];lista.forEach(function(c,i){var p=CABS[c],a=nrmS(lista,i,d0),b=nrmS(lista,i,d1);pos.push(p.x+a.x,y,p.y+a.y,p.x+b.x,y,p.y+b.y);if(i){var k=i*2;idx.push(k-2,k-1,k,k-1,k+1,k)}});
   var g=G(new T.BufferGeometry());g.setAttribute('position',new T.Float32BufferAttribute(pos,3));g.setIndex(idx);g.computeVertexNormals();
   var o=new T.Mesh(g,m);o.receiveShadow=true;o.material.side=T.DoubleSide;cena.add(o);return o}
 SEG.forEach(function(L){faixaCais(L,0,-2.6,C.patio,CY+0.42);faixaCais(L,-0.32,-0.46,C.faixa,CY+0.43);faixaCais(L,-5.4,-7.6,C.asfalto,CY+0.425);
@@ -75,8 +79,9 @@ SEG.forEach(function(L){faixaCais(L,0,-2.6,C.patio,CY+0.42);faixaCais(L,-0.32,-0
     var n2=nrm(p.h,0.08);e.set(0,-p.h*Math.PI/180,0);q.setFromEuler(e);v.set(p.x+n2.x,CY-0.05,p.y+n2.y);m4.compose(v,q,s);id.setMatrixAt(i,m4);q.set(0,0,0,1)});
   ib.castShadow=true;cena.add(ib);cena.add(id)})();
 /* armazéns e pátios atrás da avenida (cenário) */
-(function(){var hs=[0x9FB0BA,0xB4BCC2,0xA9B6AD,0xC0B9AC];SEG.forEach(function(L,si){for(var i=4;i<L.length-3;i+=7){var c=L[i];if(Math.abs(c-163)<6)continue;var p=CABS[c],n=nrm(p.h,-11),g=new T.Group();g.position.set(p.x+n.x,CY+0.42,p.y+n.y);g.rotation.y=-p.h*Math.PI/180;cena.add(g);
-  var hgt=0.55+((c*7)%4)/7,m=mat('arm'+(c%4),hs[c%4]);if(c%3===1){[[-1.2,0],[0.4,0.3],[1.6,-0.2]].forEach(function(q,j){var pl=new T.Mesh(G(new T.DodecahedronGeometry(0.75,0)),C.gusa);pl.scale.set(1.3,0.38,1);pl.position.set(q[0],0.22,q[1]);pl.rotation.y=j;pl.castShadow=pl.receiveShadow=true;g.add(pl)});continue}
+(function(){var hs=[0x9FB0BA,0xB4BCC2,0xA9B6AD,0xC0B9AC],curva=function(L,i){for(var k=Math.max(1,i-5);k<=Math.min(L.length-2,i+5);k++){var d=Math.abs(CABS[L[k]].h-CABS[L[k-1]].h);if(d>180)d=360-d;if(d>4)return true}return false};
+  SEG.forEach(function(L,si){for(var i=4;i<L.length-3;i+=7){var c=L[i];if(Math.abs(c-163)<6||curva(L,i))continue;var p=CABS[c],n=nrmS(L,i,-11),g=new T.Group();g.position.set(p.x+n.x,CY+0.42,p.y+n.y);g.rotation.y=-p.h*Math.PI/180;cena.add(g);
+  var hgt=0.55+((c*7)%4)/7,m=mat('arm'+(c%4),hs[c%4]);   /* v0.174.0: sem pilha de gusa de cenário (a carga aparece só no navio que opera) */
   caixa(4.4,hgt,2.4,m,0,hgt/2,0,g);caixa(4.55,0.1,2.55,C.telhado,0,hgt+0.05,0,g)}})})();
 
 /* água com leve degradê (mais clara junto ao cais) */
@@ -89,7 +94,7 @@ SEG.forEach(function(L){faixaCais(L,0,-2.6,C.patio,CY+0.42);faixaCais(L,-0.32,-0
 var NAV={},proxies=[],selId=null,moverId=null;
 /* ---------- v0.163.0 operação animada: guindastes (1 por terno), pás carregadeiras (1 por operador do Plano B), caçambas e pilha do pátio ---------- */
 var OPM={amar:mat('amar',0xE8B21E),verm:mat('vermG',0xC8102E),cabo:mat('cabo',0x222326),pneu:mat('pneu',0x1E1F22),cacamba:mat('cacamba',0x6E747A),vidroE:mat('vidroE',0x2E4652,{r:0.3})};
-var animOn=!toque,OPS={},YG=CY+0.43,YT=CY-0.6+0.01;   /* YG = piso do pátio (faixaCais em CY+0.42) */
+var animOn=!toque,OPS={},YG=CY+0.43,YT=CY+0.42;   /* YG = piso do pátio (faixaCais em CY+0.42) */
 function grupoCrawler(){var g=new T.Group(),bs=new T.Group();g.add(bs);
   caixa(0.95,0.16,0.18,C.preto,0,0.08,0.24,g);caixa(0.95,0.16,0.18,C.preto,0,0.08,-0.24,g);caixa(0.3,0.08,0.5,C.grafite,0,0.18,0,g);
   caixa(0.62,0.22,0.46,OPM.amar,-0.04,0.32,0,bs);caixa(0.2,0.22,0.44,C.grafite,-0.36,0.34,0,bs);caixa(0.2,0.2,0.16,OPM.amar,0.2,0.48,0.14,bs);caixa(0.04,0.13,0.14,OPM.vidroE,0.31,0.5,0.14,bs,false);
@@ -106,25 +111,45 @@ function grupoPa(){var g=new T.Group();caixa(0.42,0.16,0.24,OPM.amar,0,0.17,0,g)
   var br=new T.Group();br.position.set(0.2,0.22,0);g.add(br);caixa(0.2,0.04,0.04,OPM.amar,0.1,0,0.08,br);caixa(0.2,0.04,0.04,OPM.amar,0.1,0,-0.08,br);caixa(0.1,0.1,0.28,C.grafite,0.22,-0.02,0,br);
   var cg=new T.Mesh(G(new T.ConeGeometry(0.1,0.08,6)),C.gusa);cg.scale.set(0.7,1,1.4);cg.position.set(0.22,0.06,0);br.add(cg);
   return {g:g,braco:br,cg:cg}}
-function cacambaMesh(pai){var g=new T.Group();caixa(0.28,0.16,0.22,OPM.cacamba,0,0.08,0,g);var cg=caixa(0.24,0.08,0.18,C.gusa,0,0.14,0,g,false);pai.add(g);return {g:g,cg:cg}}
+function cacambaMesh(pai,tipo){var g=new T.Group(),cg;
+  if(tipo==='carr'){cg=new T.Group();var r=cil(0.17,0.17,0.24,C.carr,0,0.17,0,cg,14);r.rotation.x=Math.PI/2;[-0.13,0.13].forEach(function(z){var f=cil(0.2,0.2,0.03,C.carrF,0,0.17,z,cg,14);f.rotation.x=Math.PI/2});g.add(cg)}
+  else if(tipo==='geral'){cg=caixa(0.3,0.22,0.24,C.caixaM,0,0.11,0,g)}
+  else{caixa(0.28,0.16,0.22,OPM.cacamba,0,0.08,0,g);cg=caixa(0.24,0.08,0.18,C.gusa,0,0.14,0,g,false)}
+  pai.add(g);return {g:g,cg:cg,tipo:tipo}}
+/* v0.174.0: carga no pátio conforme o tipo — gusa = pilha; carretel = carretéis deitados; carga geral = caixas e tubos. f = quanto do pátio está ocupado (0–1) */
+function patioCarga(g,tipo,f,pz,L){var o={prx:0.5,prz:0.5};if(tipo==='gusa'){var r=Math.max(0.12,Math.min(1,f)),sx=Math.min(2.2,L*0.2)*(0.55+0.45*r),sz=1.15*(0.6+0.4*r),hy=0.3+0.7*r;
+    var pl=new T.Mesh(G(new T.ConeGeometry(0.9,1,10)),C.gusa);pl.scale.set(sx,hy,sz);pl.position.set(0,YT+hy/2,pz);pl.castShadow=pl.receiveShadow=true;g.add(pl);o.pl=pl;o.prz=0.9*sz;o.prx=0.9*sx;return o}
+  var n=Math.round((tipo==='carr'?14:16)*Math.max(0,Math.min(1,f)));if(!n)return o;var W=Math.min(L*0.7,6);
+  for(var i=0;i<n;i++){var col=i%7,lin=Math.floor(i/7)%2,cam=Math.floor(i/14),x=-W/2+(col+0.5)*W/7,z=pz+(lin?0.55:-0.55);
+    if(tipo==='carr'){var rr=new T.Group();rr.position.set(x,YT+0.22+cam*0.4,z);g.add(rr);var c1=cil(0.2,0.2,0.3,C.carr,0,0,0,rr,14);c1.rotation.x=Math.PI/2;[-0.16,0.16].forEach(function(zz){var f2=cil(0.24,0.24,0.03,C.carrF,0,0,zz,rr,14);f2.rotation.x=Math.PI/2})}
+    else{var sw=0.32+((i*37)%5)*0.06,sh=0.22+((i*53)%4)*0.07;if(i%5===4){var tb=cil(0.07,0.07,0.8,C.tubo,x,YT+0.08,z,g,8);tb.rotation.z=Math.PI/2;var tb2=cil(0.07,0.07,0.8,C.tubo,x,YT+0.08,z+0.15,g,8);tb2.rotation.z=Math.PI/2}else caixa(sw,sh,sw*0.8,C.caixaM,x,YT+sh/2,z,g)}}
+  o.prx=W/2;o.prz=0.8;return o}
+/* v0.174.0: potássio — carretas (cerca de 15) em fila: entram pela avenida, encostam no costado, são carregadas pelo guindaste e saem do porto */
+function carreta(){var g=new T.Group();caixa(0.22,0.2,0.2,OPM.verm,0.36,0.14,0,g);caixa(0.06,0.09,0.17,OPM.vidroE,0.47,0.17,0,g,false);caixa(0.52,0.12,0.22,OPM.cacamba,-0.05,0.13,0,g);
+  var cg=new T.Mesh(G(new T.ConeGeometry(0.13,0.12,6)),C.pot);cg.scale.set(1.9,1,0.85);cg.position.set(-0.05,0.24,0);g.add(cg);
+  [[0.34],[0.02],[-0.22]].forEach(function(q){[0.11,-0.11].forEach(function(z){var r=cil(0.055,0.055,0.04,OPM.pneu,q[0],0.055,z,g,8);r.rotation.x=Math.PI/2})});return {g:g,cg:cg}}
 function cabo(pai){var c=new T.Mesh(G(new T.BoxGeometry(0.02,1,0.02)),OPM.cabo);c.castShadow=false;pai.add(c);return c}
 /* ciclo (P segundos): guindaste espera a caçamba encher no chão (0–0,42), iça (0,42–0,5), gira (0,5–0,68), despeja (0,68–0,76), volta (0,76–0,96) e baixa (0,96–1).
    Pá: enche na pilha (0–0,14), leva até a caçamba (0,14–0,42), despeja (0,42–0,52), volta (0,52–0,86), aproxima da pilha (0,86–1). Despeja quando o guindaste está esperando. */
 var OP_P=10;
-function opMonta(id,o,l){var n=NAV[id];if(!n)return;var k=JSON.stringify(o.op||null)+'|'+l.L.toFixed(1)+'|'+(l.fundM||o.fund?1:0)+'|'+(o.carga||'');if(OPS[id]&&OPS[id].k===k)return;opApaga(id);var op=o.op;if(!op||(!op.tn&&!op.pas))return;
+function opMonta(id,o,l){var n=NAV[id];if(!n)return;var k=JSON.stringify(o.op||null)+'|'+l.L.toFixed(1)+'|'+(l.fundM||o.fund?1:0)+'|'+(o.carga||'')+'|'+(o.imp?1:0);if(OPS[id]&&OPS[id].k===k)return;opApaga(id);var op=o.op;if(!op||(!op.tn&&!op.pas))return;
   var g=new T.Group();n.g.add(g);var R={k:k,g:g,gr:[],pas:[],t0:Math.random()*OP_P};OPS[id]=R;
   var w=nrm(l.hm||0,1),lz={x:-Math.sin(l.ang),z:Math.cos(l.ang)},sc=(w.x*lz.x+w.y*lz.z)>0?-1:1,off=l.off||1.05,L=l.L,terra=!!op.terra,mar=op.lado==='balsa';
-  if(mar){sc=1;off=1.6/2+1.25/2+0.15}var zC=sc*off;R.sc=sc;R.off=off;R.mar=mar;
+  if(mar){sc=(l.fundM||o.fund)?1:-sc;off=1.6/2+1.25/2+0.15}var zC=sc*off;R.sc=sc;R.off=off;R.mar=mar;   /* v0.174.0: navio atracado com balsa a contrabordo: o lado da balsa é o da água */
+  var tipo=o.carga||'geral',pot=tipo==='pot'&&!mar;
   var tn=Math.max(0,Math.min(op.tn||0,8));
   var xa=terra&&!mar?-L/2:-L/2+2.1,xb=terra&&!mar?L/2:L/2-0.7;for(var i=0;i<tn;i++){var xi=xa+(i+0.5)*(xb-xa)/tn,cr,base,pk,dr;
     if(terra&&!mar){cr=grupoCrawler();base={x:xi,y:YG,z:zC+sc*0.7};pk={x:xi+0.55,z:zC+sc*1.35};dr={x:xi,z:0}}
     else{cr=grupoDeck();base={x:xi+0.05,y:0.7,z:0};pk={x:xi+0.25,z:mar?zC:zC+sc*0.4};dr={x:xi+0.62,z:0}}
-    cr.g.position.set(base.x,base.y,base.z);g.add(cr.g);var cb=cabo(g),ca=cacambaMesh(g);ca.cg.material=corCarga(o.carga);
+    cr.g.position.set(base.x,base.y,base.z);g.add(cr.g);var cb=cabo(g),ca=cacambaMesh(g,tipo);if(tipo==='gusa'||tipo==='pot')ca.cg.material=corCarga(o.carga);
     R.gr.push({c:cr,b:base,pk:pk,dr:dr,cb:cb,ca:ca,py:mar?0.5:YG,fase:i*0.29,np:0,parado:!!(op.par&&op.par[i+1])})}
   /* pilha no pátio (faixa clara atrás da faixa cinza do cais: 2,6 a 5,4 da beira) */
-  var pz=zC+sc*3.95;if(!mar){var r=Math.max(0.12,Math.min(1,op.rest==null?1:op.rest)),sx=Math.min(2.2,L*0.2)*(0.55+0.45*r),sz=1.15*(0.6+0.4*r),hy=0.3+0.7*r;
-    var pl=new T.Mesh(G(new T.ConeGeometry(0.9,1,10)),corCarga(o.carga));pl.scale.set(sx,hy,sz);pl.position.set(0,YT+hy/2,pz);pl.castShadow=pl.receiveShadow=true;g.add(pl);R.pl=pl;R.prz=0.9*sz;R.prx=0.9*sx}
-  var np=mar?0:Math.max(0,Math.min(op.pas||0,6));for(var j=0;j<np;j++){var p=grupoPa();p.cg.material=corCarga(o.carga);g.add(p.g);var q=R.gr.length?R.gr[j%R.gr.length]:null,alvo=q?q.pk:{x:-L/4+j*0.8,z:zC+sc*1.2};if(q)q.np++;
+  var pz=zC+sc*(tipo==='gusa'?3.55:3.95);if(!mar&&!pot){var fr=op.rest==null?(op.imp?0.5:1):(op.imp?1-op.rest:op.rest),pc=patioCarga(g,tipo,fr,pz,L);R.pl=pc.pl;R.prz=pc.prz;R.prx=pc.prx}
+  if(pot){R.car=[];var zA=zC+sc*1.35,zR1=zC+sc*5.9,zR2=zC+sc*7.1,xe=-L/2-12,P=[[xe,zR1],[-L/2-2,zR1],[-L/2-2,zA],[L/2+2,zA],[L/2+2,zR2],[xe,zR2]],seg=[],tot=0;
+    for(var u=0;u<P.length-1;u++){var dl=Math.hypot(P[u+1][0]-P[u][0],P[u+1][1]-P[u][1]);seg.push(dl);tot+=dl}R.cam={P:P,seg:seg,tot:tot,iA:2};
+    var nc=leve?8:15;for(var v=0;v<nc;v++){var cr2=carreta();g.add(cr2.g);R.car.push({c:cr2,s:v/nc})}
+    R.gr.forEach(function(q){q.ca.g.visible=false;q.semCaca=true})}
+  var np=mar||pot||tipo!=='gusa'?0:Math.max(0,Math.min(op.pas||0,6));for(var j=0;j<np;j++){var p=grupoPa();p.cg.material=corCarga(o.carga);g.add(p.g);var q=R.gr.length?R.gr[j%R.gr.length]:null,alvo=q?q.pk:{x:-L/4+j*0.8,z:zC+sc*1.2};if(q)q.np++;
     var bx=Math.max(-R.prx*0.8,Math.min(R.prx*0.8,alvo.x+(j%2?0.25:-0.25)));
     R.pas.push({q:q,ord:q?q.np-1:j,p:p,a:{x:alvo.x+(j%2?0.12:-0.12),z:alvo.z+sc*0.42},b:{x:bx,z:pz-sc*(R.prz*0.75)}})}
   precisa()}
@@ -140,15 +165,17 @@ function opAnima(t){Object.keys(OPS).forEach(function(id){var R=OPS[id],tt=t+R.t
     var dA=angD-angP;while(dA>Math.PI)dA-=2*Math.PI;while(dA<-Math.PI)dA+=2*Math.PI;var a=angP+dA*s,rr=rP+(rD-rP)*s;c.giro.rotation.y=a;
     var cos=Math.max(0.12,Math.min(0.97,(rr-0.2)/c.Lb));c.lanca.rotation.z=Math.acos(cos);
     var hx=b.x+Math.cos(a)*rr,hz=b.z-Math.sin(a)*rr,ty=b.y+c.h0+Math.sin(Math.acos(cos))*c.Lb,yb=q.py+0.01,yA=Math.max(yb+0.45,ty-0.55),y=yb+(yA-yb)*Math.max(0,Math.min(1,alt));
-    q.ca.g.position.set(hx,y,hz);q.ca.cg.visible=ench>0.01;q.ca.cg.scale.y=Math.max(0.2,ench);q.ca.cg.position.y=0.1+0.04*ench;
+    if(q.semCaca){q.ca.g.visible=false}else q.ca.g.position.set(hx,y,hz);if(q.ca.tipo==='carr'||q.ca.tipo==='geral')q.ca.cg.visible=ench>0.5;else{q.ca.cg.visible=ench>0.01;q.ca.cg.scale.y=Math.max(0.2,ench);q.ca.cg.position.y=0.1+0.04*ench}
     var cl=Math.max(0.02,ty-y-0.16);q.cb.position.set(hx,(ty+y+0.16)/2,hz);q.cb.scale.y=cl});
+  if(R.car){var cm=R.cam,vel=0.012;R.car.forEach(function(cv){var s=((tt*vel)+cv.s)%1,d=s*cm.tot,u=0;while(u<cm.seg.length-1&&d>cm.seg[u]){d-=cm.seg[u];u++}var a=cm.P[u],b=cm.P[u+1],k2=cm.seg[u]?d/cm.seg[u]:0,x=a[0]+(b[0]-a[0])*k2,z=a[1]+(b[1]-a[1])*k2;
+      cv.c.g.position.set(x,YG,z);cv.c.g.rotation.y=Math.atan2(-(b[1]-a[1]),b[0]-a[0]);cv.c.cg.visible=u>cm.iA||(u===cm.iA&&k2>0.5);cv.c.g.visible=!(u===cm.seg.length-1&&k2>0.85)&&!(u===0&&k2<0.15)})}
   R.pas.forEach(function(q){var c=q.q,k;
     if(c){var ck=c.k==null?0:c.k,dump=0.06+0.36*(q.ord+0.5)/Math.max(1,c.np);k=(ck-dump+0.47+1)%1;if(c.parado)k=0.05}else k=((tt/OP_P)+q.ord*0.37)%1;
     var f,carga,br;if(k<0.14){f=0;carga=k>0.07;br=k<0.07?-0.25:0.05}else if(k<0.42){f=ease((k-0.14)/0.28);carga=true;br=0.15}else if(k<0.52){f=1;carga=k<0.47;br=0.75}else if(k<0.86){f=1-ease((k-0.52)/0.34);carga=false;br=0.15}else{f=0;carga=false;br=-0.1}
     var x=q.b.x+(q.a.x-q.b.x)*f,z=q.b.z+(q.a.z-q.b.z)*f,ida=k<0.52;
     q.p.g.position.set(x,chaoY(R,z),z);q.p.g.rotation.y=Math.atan2(-(q.a.z-q.b.z),q.a.x-q.b.x)+(ida?0:Math.PI);q.p.braco.rotation.z=br;q.p.cg.visible=carga})})}
 
-function corCarga(t){return t==='gusa'?C.gusa:t==='pot'?C.pot:C.geral}
+function corCarga(t){return t==='gusa'?C.gusa:t==='pot'?C.pot:t==='carr'?C.carr:C.geral}
 function cascoGeo(L,B,alt,enc){var s=new T.Shape(),a=L/2-enc,b=B/2-enc,pr=Math.min(2.4,L*0.16);
   s.moveTo(-a,-b+0.25);s.quadraticCurveTo(-a,-b,-a+0.25,-b);s.lineTo(a-pr,-b);s.quadraticCurveTo(a-0.15,-b,a,0);s.quadraticCurveTo(a-0.15,b,a-pr,b);s.lineTo(-a+0.25,b);s.quadraticCurveTo(-a,b,-a,b-0.25);s.closePath();
   var e=G(new T.ExtrudeGeometry(s,{depth:alt,bevelEnabled:false,curveSegments:8}));e.rotateX(-Math.PI/2);return e}
@@ -163,7 +190,10 @@ function navioMesh(o){var g=new T.Group(),fant=!!o.fant;
   var sx=-L/2+1.05,nh=Math.max(3,Math.min(9,Math.round((L-3.4)/1.5))),esp=(L-3.6)/nh,x0=sx+1.0+esp/2;
   for(var i=0;i<nh;i++){var hx=x0+i*esp,tw=esp*0.72,aberta=o.cl==='op'&&i%2===0;
     caixa(tw+0.08,0.1,B*0.66,M2(C.grafite),hx,0.79,0,g);
-    if(aberta&&(o.cheio==null||o.cheio>0)){var hc=o.cheio==null?1:0.25+0.75*o.cheio,cg=new T.Mesh(G(new T.ConeGeometry(0.45,0.32,7)),M2(corCarga(o.carga)));cg.scale.set(tw*1.6,hc,B*0.95);cg.position.set(hx,0.86,0);g.add(cg)}
+    if(aberta&&(o.cheio==null||o.cheio>0)){var hc=o.cheio==null?1:0.25+0.75*o.cheio;
+      if(o.carga==='carr'){for(var rq=0;rq<Math.max(1,Math.round(3*hc));rq++){var rl=cil(0.16,0.16,0.22,M2(C.carr),hx-tw*0.3+rq*tw*0.3,0.95,0,g,12);rl.rotation.x=Math.PI/2}}
+      else if(o.carga==='geral'){for(var bq=0;bq<Math.max(1,Math.round(3*hc));bq++)caixa(tw*0.28,0.22,B*0.4,M2(C.caixaM),hx-tw*0.3+bq*tw*0.3,0.92,(bq%2?0.12:-0.12),g)}
+      else{var cg=new T.Mesh(G(new T.ConeGeometry(0.45,0.32,7)),M2(corCarga(o.carga)));cg.scale.set(tw*1.6,hc,B*0.95);cg.position.set(hx,0.86,0);g.add(cg)}}
     else caixa(tw,0.16,B*0.62,M2(C.tampa[o.cl]||C.tampa.fi),hx,0.9,0,g)}
   if(o.carga!=='pot'&&!o.semGui)for(var j=1;j<nh;j+=2){var cx=x0+(j-0.5)*esp;cil(0.09,0.11,0.9,M2(C.guind),cx,1.2,B*0.22,g,8);var lc=caixa(0.07,0.07,1.5,M2(C.guind),cx,1.6,-0.2,g);lc.rotation.x=-0.5}
   /* superestrutura na popa */
