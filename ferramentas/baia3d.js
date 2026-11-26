@@ -2,7 +2,7 @@
    Carregado sob demanda depois de ferramentas/three.min.js (Three.js r128).
    window.Baia3D.montar({palco, cabs:{n:{x,y,h}}, verm:[n], clique(id|null), movido(id,c0,c1), mudouVista()})
      → {dados(lista), sel(id), ver('nav'|'tudo'), zoom(f), girar(graus), mover(id|null), enquadra(), destruir(), diag()}
-   lista: [{id, nome, sub, cl:'op'|'at'|'fi'|'bl', c0, c1, mae, carga:'gusa'|'pot'|'carr'|'geral', imp:bool, alerta:''|'r'|'a', fant:bool, fund:bool}]
+   lista: [{id, nome, sub, cl:'op'|'at'|'fi'|'bl', c0, c1, mae, carga:'gusa'|'pot'|'carr'|'geral', imp:bool, alerta:''|'r'|'a', fant:bool, fund:bool, man:''|'pm'|'man'|'sai'}]
    Coordenadas: as do mapa 2D (1 unidade ≈ distância entre 2 cabeços). x → X, y do mapa → Z. A água fica à esquerda de quem anda do 227 para o 80. */
 (function(){'use strict';
 var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
@@ -45,7 +45,7 @@ var KS=Object.keys(CABS).map(Number).sort(function(a,b){return b-a});   // 227 �
 function pt(c){if(CABS[c])return CABS[c];for(var i=0;i<KS.length-1;i++){var a=KS[i],b=KS[i+1];if(c<=a&&c>=b){var t=(a-c)/(a-b),A=CABS[a],B=CABS[b];return {x:A.x+(B.x-A.x)*t,y:A.y+(B.y-A.y)*t,h:A.h+(B.h-A.h)*t}}}
   return c>KS[0]?CABS[KS[0]]:CABS[KS[KS.length-1]]}
 function nrm(h,d){var r=(h-90)*Math.PI/180;return {x:Math.cos(r)*d,y:Math.sin(r)*d}}       /* d>0 = água; d<0 = terra */
-var CY=1.05;   /* altura do cais acima da água */
+var CY=0.35;   /* altura do cais acima da água (v0.185.0: era 1,05 — cais alto demais) */
 var SEG=[KS.filter(function(c){return c>=164}),KS.filter(function(c){return c<=162})];
 
 /* terra (as mesmas áreas do mapa 2D), em placas extrudadas */
@@ -210,16 +210,41 @@ function anel(L,B){var s=new T.Shape(),a=L/2+0.45,b=B/2+0.45,r=0.45;s.moveTo(-a+
 function dados(lista){var vivos={},maeP={},slot=0;
   lista.forEach(function(o){if(o.fund)o.slot=slot++;if(!o.bl&&(o.fund||o.c0!=null)){var l=lugar(o);l.fundM=!!o.fund;maeP[o.id]=l}});
   lista.forEach(function(o){if(o.bl&&o.mae&&maeP[o.mae])o.maeP=maeP[o.mae];if(o.c0==null&&!o.fund&&!o.maeP)return;vivos[o.id]=1;
-    var sg=!!(o.op&&o.op.tn&&!o.op.terra),l=lugar(o),k=[o.cl,o.carga,o.fant?1:0,o.bl?1:0,l.L.toFixed(1),sg?1:0,o.cheio==null?'':o.cheio].join('|'),n=NAV[o.id];
+    var sg=!!(o.op&&o.op.tn&&!o.op.terra),l=lugar(o),k=[o.cl,o.carga,o.fant?1:0,o.bl?1:0,l.L.toFixed(1),sg?1:0,o.cheio==null?'':o.cheio,o.man||''].join('|'),n=NAV[o.id];
     if(!n||n.k!==k){if(n)apaga(o.id);var mm=navioMesh({L:l.L,cl:o.cl,carga:o.carga,bl:o.bl,fant:o.fant,semGui:sg,cheio:o.cheio});n=NAV[o.id]={k:k,g:mm.g,B:mm.B,L:l.L};cena.add(mm.g);
       var px=new T.Mesh(G(new T.BoxGeometry(l.L+0.6,2.6,mm.B+0.8)),new T.MeshBasicMaterial({visible:false}));px.position.y=0.8;px.userData.id=o.id;mm.g.add(px);proxies.push(px);n.px=px;
       var an=new T.Mesh(anel(l.L,mm.B),new T.MeshBasicMaterial({color:0xFFFFFF,transparent:true,opacity:0,depthWrite:false}));an.position.y=0.04;mm.g.add(an);n.an=an;
       var r=document.createElement('button');r.type='button';r.className='b3-n';r.addEventListener('click',function(){O.clique&&O.clique(o.id)});camadaRot.appendChild(r);n.r=r}
-    n.o=o;n.g.position.set(l.x,0,l.z);n.g.rotation.y=-l.ang;n.l=l;l.fundM=l.fundM||!!o.fund;opMonta(o.id,o,l);
-    n.r.className='b3-n '+o.cl+(o.alerta?' al-'+o.alerta:'')+(o.fant?' fant':'')+(o.fund?' fund':'')+(selId===o.id?' sel':'');
+    if((o.man==='man'||o.man==='sai')&&l.hm!=null){var nm=nrm(l.hm,o.man==='man'?3.2:1.8);l=Object.assign({},l,{x:l.x+nm.x,z:l.z+nm.y});var nn=nrm(l.hm,1);l.marN={x:nn.x,z:nn.y}}
+    n.o=o;n.g.position.set(l.x,0,l.z);n.g.rotation.y=-l.ang;n.l=l;l.fundM=l.fundM||!!o.fund;opMonta(o.id,o,l);tugMonta(o.id,o,l,n.B||1.6);
+    n.r.className='b3-n '+o.cl+(o.alerta?' al-'+o.alerta:'')+(o.fant?' fant':'')+(o.fund?' fund':'')+(o.man?' man':'')+(selId===o.id?' sel':'');
     n.r.innerHTML='<b>'+esc(o.nome)+'</b>'+(o.sub?'<span>'+esc(o.sub)+'</span>':'')+(o.alerta?'<i aria-hidden="true">!</i>':'');n.r.setAttribute('aria-label',o.nome+(o.sub?', '+o.sub:''))});
   Object.keys(NAV).forEach(function(id){if(!vivos[id])apaga(id)});pintaAneis();precisa()}
-function apaga(id){var n=NAV[id];if(!n)return;opApaga(id);cena.remove(n.g);proxies.splice(proxies.indexOf(n.px),1);n.r.remove();delete NAV[id]}
+/* ---------- v0.184.0: rebocadores (prático marcado, em manobra, desatracando) ---------- */
+var TUG={},TB={x:30,z:9};   /* TB = base dos rebocadores, perto do cais */
+var TM={casco:mat('tugCasco',0xD9481C),conves:mat('tugConv',0x2B2E33),cab:mat('tugCab',0xF2F2F2),chm:mat('tugChm',0x1C1E22),esp:mat('tugEsp',0xFFFFFF,{t:true,op:0.55,dw:false})};
+function rebocadorMesh(){var g=new T.Group();caixa(1.25,0.32,0.5,TM.casco,0,0.16,0,g,true);caixa(0.5,0.06,0.46,TM.conves,-0.32,0.35,0,g);caixa(0.42,0.32,0.36,TM.cab,0.12,0.48,0,g,true);caixa(0.12,0.22,0.12,TM.chm,-0.05,0.75,0,g);
+  var bico=new T.Mesh(G(new T.ConeGeometry(0.25,0.34,4)),TM.casco);bico.rotation.z=-Math.PI/2;bico.rotation.x=Math.PI/4;bico.scale.set(1,1,0.95);bico.position.set(0.78,0.16,0);g.add(bico);
+  var es=new T.Mesh(G(new T.PlaneGeometry(1.6,0.42)),TM.esp);es.rotation.x=-Math.PI/2;es.position.set(-1.35,0.03,0);es.visible=false;g.add(es);g.userData.esp=es;g.scale.set(1.35,1.35,1.35);return g}
+function tugApaga(id){var R=TUG[id];if(!R)return;R.g.forEach(function(m){cena.remove(m)});delete TUG[id]}
+function tugMonta(id,o,l,B){var k=(o.man||'')+'|'+l.x.toFixed(1)+'|'+l.z.toFixed(1);if(TUG[id]&&TUG[id].k===k)return;tugApaga(id);if(!o.man)return;
+  var c=Math.cos(l.ang),s=Math.sin(l.ang),nx=-s,nz=c,sg=l.fundM?1:1,R={k:k,man:o.man,g:[],p:[],t0:performance.now()};
+  /* lado da água: no cais, a normal aponta para a água (o navio foi afastado nessa direção); no fundeio, qualquer lado */
+  var mar=l.marN||{x:nx,z:nz};
+  if(o.man==='pm'){var t=rebocadorMesh();cena.add(t);R.g.push(t);var lx=l.x+mar.x*(B/2+0.75),lz=l.z+mar.z*(B/2+0.75);R.p.push({de:{x:TB.x,z:TB.z},para:{x:lx,z:lz},ang:l.ang,viagem:true})}
+  else if(o.man==='man'){[-1,1].forEach(function(f){var t=rebocadorMesh();cena.add(t);R.g.push(t);
+      /* um rebocador na proa e outro na popa, um pouco para o lado da água, com o cabo até o navio */
+      var ex=l.x+c*f*(l.L/2-0.3),ez=l.z+s*f*(l.L/2-0.3),px=l.x+c*f*(l.L/2+0.9)+mar.x*1.1,pz=l.z+s*f*(l.L/2+0.9)+mar.z*1.1,dx=ex-px,dz=ez-pz,dl=Math.sqrt(dx*dx+dz*dz);
+      var cb=new T.Mesh(G(new T.BoxGeometry(dl,0.04,0.04)),OPM.cabo);cb.position.set((ex+px)/2,0.55,(ez+pz)/2);cb.rotation.y=-Math.atan2(dz,dx);cena.add(cb);R.g.push(cb);R.p.push({fixo:true});
+      R.g.splice(R.g.length-2,0);R.p.splice(R.p.length-1,0,{x:px,z:pz,ang:Math.atan2(dz,dx)+Math.PI,empurra:{x:-dx/dl,z:-dz/dl}})})}
+  else if(o.man==='sai'){var t2=rebocadorMesh();cena.add(t2);R.g.push(t2);var bx=l.x+c*(l.L/2+1.0)+mar.x*0.6,bz=l.z+s*(l.L/2+1.0)+mar.z*0.6;R.p.push({x:bx,z:bz,ang:l.ang,puxa:true})}
+  TUG[id]=R;tugAnima(0)}
+function tugAnima(t){Object.keys(TUG).forEach(function(id){var R=TUG[id],tt=(performance.now()-R.t0)/1000;R.g.forEach(function(m,i){var p=R.p[i],x,z,a,mov=false;if(!p||p.fixo)return;
+    if(p.viagem){var k=(animOn&&!reduz)?Math.min(1,tt/18):1,e=ease(k);x=p.de.x+(p.para.x-p.de.x)*e;z=p.de.z+(p.para.z-p.de.z)*e;a=k<1?Math.atan2(p.para.z-p.de.z,p.para.x-p.de.x):p.ang;mov=k<1}
+    else if(p.empurra){var w=Math.sin(t*1.6+i*1.3)*0.08;x=p.x-p.empurra.x*w;z=p.z-p.empurra.z*w;a=p.ang;mov=true}
+    else{x=p.x+Math.sin(t*0.9)*0.05;z=p.z;a=p.ang;mov=true}
+    m.position.set(x,Math.sin(t*2.1+i)*0.03,z);m.rotation.y=-a;if(m.userData.esp)m.userData.esp.visible=!!mov})})}
+function apaga(id){var n=NAV[id];if(!n)return;opApaga(id);tugApaga(id);cena.remove(n.g);proxies.splice(proxies.indexOf(n.px),1);n.r.remove();delete NAV[id]}
 function pintaAneis(){Object.keys(NAV).forEach(function(id){var n=NAV[id],o=n.o,an=n.an;if(selId===id){an.material.color.setHex(0xFFFFFF);an.material.opacity=0.95}else if(o.alerta==='r'){an.material.color.setHex(0xE5333F);an.material.opacity=0.85}
   else if(o.alerta==='a'){an.material.color.setHex(0xF2B233);an.material.opacity=0.7}else an.material.opacity=0;n.r.classList.toggle('sel',selId===id)})}
 
@@ -297,7 +322,7 @@ function quadro(now){raf=0;if(!vis)return;var cont=false;
   if(VA){var k=Math.min(1,(now-VA.t0)/VA.ms),e=k<0.5?2*k*k:1-Math.pow(-2*k+2,2)/2;['tx','tz','hz','az','el'].forEach(function(p){V[p]=VA.de[p]+(VA.para[p]-VA.de[p])*e});if(k>=1){VA=null;O.mudouVista&&O.mudouVista()}else cont=true;aplicaCam()}
   /* pulso do anel do selecionado e dos alertas: 12 quadros por segundo, sem animação contínua do resto */
   var pulsa=false;if(!reduz){var t=(now-t0)/1000;Object.keys(NAV).forEach(function(id){var n=NAV[id];if(selId===id||n.o.alerta){pulsa=true;n.an.material.opacity=(selId===id?0.75:0.55)+Math.sin(t*3.2)*0.25}})}
-  var temOp=Object.keys(OPS).length>0;if(temOp)opAnima(animOn&&!reduz?(now-t0)/1000:2.2);
+  var temOp=Object.keys(OPS).length>0||Object.keys(TUG).length>0;if(Object.keys(OPS).length)opAnima(animOn&&!reduz?(now-t0)/1000:2.2);if(Object.keys(TUG).length)tugAnima(animOn&&!reduz?(now-t0)/1000:0);
   renderer.render(cena,cam);posRot();if(cont)raf=requestAnimationFrame(quadro);else if(temOp&&animOn&&!reduz&&vis){clearTimeout(tp);tp=setTimeout(precisa,40)}else if(pulsa&&vis){clearTimeout(tp);tp=setTimeout(precisa,85)}}
 var tp=0;
 function enquadra(){var W=palco.clientWidth,H=palco.clientHeight;if(!W||!H)return;renderer.setSize(W,H,false);aplicaCam();precisa()}

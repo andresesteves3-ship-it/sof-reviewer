@@ -906,10 +906,11 @@ const cargoKey=t=>String(t||'').toLowerCase().replace(/^\s*(loading|discharg\w*)
 function checkStowage(errors){
   if(!stowPlans.length||!colInfo||colInfo.h===undefined)return;
   const key=colInfo.vol!==undefined?'vol':(colInfo.t!==undefined?'t':null);
-  const T={},P={};
+  const T={},P={};let dkW=0;   // v0.176.0: carga no Deck fica fora dos porões, mas entra no total do plano
   const add=(M,h,c,vol,w)=>{const o=M[h]||(M[h]={vol:0,w:0,c:{}}); o.vol+=vol; o.w+=w; const k=o.c[c]||(o.c[c]={vol:0,w:0}); k.vol+=vol; k.w+=w};
   rows.forEach(r=>{
     if(r.isPeriodTotal||r.isGrandTotal||!inTable(r)||!(r.w>0)||/not\s+worked|awaiting/i.test(rowText(r)))return;
+    if(/^\s*deck\s*$/i.test(String(r.hold||''))){dkW+=r.w;return}
     const h=parseInt(r.hold,10); if(!(h>0))return;
     add(T,h,colInfo.d!==undefined?cargoKey(r.values[colInfo.d]):'',key?(r[key]||0):0,r.w);
   });
@@ -936,7 +937,7 @@ function checkStowage(errors){
   });
   stowPlans.forEach(p=>{
     const sw=p.entries.reduce((x,e)=>x+e.w,0), sv=p.entries.reduce((x,e)=>x+(e.vol||0),0), hasV=p.entries.some(e=>e.vol!==null), f=[];
-    if(p.totalW!==null&&Math.abs(p.totalW-sw)>0.011)f.push(['Peso total',fmtN(p.totalW)+' t (porões: '+fmtN(sw)+' t)']);
+    if(p.totalW!==null&&Math.abs(p.totalW-sw)>0.011&&!(dkW>0&&Math.abs(p.totalW-sw-dkW)<=0.011))f.push(['Peso total',fmtN(p.totalW)+' t (porões: '+fmtN(sw)+' t)']);
     if(p.totalVol!==null&&hasV&&Math.abs(p.totalVol-sv)>0.5)f.push(['Volumes totais',fmtN(p.totalVol)+' (porões: '+fmtN(sv)+')']);
     if(f.length)errors.push(issue('Stowage Plan "'+p.name+'": total não confere com os porões',f,'Confira o total digitado no topo do plano.','ALTO'));
   });
