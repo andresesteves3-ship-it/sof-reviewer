@@ -1,6 +1,11 @@
 {
- "atualizado": "2026-11-26T05:00:52.990Z",
+ "atualizado": "2026-11-26T11:00:50.344Z",
  "navios": {
+  "BRIGHTON": {
+   "dia": "2026-11-28",
+   "txt": "28 nov",
+   "sit": "dentro do prazo"
+  },
   "HAPPY DELTA": {
    "dia": "2026-11-27",
    "txt": "27 nov",
