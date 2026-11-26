@@ -1,13 +1,13 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-26T14:09:29.118Z",
- "ultimoSucesso": "2026-11-26T14:09:29.118Z",
+ "atualizado": "2026-11-26T17:00:53.695Z",
+ "ultimoSucesso": "2026-11-26T17:00:53.695Z",
  "diag": {
   "cartoes": 2,
   "comPrevisao": 2,
   "amostra": [
-   "BRIGHTON | TÉRMINO PREVISTO / 28 nov / no ritmo real 28 nov / dentro do prazo",
+   "BRIGHTON | TÉRMINO PREVISTO / 28 nov / no ritmo real 29 nov / dentro do prazo",
    "HAPPY DELTA | TÉRMINO PREVISTO / — / no ritmo real 27 nov / PRANCHA T/DIA"
   ]
  },
