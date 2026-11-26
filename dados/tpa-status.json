@@ -1,22 +1,73 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-26T02:25:53.161Z",
- "ultimoSucesso": "2026-11-26T02:25:53.161Z",
+ "atualizado": "2026-11-26T08:00:49.162Z",
+ "ultimoSucesso": "2026-11-26T08:00:49.162Z",
  "dias": [
   {
-   "data": "25/11/2026",
-   "reqs": 24,
-   "escaladas": 19
+   "data": "26/11/2026",
+   "reqs": 10,
+   "escaladas": 4
   },
   {
-   "data": "26/11/2026",
-   "erro": "O site do OGMO devolveu uma página em branco (tela de requisições)."
+   "data": "27/11/2026",
+   "reqs": 4,
+   "escaladas": 0
   }
  ],
- "da9": [],
- "novos": 0,
- "total": 513,
- "diag": {},
+ "da9": [
+  {
+   "req": "25053597-1",
+   "data": "26/11/2026",
+   "n": 22,
+   "erro": "",
+   "aviso": ""
+  },
+  {
+   "req": "25053598-1",
+   "data": "26/11/2026",
+   "n": 1,
+   "erro": "",
+   "aviso": ""
+  },
+  {
+   "req": "25053615-1",
+   "data": "26/11/2026",
+   "n": 14,
+   "erro": "",
+   "aviso": ""
+  },
+  {
+   "req": "25053616-1",
+   "data": "26/11/2026",
+   "n": 7,
+   "erro": "",
+   "aviso": ""
+  }
+ ],
+ "novos": 3,
+ "total": 516,
+ "diag": {
+  "da9": [
+   {
+    "tag": "A",
+    "id": "",
+    "name": "",
+    "val": "",
+    "tit": "Gera DA9 da Requisição Selecionada (Exce",
+    "vis": false,
+    "on": "return SubmitClickConfirm('IWIMAGE5','', true, '');"
+   },
+   {
+    "tag": "IMG",
+    "id": "IWIMAGE5",
+    "name": "IWIMAGE5",
+    "val": "",
+    "tit": "Gera DA9 da Requisição Selecionada (Exce",
+    "vis": true,
+    "on": ""
+   }
+  ]
+ },
  "falhasSeguidas": 0
 }
