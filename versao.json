@@ -1,4 +1,4 @@
 {
- "v": "0.177.0",
- "resumo": "Stowage Plan: carga geral com posição e vista de cima."
+ "v": "0.178.0",
+ "resumo": "Operação guarda a última leitura e marca mudanças; períodos faltantes no SOF; cliente encerra pelo manifesto."
 }
