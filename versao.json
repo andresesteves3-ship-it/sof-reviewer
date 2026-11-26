@@ -1,4 +1,4 @@
 {
- "v": "0.178.0",
- "resumo": "Operação guarda a última leitura e marca mudanças; períodos faltantes no SOF; cliente encerra pelo manifesto."
+ "v": "0.178.1",
+ "resumo": "Operação: erro ao ler a planilha corrigido."
 }
