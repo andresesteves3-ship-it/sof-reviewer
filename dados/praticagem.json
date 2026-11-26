@@ -1430,312 +1430,6 @@
     }
    ]
   },
-  "GLOVIS ADVANCE": {
-   "est": "cancelada",
-   "ev": [
-    {
-     "t": 1793043679836,
-     "e": "inicial"
-    },
-    {
-     "t": 1793112013771,
-     "e": "cancelada"
-    }
-   ],
-   "man": [
-    {
-     "pob": "27/10 14:30",
-     "navio": "GLOVIS ADVANCE",
-     "m": "E",
-     "de": "",
-     "para": "SUDESTE 1S"
-    }
-   ],
-   "nome": "GLOVIS ADVANCE"
-  },
-  "GREEN TAICANG": {
-   "est": "cancelada",
-   "ev": [
-    {
-     "t": 1793043679836,
-     "e": "inicial"
-    },
-    {
-     "t": 1793112013771,
-     "e": "cancelada"
-    }
-   ],
-   "man": [
-    {
-     "pob": "27/10 19:00",
-     "navio": "GREEN TAICANG",
-     "m": "S",
-     "de": "TECONT302",
-     "para": ""
-    }
-   ],
-   "nome": "GREEN TAICANG"
-  },
-  "EAGLE VELLORE": {
-   "est": "concluida",
-   "ev": [
-    {
-     "t": 1793043679836,
-     "e": "inicial"
-    },
-    {
-     "t": 1793112013771,
-     "e": "concluida"
-    }
-   ],
-   "man": [
-    {
-     "pob": "27/10 05:00",
-     "navio": "EAGLE VELLORE",
-     "m": "S",
-     "de": "T-OIL-CENT",
-     "para": ""
-    }
-   ],
-   "nome": "EAGLE VELLORE"
-  },
-  "GENESIS I": {
-   "est": "concluida",
-   "ev": [
-    {
-     "t": 1793043679836,
-     "e": "inicial"
-    },
-    {
-     "t": 1793046840281,
-     "e": "alterada"
-    },
-    {
-     "t": 1793112013771,
-     "e": "concluida"
-    }
-   ],
-   "man": [
-    {
-     "pob": "27/10 02:00",
-     "navio": "GENESIS I",
-     "m": "E",
-     "de": "",
-     "para": "BPORT NORTE"
-    }
-   ],
-   "nome": "GENESIS I"
-  },
-  "SEVEN WAVES": {
-   "est": "concluida",
-   "ev": [
-    {
-     "t": 1793043679836,
-     "e": "inicial"
-    },
-    {
-     "t": 1793054052477,
-     "e": "alterada"
-    },
-    {
-     "t": 1793112013771,
-     "e": "concluida"
-    }
-   ],
-   "man": [
-    {
-     "pob": "27/10 09:00",
-     "navio": "SEVEN WAVES",
-     "m": "E",
-     "de": "",
-     "para": "ALISEOB2"
-    }
-   ],
-   "nome": "SEVEN WAVES"
-  },
-  "EAGLE CANOAS": {
-   "est": "cancelada",
-   "ev": [
-    {
-     "t": 1793043679836,
-     "e": "inicial"
-    },
-    {
-     "t": 1793046840281,
-     "e": "alterada"
-    },
-    {
-     "t": 1793112013771,
-     "e": "cancelada"
-    }
-   ],
-   "man": [
-    {
-     "pob": "27/10 11:30",
-     "navio": "EAGLE CANOAS",
-     "m": "E",
-     "de": "",
-     "para": "T-OIL-NORT"
-    },
-    {
-     "pob": "28/10 18:00",
-     "navio": "EAGLE CANOAS",
-     "m": "S",
-     "de": "T-OIL-NORT",
-     "para": ""
-    }
-   ],
-   "nome": "EAGLE CANOAS"
-  },
-  "BIGROLL BISCAY": {
-   "est": "cancelada",
-   "ev": [
-    {
-     "t": 1793043679836,
-     "e": "inicial"
-    },
-    {
-     "t": 1793112013771,
-     "e": "cancelada"
-    }
-   ],
-   "man": [
-    {
-     "pob": "27/10 12:00",
-     "navio": "BIGROLL BISCAY",
-     "m": "E",
-     "de": "",
-     "para": "DOME-CAIS"
-    }
-   ],
-   "nome": "BIGROLL BISCAY"
-  },
-  "BURAN": {
-   "est": "cancelada",
-   "ev": [
-    {
-     "t": 1793043679836,
-     "e": "inicial"
-    },
-    {
-     "t": 1793112013771,
-     "e": "cancelada"
-    }
-   ],
-   "man": [
-    {
-     "pob": "27/10 18:00",
-     "navio": "BURAN",
-     "m": "S",
-     "de": "B-PORT 1",
-     "para": ""
-    }
-   ],
-   "nome": "BURAN"
-  },
-  "LANEY CHOUEST": {
-   "est": "cancelada",
-   "ev": [
-    {
-     "t": 1793043679836,
-     "e": "inicial"
-    },
-    {
-     "t": 1793112013771,
-     "e": "cancelada"
-    }
-   ],
-   "man": [
-    {
-     "pob": "28/10 06:00",
-     "navio": "LANEY CHOUEST",
-     "m": "E",
-     "de": "",
-     "para": "BPORT NORTE"
-    }
-   ],
-   "nome": "LANEY CHOUEST"
-  },
-  "KHK MAJESTY": {
-   "est": "cancelada",
-   "ev": [
-    {
-     "t": 1793043679836,
-     "e": "inicial"
-    },
-    {
-     "t": 1793046840281,
-     "e": "alterada"
-    },
-    {
-     "t": 1793112013771,
-     "e": "cancelada"
-    }
-   ],
-   "man": [
-    {
-     "pob": "29/10 05:00",
-     "navio": "KHK MAJESTY",
-     "m": "S",
-     "de": "T-OIL-NORT",
-     "para": ""
-    }
-   ],
-   "nome": "KHK MAJESTY"
-  },
-  "SAPURA ONIX": {
-   "est": "cancelada",
-   "ev": [
-    {
-     "t": 1793043679836,
-     "e": "inicial"
-    },
-    {
-     "t": 1793112013771,
-     "e": "cancelada"
-    }
-   ],
-   "man": [
-    {
-     "pob": "28/10 20:00",
-     "navio": "SAPURA ONIX",
-     "m": "S",
-     "de": "ALISEOB1",
-     "para": ""
-    }
-   ],
-   "nome": "SAPURA ONIX"
-  },
-  "SAYAN POLARIS": {
-   "est": "cancelada",
-   "ev": [
-    {
-     "t": 1793043679836,
-     "e": "inicial"
-    },
-    {
-     "t": 1793112013771,
-     "e": "cancelada"
-    }
-   ],
-   "man": [
-    {
-     "pob": "29/10 04:00",
-     "navio": "SAYAN POLARIS",
-     "m": "E",
-     "de": "",
-     "para": "B-PORT 3"
-    },
-    {
-     "pob": "29/10 19:00",
-     "navio": "SAYAN POLARIS",
-     "m": "S",
-     "de": "B-PORT 3",
-     "para": ""
-    }
-   ],
-   "nome": "SAYAN POLARIS"
-  },
   "BUENA CONFIANZA": {
    "est": "concluida",
    "ev": [
@@ -1808,66 +1502,6 @@
     }
    ]
   },
-  "AQUILA": {
-   "est": "cancelada",
-   "ev": [
-    {
-     "t": 1793046840281,
-     "e": "apareceu"
-    },
-    {
-     "t": 1793112013771,
-     "e": "cancelada"
-    }
-   ],
-   "man": [
-    {
-     "pob": "27/10 08:00",
-     "navio": "AQUILA",
-     "m": "E",
-     "de": "",
-     "para": "T-OIL-CENT"
-    },
-    {
-     "pob": "31/10 05:00",
-     "navio": "AQUILA",
-     "m": "S",
-     "de": "T-OIL-CENT",
-     "para": ""
-    }
-   ],
-   "nome": "AQUILA"
-  },
-  "EAGLE PAULINIA": {
-   "est": "cancelada",
-   "ev": [
-    {
-     "t": 1793046840281,
-     "e": "apareceu"
-    },
-    {
-     "t": 1793112013771,
-     "e": "cancelada"
-    }
-   ],
-   "man": [
-    {
-     "pob": "27/10 15:00",
-     "navio": "EAGLE PAULINIA",
-     "m": "E",
-     "de": "",
-     "para": "T-OIL-CENT"
-    },
-    {
-     "pob": "28/10 20:00",
-     "navio": "EAGLE PAULINIA",
-     "m": "S",
-     "de": "T-OIL-CENT",
-     "para": ""
-    }
-   ],
-   "nome": "EAGLE PAULINIA"
-  },
   "LIBERTY BAY": {
    "est": "concluida",
    "ev": [
@@ -1911,29 +1545,6 @@
      "st": "realizada"
     }
    ]
-  },
-  "TORDIS KNUTSEN": {
-   "est": "concluida",
-   "ev": [
-    {
-     "t": 1793065377386,
-     "e": "apareceu"
-    },
-    {
-     "t": 1793112013771,
-     "e": "concluida"
-    }
-   ],
-   "man": [
-    {
-     "pob": "27/10 09:00",
-     "navio": "TORDIS KNUTSEN",
-     "m": "E",
-     "de": "",
-     "para": "AF GNL"
-    }
-   ],
-   "nome": "TORDIS KNUTSEN"
   },
   "BOCHEM WALVIS BAY": {
    "est": "cancelada",
@@ -2102,29 +1713,6 @@
      "st": "cancelada"
     }
    ]
-  },
-  "ASL ERA": {
-   "est": "cancelada",
-   "ev": [
-    {
-     "t": 1793104992958,
-     "e": "apareceu"
-    },
-    {
-     "t": 1793112013771,
-     "e": "cancelada"
-    }
-   ],
-   "man": [
-    {
-     "pob": "27/10 12:30",
-     "navio": "ASL ERA",
-     "m": "E",
-     "de": "",
-     "para": "JURUBA-B1"
-    }
-   ],
-   "nome": "ASL ERA"
   },
   "PARIS 24": {
    "est": "concluida",
@@ -4258,11 +3846,15 @@
     {
      "t": 1795700727400,
      "e": "alterada"
+    },
+    {
+     "t": 1795705210307,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "27/11 13:00",
+     "pob": "27/11 17:00",
      "navio": "MSC LETICIA X MSC LETICIA X",
      "m": "E",
      "de": "",
@@ -4270,7 +3862,7 @@
      "secao": "BAIA DE GUANABARA"
     },
     {
-     "pob": "28/11 06:00",
+     "pob": "28/11 16:30",
      "navio": "MSC LETICIA X MSC LETICIA X",
      "m": "S",
      "de": "TECONT3",
@@ -4328,6 +3920,16 @@
      "de": "",
      "para": "TECONT3",
      "ult": 1795700727400,
+     "st": "remarcada"
+    },
+    {
+     "m": "E",
+     "pob": "27/11 17:00",
+     "ts": 1795809600000,
+     "vis": 1795705210307,
+     "de": "",
+     "para": "TECONT3",
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -4338,6 +3940,16 @@
      "de": "TECONT3",
      "para": "",
      "ult": 1795700727400,
+     "st": "remarcada"
+    },
+    {
+     "m": "S",
+     "pob": "28/11 16:30",
+     "ts": 1795894200000,
+     "vis": 1795705210307,
+     "de": "TECONT3",
+     "para": "",
+     "ult": 1795705210307,
      "st": "prevista"
     }
    ]
@@ -4984,14 +4596,14 @@
      "navio": "SINAR SUMATERA SINAR SUMATERA",
      "m": "E",
      "de": "",
-     "para": "TECONT3",
+     "para": "TECONT4",
      "secao": "BAIA DE GUANABARA"
     },
     {
      "pob": "27/11 11:00",
      "navio": "SINAR SUMATERA SINAR SUMATERA",
      "m": "S",
-     "de": "TECONT3",
+     "de": "TECONT4",
      "para": "",
      "secao": "BAIA DE GUANABARA"
     }
@@ -5064,8 +4676,8 @@
      "ts": 1795701600000,
      "vis": 1795623804455,
      "de": "",
-     "para": "TECONT3",
-     "ult": 1795700727400,
+     "para": "TECONT4",
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -5083,9 +4695,9 @@
      "pob": "27/11 11:00",
      "ts": 1795788000000,
      "vis": 1795700727400,
-     "de": "TECONT3",
+     "de": "TECONT4",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -8454,11 +8066,15 @@
     {
      "t": 1795660716487,
      "e": "alterada"
+    },
+    {
+     "t": 1795705210307,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "28/11 08:00",
+     "pob": "26/11 17:30",
      "navio": "MSC ADELE MSC ADELE",
      "m": "E",
      "de": "",
@@ -8466,7 +8082,7 @@
      "secao": "BAIA DE GUANABARA"
     },
     {
-     "pob": "29/11 06:00",
+     "pob": "27/11 15:00",
      "navio": "MSC ADELE MSC ADELE",
      "m": "S",
      "de": "TECONT3",
@@ -8517,6 +8133,16 @@
      "st": "remarcada"
     },
     {
+     "m": "E",
+     "pob": "26/11 17:30",
+     "ts": 1795725000000,
+     "vis": 1795705210307,
+     "de": "",
+     "para": "TECONT3",
+     "ult": 1795705210307,
+     "st": "prevista"
+    },
+    {
      "m": "S",
      "pob": "27/11 06:00",
      "ts": 1795770000000,
@@ -8527,6 +8153,16 @@
      "st": "remarcada"
     },
     {
+     "m": "S",
+     "pob": "27/11 15:00",
+     "ts": 1795802400000,
+     "vis": 1795705210307,
+     "de": "TECONT3",
+     "para": "",
+     "ult": 1795705210307,
+     "st": "prevista"
+    },
+    {
      "m": "E",
      "pob": "28/11 08:00",
      "ts": 1795863600000,
@@ -8534,7 +8170,7 @@
      "de": "",
      "para": "TECONT3",
      "ult": 1795700727400,
-     "st": "prevista"
+     "st": "remarcada"
     },
     {
      "m": "S",
@@ -8544,7 +8180,7 @@
      "de": "TECONT3",
      "para": "",
      "ult": 1795700727400,
-     "st": "prevista"
+     "st": "remarcada"
     }
    ]
   },
@@ -8793,7 +8429,7 @@
      "vis": 1795638685494,
      "de": "PP-1",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     }
    ]
@@ -9899,7 +9535,7 @@
      "vis": 1795529927809,
      "de": "TECONT5",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     }
    ]
@@ -12214,11 +11850,15 @@
     {
      "t": 1795691866347,
      "e": "alterada"
+    },
+    {
+     "t": 1795705210307,
+     "e": "alterada"
     }
    ],
    "man": [
     {
-     "pob": "26/11 15:00",
+     "pob": "26/11 13:30",
      "navio": "SKANDI SALVADOR SKANDI SALVADOR",
      "m": "M",
      "de": "SIDERURG2",
@@ -12350,13 +11990,23 @@
     },
     {
      "m": "M",
+     "pob": "26/11 13:30",
+     "ts": 1795710600000,
+     "vis": 1795705210307,
+     "de": "SIDERURG2",
+     "para": "WPT 65",
+     "ult": 1795705210307,
+     "st": "prevista"
+    },
+    {
+     "m": "M",
      "pob": "26/11 15:00",
      "ts": 1795716000000,
      "vis": 1795650265738,
      "de": "SIDERURG2",
      "para": "WPT 65",
      "ult": 1795700727400,
-     "st": "prevista"
+     "st": "remarcada"
     }
    ]
   },
@@ -12965,7 +12615,7 @@
      "vis": 1795027807686,
      "de": "",
      "para": "A4",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -12975,7 +12625,7 @@
      "vis": 1795027807686,
      "de": "A4",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -12985,7 +12635,7 @@
      "vis": 1795627651416,
      "de": "",
      "para": "A4",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -12995,7 +12645,7 @@
      "vis": 1795627651416,
      "de": "A4",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     }
    ]
@@ -13115,7 +12765,7 @@
      "vis": 1793889223018,
      "de": "",
      "para": "A4",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -13125,7 +12775,7 @@
      "vis": 1793889223018,
      "de": "A4",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -13135,7 +12785,7 @@
      "vis": 1795025886665,
      "de": "",
      "para": "A4",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -13145,7 +12795,7 @@
      "vis": 1795025886665,
      "de": "A4",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -13155,7 +12805,7 @@
      "vis": 1795627651416,
      "de": "",
      "para": "A4",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -13165,7 +12815,7 @@
      "vis": 1795627651416,
      "de": "A4",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -13175,7 +12825,7 @@
      "vis": 1795631780922,
      "de": "",
      "para": "TPASSAGE2",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -13185,7 +12835,7 @@
      "vis": 1795631780922,
      "de": "TPASSAGE2",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -13195,7 +12845,7 @@
      "vis": 1795700727400,
      "de": "",
      "para": "A4",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -13205,7 +12855,7 @@
      "vis": 1795700727400,
      "de": "A4",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     }
    ]
@@ -17711,7 +17361,7 @@
      "vis": 1795579000680,
      "de": "TECONT1",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     }
    ]
@@ -20951,7 +20601,7 @@
      "vis": 1795683470249,
      "de": "",
      "para": "TECONT2",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -20971,7 +20621,7 @@
      "vis": 1795683470249,
      "de": "TECONT2",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     }
    ]
@@ -21293,7 +20943,7 @@
      "vis": 1795011506909,
      "de": "",
      "para": "TPASSAGE2",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -21303,7 +20953,7 @@
      "vis": 1795011506909,
      "de": "TPASSAGE2",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     }
    ]
@@ -21571,7 +21221,7 @@
      "vis": 1795023740541,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -21581,7 +21231,7 @@
      "vis": 1795023740541,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     }
    ]
@@ -21635,7 +21285,7 @@
      "vis": 1795458658025,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -21655,7 +21305,7 @@
      "vis": 1795458658025,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     }
    ]
@@ -21747,7 +21397,7 @@
      "vis": 1795648105039,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -21767,7 +21417,7 @@
      "vis": 1795648105039,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     }
    ]
@@ -23071,7 +22721,7 @@
      "vis": 1795392029206,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     }
    ]
@@ -23403,7 +23053,7 @@
      "vis": 1795444228178,
      "de": "",
      "para": "A4",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -23423,7 +23073,7 @@
      "vis": 1795623804455,
      "de": "A4",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     }
    ]
@@ -23549,7 +23199,7 @@
      "vis": 1795458658025,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -23559,7 +23209,7 @@
      "vis": 1795458658025,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     }
    ]
@@ -23599,7 +23249,7 @@
      "vis": 1795458658025,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -23609,7 +23259,7 @@
      "vis": 1795458658025,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     }
    ]
@@ -23915,7 +23565,7 @@
      "vis": 1795648105039,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -23925,7 +23575,7 @@
      "vis": 1795648105039,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -23956,6 +23606,10 @@
     {
      "t": 1795606290385,
      "e": "apareceu"
+    },
+    {
+     "t": 1795705210307,
+     "e": "alterada"
     }
    ],
    "man": [
@@ -23968,7 +23622,7 @@
      "secao": "BAIA DE GUANABARA"
     },
     {
-     "pob": "27/11 16:30",
+     "pob": "27/11 19:30",
      "navio": "GRANDE GUINEA GRANDE GUINEA",
      "m": "S",
      "de": "TECONT5",
@@ -23985,7 +23639,7 @@
      "vis": 1795606290385,
      "de": "",
      "para": "TECONT5",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -23996,6 +23650,16 @@
      "de": "TECONT5",
      "para": "",
      "ult": 1795700727400,
+     "st": "remarcada"
+    },
+    {
+     "m": "S",
+     "pob": "27/11 19:30",
+     "ts": 1795818600000,
+     "vis": 1795705210307,
+     "de": "TECONT5",
+     "para": "",
+     "ult": 1795705210307,
      "st": "prevista"
     }
    ]
@@ -24147,7 +23811,7 @@
      "vis": 1795627651416,
      "de": "",
      "para": "A4",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -24157,7 +23821,7 @@
      "vis": 1795633645009,
      "de": "A4",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -24263,7 +23927,7 @@
      "vis": 1795631780922,
      "de": "",
      "para": "A5",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -24273,7 +23937,7 @@
      "vis": 1795631780922,
      "de": "A5",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -24283,7 +23947,7 @@
      "vis": 1795700727400,
      "de": "",
      "para": "A4",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -24293,7 +23957,7 @@
      "vis": 1795700727400,
      "de": "A4",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     }
    ]
@@ -24375,17 +24039,21 @@
      "vis": 1795638685494,
      "de": "",
      "para": "PP-1",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     }
    ]
   },
   "HEATHER KNUTSEN HEATHER KNUTSEN": {
-   "est": "marcada",
+   "est": "concluida",
    "ev": [
     {
      "t": 1795652140522,
      "e": "apareceu"
+    },
+    {
+     "t": 1795705210307,
+     "e": "concluida"
     }
    ],
    "man": [
@@ -24408,7 +24076,7 @@
      "de": "",
      "para": "VISITA N",
      "ult": 1795700727400,
-     "st": "prevista"
+     "st": "realizada"
     }
    ]
   },
@@ -24447,7 +24115,7 @@
      "vis": 1795700727400,
      "de": "",
      "para": "TECONTPROLONG",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     },
     {
@@ -24457,7 +24125,7 @@
      "vis": 1795700727400,
      "de": "TECONTPROLONG",
      "para": "",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     }
    ]
@@ -24489,7 +24157,7 @@
      "vis": 1795700727400,
      "de": "",
      "para": "TERMTRIGO",
-     "ult": 1795700727400,
+     "ult": 1795705210307,
      "st": "prevista"
     }
    ]
@@ -24497,9 +24165,9 @@
  },
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-26T13:45:27.400Z",
- "ultimoSucesso": "2026-11-26T13:45:27.400Z",
- "total": 56,
+ "atualizado": "2026-11-26T15:00:10.307Z",
+ "ultimoSucesso": "2026-11-26T15:00:10.307Z",
+ "total": 55,
  "secoes": [
   "BAIA DE GUANABARA",
   "BAIA DE SEPETIBA",
