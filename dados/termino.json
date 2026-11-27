@@ -1,5 +1,5 @@
 {
- "atualizado": "2026-11-27T14:07:47.039Z",
+ "atualizado": "2026-11-27T17:00:42.055Z",
  "navios": {
   "BBG MASTER": {
    "dia": "2026-06-21",
@@ -12,8 +12,8 @@
    "sit": "dentro do prazo"
   },
   "HAPPY DELTA": {
-   "dia": "2026-11-29",
-   "txt": "29 nov",
+   "dia": "2026-11-27",
+   "txt": "27 nov",
    "sit": ""
   }
  }
