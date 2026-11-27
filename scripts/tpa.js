@@ -66,6 +66,23 @@ function tpasDasLinhas(linhas) {
   return out;
 }
 
+// v0.186.0: quantos TPAs foram empregados em cada função, por equipe (terno). Só números — sem nomes — vão em claro no dados/da9.json.
+const NAO_FUNCAO = /MATR[IÍ]CULA|OBSERVA|EMERG|AMBULAT|RESGATE|SEGURAN|ÔNIBUS|ONIBUS|RESPONS|EMPRESA|DATA|NAVIO|CATEGORIA|SE[CÇ][AÃ]O|PORTO|REQUISI|PER[IÍ]ODO|HOR[AÁ]RIO|OGMO/;
+function funcoesDasLinhas(linhas) {
+  const eq = {}; let equipe = '1', cur = null, tab = false, faina = '';
+  linhas.forEach(l0 => {
+    const l = String(l0 || '').toUpperCase().trim(); if (!l) return;
+    const me = /EQUIPE:\s*(\d+)/.exec(l); if (me) { equipe = me[1]; cur = null; tab = false; return; }
+    const mf = /^(\d+(?:\.\d+)+)\s*-\s*\S/.exec(l); if (mf && !tab) { faina = mf[1]; return; }
+    if (/^MATR[IÍ]CULA\s+NOME/.test(l)) { tab = true; cur = null; return; }
+    if (/^OBSERVA[CÇ][OÕ]ES\s+COMPLEMENTARES/.test(l)) { tab = false; cur = null; return; }
+    if (!tab) return;
+    if (RE_LINHA.test(l)) { if (cur) { const E = eq[equipe] = eq[equipe] || {}; E[cur] = (E[cur] || 0) + 1; } return; }
+    if (/^[A-ZÀ-Ý][A-ZÀ-Ý .\/-]{3,}$/.test(l) && !/\d/.test(l) && !NAO_FUNCAO.test(l)) cur = l.replace(/\s+/g, ' ').trim();
+  });
+  return { eq, faina };
+}
+
 // ---------- botão DA9 na tela da requisição ----------
 async function acharDA9(fr) {
   return fr.evaluate(() => {
@@ -145,7 +162,10 @@ async function main() {
         for (const r of esc) {
           const num = r[1], navio = r[2], per = r[3];
           const ja = idx[num];
-          if (ja && ja.n > 0 && !FORCAR) continue;               // DA9 já lido
+          /* v0.186.0: relê o DA9 (no máximo a cada 40 min) até 1 h depois do início do período, para pegar a reoferta */
+          const ini = (() => { const m = /^(\d{1,2})/.exec(String(per || '')); if (!m) return 0; const [dd, mm, yy] = lbl.split('/').map(Number); let h = +m[1], d = new Date(yy, mm - 1, dd, h, 0, 0); if (h === 1) d = new Date(d.getTime() + 864e5); return d.getTime(); })();
+          const reler = ja && ja.n > 0 && ini && Date.now() < ini + 36e5 && (!ja.eq || Date.now() - (ja.em || 0) > 40 * 60000);   // sem contagem por função (lido pela versão antiga): relê já
+          if (ja && ja.n > 0 && !FORCAR && !reler) continue;               // DA9 já lido
           if (feitos >= MAX) { res.push({ req: num, data: lbl, erro: 'fica para a próxima rodada (limite ' + MAX + ')' }); continue; }
           feitos++;
           const item = { req: num, navio, periodo: per, data: lbl };
@@ -153,14 +173,14 @@ async function main() {
             try {
               const buf = await da9DaRequisicao(page, lbl, num, diag);
               gravar(path.join(DIR_DA9, num + '.enc.json'), og.cifrar({ nome: 'DA9-' + num + '.pdf', b64: buf.toString('base64') }));
-              let lista = [];
-              try { lista = tpasDasLinhas(await linhasDoPdf(buf)); } catch (e) { item.aviso = 'não consegui ler o texto do DA9 (' + String(e.message).slice(0, 50) + ')'; }
+              let lista = [], fun = null;
+              try { const L = await linhasDoPdf(buf); lista = tpasDasLinhas(L); fun = funcoesDasLinhas(L); } catch (e) { item.aviso = 'não consegui ler o texto do DA9 (' + String(e.message).slice(0, 50) + ')'; }
               lista.forEach(t => {
                 if (!base.tpas[t.mat]) novos++;
                 base.tpas[t.mat] = Object.assign({}, base.tpas[t.mat] || {}, { mat: t.mat, nome: t.nome, req: num, navio, data: lbl, em: Date.now() });
               });
               item.n = lista.length; if (lista.length) mudou = true;
-              idx[num] = { em: Date.now(), n: lista.length, data: lbl, periodo: per };
+              idx[num] = { em: Date.now(), n: lista.length, data: lbl, periodo: per, navio, eq: fun ? fun.eq : null, faina: fun ? fun.faina : '' };
               delete item.erro;
               break;
             } catch (e) {
@@ -198,5 +218,5 @@ async function main() {
   fs.mkdirSync(DIR, { recursive: true }); fs.writeFileSync(ARQ_ST, JSON.stringify(st, null, 1) + '\n');
 }
 
-module.exports = { linhasDoPdf, tpasDasLinhas };
+module.exports = { linhasDoPdf, tpasDasLinhas, funcoesDasLinhas };
 if (require.main === module) main();
