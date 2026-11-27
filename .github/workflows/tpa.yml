@@ -3,6 +3,8 @@ on:
   schedule:
     # horários do DA9 + 5 min (Brasília = UTC-3): 04:35 (07x13), 10:35 (13x19), 16:35 (19x01) e 19:35 (01x07)
     - cron: '35 7,13,19,22 * * *'
+    # v0.186.0: releitura ~30 min depois (05:05, 11:05, 17:05 e 20:05) para ver se a reoferta preencheu a função que faltou
+    - cron: '5 8,14,20,23 * * *'
   workflow_dispatch:
 permissions:
   contents: write
