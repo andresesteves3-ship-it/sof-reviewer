@@ -1,8 +1,8 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-27T12:30:51.763Z",
- "ultimoSucesso": "2026-11-27T12:30:51.763Z",
+ "atualizado": "2026-11-27T13:17:54.456Z",
+ "ultimoSucesso": "2026-11-27T13:17:54.456Z",
  "total": 35,
  "dias": [
   {
@@ -24,43 +24,36 @@
  "diag": {
   "frames": 1,
   "tentativasEntrada": 1,
-  "recuperacoes": 6,
-  "reaproveitadas": 5,
-  "equipesLidas": 34,
+  "recuperacoes": 4,
+  "reaproveitadas": 3,
+  "equipesLidas": 22,
   "canceladasPuladas": 0,
   "canceladasLidas": 0,
-  "semAtualizar": 3,
-  "ontemRepetido": 0,
+  "semAtualizar": 2,
+  "ontemRepetido": 1,
   "quemPediu": {
-   "lidas": 8,
-   "erros": 0,
-   "ms": 48456,
+   "lidas": 0,
+   "erros": 1,
+   "ms": 70801,
+   "parou": "locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('[dat",
    "voltar": {
-    "ok": 8,
+    "ok": 0,
     "recuperou": 0,
-    "nomes": "INPUT | IWBUTTON5 | IWBUTTON5 | ",
+    "nomes": "",
     "bloqueado": ""
    }
   }
  },
  "tempos": {
-  "visualizar": 48456,
-  "login": 9982,
+  "visualizar": 70801,
+  "login": 9206,
   "dias": {
-   "27/11/2026": 74232,
-   "28/11/2026": 161077,
-   "26/11/2026": 421840
+   "27/11/2026": 215402,
+   "28/11/2026": 156911,
+   "26/11/2026": 0
   },
-  "total": 667162
+  "total": 381561
  },
  "pdfsSeparados": true,
- "falhasSeguidas": 0,
- "pdfs": {
-  "em": "2026-11-27T12:43:52.625Z",
-  "ms": 66751,
-  "feitos": 10,
-  "erros": 0,
-  "faltam": 0
- },
- "pdfsEm": "2026-11-27T12:43:52.625Z"
+ "falhasSeguidas": 0
 }
