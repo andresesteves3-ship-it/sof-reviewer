@@ -1,8 +1,8 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-26T23:00:42.667Z",
- "ultimoSucesso": "2026-11-26T23:00:42.667Z",
+ "atualizado": "2026-11-27T02:23:29.885Z",
+ "ultimoSucesso": "2026-11-27T02:23:29.885Z",
  "dias": [
   {
    "data": "26/11/2026",
@@ -15,52 +15,9 @@
    "escaladas": 0
   }
  ],
- "da9": [
-  {
-   "req": "25053603-1",
-   "data": "26/11/2026",
-   "n": 21,
-   "erro": "",
-   "aviso": ""
-  },
-  {
-   "req": "25053604-1",
-   "data": "26/11/2026",
-   "n": 1,
-   "erro": "",
-   "aviso": ""
-  },
-  {
-   "req": "25053620-1",
-   "data": "26/11/2026",
-   "n": 16,
-   "erro": "",
-   "aviso": ""
-  }
- ],
- "novos": 3,
+ "da9": [],
+ "novos": 0,
  "total": 528,
- "diag": {
-  "da9": [
-   {
-    "tag": "A",
-    "id": "",
-    "name": "",
-    "val": "",
-    "tit": "Gera DA9 da Requisição Selecionada (Exce",
-    "vis": false,
-    "on": "return SubmitClickConfirm('IWIMAGE5','', true, '');"
-   },
-   {
-    "tag": "IMG",
-    "id": "IWIMAGE5",
-    "name": "IWIMAGE5",
-    "val": "",
-    "tit": "Gera DA9 da Requisição Selecionada (Exce",
-    "vis": true,
-    "on": ""
-   }
-  ]
- },
+ "diag": {},
  "falhasSeguidas": 0
 }
