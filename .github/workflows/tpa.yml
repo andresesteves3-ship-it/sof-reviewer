@@ -6,6 +6,11 @@ on:
     # v0.186.0: releitura ~30 min depois (05:05, 11:05, 17:05 e 20:05) para ver se a reoferta preencheu a função que faltou
     - cron: '5 8,14,20,23 * * *'
   workflow_dispatch:
+    inputs:
+      reler:
+        description: 'Reler o DA9 de todas as requisições cujo período ainda não terminou (botão "Atualizar DA9 agora")'
+        required: false
+        default: '0'
 permissions:
   contents: write
 concurrency:
@@ -25,9 +30,10 @@ jobs:
           OGMO_USER: ${{ secrets.OGMO_USER }}
           OGMO_PASS: ${{ secrets.OGMO_PASS }}
           LINEUP_KEY: ${{ secrets.LINEUP_KEY }}
+          TPA_RELER: ${{ github.event.inputs.reler || '0' }}
         run: |
           docker run --rm --ipc=host --user "$(id -u):$(id -g)" -e HOME=/tmp -e OGMO_PROX_MIN=10 \
-            -e OGMO_EMPRESA -e OGMO_USER -e OGMO_PASS -e LINEUP_KEY \
+            -e OGMO_EMPRESA -e OGMO_USER -e OGMO_PASS -e LINEUP_KEY -e TPA_RELER \
             -v "$GITHUB_WORKSPACE":/w -w /w \
             mcr.microsoft.com/playwright:v1.49.1-noble \
             bash -c "npm install --no-audit --no-fund && node scripts/tpa.js"
