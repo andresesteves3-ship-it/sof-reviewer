@@ -1,4 +1,4 @@
 {
- "v": "0.186.4",
- "resumo": "Integração TPA: releitura do DA9 corrigida (fuso horário)."
+ "v": "0.186.5",
+ "resumo": "Alerta do DA9 recolhível, com tabela por terno."
 }
