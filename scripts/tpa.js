@@ -16,6 +16,7 @@ const KEY = (process.env.LINEUP_KEY || '').trim();
 const DIAS = (process.env.TPA_DIAS || '0,1').split(',').map(x => parseInt(x, 10)).filter(x => !isNaN(x));
 const MAX = parseInt(process.env.TPA_MAX || '15', 10);
 const FORCAR = process.env.TPA_FORCAR === '1';
+const RELER = process.env.TPA_RELER === '1';   // v0.186.6: botão "Atualizar DA9 agora": relê o DA9 de todo período que ainda não terminou
 const DIR = path.join(__dirname, '..', 'dados');
 const DIR_DA9 = path.join(DIR, 'da9');
 const ARQ_TPA = path.join(DIR, 'tpa.enc.json');
@@ -163,8 +164,9 @@ async function main() {
           const num = r[1], navio = r[2], per = r[3];
           const ja = idx[num];
           /* v0.186.0: relê o DA9 (no máximo a cada 40 min) até 1 h depois do início do período, para pegar a reoferta */
-          const ini = (() => { const m = /^(\d{1,2})/.exec(String(per || '')); if (!m) return 0; const [dd, mm, yy] = lbl.split('/').map(Number); let h = +m[1], d = new Date(yy, mm - 1, dd, h, 0, 0); if (h === 1) d = new Date(d.getTime() + 864e5); return d.getTime(); })();
-          const reler = ja && ja.n > 0 && ini && Date.now() < ini + 36e5 && (!ja.eq || Date.now() - (ja.em || 0) > 40 * 60000);   // sem contagem por função (lido pela versão antiga): relê já
+          /* v0.186.4: o GitHub roda em UTC — o início do período é em horário de Brasília (UTC-3) */
+          const ini = (() => { const m = /(\d{1,2})\s*[-x]\s*\d{1,2}/.exec(String(per || '')) || /^(\d{1,2})/.exec(String(per || '')); if (!m) return 0; const [dd, mm, yy] = lbl.split('/').map(Number); const h = +m[1]; let t = Date.UTC(yy, mm - 1, dd, h + 3, 0, 0); if (h === 1) t += 864e5; return t; })();
+          const reler = ja && ja.n > 0 && ini && ((Date.now() < ini + 36e5 && (!ja.eq || Date.now() - (ja.em || 0) > 40 * 60000)) || (RELER && Date.now() < ini + 6 * 36e5));   // sem contagem por função (lido pela versão antiga): relê já
           if (ja && ja.n > 0 && !FORCAR && !reler) continue;               // DA9 já lido
           if (feitos >= MAX) { res.push({ req: num, data: lbl, erro: 'fica para a próxima rodada (limite ' + MAX + ')' }); continue; }
           feitos++;
