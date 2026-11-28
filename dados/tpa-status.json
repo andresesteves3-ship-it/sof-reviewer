@@ -1,16 +1,73 @@
 {
- "ok": false,
- "erro": "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.ogmorj.com.br/weboperador/WEBOPERADOR12081830.dll\", waiting until \"domcontentloaded\"\n Site: sem resposta (net::ERR_EMPTY_RESPONSE). Frames=[{\"erro\":\"frame.evaluate: Execution context was destroyed, most likely\"}]",
- "atualizado": "2026-11-28T10:27:56.820Z",
- "ultimoSucesso": "2026-11-28T08:00:50.075Z",
- "diag": {},
- "site": true,
- "tentativasEntrada": 3,
- "errosEntrada": [
-  "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.og",
-  "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.og",
-  "page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.og"
+ "ok": true,
+ "erro": "",
+ "atualizado": "2026-11-28T10:54:58.857Z",
+ "ultimoSucesso": "2026-11-28T10:54:58.857Z",
+ "dias": [
+  {
+   "data": "28/11/2026",
+   "reqs": 8,
+   "escaladas": 4
+  },
+  {
+   "data": "29/11/2026",
+   "reqs": 0,
+   "escaladas": 0
+  }
  ],
- "proxTentativa": "2026-11-28T10:55:55.158Z",
- "falhasSeguidas": 1
+ "da9": [
+  {
+   "req": "25053629-1",
+   "data": "28/11/2026",
+   "n": 11,
+   "erro": "",
+   "aviso": ""
+  },
+  {
+   "req": "25053630-1",
+   "data": "28/11/2026",
+   "n": 1,
+   "erro": "",
+   "aviso": ""
+  },
+  {
+   "req": "25053636-1",
+   "data": "28/11/2026",
+   "n": 15,
+   "erro": "",
+   "aviso": ""
+  },
+  {
+   "req": "25053640-1",
+   "data": "28/11/2026",
+   "n": 13,
+   "erro": "",
+   "aviso": ""
+  }
+ ],
+ "novos": 1,
+ "total": 544,
+ "diag": {
+  "da9": [
+   {
+    "tag": "A",
+    "id": "",
+    "name": "",
+    "val": "",
+    "tit": "Gera DA9 da Requisição Selecionada (Exce",
+    "vis": false,
+    "on": "return SubmitClickConfirm('IWIMAGE5','', true, '');"
+   },
+   {
+    "tag": "IMG",
+    "id": "IWIMAGE5",
+    "name": "IWIMAGE5",
+    "val": "",
+    "tit": "Gera DA9 da Requisição Selecionada (Exce",
+    "vis": true,
+    "on": ""
+   }
+  ]
+ },
+ "falhasSeguidas": 0
 }
