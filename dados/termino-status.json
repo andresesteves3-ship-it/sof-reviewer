@@ -1,13 +1,13 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-28T13:24:39.023Z",
- "ultimoSucesso": "2026-11-28T13:24:39.023Z",
+ "atualizado": "2026-11-28T17:00:43.826Z",
+ "ultimoSucesso": "2026-11-28T17:00:43.826Z",
  "diag": {
   "cartoes": 3,
   "comPrevisao": 3,
   "amostra": [
-   "BBG MASTER | TÉRMINO PREVISTO / 30 nov / no ritmo real 1 fev / 14,1 dias após o prazo",
+   "BBG MASTER | TÉRMINO PREVISTO / 30 nov / no ritmo real 25 jan / 14,3 dias após o prazo",
    "BRIGHTON | TÉRMINO PREVISTO / 29 nov / no ritmo real 29 nov / dentro do prazo",
    "HAPPY DELTA | TÉRMINO PREVISTO / — / no ritmo real 28 nov / PRANCHA T/DIA"
   ]
