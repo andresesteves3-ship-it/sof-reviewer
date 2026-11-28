@@ -1,8 +1,8 @@
 {
  "ok": true,
  "erro": "",
- "atualizado": "2026-11-28T10:54:58.857Z",
- "ultimoSucesso": "2026-11-28T10:54:58.857Z",
+ "atualizado": "2026-11-28T12:23:47.082Z",
+ "ultimoSucesso": "2026-11-28T12:23:47.082Z",
  "dias": [
   {
    "data": "28/11/2026",
@@ -45,7 +45,7 @@
    "aviso": ""
   }
  ],
- "novos": 1,
+ "novos": 0,
  "total": 544,
  "diag": {
   "da9": [
